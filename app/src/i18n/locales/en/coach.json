@@ -1,0 +1,42 @@
+{
+  "title": "Coach",
+  "intro": "I'm your {{app}} Coach. Ask me about face exercises, technique, posture or a simple skincare routine.",
+  "placeholder": "Ask about your face workout or skincare",
+  "send": "Send",
+  "clear": "Clear chat",
+  "clearConfirm": "Delete this conversation from your iPhone?",
+  "thinking": "Coach is typing",
+  "freeLeft_one": "{{count}} free answer left this month",
+  "freeLeft_other": "{{count}} free answers left this month",
+  "freeRefill": "Free answers refill on {{date}}",
+  "unlock": "Unlimited answers with Premium",
+  "aiNote": "AI answers can be wrong. Not medical advice. Long-press an answer to report it.",
+  "reportHint": "Long-press to report this answer",
+  "reportSubject": "Report an AI Coach answer",
+  "suggestions": {
+    "jawline": "How long until I see jawline results?",
+    "mewing": "Am I doing mewing correctly?",
+    "skincare": "Simple skincare routine for men?",
+    "doubleChin": "Which exercises help a double chin?"
+  },
+  "errors": {
+    "notConfigured": "The Coach isn't set up in this build yet.",
+    "offline": "You seem to be offline. Check your connection and try again.",
+    "rateLimited": "That's a lot of questions for one day. Try again tomorrow.",
+    "freeUsed": "You've used this month's free answers.",
+    "device": "We couldn't verify this iPhone. Please update the app and try again.",
+    "server": "The Coach couldn't answer right now. Try again in a moment.",
+    "retry": "Try again"
+  },
+  "consent": {
+    "title": "Before you ask the Coach",
+    "what": "The Coach is an AI. To answer, your question is sent to our server and processed by an AI model (Cloudflare Workers AI).",
+    "sent": "Sent: your question, the last few messages of this chat, your focus area, your streak and how many workouts you did this week.",
+    "notSent": "Not sent: your name, photos, contacts or location. We don't have an account for you.",
+    "storage": "Our server doesn't keep your questions. The chat history stays on this iPhone, and you can delete it any time.",
+    "medical": "The Coach gives general fitness and skincare tips, not medical advice.",
+    "allow": "Agree and continue",
+    "notNow": "Not now",
+    "withdraw": "You can turn this off in Settings."
+  }
+}

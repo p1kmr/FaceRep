@@ -1,0 +1,35 @@
+import { Image } from 'expo-image';
+import { router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { AppText } from '@/components/ui/AppText';
+import { Button } from '@/components/ui/Button';
+import { HERO_IMAGES } from '@/constants/exerciseImages';
+import { makeStyles } from '@/theme/makeStyles';
+
+/** Full-bleed hero photo (dark in both themes), headline, one button. */
+export default function WelcomeScreen() {
+  const { t } = useTranslation('onboarding');
+  const styles = useStyles();
+  return (
+    <View style={styles.root}>
+      <Image source={HERO_IMAGES.onboarding} style={StyleSheet.absoluteFill} contentFit="cover" contentPosition="top" />
+      <SafeAreaView edges={['bottom']} style={styles.bottom}>
+        <AppText variant="display" style={styles.title} accessibilityRole="header">
+          {t('welcome.title')}
+        </AppText>
+        <AppText style={styles.body}>{t('welcome.body')}</AppText>
+        <Button title={t('welcome.cta')} onPress={() => router.push('/onboarding/goal')} fullWidth />
+      </SafeAreaView>
+    </View>
+  );
+}
+
+const useStyles = makeStyles(({ colors, tokens }) => ({
+  root: { flex: 1, backgroundColor: colors.heroBackground },
+  bottom: { flex: 1, justifyContent: 'flex-end', padding: tokens.space.xl, gap: tokens.space.lg },
+  title: { color: colors.onImage },
+  body: { color: colors.onImage, opacity: 0.8 },
+}));

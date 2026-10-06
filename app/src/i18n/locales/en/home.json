@@ -1,0 +1,18 @@
+{
+  "greeting": "Ready for today's workout?",
+  "doneGreeting": "Today's workout is done. Nice work.",
+  "streak_one": "{{count}} day streak",
+  "streak_other": "{{count}} day streak",
+  "noStreak": "Start your streak today",
+  "routine": {
+    "title": "Today's routine",
+    "meta": "{{exercises}} · {{minutes}}",
+    "start": "Start workout",
+    "again": "Do it again"
+  },
+  "week": "This week",
+  "coachCard": {
+    "title": "Ask the Coach",
+    "body": "Questions about technique, mewing or a simple skincare routine?"
+  }
+}

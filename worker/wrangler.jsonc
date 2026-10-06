@@ -1,0 +1,34 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "facerep-api",
+  "main": "src/index.js",
+  "compatibility_date": "2026-09-01",
+  // Worker logs keep only what the code prints (outcomes, never question contents).
+  "observability": { "enabled": true },
+  // Workers AI: the model runs on Cloudflare, so there is no third AI key to manage.
+  "ai": { "binding": "AI" },
+  "vars": {
+    // Fast, cheap open model ($0.10 / $0.30 per million tokens in / out at the time of writing).
+    "AI_MODEL": "@cf/google/gemma-4-26b-a4b-it",
+    // Tried once when the main model fails or times out.
+    "AI_FALLBACK_MODEL": "@cf/zai-org/glm-4.7-flash",
+    "AI_MAX_OUTPUT_TOKENS": "700",
+    // Shown on the public /privacy, /terms and /support pages. LEGAL_NAME is optional.
+    "APP_NAME": "FaceRep",
+    "LEGAL_NAME": "",
+    "SUPPORT_EMAIL": "support@example.com",
+    // Your 10-character Apple Team ID (developer.apple.com → Membership details). Used with the
+    // DEVICECHECK_KEY and DEVICECHECK_KEY_ID secrets; see README "D. Premium and free limits".
+    "APPLE_TEAM_ID": ""
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "facerep-limits",
+      // Replace with the id printed by: npx wrangler d1 create facerep-limits
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "triggers": { "crons": ["17 3 * * *"] }
+}

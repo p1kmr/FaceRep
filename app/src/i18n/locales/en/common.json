@@ -1,0 +1,22 @@
+{
+  "tabs": { "today": "Today", "exercises": "Exercises", "coach": "Coach", "progress": "Progress", "settings": "Settings" },
+  "premium": "Premium",
+  "close": "Close",
+  "cancel": "Cancel",
+  "done": "Done",
+  "continue": "Continue",
+  "start": "Start",
+  "minutes_one": "{{count}} min",
+  "minutes_other": "{{count}} min",
+  "exercises_one": "{{count}} exercise",
+  "exercises_other": "{{count}} exercises",
+  "reps": "{{reps}} × {{hold}}s",
+  "programs": {
+    "jawline": "Jawline",
+    "cheekbones": "Cheekbones",
+    "eyes": "Eyes",
+    "full": "Full face"
+  },
+  "aiImages": "The 3D figure and photos in {{app}} are AI-generated and show a fictional person.",
+  "disclaimer": "{{app}} is a wellness and fitness app, not medical advice. Results vary from person to person."
+}

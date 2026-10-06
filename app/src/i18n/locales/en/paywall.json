@@ -1,0 +1,41 @@
+{
+  "headline": "Unlock your AI Coach",
+  "subhead": "Personal answers about your face workout, any time.",
+  "benefits": {
+    "coach": "Unlimited AI Coach answers",
+    "technique": "Technique fixes and routine advice",
+    "skincare": "Simple skincare tips for your skin"
+  },
+  "aiNote": "Coach questions are answered by an AI (Cloudflare Workers AI). You'll be asked for permission before your first question.",
+  "plans": { "monthly": "Monthly", "yearly": "Yearly" },
+  "perMonth": "per month",
+  "perYear": "per year",
+  "perMonthPrice": "{{price}} / month",
+  "bestValue": "Best value",
+  "bestValueSave": "Save {{percent}}%",
+  "startTrial": "Start free trial",
+  "continue": "Continue",
+  "trialThen_one": "{{count}} day free, then {{price}} per {{period}}. Cancel anytime.",
+  "trialThen_other": "{{count}} days free, then {{price}} per {{period}}. Cancel anytime.",
+  "month": "month",
+  "year": "year",
+  "cancelAnytime": "Renews automatically. Cancel anytime in Settings.",
+  "renewal": "Payment is charged to your Apple ID. The subscription renews automatically unless cancelled at least 24 hours before the end of the period. Manage or cancel it in your App Store account settings.",
+  "restoreButton": "Restore",
+  "terms": "Terms of Use",
+  "privacy": "Privacy",
+  "close": "Close",
+  "errors": {
+    "unavailableTitle": "Not available",
+    "unavailable": "Plans couldn't be loaded. Check your connection and try again.",
+    "failedTitle": "Purchase failed"
+  },
+  "restore": {
+    "doneTitle": "Restored",
+    "done": "Your Premium subscription is active again.",
+    "noneTitle": "Nothing to restore",
+    "none": "We couldn't find an active subscription for this Apple ID.",
+    "failedTitle": "Restore failed",
+    "failed": "Please check your connection and try again."
+  }
+}

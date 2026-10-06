@@ -1,0 +1,78 @@
+{
+  "title": "Exercises",
+  "programIntro": {
+    "jawline": "Masseter, chin and neck work for a sharper-looking jawline.",
+    "cheekbones": "Lift and tone the muscles around your cheeks and mouth.",
+    "eyes": "Brow and eye muscles, great after long screen time."
+  },
+  "muscles": {
+    "masseter": "Masseter",
+    "platysma": "Platysma",
+    "mentalis": "Mentalis",
+    "tongue": "Tongue posture",
+    "neck": "Side neck",
+    "zygomaticus": "Zygomaticus",
+    "buccinator": "Buccinator",
+    "lips": "Lips",
+    "frontalis": "Frontalis",
+    "orbicularisOculi": "Orbicularis oculi"
+  },
+  "detail": {
+    "how": "How to do it",
+    "plan": "{{reps}} reps · hold {{hold}}s · relax {{relax}}s",
+    "start": "Start exercise",
+    "jawCaution": "Skip this one if you have jaw pain, clicking or a TMJ problem."
+  },
+  "items": {
+    "jawClench": {
+      "name": "Jaw Clench",
+      "cue": "Clench your back teeth and feel your jaw muscles bulge.",
+      "steps": ["Sit tall, lips closed, shoulders relaxed.", "Bite down on your back teeth with about half your strength.", "Hold and feel the muscle in front of your ear tighten, then release slowly."]
+    },
+    "chinLift": {
+      "name": "Chin Lift",
+      "cue": "Tilt your head back and push your lower lip over your top lip.",
+      "steps": ["Sit or stand with a straight back.", "Tilt your head back until you look at the ceiling.", "Push your lower lip up over your top lip and feel the front of your neck stretch."]
+    },
+    "jawJut": {
+      "name": "Jaw Jut",
+      "cue": "Push your lower jaw forward and lift your chin slightly.",
+      "steps": ["Look straight ahead, then tilt your chin up a little.", "Slide your lower jaw forward until you feel a stretch under the chin.", "Hold, then bring your jaw back slowly."]
+    },
+    "mewing": {
+      "name": "Mewing",
+      "cue": "Press your whole tongue flat against the roof of your mouth.",
+      "steps": ["Close your lips and rest your teeth lightly together.", "Place the whole tongue, including the back, against the roof of your mouth.", "Breathe through your nose and hold the position without straining."]
+    },
+    "neckStretch": {
+      "name": "Neck Side Stretch",
+      "cue": "Tilt your ear toward your shoulder and keep your shoulders down.",
+      "steps": ["Sit tall and drop your shoulders.", "Slowly tilt your right ear toward your right shoulder.", "Hold the stretch, come back to center and switch sides on the next rep."]
+    },
+    "cheekLift": {
+      "name": "Cheek Lift",
+      "cue": "Smile wide with closed lips and lift your cheeks toward your eyes.",
+      "steps": ["Keep your lips closed.", "Smile as wide as you can and push your cheeks up toward your eyes.", "Hold, then relax your face completely."]
+    },
+    "fishFace": {
+      "name": "Fish Face",
+      "cue": "Suck your cheeks in and pucker your lips.",
+      "steps": ["Suck your cheeks in between your teeth.", "Pucker your lips like a fish.", "Hold, then release and relax."]
+    },
+    "cheekPuff": {
+      "name": "Cheek Puff",
+      "cue": "Fill your cheeks with air and hold them round.",
+      "steps": ["Take a breath and close your lips.", "Push the air into both cheeks so they puff out.", "Hold, then let the air out slowly."]
+    },
+    "browLift": {
+      "name": "Brow Lift",
+      "cue": "Raise your eyebrows as high as you can.",
+      "steps": ["Look straight ahead with a relaxed face.", "Lift your eyebrows as high as you can.", "Hold, then lower them slowly."]
+    },
+    "eyeSqueeze": {
+      "name": "Eye Squeeze",
+      "cue": "Squeeze your eyes shut tightly, then release slowly.",
+      "steps": ["Relax your forehead.", "Close your eyes and squeeze them shut.", "Hold, then open them slowly."]
+    }
+  }
+}

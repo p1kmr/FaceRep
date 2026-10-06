@@ -1,0 +1,19 @@
+{
+  "title": "Progress",
+  "streak": "Current streak",
+  "best": "Best streak",
+  "days_one": "{{count}} day",
+  "days_other": "{{count}} days",
+  "workouts": "Workouts",
+  "minutes": "Minutes",
+  "reps": "Reps",
+  "repsCount_one": "{{count}} rep",
+  "repsCount_other": "{{count}} reps",
+  "week": "Last 7 days",
+  "history": "History",
+  "empty": {
+    "title": "No workouts yet",
+    "body": "Finish your first routine and it shows up here."
+  },
+  "session": "{{exercises}} · {{minutes}}"
+}

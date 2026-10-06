@@ -1,0 +1,33 @@
+{
+  "cli": {
+    "version": ">= 16.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "environment": "development",
+      "env": {
+        "EXPO_PUBLIC_AI_URL": "https://facerep-api.<your-account>.workers.dev/chat"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "environment": "preview",
+      "env": {
+        "EXPO_PUBLIC_AI_URL": "https://facerep-api.<your-account>.workers.dev/chat"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "environment": "production",
+      "env": {
+        "EXPO_PUBLIC_AI_URL": "https://facerep-api.<your-account>.workers.dev/chat"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

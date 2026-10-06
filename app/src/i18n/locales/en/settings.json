@@ -1,0 +1,41 @@
+{
+  "title": "Settings",
+  "sections": {
+    "training": "Training",
+    "appearance": "Appearance",
+    "premium": "Premium",
+    "privacy": "Privacy and safety",
+    "about": "About"
+  },
+  "goal": "Focus",
+  "reminder": "Daily reminder",
+  "reminderTime": "Reminder time",
+  "reminderDenied": "Notifications are off for {{app}}. Turn them on in the iPhone Settings app.",
+  "haptics": "Haptics",
+  "theme": {
+    "title": "Theme",
+    "system": "System",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "premium": {
+    "active": "Premium is active",
+    "upgrade": "Get Premium",
+    "restore": "Restore purchases",
+    "manage": "Manage subscription"
+  },
+  "aiConsent": "Allow AI Coach",
+  "aiConsentHint": "Sends your Coach questions to the AI. Off = the Coach is unavailable.",
+  "safety": "Exercise safety",
+  "privacyPolicy": "Privacy Policy",
+  "terms": "Terms of Use",
+  "support": "Support",
+  "delete": {
+    "row": "Delete all data",
+    "title": "Delete all data?",
+    "body": "This deletes your workouts, chat and settings from this iPhone. Your subscription is not affected.",
+    "confirm": "Delete"
+  },
+  "deleted": "All data deleted",
+  "version": "Version {{version}}"
+}

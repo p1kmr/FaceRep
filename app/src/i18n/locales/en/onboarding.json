@@ -1,0 +1,34 @@
+{
+  "welcome": {
+    "title": "Train your face like you train your body",
+    "body": "Short guided routines for your jawline, cheekbones and eyes. A few minutes a day.",
+    "cta": "Get started"
+  },
+  "goal": {
+    "title": "What do you want to focus on?",
+    "body": "You can change this any time in Settings.",
+    "options": {
+      "jawline": "Jaw, chin and neck",
+      "cheekbones": "Cheeks and smile",
+      "eyes": "Brows and eyes",
+      "full": "A bit of everything, alternating days"
+    }
+  },
+  "safety": {
+    "title": "Before you start",
+    "points": {
+      "gentle": "Move slowly and gently. A light burn in the muscle is fine; pain is not.",
+      "jaw": "If you have jaw pain, clicking or a jaw joint problem (TMJ), skip the jaw clench and jaw jut, and ask a doctor or dentist first.",
+      "stop": "Stop right away if anything hurts, feels numb or makes you dizzy.",
+      "results": "Exercises can tone muscles and improve posture. They can't change bone structure, and results differ for everyone."
+    },
+    "accept": "I understand"
+  },
+  "reminder": {
+    "title": "A daily nudge?",
+    "body": "Consistency is what makes the difference. Pick a time and we'll remind you once a day.",
+    "allow": "Remind me",
+    "skip": "Not now",
+    "time": "Reminder time"
+  }
+}

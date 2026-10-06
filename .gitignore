@@ -1,0 +1,38 @@
+# dependencies
+node_modules/
+
+# Expo / React Native
+.expo/
+dist/
+web-build/
+/app/ios/
+/app/android/
+*.ipa
+*.apk
+
+# env & secrets (never commit keys)
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# OS / editor
+.DS_Store
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Cloudflare Worker
+worker/node_modules/
+worker/.wrangler/
+worker/.dev.vars*
+
+# Apple private keys (DeviceCheck, App Store Connect, In-App Purchase)
+*.p8
+
+# App Store Connect CLI for this project only: the tool (.tools/asc) and its login (.asc/)
+.asc/
+.tools/

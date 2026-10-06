@@ -1,0 +1,33 @@
+{
+  "phase": {
+    "ready": "Get ready",
+    "hold": "Squeeze",
+    "relax": "Relax",
+    "rest": "Next up",
+    "done": "Done"
+  },
+  "rep": "Rep {{rep}} of {{reps}}",
+  "exerciseOf": "{{index}} of {{total}}",
+  "pause": "Pause",
+  "resume": "Resume",
+  "skip": "Skip",
+  "end": "End workout",
+  "paused": "Paused",
+  "endConfirm": {
+    "title": "End this workout?",
+    "body": "The exercises you finished will still count.",
+    "end": "End",
+    "keep": "Keep going"
+  },
+  "complete": {
+    "title": "Workout complete",
+    "body": "{{reps}} reps in {{time}}.",
+    "streak_one": "{{count}} day streak",
+    "streak_other": "{{count}} day streak",
+    "nothing": "No reps finished this time. Give it another go.",
+    "done": "Done"
+  },
+  "a11y": {
+    "timer": "{{phase}}, {{seconds}} seconds left"
+  }
+}
