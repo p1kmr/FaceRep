@@ -30,3 +30,12 @@ export function validateChatRequest(body) {
   if (!isContext(context)) return null;
   return { appUserId, locale, question: question.trim(), history, context, deviceToken };
 }
+
+/** POST /plan: { appUserId, goal, level }. Levels 1–3 (see lib/plan.js MAX_LEVEL). */
+export function validatePlanRequest(body) {
+  if (!isObj(body)) return null;
+  const { appUserId, goal, level, ...rest } = body;
+  if (Object.keys(rest).length) return null;
+  if (!isUserId(appUserId) || !GOALS.includes(goal) || !isInt(level, 1, 3)) return null;
+  return { appUserId, goal, level };
+}

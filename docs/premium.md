@@ -16,6 +16,7 @@ Worker directly. **Apple DeviceCheck** proves a request comes from the app on a 
 iPhone app ── purchase/restore (react-native-purchases, public appl_ key) ──► RevenueCat ◄────┘
   │  random appUserId (Keychain)                                                ▲
   │  POST /chat { appUserId, deviceToken, question, history, context }          │ GET /v1/subscribers/<appUserId> (sk_ key)
+  │  POST /plan { appUserId, goal, level }  (Premium days of the 28-day plan)   │
   └──────────────────────────────────────────────► Cloudflare Worker ───────────┘
                                                      │  D1: free_usage (per ID per month), rate_limits (per day)
                                                      ├──► Apple DeviceCheck (token validation only)
@@ -42,9 +43,25 @@ iPhone app ── purchase/restore (react-native-purchases, public appl_ key) �
 Rules
 - `isPremium` is only written from RevenueCat results.
 - Without a RevenueCat key (web, Expo Go) everything works, as Free.
-- **(FaceRep)** Premium unlocks one thing: **unlimited AI Coach answers**. All exercises, programs, streaks and progress are free.
+- **(FaceRep)** Free: **Week 1 of the 28-day plan**, every single exercise in the library, streaks and progress. Premium: **Weeks 2–4**, **Levels 2 and 3** (and later rounds), **unlimited AI Coach answers**.
 - `FREE_LIMITS.aiPerMonth = 3` (`constants/limits.ts`), refilled on the 1st. The app's count is for display and to open the paywall early; the Worker is the authority. A 402 `freeUsed` syncs the app to "all used".
 - **(FaceRep)** AI consent (guideline 5.1.2(i)) comes before the first question, and the paywall also says the Coach uses Cloudflare Workers AI, so nobody pays before knowing where questions go.
+
+## 2b. The 28-day plan: why Weeks 2–4 live on the server
+A patched app can flip `isPremium` to true; it still can't show content it doesn't have. So the Premium days are built only
+by the Worker (`worker/src/lib/plan.js`) and sent by `POST /plan` after the Worker asks RevenueCat itself.
+- **App:** `state/plan/PlanProvider.tsx` loads them as soon as `isPremium` is true (so buying unlocks them right away, and
+  they're on the phone before they're needed), keeps them in `kv` for offline use, and shows them only while Premium is
+  active. Free users see Days 8–28 as locked, with blurred placeholder thumbnails (`expo-image` `blurRadius`, no new
+  dependency) and an "Unlock the full plan" button. Week 1 is bundled (`constants/planFreeWeek.json`), so it works offline
+  and on the first launch.
+- **Worker (`lib/planHandler.js`):** strict body `{ appUserId, goal, level }` → daily limit (30 per ID / 300 per IP, prefix
+  `plan:`) → RevenueCat → 200 with the days, 402 `premium` for free users. **Fails closed:** no `REVENUECAT_SECRET_KEY` or
+  RevenueCat down → 503 for everyone (unlike `/chat`, which stays open without the key).
+- The app sends data requests, never code: the Worker returns JSON days, which the app checks (`parsePlanDays`) before use
+  (guideline 2.5.2).
+- What this does not stop: a subscriber can screenshot the plan, and the exercises themselves are free anyway. It stops the
+  cheap attack (patching the app) and that's enough.
 
 ## 3. Buying and restoring
 Same as Elowa: Paywall → StoreKit → RevenueCat records `premium` under the app user ID. Restore on a new iPhone moves the
@@ -70,14 +87,14 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 | Worker secret / var | If missing |
 |---|---|
 | `AI` binding + `AI_MODEL` | 503 `unconfigured` |
-| `REVENUECAT_SECRET_KEY` (`sk_…`) | **Gate open**: everyone gets the Coach (only daily limits). Don't ship like this. |
+| `REVENUECAT_SECRET_KEY` (`sk_…`) | `/chat`: **gate open**, everyone gets the Coach (only daily limits). `/plan`: **closed**, nobody gets Weeks 2–4. Don't ship like this. |
 | `DEVICECHECK_KEY`, `DEVICECHECK_KEY_ID`, `APPLE_TEAM_ID` | No iPhone check |
 | `IP_HASH_SECRET` | IP hash falls back to plain SHA-256 (weaker) |
 
 ## 5. Keys: what lives where
 | Key | Where | Secret? |
 |---|---|---|
-| RevenueCat public SDK key `appl_…` (FaceRep's own project) | `EXPO_PUBLIC_RC_IOS_KEY` (expo.dev env, production) | No |
+| RevenueCat public SDK key `appl_…` (FaceRep's own project) | `EXPO_PUBLIC_RC_IOS_KEY` in `app/eas.json` | No |
 | RevenueCat secret key `sk_…` | Worker secret `REVENUECAT_SECRET_KEY` | **Yes** |
 | DeviceCheck `.p8` | Worker secret `DEVICECHECK_KEY` | **Yes** |
 | Worker URL | `EXPO_PUBLIC_AI_URL` in `app/eas.json` | No |
@@ -86,16 +103,18 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 
 ## 6. Store setup (outside the code)
 - App Store Connect: subscription group **Premium**: Monthly **$3.99** and Yearly **$29.99** (7-day free trial on yearly), attached to the first app version.
-- RevenueCat: a **new project** for this app; entitlement `premium` on both products; current offering with `$rc_monthly` and `$rc_annual`.
+- RevenueCat (**done 2026-10-07 via MCP**): project **FaceRep** (`proj88dfbdbb`), App Store app `com.p1kmr.facerep`, entitlement `premium` on products **`facerep_premium_monthly`** and **`facerep_premium_yearly`**, current offering `default` with `$rc_monthly` and `$rc_annual`. Still to do in the RevenueCat dashboard: the App Store Connect API key / In-App Purchase key, and a **v1 secret key** for the Worker.
+- The App Store Connect product IDs must be exactly `facerep_premium_monthly` and `facerep_premium_yearly`.
 - Prices and "Save X%" come from the store; `FALLBACK_PRICES` only show while loading and never claim a trial.
 
 ## 7. Known limits
 - No cross-device sync of workout history (on-device by design); Premium moves with Restore.
-- `isPremium` can be faked on a jailbroken phone; that unlocks nothing costly, because the Worker re-checks RevenueCat.
+- `isPremium` can be faked on a jailbroken phone; that unlocks nothing, because the Worker re-checks RevenueCat for the Coach and for Weeks 2–4.
+- After a subscription ends, the cached Premium days stay in `kv` but are hidden; resubscribing shows them again at once.
 - RevenueCat outage = no Coach for anyone (503).
 - Free-count months are UTC on the server and local in the app; the server wins.
 - Without DeviceCheck bits, someone who erases the iPhone (wiping the Keychain) gets 3 new free answers. Acceptable.
 
 ## 8. Tests
-- App: `state/premium/__tests__/reducer.test.ts`, `services/purchases/__tests__/*.test.ts`, `services/ai/__tests__/client.test.ts`, `state/chat/__tests__/reducer.test.ts`.
-- Worker (`cd worker && npm test`): `test/access.test.js` (Premium, free count, DeviceCheck token), `test/chat.test.js` (handler, model fallback, prompt rules, rate limits, pages).
+- App: `state/premium/__tests__/reducer.test.ts`, `services/purchases/__tests__/*.test.ts`, `services/ai/__tests__/client.test.ts`, `state/chat/__tests__/reducer.test.ts`, `services/plan/__tests__/*.test.ts`, `state/plan/__tests__/reducer.test.ts`.
+- Worker (`cd worker && npm test`): `test/access.test.js` (Premium, free count, DeviceCheck token), `test/chat.test.js` (handler, model fallback, prompt rules, rate limits, pages), `test/plan.test.js` (plan rules, catalog and free week match the app, `/plan` gate).

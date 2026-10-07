@@ -10,10 +10,12 @@ interface SessionRow {
   duration_sec: number;
   total_reps: number;
   kind: string;
+  plan_level: number | null;
+  plan_day: number | null;
   exercise_ids: string | null;
 }
 
-const LIST = `SELECT s.id, s.day, s.finished_at, s.duration_sec, s.total_reps, s.kind,
+const LIST = `SELECT s.id, s.day, s.finished_at, s.duration_sec, s.total_reps, s.kind, s.plan_level, s.plan_day,
     (SELECT group_concat(exercise_id, ',') FROM (SELECT exercise_id FROM session_exercises WHERE session_id = s.id ORDER BY position)) AS exercise_ids
   FROM sessions s ORDER BY s.finished_at DESC LIMIT ?`;
 
@@ -26,6 +28,7 @@ function toSummary(row: SessionRow): SessionSummary {
     totalReps: row.total_reps,
     exerciseIds: (row.exercise_ids ?? '').split(',').filter(isExerciseId),
     kind: row.kind === 'single' ? 'single' : 'routine',
+    ...(row.plan_level && row.plan_day ? { plan: { level: row.plan_level, day: row.plan_day } } : {}),
   };
 }
 
@@ -40,13 +43,15 @@ export async function insertSession(s: SessionSummary, reps: { id: ExerciseId; r
   const db = await getDatabase();
   await db.withTransactionAsync(async () => {
     await db.runAsync(
-      'INSERT INTO sessions (id, day, finished_at, duration_sec, total_reps, kind) VALUES (?, ?, ?, ?, ?, ?)',
+      'INSERT INTO sessions (id, day, finished_at, duration_sec, total_reps, kind, plan_level, plan_day) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
       s.id,
       s.day,
       s.finishedAt,
       s.durationSec,
       s.totalReps,
       s.kind,
+      s.plan?.level ?? null,
+      s.plan?.day ?? null,
     );
     for (const [position, e] of reps.entries()) {
       await db.runAsync(

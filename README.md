@@ -35,14 +35,14 @@ Purchases, DeviceCheck and notifications need a **development build** (`npx eas-
 
 ## Checks
 ```bash
-cd app && npm run lint && npm run typecheck && npm test     # 45 tests
-cd ../worker && npm test                                     # 16 tests
+cd app && npm run lint && npm run typecheck && npm test     # 65 tests
+cd ../worker && npm test                                     # 26 tests
 ```
 
 ## Before the first TestFlight build
 - [ ] Trademark search for "FaceRep" in India (tmsearch.ipindia.gov.in) and the EU (TMview); then the App Store Connect app record with bundle ID `com.p1kmr.facerep` (reserves the name) and `npx eas-cli init` (adds `extra.eas.projectId`).
 - [ ] Real app icon (`app/assets/images/icon.png` is a placeholder).
-- [ ] Worker deployed (worker/README.md), URL in `app/eas.json` and `app/src/constants/links.ts`; support email in `links.ts` and `wrangler.jsonc`.
-- [ ] RevenueCat project for this app (not Elowa's), entitlement `premium`, offering with `$rc_monthly` and `$rc_annual`; public key as `EXPO_PUBLIC_RC_IOS_KEY` in expo.dev env (production).
-- [ ] Worker secrets: `REVENUECAT_SECRET_KEY`, `IP_HASH_SECRET`, then DeviceCheck.
+- [ ] Worker deployed: `cd worker && npx wrangler login && npm run deploy` (URL already in `app/eas.json` and `links.ts`; D1 already created). Support email in `links.ts` and `wrangler.jsonc`.
+- [x] RevenueCat project "FaceRep" (entitlement `premium`, products `facerep_premium_monthly` / `facerep_premium_yearly`, offering with `$rc_monthly` and `$rc_annual`); public key in `app/eas.json`. Still: App Store Connect keys in RevenueCat, and the same product IDs in App Store Connect.
+- [ ] Worker secrets: `REVENUECAT_SECRET_KEY` (without it Weeks 2–4 stay locked for everyone), `IP_HASH_SECRET`, then DeviceCheck.
 - [ ] App Privacy answers, age rating, review notes (docs/launch.md).

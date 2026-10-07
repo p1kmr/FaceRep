@@ -3,7 +3,7 @@
  * App Store Connect (Privacy Policy URL, Support URL). Change SITE when the Worker is deployed
  * or you move to your own domain.
  */
-const SITE = 'https://facerep-api.example.workers.dev';
+const SITE = 'https://facerep-api.elowa-app.workers.dev';
 
 export const LINKS = {
   privacy: `${SITE}/privacy`,

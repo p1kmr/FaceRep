@@ -1,7 +1,9 @@
 import { EXERCISES, WORKOUT } from '@/constants/exercises';
 
-import { routineSeconds } from '../routine';
-import { createWorkout, workoutReducer, workoutResult, type WorkoutState } from '../timer';
+import { defaultItem, workoutSeconds } from '../items';
+import { createWorkout as create, currentExercise, workoutReducer, workoutResult, type WorkoutState } from '../timer';
+
+const createWorkout = (ids: Parameters<typeof defaultItem>[0][]) => create(ids.map(defaultItem));
 
 const tick = (s: WorkoutState, n = 1) => {
   let out = s;
@@ -24,10 +26,10 @@ describe('workout timer', () => {
     expect(s).toMatchObject({ phase: 'hold', rep: 2 });
   });
 
-  it('runs to done in exactly routineSeconds ticks', () => {
+  it('runs to done in exactly workoutSeconds ticks', () => {
     const queue = ['09-brow-lift', '10-eye-squeeze'] as const;
     let s = createWorkout([...queue]);
-    const total = routineSeconds([...queue]);
+    const total = workoutSeconds(queue.map(defaultItem));
     s = tick(s, total - 1);
     expect(s.phase).not.toBe('done');
     s = tick(s);
@@ -65,6 +67,16 @@ describe('workout timer', () => {
     s = workoutReducer(s, { type: 'skip' });
     expect(s.phase).toBe('done');
     expect(workoutResult(s).exercises).toEqual([{ id: '09-brow-lift', reps: 1 }]);
+  });
+
+  it("uses the session's reps and hold time (a plan day changes them)", () => {
+    let s = create([{ id: '09-brow-lift', reps: 2, holdSec: brow.holdSec + 2, relaxSec: brow.relaxSec }]);
+    expect(currentExercise(s)).toMatchObject({ key: brow.key, reps: 2, holdSec: brow.holdSec + 2 });
+    s = tick(s, WORKOUT.getReadySec);
+    expect(s).toMatchObject({ phase: 'hold', remaining: brow.holdSec + 2 });
+    s = tick(s, 2 * (brow.holdSec + 2) + brow.relaxSec);
+    expect(s.phase).toBe('done');
+    expect(workoutResult(s).exercises).toEqual([{ id: '09-brow-lift', reps: 2 }]);
   });
 
   it('an empty queue is done right away', () => {

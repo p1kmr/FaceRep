@@ -100,6 +100,4 @@ export const WORKOUT = {
   getReadySec: 3,
   /** Short break that previews the next exercise. */
   restSec: 5,
-  /** Exercises in the daily routine. */
-  routineSize: 5,
 } as const;

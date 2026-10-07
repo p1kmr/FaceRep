@@ -16,16 +16,19 @@ interface ExerciseRowProps {
   /** Done today: a check instead of the chevron. */
   done?: boolean;
   divider?: boolean;
+  /** This session's reps and hold (a plan day); the catalog values otherwise. */
+  reps?: number;
+  holdSec?: number;
 }
 
 /** Thumbnail, name, main muscle and reps × hold. */
-export function ExerciseRow({ id, onPress, done, divider }: ExerciseRowProps) {
+export function ExerciseRow({ id, onPress, done, divider, reps, holdSec }: ExerciseRowProps) {
   const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
   const e = EXERCISES[id];
   const name = t(`exercises:items.${e.key}.name`);
-  const meta = `${t(`exercises:muscles.${e.muscles[0]}`)} · ${t('common:reps', { reps: e.reps, hold: e.holdSec })}`;
+  const meta = `${t(`exercises:muscles.${e.muscles[0]}`)} · ${t('common:reps', { reps: reps ?? e.reps, hold: holdSec ?? e.holdSec })}`;
   return (
     <Pressable
       onPress={onPress}

@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,22 +11,39 @@ import { AppText } from '@/components/ui/AppText';
 import { IconButton } from '@/components/ui/IconButton';
 import { ProgressRing } from '@/components/ui/ProgressRing';
 import { isExerciseId } from '@/constants/exercises';
+import { usePlan } from '@/hooks/usePlan';
 import { useProgressSummary, useSaveWorkout } from '@/hooks/useProgress';
 import { useReviewPrompt } from '@/hooks/useReviewPrompt';
 import { useTheme } from '@/hooks/useTheme';
 import { useWorkout } from '@/hooks/useWorkout';
+import { defaultItem, type WorkoutItem } from '@/services/workout/items';
 import { currentExercise, phaseDuration, workoutResult, type WorkoutResult } from '@/services/workout/timer';
 import { makeStyles } from '@/theme/makeStyles';
 
-/** The guided player: the figure squeezes and relaxes with the timer. ?ids=a,b,c&kind=routine|single */
+/**
+ * The guided player: the figure squeezes and relaxes with the timer.
+ * ?kind=plan[&day=n] → a plan day (today's by default). It counts for the plan only when it's the next day;
+ *   any other day, or today's again, is practice.
+ * ?ids=a,b,c&kind=single → exercises from the library with their usual reps.
+ */
 export default function WorkoutScreen() {
-  const params = useLocalSearchParams<{ ids?: string; kind?: string }>();
-  const ids = useMemo(() => (params.ids ?? '').split(',').filter(isExerciseId), [params.ids]);
-  const kind = params.kind === 'single' ? 'single' : 'routine';
+  const params = useLocalSearchParams<{ ids?: string; kind?: string; day?: string }>();
+  const plan = usePlan();
+  // Fixed when the screen opens: saving the workout moves the plan on, the running workout stays as it was.
+  const [setup] = useState<{ items: WorkoutItem[]; kind: 'routine' | 'single'; counts: typeof plan.next }>(() => {
+    if (params.kind === 'plan') {
+      const n = params.day ? Number(params.day) : plan.showing.day;
+      const day = plan.dayAt(n);
+      return { items: day.status === 'ready' ? day.items : [], kind: 'routine', counts: plan.countsFor(n) };
+    }
+    const ids = (params.ids ?? '').split(',').filter(isExerciseId);
+    return { items: ids.map(defaultItem), kind: 'single', counts: null };
+  });
+  const { kind } = setup;
   const { t } = useTranslation(['workout', 'exercises']);
   const { colors } = useTheme();
   const styles = useStyles();
-  const { state, pause, resume, skip } = useWorkout(ids);
+  const { state, pause, resume, skip } = useWorkout(setup.items);
   const saveWorkout = useSaveWorkout();
   const askForReview = useReviewPrompt();
   const { streak } = useProgressSummary();
@@ -38,7 +55,7 @@ export default function WorkoutScreen() {
     saved.current = true;
     const result = workoutResult(state);
     setFinished(result);
-    const session = await saveWorkout(result, kind);
+    const session = await saveWorkout(result, kind, setup.counts);
     if (session && kind === 'routine') askForReview();
   };
 

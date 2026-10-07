@@ -1,0 +1,342 @@
+{
+  "jawline": [
+    {
+      "day": 1,
+      "kind": "workout",
+      "ids": [
+        "02-chin-lift",
+        "04-mewing",
+        "12-tongue-press",
+        "11-chin-tuck"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 2,
+      "kind": "workout",
+      "ids": [
+        "02-chin-lift",
+        "04-mewing",
+        "12-tongue-press",
+        "05-neck-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 3,
+      "kind": "workout",
+      "ids": [
+        "02-chin-lift",
+        "04-mewing",
+        "11-chin-tuck",
+        "05-neck-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 4,
+      "kind": "workout",
+      "ids": [
+        "02-chin-lift",
+        "12-tongue-press",
+        "11-chin-tuck",
+        "05-neck-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 5,
+      "kind": "workout",
+      "ids": [
+        "04-mewing",
+        "12-tongue-press",
+        "11-chin-tuck",
+        "05-neck-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 6,
+      "kind": "workout",
+      "ids": [
+        "02-chin-lift",
+        "04-mewing",
+        "12-tongue-press",
+        "11-chin-tuck"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 7,
+      "kind": "light",
+      "ids": [
+        "05-neck-stretch",
+        "11-chin-tuck",
+        "16-wide-eyes"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    }
+  ],
+  "cheekbones": [
+    {
+      "day": 1,
+      "kind": "workout",
+      "ids": [
+        "06-cheek-lift",
+        "07-fish-face",
+        "13-smiling-fish",
+        "08-cheek-puff"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 2,
+      "kind": "workout",
+      "ids": [
+        "06-cheek-lift",
+        "07-fish-face",
+        "13-smiling-fish",
+        "14-o-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 3,
+      "kind": "workout",
+      "ids": [
+        "06-cheek-lift",
+        "07-fish-face",
+        "08-cheek-puff",
+        "14-o-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 4,
+      "kind": "workout",
+      "ids": [
+        "06-cheek-lift",
+        "13-smiling-fish",
+        "08-cheek-puff",
+        "14-o-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 5,
+      "kind": "workout",
+      "ids": [
+        "07-fish-face",
+        "13-smiling-fish",
+        "08-cheek-puff",
+        "14-o-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 6,
+      "kind": "workout",
+      "ids": [
+        "06-cheek-lift",
+        "07-fish-face",
+        "13-smiling-fish",
+        "08-cheek-puff"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 7,
+      "kind": "light",
+      "ids": [
+        "05-neck-stretch",
+        "11-chin-tuck",
+        "16-wide-eyes"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    }
+  ],
+  "eyes": [
+    {
+      "day": 1,
+      "kind": "workout",
+      "ids": [
+        "09-brow-lift",
+        "16-wide-eyes",
+        "17-lower-lid-lift",
+        "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 2,
+      "kind": "workout",
+      "ids": [
+        "09-brow-lift",
+        "16-wide-eyes",
+        "17-lower-lid-lift",
+        "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 3,
+      "kind": "workout",
+      "ids": [
+        "09-brow-lift",
+        "16-wide-eyes",
+        "17-lower-lid-lift",
+        "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 4,
+      "kind": "workout",
+      "ids": [
+        "09-brow-lift",
+        "16-wide-eyes",
+        "17-lower-lid-lift",
+        "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 5,
+      "kind": "workout",
+      "ids": [
+        "09-brow-lift",
+        "16-wide-eyes",
+        "17-lower-lid-lift",
+        "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 6,
+      "kind": "workout",
+      "ids": [
+        "09-brow-lift",
+        "16-wide-eyes",
+        "17-lower-lid-lift",
+        "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 7,
+      "kind": "light",
+      "ids": [
+        "05-neck-stretch",
+        "11-chin-tuck",
+        "16-wide-eyes"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    }
+  ],
+  "full": [
+    {
+      "day": 1,
+      "kind": "workout",
+      "ids": [
+        "02-chin-lift",
+        "04-mewing",
+        "12-tongue-press",
+        "11-chin-tuck"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 2,
+      "kind": "workout",
+      "ids": [
+        "05-neck-stretch",
+        "06-cheek-lift",
+        "07-fish-face",
+        "13-smiling-fish"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 3,
+      "kind": "workout",
+      "ids": [
+        "08-cheek-puff",
+        "14-o-stretch",
+        "09-brow-lift",
+        "16-wide-eyes"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 4,
+      "kind": "workout",
+      "ids": [
+        "02-chin-lift",
+        "04-mewing",
+        "17-lower-lid-lift",
+        "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 5,
+      "kind": "workout",
+      "ids": [
+        "12-tongue-press",
+        "11-chin-tuck",
+        "05-neck-stretch",
+        "06-cheek-lift"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 6,
+      "kind": "workout",
+      "ids": [
+        "07-fish-face",
+        "13-smiling-fish",
+        "08-cheek-puff",
+        "14-o-stretch"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 7,
+      "kind": "light",
+      "ids": [
+        "05-neck-stretch",
+        "11-chin-tuck",
+        "16-wide-eyes"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    }
+  ]
+}

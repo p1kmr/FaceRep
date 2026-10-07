@@ -13,7 +13,8 @@
   "history": "History",
   "empty": {
     "title": "No workouts yet",
-    "body": "Finish your first routine and it shows up here."
+    "body": "Finish your first workout and it shows up here."
   },
-  "session": "{{exercises}} · {{minutes}}"
+  "session": "{{exercises}} · {{minutes}}",
+  "sessionPlan": "Day {{day}} · {{exercises}} · {{minutes}}"
 }

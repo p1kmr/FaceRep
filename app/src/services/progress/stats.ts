@@ -1,4 +1,5 @@
 import type { ExerciseId } from '@/constants/exercises';
+import type { PlanRef } from '@/constants/plan';
 import { addDays, diffInDays, type ISODate } from '@/utils/dates';
 
 export interface SessionSummary {
@@ -10,6 +11,8 @@ export interface SessionSummary {
   totalReps: number;
   exerciseIds: ExerciseId[];
   kind: 'routine' | 'single';
+  /** The plan day this workout counted for (routines only). */
+  plan?: PlanRef;
 }
 
 export const workoutDays = (sessions: readonly SessionSummary[]) => new Set(sessions.map((s) => s.day));

@@ -15,6 +15,7 @@ import { Segmented } from '@/components/ui/Segmented';
 import { GOALS } from '@/constants/exercises';
 import { LINKS } from '@/constants/links';
 import type { ThemeMode } from '@/constants/theme';
+import { usePlanDispatch } from '@/hooks/usePlan';
 import { usePremium, usePremiumDispatch } from '@/hooks/usePremium';
 import { useProgressDispatch } from '@/hooks/useProgress';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
@@ -23,6 +24,7 @@ import { useChat } from '@/hooks/useChat';
 import { wipeDatabase } from '@/services/db/database';
 import { ensureNotificationPermission } from '@/services/notifications/reminder';
 import { hasPurchasesKey, restorePurchases } from '@/services/purchases/purchases';
+import { resetPlan } from '@/state/plan/actions';
 import { setPremium } from '@/state/premium/actions';
 import { resetProgress } from '@/state/progress/actions';
 import { resetSettings, setAiConsent, setGoal, setHaptics, setReminder, setThemeMode } from '@/state/settings/actions';
@@ -36,6 +38,7 @@ export default function SettingsScreen() {
   const settings = useSettings();
   const dispatch = useSettingsDispatch();
   const progressDispatch = useProgressDispatch();
+  const planDispatch = usePlanDispatch();
   const { isPremium } = usePremium();
   const premiumDispatch = usePremiumDispatch();
   const chat = useChat();
@@ -73,6 +76,7 @@ export default function SettingsScreen() {
           await wipeDatabase().catch(() => {});
           chat.clear();
           progressDispatch(resetProgress());
+          planDispatch(resetPlan());
           dispatch(resetSettings()); // onboarding starts again
           toast({ message: t('settings:deleted') });
         },

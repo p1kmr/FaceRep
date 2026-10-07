@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useRef } from 'react';
 
-import type { ExerciseId } from '@/constants/exercises';
 import { haptics } from '@/services/haptics';
+import type { WorkoutItem } from '@/services/workout/items';
 import { createWorkout, workoutReducer, type Phase } from '@/services/workout/timer';
 
 import { useAppActive } from './useAppActive';
@@ -10,8 +10,8 @@ import { useAppActive } from './useAppActive';
  * Runs the workout state machine: one tick per second while the screen is open and the app is in
  * the foreground (leaving the app pauses it). Haptics mark every squeeze and release.
  */
-export function useWorkout(ids: ExerciseId[]) {
-  const [state, dispatch] = useReducer(workoutReducer, ids, createWorkout);
+export function useWorkout(items: WorkoutItem[]) {
+  const [state, dispatch] = useReducer(workoutReducer, items, createWorkout);
   const active = useAppActive();
   const lastPhase = useRef<Phase>(state.phase);
 

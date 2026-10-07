@@ -10,14 +10,15 @@ app/src/
 │   ├── onboarding/          welcome → goal → safety → reminder
 │   ├── (tabs)/              Today · Exercises · Coach · Progress · Settings (native iOS tab bar)
 │   ├── exercise/[id].tsx    exercise detail
-│   ├── workout.tsx          the guided player (full-screen modal)
+│   ├── workout.tsx          the guided player (full-screen modal): a plan day or single exercises
+│   ├── plan-day.tsx         one day of the 28-day plan, opened from the grid (start it or practice it)
 │   └── paywall, ai-consent, safety (modals)
 ├── components/     ui/ (AppText, Button, Card, Chip, Badge, IconButton, ProgressRing, Screen, Segmented…),
 │                   exercise/, today/, progress/, coach/, paywall/, onboarding/, settings/
 ├── constants/      config.ts, theme/, exercises.ts, exerciseImages.ts, limits.ts, links.ts, storageKeys.ts…
-├── state/          settings/, premium/, progress/, chat/  (+ AppProviders.tsx)
-├── hooks/          useSettings, usePremium, usePaywall, useProgress*, useWorkout, useRoutine, useChat, useTheme…
-├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, notifications/, workout/ (pure)
+├── state/          settings/, premium/, progress/, plan/, chat/  (+ AppProviders.tsx)
+├── hooks/          useSettings, usePremium, usePaywall, useProgress*, usePlan, useWorkout, useChat, useTheme…
+├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, plan/, notifications/, workout/ (pure)
 ├── theme/          ThemeProvider + makeStyles
 ├── i18n/           i18next + locales/en/*.json
 └── utils/          dates, format, ids
@@ -49,8 +50,8 @@ state/progress/
 ## Storage: SQLite (`expo-sqlite`)
 | Table | What | Who writes |
 |---|---|---|
-| `kv` | small JSON values: settings, app ID copy, AI usage (versioned envelope) | `services/storage/kv.ts` |
-| `sessions` + `session_exercises` | finished workouts | `services/progress/sessionsRepo.ts` |
+| `kv` | small JSON values: settings, app ID copy, AI usage, the cached Premium plan days (versioned envelope) | `services/storage/kv.ts` |
+| `sessions` + `session_exercises` | finished workouts (`plan_level`, `plan_day`: which plan day it counted for) | `services/progress/sessionsRepo.ts` |
 | `chat_messages` | Coach history (last 200) | `services/chat/chatRepo.ts` |
 
 Schema changes: append to `services/db/migrations.ts` (tracked with `PRAGMA user_version`); never edit a shipped entry.
@@ -77,3 +78,20 @@ change, so the face is identical and the app stays small (no video). Leaving the
 | Page scroll | wrap in `ScrollView`/`FlatList`; safe areas via `react-native-safe-area-context` |
 | `fetch` to your API | same `fetch`, but only to **our** Worker (keys never in the app) |
 | Vercel/Netlify deploy | **EAS Build** (cloud iOS build, no Mac needed) + `eas submit` to App Store Connect |
+
+## The 28-day plan
+Four weeks of seven days, each week harder (Learn 4 exercises at 70% reps → Build 5 at 85% → Strengthen 6 at 100% → Peak 6
+with +2 s holds); days 7, 14 and 21 are short light days, day 28 is one exercise longer. Levels 2 and 3 add 10% reps and
+1 s hold per level; later rounds repeat Level 3. A day is data (`{ day, kind, ids, repPct, holdPlusSec }`); the app turns
+it into reps and holds with `services/plan/plan.ts` → `planItems()`.
+
+- **One generator, on the server:** `worker/src/lib/plan.js`. Week 1 of Level 1 (free) is exported into
+  `app/src/constants/planFreeWeek.json` by `cd worker && npm run plan:export`; a Worker test fails if the two differ.
+- **Premium days never ship in the app.** `state/plan/PlanProvider.tsx` asks `POST /plan` (Worker) as soon as the user
+  has Premium, keeps the answer in `kv` (`facerep.planCache`) for offline use and shows it only while Premium is active.
+- **Where you are is derived, not stored:** `planProgress(sessions, today)` reads the plan day saved with each workout. A
+  day moves on only when its workout is finished (a missed day waits), and at most one plan day counts per calendar day.
+- `hooks/usePlan.ts` gives the Today screen everything: header, today's day (ready / locked / loading / error), the 4×7 grid,
+  and `dayAt(n)` for any day. Tapping a grid day opens `plan-day` (locked → paywall). Only the next day counts for the plan
+  (`countsFor`); any other day is practice. This also lets App Review see Weeks 2–4 right after a sandbox purchase.
+

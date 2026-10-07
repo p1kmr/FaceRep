@@ -1,10 +1,10 @@
 {
-  "headline": "Unlock your AI Coach",
-  "subhead": "Personal answers about your face workout, any time.",
+  "headline": "Unlock the full plan",
+  "subhead": "Week 1 is free. Premium adds the rest of your 28-day plan and the AI Coach.",
   "benefits": {
-    "coach": "Unlimited AI Coach answers",
-    "technique": "Technique fixes and routine advice",
-    "skincare": "Simple skincare tips for your skin"
+    "plan": "Weeks 2 to 4: more exercises, reps and hold time each week",
+    "levels": "Level 2 and 3 when you finish, and new rounds after that",
+    "coach": "Unlimited AI Coach answers on technique and routine"
   },
   "aiNote": "Coach questions are answered by an AI (Cloudflare Workers AI). You'll be asked for permission before your first question.",
   "plans": { "monthly": "Monthly", "yearly": "Yearly" },

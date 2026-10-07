@@ -4,7 +4,7 @@
  * Contact details come from Worker vars (`LEGAL_NAME`, `SUPPORT_EMAIL` in wrangler.jsonc).
  */
 
-const UPDATED = 'October 6, 2026';
+const UPDATED = 'October 7, 2026';
 
 const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -55,8 +55,9 @@ function privacy(env) {
 
 <div class="card">
 <strong>In short:</strong> ${c.app} has no account, no ads and no trackers. Your workouts, Coach chat and settings are
-stored only on your iPhone. Only two things ever leave it: the questions you send to the AI Coach (after you agree), and the
-purchase details Apple and RevenueCat need to process a subscription. We never sell or share your data for advertising.
+stored only on your iPhone. Only three things ever leave it: the questions you send to the AI Coach (after you agree), a
+request for the Premium part of your workout plan (with Premium only), and the purchase details Apple and RevenueCat need to
+process a subscription. We never sell or share your data for advertising.
 </div>
 
 <h2>Who we are</h2>
@@ -80,6 +81,13 @@ locally by iOS; nothing is sent to a server. ${c.app} does not use the camera, p
   <td>To answer your question</td>
 </tr>
 <tr>
+  <td><strong>Premium plan request</strong>: the random app ID, your focus area and your plan level. No workout history.</td>
+  <td>With Premium only, when your plan needs Weeks 2 to 4 or a new level (about once per level; the answer is then kept on
+  your iPhone)</td>
+  <td>Our server on Cloudflare, which asks RevenueCat whether the app ID has an active subscription</td>
+  <td>To send the Premium part of the plan only to subscribers</td>
+</tr>
+<tr>
   <td><strong>Purchase data</strong>: the random app ID, App Store transaction and receipt details, device and app version</td>
   <td>When you view plans, buy, or restore purchases</td>
   <td>Apple (payment) and RevenueCat (subscription management)</td>
@@ -92,11 +100,12 @@ locally by iOS; nothing is sent to a server. ${c.app} does not use the camera, p
 it does not use customer content sent to Workers AI to train models. To prevent abuse our server keeps two daily counters:
 one keyed by the random app ID and one keyed by a one-way, secret-keyed hash of your IP address (the IP itself is never
 stored). They are deleted automatically after about two days. For the free plan's monthly allowance it also keeps a count of
-free answers per random app ID, deleted after about two months. Cloudflare processes your IP address to deliver the request.</p>
+free answers per random app ID, deleted after about two months. The same kind of daily counters limit plan requests. Cloudflare processes your IP address to deliver the request.</p>
 <p>To check that a request really comes from ${c.app} on an iPhone, the app sends a one-time Apple DeviceCheck token, which
 our server passes to Apple and never stores. Apple lets us keep one yes/no mark per iPhone: whether its free Coach answers
 for the month are used up, so deleting and reinstalling the app doesn't reset them. The mark contains nothing about you. To
-check Premium, our server asks RevenueCat whether the random app ID has an active subscription.</p>
+check Premium (for the Coach and for the Premium plan), our server asks RevenueCat whether the random app ID has an active
+subscription.</p>
 
 <h2>Service providers</h2>
 <ul>
@@ -111,7 +120,7 @@ providers' Standard Contractual Clauses or equivalent safeguards.</p>
 <h2>Legal bases (EU/UK)</h2>
 <ul>
   <li>AI Coach: your <strong>consent</strong> (Art. 6(1)(a) GDPR). You can withdraw it any time in Settings → Allow AI Coach.</li>
-  <li>Purchases: <strong>performance of a contract</strong> (Art. 6(1)(b)).</li>
+  <li>Purchases and the Premium plan: <strong>performance of a contract</strong> (Art. 6(1)(b)).</li>
   <li>Abuse prevention counters: our <strong>legitimate interest</strong> in keeping the service available and costs under control (Art. 6(1)(f)).</li>
 </ul>
 
@@ -119,7 +128,7 @@ providers' Standard Contractual Clauses or equivalent safeguards.</p>
 <ul>
   <li><strong>Delete your data:</strong> Settings → Delete all data, or delete the app. This erases your workouts, chat and
   settings from your iPhone. A random app ID stays in the iPhone's Keychain so your subscription keeps working.</li>
-  <li><strong>Stop AI processing:</strong> turn off Settings → Allow AI Coach. ${c.app} then sends nothing to our server.</li>
+  <li><strong>Stop AI processing:</strong> turn off Settings → Allow AI Coach. ${c.app} then sends no Coach questions to our server.</li>
   <li><strong>Subscriptions:</strong> manage or cancel in your Apple ID settings.</li>
   <li>Depending on where you live, you may have rights to access, correct, delete or port your data, to object or restrict
   processing, and to complain to your data protection authority. Because we don't keep an account or your workout data,
@@ -163,6 +172,9 @@ AI Coach answers are generated automatically and may be wrong.</p>
 <h2>Premium subscriptions and purchases</h2>
 <ul>
   <li>Premium is offered as auto-renewing monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
+  <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and unlimited
+  AI Coach answers (daily fair-use limits apply). The Premium part of the plan is loaded from our server, so the first time
+  it needs an internet connection.</li>
   <li>Payment is charged to your Apple ID at confirmation of purchase.</li>
   <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the period.</li>
   <li>You can manage and cancel subscriptions in your Apple ID account settings after purchase.</li>

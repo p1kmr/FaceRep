@@ -10,7 +10,8 @@ import { AppText } from '../ui/AppText';
 export function SessionRow({ session, divider }: { session: SessionSummary; divider?: boolean }) {
   const { t, i18n } = useTranslation(['progress', 'common']);
   const styles = useStyles();
-  const meta = t('progress:session', {
+  const meta = t(session.plan ? 'progress:sessionPlan' : 'progress:session', {
+    day: session.plan?.day,
     exercises: t('common:exercises', { count: session.exerciseIds.length }),
     minutes: t('common:minutes', { count: toMinutes(session.durationSec) }),
   });

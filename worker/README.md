@@ -1,6 +1,7 @@
 # FaceRep API (Cloudflare Worker)
 
-Two jobs:
+Three jobs:
+- `POST /plan`: the Premium part of the 28-day plan (Weeks 2–4, Levels 2–3), only after RevenueCat confirms Premium (`src/lib/plan.js`, `src/lib/planHandler.js`). Needs `REVENUECAT_SECRET_KEY`; without it nobody gets them. After changing `plan.js`, run `npm run plan:export` (updates the free week bundled in the app).
 - `POST /chat`: the AI Coach. Receives a question (+ the last few turns and an anonymous training context), checks it, applies daily limits and the Premium / free-allowance check, asks a **Workers AI** model and returns a cleaned-up answer.
 - `GET /privacy`, `/terms`, `/support`: the public pages App Store Connect asks for (`src/pages.js`), so no separate website is needed.
 
@@ -31,8 +32,8 @@ Every command runs from `worker/` with `npx` (nothing global).
 cd worker
 npm install
 npx wrangler login                       # opens the browser once
-npx wrangler d1 create facerep-limits    # copy the printed database_id into wrangler.jsonc
-npm run db:migrate                       # creates rate_limits and free_usage
+# Already done on 2026-10-07 (D1 "facerep-limits" created, tables applied, id in wrangler.jsonc):
+# npx wrangler d1 create facerep-limits && npm run db:migrate
 npx wrangler secret put IP_HASH_SECRET   # paste any long random text
 ```
 In `wrangler.jsonc` → `vars`: set `APP_NAME` (your final app name), `SUPPORT_EMAIL` (a dedicated inbox; it is public), optionally `LEGAL_NAME`.
@@ -43,8 +44,8 @@ npm run deploy    # prints https://facerep-api.<your-subdomain>.workers.dev
 Open `/privacy`, `/terms`, `/support` on that URL to check the pages.
 
 ### B. Point the app at it
-- `app/eas.json` → every `build.*.env.EXPO_PUBLIC_AI_URL` = `https://facerep-api.<your-subdomain>.workers.dev/chat`
-- `app/src/constants/links.ts` → `SITE` = the same Worker URL (without `/chat`), `supportEmail` = your support inbox.
+- Done: `app/eas.json` → `EXPO_PUBLIC_AI_URL` = `https://facerep-api.elowa-app.workers.dev/chat` (the app derives `/plan` from it) and FaceRep's own `EXPO_PUBLIC_RC_IOS_KEY`; `app/src/constants/links.ts` → `SITE`.
+- Still yours: `supportEmail` in `links.ts` and `SUPPORT_EMAIL` in `wrangler.jsonc`.
 - Local dev: `app/.env` (copy `app/.env.example`).
 
 > ⚠️ This cloud environment has **Elowa's** `EXPO_PUBLIC_AI_URL` and `EXPO_PUBLIC_RC_IOS_KEY` set as environment variables. FaceRep must never use those: give FaceRep its own values (expo.dev → project → Environment variables, and `eas.json`).
@@ -58,7 +59,7 @@ Logs: Cloudflare dashboard → Workers & Pages → `facerep-api` → **Logs** (o
 
 ### D. Premium and free limits (do this before release)
 
-Until this is done, anyone who finds the URL can use the Coach (only the daily limits stop them).
+Until this is done, anyone who finds the URL can use the Coach (only the daily limits stop them), and **nobody** gets Weeks 2–4 of the plan (`/plan` fails closed).
 
 1. **RevenueCat secret key**: RevenueCat → FaceRep project → API keys → **+ New secret API key** (API **v1**, name `facerep-worker`):
    ```bash

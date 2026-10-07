@@ -1,4 +1,6 @@
-import { EXERCISES, WORKOUT, type ExerciseId } from '@/constants/exercises';
+import { EXERCISES, WORKOUT, type Exercise, type ExerciseId } from '@/constants/exercises';
+
+import type { WorkoutItem } from './items';
 
 /**
  * The workout as a pure state machine, ticked once per second by useWorkout().
@@ -7,7 +9,8 @@ import { EXERCISES, WORKOUT, type ExerciseId } from '@/constants/exercises';
 export type Phase = 'ready' | 'hold' | 'relax' | 'rest' | 'done';
 
 export interface WorkoutState {
-  queue: ExerciseId[];
+  /** The exercises with this session's reps and timing (a plan day can change them). */
+  queue: WorkoutItem[];
   index: number;
   /** 1-based rep of the current exercise. */
   rep: number;
@@ -23,7 +26,7 @@ export interface WorkoutState {
 
 export type WorkoutAction = { type: 'tick' } | { type: 'pause' } | { type: 'resume' } | { type: 'skip' };
 
-export function createWorkout(queue: ExerciseId[]): WorkoutState {
+export function createWorkout(queue: WorkoutItem[]): WorkoutState {
   return {
     queue,
     index: 0,
@@ -36,7 +39,9 @@ export function createWorkout(queue: ExerciseId[]): WorkoutState {
   };
 }
 
-export const currentExercise = (s: WorkoutState) => (s.phase === 'done' ? null : EXERCISES[s.queue[s.index]]);
+/** The current exercise with this session's reps and timing. */
+export const currentExercise = (s: WorkoutState): Exercise | null =>
+  s.phase === 'done' ? null : { ...EXERCISES[s.queue[s.index].id], ...s.queue[s.index] };
 
 /** Length of the current phase, for progress rings. */
 export function phaseDuration(s: WorkoutState): number {
@@ -53,7 +58,7 @@ function nextExercise(s: WorkoutState): WorkoutState {
 }
 
 function advance(s: WorkoutState): WorkoutState {
-  const e = EXERCISES[s.queue[s.index]];
+  const e = s.queue[s.index];
   switch (s.phase) {
     case 'ready':
     case 'rest':
@@ -97,6 +102,6 @@ export interface WorkoutResult {
 
 /** What gets saved: only exercises with at least one finished rep. */
 export function workoutResult(s: WorkoutState): WorkoutResult {
-  const exercises = s.queue.map((id, i) => ({ id, reps: s.completedReps[i] })).filter((e) => e.reps > 0);
+  const exercises = s.queue.map(({ id }, i) => ({ id, reps: s.completedReps[i] })).filter((e) => e.reps > 0);
   return { exercises, totalReps: exercises.reduce((n, e) => n + e.reps, 0), durationSec: s.elapsedSec };
 }

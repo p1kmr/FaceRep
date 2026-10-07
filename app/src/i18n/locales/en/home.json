@@ -4,13 +4,54 @@
   "streak_one": "{{count}} day streak",
   "streak_other": "{{count}} day streak",
   "noStreak": "Start your streak today",
-  "routine": {
-    "title": "Today's routine",
+  "plan": {
+    "header": "Week {{week}} · Day {{day}} of {{total}}",
+    "level": "Level {{level}}",
+    "weeks": {
+      "learn": "Learn the moves",
+      "build": "Build",
+      "strengthen": "Strengthen",
+      "peak": "Peak week"
+    },
+    "light": "Light day: stretch and recover",
+    "final": "Final day of the level",
     "meta": "{{exercises}} · {{minutes}}",
-    "start": "Start workout",
-    "again": "Do it again"
+    "start": "Start Day {{day}}",
+    "startLevel": "Start Level {{level}}",
+    "levelDone": "Level {{level}} complete: all 28 days done.",
+    "practice": "Practice again",
+    "doneToday": "Day {{day}} done. Day {{next}} opens tomorrow.",
+    "doneLevelToday": "Level {{level}} complete. Level {{next}} starts tomorrow.",
+    "doneFreeWeek": "Week 1 done. Weeks 2 to 4 are part of Premium.",
+    "locked": {
+      "title": "Weeks 2 to 4 are Premium",
+      "body": "Each week adds exercises, reps and hold time. Week 1 and every single exercise stay free.",
+      "cta": "Unlock the full plan"
+    },
+    "loading": "Loading the rest of your plan…",
+    "error": {
+      "offline": "Connect to the internet once to load the rest of your plan. After that it works offline.",
+      "premium": "Your subscription couldn't be confirmed yet. Try again in a minute, or use Restore purchases in Settings.",
+      "server": "The plan couldn't be loaded. Try again in a moment.",
+      "retry": "Try again"
+    },
+    "preview": {
+      "practice": "Practice Day {{day}}",
+      "practiceNote": "Practicing this day doesn't move your plan on. Day {{day}} is your next day.",
+      "practiceNoteDone": "Practicing this day doesn't move your plan on. Your next day opens tomorrow."
+    },
+    "grid": {
+      "title": "Your 28-day plan",
+      "hint": "Tap a day to see its exercises.",
+      "week": "W{{week}}",
+      "cell": {
+        "done": "Day {{day}}, done",
+        "today": "Day {{day}}, today",
+        "upcoming": "Day {{day}}",
+        "locked": "Day {{day}}, Premium"
+      }
+    }
   },
-  "week": "This week",
   "coachCard": {
     "title": "Ask the Coach",
     "body": "Questions about technique, mewing or a simple skincare routine?"

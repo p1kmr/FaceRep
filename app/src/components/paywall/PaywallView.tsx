@@ -26,9 +26,9 @@ interface PaywallViewProps {
 }
 
 const BENEFITS: { key: string; icon: SymbolViewProps['name'] }[] = [
+  { key: 'plan', icon: 'calendar' },
+  { key: 'levels', icon: 'chart.line.uptrend.xyaxis' },
   { key: 'coach', icon: 'sparkles' },
-  { key: 'technique', icon: 'figure.mind.and.body' },
-  { key: 'skincare', icon: 'drop.fill' },
 ];
 
 /**

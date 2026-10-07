@@ -1,5 +1,6 @@
 import { createContext, useCallback, useEffect, useReducer, type Dispatch, type ReactNode } from 'react';
 
+import type { PlanRef } from '@/constants/plan';
 import { insertSession, listSessions } from '@/services/progress/sessionsRepo';
 import type { SessionSummary } from '@/services/progress/stats';
 import type { WorkoutResult } from '@/services/workout/timer';
@@ -12,8 +13,10 @@ import type { ProgressState } from './types';
 
 export const ProgressStateContext = createContext<ProgressState | null>(null);
 export const ProgressDispatchContext = createContext<Dispatch<ProgressAction> | null>(null);
+type SaveWorkout = (result: WorkoutResult, kind: SessionSummary['kind'], plan?: PlanRef | null) => Promise<SessionSummary | null>;
+
 /** Saves a finished workout (SQLite first, then state) and returns it, or null when nothing was done. */
-export const SaveWorkoutContext = createContext<((result: WorkoutResult, kind: SessionSummary['kind']) => Promise<SessionSummary | null>) | null>(null);
+export const SaveWorkoutContext = createContext<SaveWorkout | null>(null);
 
 /** Workout history: read once from SQLite, then every finished workout is inserted and dispatched. */
 export function ProgressProvider({ children }: { children: ReactNode }) {
@@ -25,7 +28,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       .catch(() => dispatch(hydrateProgress([]))); // storage unavailable: start empty, never block the app
   }, []);
 
-  const saveWorkout = useCallback(async (result: WorkoutResult, kind: SessionSummary['kind']) => {
+  const saveWorkout = useCallback<SaveWorkout>(async (result, kind, plan) => {
     if (!result.exercises.length) return null;
     const now = new Date();
     const session: SessionSummary = {
@@ -36,6 +39,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       totalReps: result.totalReps,
       exerciseIds: result.exercises.map((e) => e.id),
       kind,
+      ...(plan ? { plan } : {}),
     };
     // The streak still counts this session for today if the write fails (it just won't survive a restart).
     await insertSession(session, result.exercises).catch(() => {});
