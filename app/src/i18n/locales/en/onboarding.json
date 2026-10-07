@@ -14,7 +14,9 @@
     "options": {
       "jawline": "Jaw, chin and neck",
       "cheekbones": "Cheeks and smile",
-      "eyes": "Brows and eyes",
+      "lips": "Lips and smile lines",
+      "eyes": "Forehead, brows and eyes",
+      "massage": "Gentle face massage to relax",
       "full": "A bit of everything, alternating days"
     }
   },
@@ -23,7 +25,7 @@
     "points": {
       "gentle": "Move slowly and gently. A light burn in the muscle is fine; pain is not.",
       "jaw": "If you have jaw pain, clicking or a jaw joint problem (TMJ), skip the jaw clench, jaw jut and lion face, and ask a doctor or dentist first.",
-      "treatments": "Had Botox, fillers or another cosmetic treatment recently? Ask your practitioner when it's OK to start face exercises.",
+      "treatments": "Had Botox, fillers or another cosmetic treatment recently? Ask your practitioner when it's OK to start face exercises, and don't press or massage the treated area until then.",
       "stop": "Stop right away if anything hurts, feels numb or makes you dizzy.",
       "results": "Exercises can tone muscles and improve posture. They can't change bone structure, and results differ for everyone."
     },

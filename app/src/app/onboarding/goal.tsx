@@ -4,7 +4,8 @@ import { View } from 'react-native';
 
 import { OnboardingStep } from '@/components/onboarding/OnboardingStep';
 import { OptionRow } from '@/components/ui/OptionRow';
-import { GOALS } from '@/constants/exercises';
+import { goalsFor } from '@/constants/exercises';
+import { useGuide } from '@/hooks/useGuide';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { setGoal } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
@@ -12,6 +13,7 @@ import { makeStyles } from '@/theme/makeStyles';
 export default function GoalScreen() {
   const { t } = useTranslation(['onboarding', 'common']);
   const { goal } = useSettings();
+  const guide = useGuide();
   const dispatch = useSettingsDispatch();
   const styles = useStyles();
   return (
@@ -22,7 +24,7 @@ export default function GoalScreen() {
       primary={{ title: t('common:continue'), onPress: () => router.push('/onboarding/safety') }}
     >
       <View style={styles.options} accessibilityRole="radiogroup">
-        {GOALS.map((g) => (
+        {goalsFor(guide).map((g) => (
           <OptionRow
             key={g}
             title={t(`common:programs.${g}`)}

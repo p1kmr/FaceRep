@@ -53,6 +53,14 @@ export default function ExerciseScreen() {
           </AppText>
         </Card>
       ) : null}
+      {e.handsOn ? (
+        <Card style={styles.caution}>
+          <SymbolView name="hand.raised.fill" size={18} tintColor={colors.primary} />
+          <AppText variant="footnote" style={styles.flex}>
+            {t('detail.handsCaution')}
+          </AppText>
+        </Card>
+      ) : null}
       <Card style={styles.steps}>
         <AppText variant="headline">{t('detail.how')}</AppText>
         {steps.map((step, i) => (

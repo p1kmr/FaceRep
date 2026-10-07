@@ -3,7 +3,9 @@
   "programIntro": {
     "jawline": "Masseter, chin and neck work for a sharper-looking jawline.",
     "cheekbones": "Lift and tone the muscles around your cheeks and mouth.",
-    "eyes": "Brow and eye muscles, great after long screen time."
+    "lips": "The muscles around your lips and the corners of your mouth.",
+    "eyes": "Forehead, brow and eye muscles, great after long screen time.",
+    "massage": "Gentle fingertip massage to relax your jaw, brows and temples. Clean hands, light pressure."
   },
   "muscles": {
     "masseter": "Masseter",
@@ -18,99 +20,260 @@
     "lips": "Lips",
     "frontalis": "Frontalis",
     "orbicularisOculi": "Orbicularis oculi",
-    "eyelids": "Upper eyelids"
+    "eyelids": "Upper eyelids",
+    "corrugator": "Between the brows",
+    "temporalis": "Temples"
   },
   "detail": {
     "how": "How to do it",
     "plan": "{{reps}} reps · hold {{hold}}s · relax {{relax}}s",
     "start": "Start exercise",
-    "jawCaution": "Skip this one if you have jaw pain, clicking or a TMJ problem."
+    "jawCaution": "Skip this one if you have jaw pain, clicking or a TMJ problem.",
+    "handsCaution": "Use clean hands and light pressure. Skip irritated skin, and don't press on an area treated with Botox or fillers recently."
   },
   "items": {
     "jawClench": {
       "name": "Jaw Clench",
       "cue": "Clench your back teeth and feel your jaw muscles bulge.",
-      "steps": ["Sit tall, lips closed, shoulders relaxed.", "Bite down on your back teeth with about half your strength.", "Hold and feel the muscle in front of your ear tighten, then release slowly."]
+      "steps": [
+        "Sit tall, lips closed, shoulders relaxed.",
+        "Bite down on your back teeth with about half your strength.",
+        "Hold and feel the muscle in front of your ear tighten, then release slowly."
+      ]
     },
     "chinLift": {
       "name": "Chin Lift",
       "cue": "Tilt your head back and push your lower lip over your top lip.",
-      "steps": ["Sit or stand with a straight back.", "Tilt your head back until you look at the ceiling.", "Push your lower lip up over your top lip and feel the front of your neck stretch."]
+      "steps": [
+        "Sit or stand with a straight back.",
+        "Tilt your head back until you look at the ceiling.",
+        "Push your lower lip up over your top lip and feel the front of your neck stretch."
+      ]
     },
     "jawJut": {
       "name": "Jaw Jut",
       "cue": "Push your lower jaw forward and lift your chin slightly.",
-      "steps": ["Look straight ahead, then tilt your chin up a little.", "Slide your lower jaw forward until you feel a stretch under the chin.", "Hold, then bring your jaw back slowly."]
+      "steps": [
+        "Look straight ahead, then tilt your chin up a little.",
+        "Slide your lower jaw forward until you feel a stretch under the chin.",
+        "Hold, then bring your jaw back slowly."
+      ]
     },
     "mewing": {
       "name": "Mewing",
       "cue": "Press your whole tongue flat against the roof of your mouth.",
-      "steps": ["Close your lips and rest your teeth lightly together.", "Place the whole tongue, including the back, against the roof of your mouth.", "Breathe through your nose and hold the position without straining."]
+      "steps": [
+        "Close your lips and rest your teeth lightly together.",
+        "Place the whole tongue, including the back, against the roof of your mouth.",
+        "Breathe through your nose and hold the position without straining."
+      ]
     },
     "neckStretch": {
       "name": "Neck Side Stretch",
       "cue": "Tilt your ear toward your shoulder and keep your shoulders down.",
-      "steps": ["Sit tall and drop your shoulders.", "Slowly tilt your right ear toward your right shoulder.", "Hold the stretch, come back to center and switch sides on the next rep."]
+      "steps": [
+        "Sit tall and drop your shoulders.",
+        "Slowly tilt your right ear toward your right shoulder.",
+        "Hold the stretch, come back to center and switch sides on the next rep."
+      ]
     },
     "cheekLift": {
       "name": "Cheek Lift",
       "cue": "Smile wide with closed lips and lift your cheeks toward your eyes.",
-      "steps": ["Keep your lips closed.", "Smile as wide as you can and push your cheeks up toward your eyes.", "Hold, then relax your face completely."]
+      "steps": [
+        "Keep your lips closed.",
+        "Smile as wide as you can and push your cheeks up toward your eyes.",
+        "Hold, then relax your face completely."
+      ]
     },
     "fishFace": {
       "name": "Fish Face",
       "cue": "Suck your cheeks in and pucker your lips.",
-      "steps": ["Suck your cheeks in between your teeth.", "Pucker your lips like a fish.", "Hold, then release and relax."]
+      "steps": [
+        "Suck your cheeks in between your teeth.",
+        "Pucker your lips like a fish.",
+        "Hold, then release and relax."
+      ]
     },
     "cheekPuff": {
       "name": "Cheek Puff",
       "cue": "Fill your cheeks with air and hold them round.",
-      "steps": ["Take a breath and close your lips.", "Push the air into both cheeks so they puff out.", "Hold, then let the air out slowly."]
+      "steps": [
+        "Take a breath and close your lips.",
+        "Push the air into both cheeks so they puff out.",
+        "Hold, then let the air out slowly."
+      ]
     },
     "browLift": {
       "name": "Brow Lift",
       "cue": "Raise your eyebrows as high as you can.",
-      "steps": ["Look straight ahead with a relaxed face.", "Lift your eyebrows as high as you can.", "Hold, then lower them slowly."]
+      "steps": [
+        "Look straight ahead with a relaxed face.",
+        "Lift your eyebrows as high as you can.",
+        "Hold, then lower them slowly."
+      ]
     },
     "eyeSqueeze": {
       "name": "Eye Squeeze",
       "cue": "Squeeze your eyes shut tightly, then release slowly.",
-      "steps": ["Relax your forehead.", "Close your eyes and squeeze them shut.", "Hold, then open them slowly."]
+      "steps": [
+        "Relax your forehead.",
+        "Close your eyes and squeeze them shut.",
+        "Hold, then open them slowly."
+      ]
     },
     "chinTuck": {
       "name": "Chin Tuck",
       "cue": "Glide your head straight back and make a small double chin.",
-      "steps": ["Sit or stand tall with your shoulders down and your eyes level.", "Glide your head straight back, as if a string pulls the back of your head, until your ears line up over your shoulders.", "Hold without tilting your chin up or down, then glide forward slowly."]
+      "steps": [
+        "Sit or stand tall with your shoulders down and your eyes level.",
+        "Glide your head straight back, as if a string pulls the back of your head, until your ears line up over your shoulders.",
+        "Hold without tilting your chin up or down, then glide forward slowly."
+      ]
     },
     "tonguePress": {
       "name": "Tongue Press",
       "cue": "Press your tongue up against the roof of your mouth and hum.",
-      "steps": ["Sit tall with your lips closed and your teeth slightly apart.", "Press your whole tongue firmly up against the roof of your mouth, just behind your front teeth.", "Hum softly and feel the muscles under your chin tighten. Hold, then relax your tongue."]
+      "steps": [
+        "Sit tall with your lips closed and your teeth slightly apart.",
+        "Press your whole tongue firmly up against the roof of your mouth, just behind your front teeth.",
+        "Hum softly and feel the muscles under your chin tighten. Hold, then relax your tongue."
+      ]
     },
     "smilingFish": {
       "name": "Smiling Fish",
       "cue": "Make a fish face, then lift the corners of your mouth into a smile.",
-      "steps": ["Suck your cheeks in between your teeth and pucker your lips.", "Keep the fish face and pull the corners of your mouth up into a smile.", "Hold and feel your cheeks lift, then relax your whole face."]
+      "steps": [
+        "Suck your cheeks in between your teeth and pucker your lips.",
+        "Keep the fish face and pull the corners of your mouth up into a smile.",
+        "Hold and feel your cheeks lift, then relax your whole face."
+      ]
     },
     "oStretch": {
       "name": "O Stretch",
       "cue": "Open your mouth into a long O and pull your lips over your teeth.",
-      "steps": ["Look straight ahead and keep your forehead relaxed.", "Open your mouth into a tall O and pull your lips over your teeth.", "Hold and feel your face lengthen, then close your mouth slowly."]
+      "steps": [
+        "Look straight ahead and keep your forehead relaxed.",
+        "Open your mouth into a tall O and pull your lips over your teeth.",
+        "Hold and feel your face lengthen, then close your mouth slowly."
+      ]
     },
     "lionFace": {
       "name": "Lion Face",
       "cue": "Open wide, stick your tongue out and widen your eyes.",
-      "steps": ["Breathe in through your nose.", "Breathe out as you open your mouth wide, stretch your tongue out toward your chin and open your eyes wide.", "Hold the stretch, then close your mouth and relax. Don't force your jaw open further than is comfortable."]
+      "steps": [
+        "Breathe in through your nose.",
+        "Breathe out as you open your mouth wide, stretch your tongue out toward your chin and open your eyes wide.",
+        "Hold the stretch, then close your mouth and relax. Don't force your jaw open further than is comfortable."
+      ]
     },
     "wideEyes": {
       "name": "Wide Eyes",
       "cue": "Open your eyes as wide as you can without lifting your eyebrows.",
-      "steps": ["Rest a fingertip lightly on each eyebrow if it helps you keep your forehead still.", "Open your eyes as wide as you can, as if surprised, without lifting your eyebrows.", "Hold and stare at one point, then relax your eyes."]
+      "steps": [
+        "Rest a fingertip lightly on each eyebrow if it helps you keep your forehead still.",
+        "Open your eyes as wide as you can, as if surprised, without lifting your eyebrows.",
+        "Hold and stare at one point, then relax your eyes."
+      ]
     },
     "lowerLidLift": {
       "name": "Lower Lid Lift",
       "cue": "Look up and lift your lower eyelids, as if squinting into the sun.",
-      "steps": ["Keep your head level and look up slightly.", "Lift only your lower eyelids, as if squinting into bright light. Keep your forehead relaxed.", "Hold, then let your lower lids drop slowly."]
+      "steps": [
+        "Keep your head level and look up slightly.",
+        "Lift only your lower eyelids, as if squinting into bright light. Keep your forehead relaxed.",
+        "Hold, then let your lower lids drop slowly."
+      ]
+    },
+    "lipPress": {
+      "name": "Lip Press",
+      "cue": "Press your lips together and gently roll them in.",
+      "steps": [
+        "Close your mouth and keep your jaw relaxed.",
+        "Press your lips together and roll them slightly in over your teeth.",
+        "Hold, then let your lips soften."
+      ]
+    },
+    "pout": {
+      "name": "Pout",
+      "cue": "Push your lips forward into a long pout, like a kiss.",
+      "steps": [
+        "Keep your teeth apart and your face relaxed.",
+        "Push your lips forward as far as is comfortable, as if blowing a kiss.",
+        "Hold, then relax your lips."
+      ]
+    },
+    "lipCornerLift": {
+      "name": "Lip Corner Lift",
+      "cue": "With closed lips, lift only the corners of your mouth.",
+      "steps": [
+        "Keep your lips closed and your cheeks soft.",
+        "Lift just the corners of your mouth into a small smile.",
+        "Hold, then let the corners drop."
+      ]
+    },
+    "smileLinePress": {
+      "name": "Smile-Line Press",
+      "cue": "Fingertips on your smile lines, smile against light pressure.",
+      "steps": [
+        "Place your index fingers lightly on the lines from your nose to the corners of your mouth.",
+        "Smile wide while your fingers gently hold the skin in place.",
+        "Hold, then relax your smile and your fingers."
+      ]
+    },
+    "foreheadPress": {
+      "name": "Forehead Press",
+      "cue": "Palms on your forehead, raise your brows against light pressure.",
+      "steps": [
+        "Place both palms flat on your forehead, just above your eyebrows.",
+        "Try to raise your eyebrows while your hands gently hold the skin still.",
+        "Hold, then relax your forehead."
+      ]
+    },
+    "vEyes": {
+      "name": "V Eyes",
+      "cue": "Fingers in a V around your eyes, look up and squint.",
+      "steps": [
+        "Press your middle fingers lightly at the inner ends of your eyebrows and your index fingers at the outer ends, making a V.",
+        "Look up and lift your lower eyelids into a firm squint.",
+        "Hold, then relax your eyes."
+      ]
+    },
+    "jawRelease": {
+      "name": "Jaw Release",
+      "cue": "Slow fingertip circles on your jaw muscle, teeth apart.",
+      "steps": [
+        "Let your teeth part and your jaw hang loose.",
+        "Find the muscle at the back of each cheek and press lightly with your fingertips.",
+        "Make slow circles, then rest your hands."
+      ]
+    },
+    "jawlineSweep": {
+      "name": "Jawline Sweep",
+      "cue": "Glide your knuckles from your chin along your jaw to your ears.",
+      "steps": [
+        "Make soft fists and place your knuckles under the middle of your chin.",
+        "Glide them slowly along your jawline to just below your ears.",
+        "Lift your hands away and start again from the chin."
+      ]
+    },
+    "frownRelease": {
+      "name": "Frown Release",
+      "cue": "Smooth from between your brows out to your temples.",
+      "steps": [
+        "Place your fingertips between your eyebrows.",
+        "Glide them slowly outward over your brows to your temples.",
+        "Lift your hands away and start again in the middle."
+      ]
+    },
+    "templeCircles": {
+      "name": "Temple Circles",
+      "cue": "Slow, gentle circles on your temples.",
+      "steps": [
+        "Place your fingertips on your temples, beside your eyes.",
+        "Make slow circles with light pressure while you breathe out slowly.",
+        "Rest your hands, then repeat."
+      ]
     }
   }
 }

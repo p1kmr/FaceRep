@@ -101,6 +101,14 @@ it into reps and holds with `services/plan/plan.ts` → `planItems()`.
   today, lock for Premium) with the weekday under it, never the plan day number, which only appears in text ("Day 9
   of 28") so it can't be mistaken for a date. The day preview says "Done on …" or "Planned for …".
 
+## Exercise catalog and programs
+27 exercises in 5 programs (jawline, cheekbones, lips, eyes, massage) plus the "full face" goal; the order of
+`EXERCISE_IDS` is the order a workout runs in (massage last). Everyone can use every program; `programsFor(guide)` only
+changes the display order (the woman's pictures list lips, cheekbones, eyes and massage first). Exercises done with the
+fingers have `handsOn` and show a clean-hands / recent-treatment note. Adding exercises: give them a new
+`CATALOG_VERSION` in the app and in `worker/src/lib/plan.js` (the test checks both), add pictures for every guide, and
+**deploy the Worker before releasing the app** (an older Worker rejects the new goals and doesn't know the new IDs).
+
 ## Exercise pictures (Man / Woman)
 Pictures live in `assets/guides/<man|woman>/` (hero photos + `exercises/<id>/relaxed|exercise|thumb.webp`), never by plan
 day. `scripts/guide-images.js` (`npm run images`) converts new files, cuts thumbnails and writes

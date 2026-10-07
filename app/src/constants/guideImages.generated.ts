@@ -74,10 +74,35 @@ export const GUIDE_IMAGES = {
         exercise: require('@/assets/guides/man/exercises/15-lion-face/exercise.webp'),
         thumb: require('@/assets/guides/man/exercises/15-lion-face/thumb.webp'),
       },
+      '18-lip-press': {
+        relaxed: require('@/assets/guides/man/exercises/18-lip-press/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/18-lip-press/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/18-lip-press/thumb.webp'),
+      },
+      '19-pout': {
+        relaxed: require('@/assets/guides/man/exercises/19-pout/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/19-pout/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/19-pout/thumb.webp'),
+      },
+      '20-lip-corner-lift': {
+        relaxed: require('@/assets/guides/man/exercises/20-lip-corner-lift/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/20-lip-corner-lift/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/20-lip-corner-lift/thumb.webp'),
+      },
+      '21-smile-line-press': {
+        relaxed: require('@/assets/guides/man/exercises/21-smile-line-press/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/21-smile-line-press/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/21-smile-line-press/thumb.webp'),
+      },
       '09-brow-lift': {
         relaxed: require('@/assets/guides/man/exercises/09-brow-lift/relaxed.webp'),
         exercise: require('@/assets/guides/man/exercises/09-brow-lift/exercise.webp'),
         thumb: require('@/assets/guides/man/exercises/09-brow-lift/thumb.webp'),
+      },
+      '22-forehead-press': {
+        relaxed: require('@/assets/guides/man/exercises/22-forehead-press/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/22-forehead-press/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/22-forehead-press/thumb.webp'),
       },
       '16-wide-eyes': {
         relaxed: require('@/assets/guides/man/exercises/16-wide-eyes/relaxed.webp'),
@@ -89,10 +114,35 @@ export const GUIDE_IMAGES = {
         exercise: require('@/assets/guides/man/exercises/17-lower-lid-lift/exercise.webp'),
         thumb: require('@/assets/guides/man/exercises/17-lower-lid-lift/thumb.webp'),
       },
+      '23-v-eyes': {
+        relaxed: require('@/assets/guides/man/exercises/23-v-eyes/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/23-v-eyes/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/23-v-eyes/thumb.webp'),
+      },
       '10-eye-squeeze': {
         relaxed: require('@/assets/guides/man/exercises/10-eye-squeeze/relaxed.webp'),
         exercise: require('@/assets/guides/man/exercises/10-eye-squeeze/exercise.webp'),
         thumb: require('@/assets/guides/man/exercises/10-eye-squeeze/thumb.webp'),
+      },
+      '24-jaw-release': {
+        relaxed: require('@/assets/guides/man/exercises/24-jaw-release/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/24-jaw-release/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/24-jaw-release/thumb.webp'),
+      },
+      '25-jawline-sweep': {
+        relaxed: require('@/assets/guides/man/exercises/25-jawline-sweep/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/25-jawline-sweep/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/25-jawline-sweep/thumb.webp'),
+      },
+      '26-frown-release': {
+        relaxed: require('@/assets/guides/man/exercises/26-frown-release/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/26-frown-release/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/26-frown-release/thumb.webp'),
+      },
+      '27-temple-circles': {
+        relaxed: require('@/assets/guides/man/exercises/27-temple-circles/relaxed.webp'),
+        exercise: require('@/assets/guides/man/exercises/27-temple-circles/exercise.webp'),
+        thumb: require('@/assets/guides/man/exercises/27-temple-circles/thumb.webp'),
       },
     },
   },
@@ -167,10 +217,35 @@ export const GUIDE_IMAGES = {
         exercise: require('@/assets/guides/woman/exercises/15-lion-face/exercise.webp'),
         thumb: require('@/assets/guides/woman/exercises/15-lion-face/thumb.webp'),
       },
+      '18-lip-press': {
+        relaxed: require('@/assets/guides/woman/exercises/18-lip-press/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/18-lip-press/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/18-lip-press/thumb.webp'),
+      },
+      '19-pout': {
+        relaxed: require('@/assets/guides/woman/exercises/19-pout/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/19-pout/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/19-pout/thumb.webp'),
+      },
+      '20-lip-corner-lift': {
+        relaxed: require('@/assets/guides/woman/exercises/20-lip-corner-lift/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/20-lip-corner-lift/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/20-lip-corner-lift/thumb.webp'),
+      },
+      '21-smile-line-press': {
+        relaxed: require('@/assets/guides/woman/exercises/21-smile-line-press/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/21-smile-line-press/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/21-smile-line-press/thumb.webp'),
+      },
       '09-brow-lift': {
         relaxed: require('@/assets/guides/woman/exercises/09-brow-lift/relaxed.webp'),
         exercise: require('@/assets/guides/woman/exercises/09-brow-lift/exercise.webp'),
         thumb: require('@/assets/guides/woman/exercises/09-brow-lift/thumb.webp'),
+      },
+      '22-forehead-press': {
+        relaxed: require('@/assets/guides/woman/exercises/22-forehead-press/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/22-forehead-press/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/22-forehead-press/thumb.webp'),
       },
       '16-wide-eyes': {
         relaxed: require('@/assets/guides/woman/exercises/16-wide-eyes/relaxed.webp'),
@@ -182,10 +257,35 @@ export const GUIDE_IMAGES = {
         exercise: require('@/assets/guides/woman/exercises/17-lower-lid-lift/exercise.webp'),
         thumb: require('@/assets/guides/woman/exercises/17-lower-lid-lift/thumb.webp'),
       },
+      '23-v-eyes': {
+        relaxed: require('@/assets/guides/woman/exercises/23-v-eyes/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/23-v-eyes/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/23-v-eyes/thumb.webp'),
+      },
       '10-eye-squeeze': {
         relaxed: require('@/assets/guides/woman/exercises/10-eye-squeeze/relaxed.webp'),
         exercise: require('@/assets/guides/woman/exercises/10-eye-squeeze/exercise.webp'),
         thumb: require('@/assets/guides/woman/exercises/10-eye-squeeze/thumb.webp'),
+      },
+      '24-jaw-release': {
+        relaxed: require('@/assets/guides/woman/exercises/24-jaw-release/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/24-jaw-release/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/24-jaw-release/thumb.webp'),
+      },
+      '25-jawline-sweep': {
+        relaxed: require('@/assets/guides/woman/exercises/25-jawline-sweep/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/25-jawline-sweep/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/25-jawline-sweep/thumb.webp'),
+      },
+      '26-frown-release': {
+        relaxed: require('@/assets/guides/woman/exercises/26-frown-release/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/26-frown-release/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/26-frown-release/thumb.webp'),
+      },
+      '27-temple-circles': {
+        relaxed: require('@/assets/guides/woman/exercises/27-temple-circles/relaxed.webp'),
+        exercise: require('@/assets/guides/woman/exercises/27-temple-circles/exercise.webp'),
+        thumb: require('@/assets/guides/woman/exercises/27-temple-circles/thumb.webp'),
       },
     },
   },

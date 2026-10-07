@@ -2,7 +2,9 @@
  * The exercise catalog. Names, cues and steps are translated in i18n/locales/<lang>/exercises.json
  * under `items.<key>`. Images are referenced only from constants/exerciseImages.ts (static require).
  */
-export type ProgramId = 'jawline' | 'cheekbones' | 'eyes';
+import type { GuideId } from './guides';
+
+export type ProgramId = 'jawline' | 'cheekbones' | 'lips' | 'eyes' | 'massage';
 
 /** What the user picked in onboarding: one program, or the full face. */
 export type Goal = ProgramId | 'full';
@@ -20,10 +22,13 @@ export type MuscleId =
   | 'lips'
   | 'frontalis'
   | 'orbicularisOculi'
-  | 'eyelids';
+  | 'eyelids'
+  | 'corrugator'
+  | 'temporalis';
 
 /**
- * Catalog order: grouped by program (jaw → cheeks → eyes), which is also the order a workout runs in.
+ * Catalog order: grouped by program (jaw → cheeks → lips → eyes → massage), which is also the order a
+ * workout runs in (massage last, as a cool-down).
  * The number in an ID is only its image file prefix and never changes (IDs are stored in SQLite).
  */
 export const EXERCISE_IDS = [
@@ -40,10 +45,20 @@ export const EXERCISE_IDS = [
   '08-cheek-puff',
   '14-o-stretch',
   '15-lion-face',
+  '18-lip-press',
+  '19-pout',
+  '20-lip-corner-lift',
+  '21-smile-line-press',
   '09-brow-lift',
+  '22-forehead-press',
   '16-wide-eyes',
   '17-lower-lid-lift',
+  '23-v-eyes',
   '10-eye-squeeze',
+  '24-jaw-release',
+  '25-jawline-sweep',
+  '26-frown-release',
+  '27-temple-circles',
 ] as const;
 
 export type ExerciseId = (typeof EXERCISE_IDS)[number];
@@ -52,7 +67,7 @@ export type ExerciseId = (typeof EXERCISE_IDS)[number];
  * Version of this catalog. Bump it when exercises are added (and in worker/src/lib/plan.js, whose
  * test checks both). POST /plan sends it, so the Worker never plans an exercise this app doesn't have.
  */
-export const CATALOG_VERSION = 1;
+export const CATALOG_VERSION = 2;
 
 export interface Exercise {
   id: ExerciseId;
@@ -67,6 +82,8 @@ export interface Exercise {
   relaxSec: number;
   /** Loads the jaw joint: show the jaw-pain caution. */
   jawCaution?: boolean;
+  /** Done with the fingers (massage or light resistance): show the clean-hands / recent-treatment caution. */
+  handsOn?: boolean;
 }
 
 export const EXERCISES: Record<ExerciseId, Exercise> = {
@@ -83,14 +100,33 @@ export const EXERCISES: Record<ExerciseId, Exercise> = {
   '13-smiling-fish': { id: '13-smiling-fish', program: 'cheekbones', key: 'smilingFish', muscles: ['buccinator', 'zygomaticus'], reps: 8, holdSec: 5, relaxSec: 3 },
   '14-o-stretch': { id: '14-o-stretch', program: 'cheekbones', key: 'oStretch', muscles: ['lips'], reps: 8, holdSec: 5, relaxSec: 3 },
   '15-lion-face': { id: '15-lion-face', program: 'cheekbones', key: 'lionFace', muscles: ['zygomaticus', 'platysma'], reps: 6, holdSec: 5, relaxSec: 4, jawCaution: true },
+  '18-lip-press': { id: '18-lip-press', program: 'lips', key: 'lipPress', muscles: ['lips'], reps: 10, holdSec: 5, relaxSec: 3 },
+  '19-pout': { id: '19-pout', program: 'lips', key: 'pout', muscles: ['lips', 'mentalis'], reps: 10, holdSec: 5, relaxSec: 3 },
+  '20-lip-corner-lift': { id: '20-lip-corner-lift', program: 'lips', key: 'lipCornerLift', muscles: ['zygomaticus', 'lips'], reps: 12, holdSec: 4, relaxSec: 3 },
+  '21-smile-line-press': { id: '21-smile-line-press', program: 'lips', key: 'smileLinePress', muscles: ['zygomaticus'], reps: 8, holdSec: 5, relaxSec: 3, handsOn: true },
   '09-brow-lift': { id: '09-brow-lift', program: 'eyes', key: 'browLift', muscles: ['frontalis'], reps: 10, holdSec: 3, relaxSec: 2 },
   '10-eye-squeeze': { id: '10-eye-squeeze', program: 'eyes', key: 'eyeSqueeze', muscles: ['orbicularisOculi'], reps: 10, holdSec: 3, relaxSec: 2 },
+  '22-forehead-press': { id: '22-forehead-press', program: 'eyes', key: 'foreheadPress', muscles: ['frontalis'], reps: 8, holdSec: 5, relaxSec: 3, handsOn: true },
+  '23-v-eyes': { id: '23-v-eyes', program: 'eyes', key: 'vEyes', muscles: ['orbicularisOculi'], reps: 8, holdSec: 5, relaxSec: 3, handsOn: true },
+  '24-jaw-release': { id: '24-jaw-release', program: 'massage', key: 'jawRelease', muscles: ['masseter'], reps: 6, holdSec: 8, relaxSec: 2, handsOn: true },
+  '25-jawline-sweep': { id: '25-jawline-sweep', program: 'massage', key: 'jawlineSweep', muscles: ['platysma'], reps: 8, holdSec: 4, relaxSec: 2, handsOn: true },
+  '26-frown-release': { id: '26-frown-release', program: 'massage', key: 'frownRelease', muscles: ['corrugator'], reps: 8, holdSec: 4, relaxSec: 2, handsOn: true },
+  '27-temple-circles': { id: '27-temple-circles', program: 'massage', key: 'templeCircles', muscles: ['temporalis'], reps: 6, holdSec: 8, relaxSec: 2, handsOn: true },
   '16-wide-eyes': { id: '16-wide-eyes', program: 'eyes', key: 'wideEyes', muscles: ['eyelids'], reps: 6, holdSec: 6, relaxSec: 3 },
   '17-lower-lid-lift': { id: '17-lower-lid-lift', program: 'eyes', key: 'lowerLidLift', muscles: ['orbicularisOculi'], reps: 8, holdSec: 4, relaxSec: 3 },
 };
 
-export const PROGRAMS: ProgramId[] = ['jawline', 'cheekbones', 'eyes'];
-export const GOALS: Goal[] = ['jawline', 'cheekbones', 'eyes', 'full'];
+export const PROGRAMS: ProgramId[] = ['jawline', 'cheekbones', 'lips', 'eyes', 'massage'];
+export const GOALS: Goal[] = [...PROGRAMS, 'full'];
+
+/**
+ * Display order of the programs (onboarding, Settings, Exercises tab). Every program is there for
+ * everyone; with the woman's pictures the areas women's face-yoga apps lead with come first. Only
+ * the order changes on the device; the plan never depends on the guide.
+ */
+export const programsFor = (guide: GuideId): ProgramId[] =>
+  guide === 'woman' ? ['lips', 'cheekbones', 'eyes', 'massage', 'jawline'] : PROGRAMS;
+export const goalsFor = (guide: GuideId): Goal[] => [...programsFor(guide), 'full'];
 
 export const exercisesOf = (program: ProgramId): Exercise[] =>
   EXERCISE_IDS.map((id) => EXERCISES[id]).filter((e) => e.program === program);

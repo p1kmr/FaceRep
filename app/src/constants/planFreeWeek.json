@@ -169,15 +169,100 @@
       "holdPlusSec": 0
     }
   ],
+  "lips": [
+    {
+      "day": 1,
+      "kind": "workout",
+      "ids": [
+        "18-lip-press",
+        "19-pout",
+        "20-lip-corner-lift",
+        "21-smile-line-press"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 2,
+      "kind": "workout",
+      "ids": [
+        "18-lip-press",
+        "19-pout",
+        "20-lip-corner-lift",
+        "21-smile-line-press"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 3,
+      "kind": "workout",
+      "ids": [
+        "18-lip-press",
+        "19-pout",
+        "20-lip-corner-lift",
+        "21-smile-line-press"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 4,
+      "kind": "workout",
+      "ids": [
+        "18-lip-press",
+        "19-pout",
+        "20-lip-corner-lift",
+        "21-smile-line-press"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 5,
+      "kind": "workout",
+      "ids": [
+        "18-lip-press",
+        "19-pout",
+        "20-lip-corner-lift",
+        "21-smile-line-press"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 6,
+      "kind": "workout",
+      "ids": [
+        "18-lip-press",
+        "19-pout",
+        "20-lip-corner-lift",
+        "21-smile-line-press"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 7,
+      "kind": "light",
+      "ids": [
+        "05-neck-stretch",
+        "11-chin-tuck",
+        "16-wide-eyes"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    }
+  ],
   "eyes": [
     {
       "day": 1,
       "kind": "workout",
       "ids": [
         "09-brow-lift",
+        "22-forehead-press",
         "16-wide-eyes",
-        "17-lower-lid-lift",
-        "10-eye-squeeze"
+        "17-lower-lid-lift"
       ],
       "repPct": 70,
       "holdPlusSec": 0
@@ -187,8 +272,8 @@
       "kind": "workout",
       "ids": [
         "09-brow-lift",
-        "16-wide-eyes",
-        "17-lower-lid-lift",
+        "22-forehead-press",
+        "23-v-eyes",
         "10-eye-squeeze"
       ],
       "repPct": 70,
@@ -198,9 +283,9 @@
       "day": 3,
       "kind": "workout",
       "ids": [
-        "09-brow-lift",
         "16-wide-eyes",
         "17-lower-lid-lift",
+        "23-v-eyes",
         "10-eye-squeeze"
       ],
       "repPct": 70,
@@ -211,9 +296,9 @@
       "kind": "workout",
       "ids": [
         "09-brow-lift",
+        "22-forehead-press",
         "16-wide-eyes",
-        "17-lower-lid-lift",
-        "10-eye-squeeze"
+        "17-lower-lid-lift"
       ],
       "repPct": 70,
       "holdPlusSec": 0
@@ -223,8 +308,8 @@
       "kind": "workout",
       "ids": [
         "09-brow-lift",
-        "16-wide-eyes",
-        "17-lower-lid-lift",
+        "22-forehead-press",
+        "23-v-eyes",
         "10-eye-squeeze"
       ],
       "repPct": 70,
@@ -234,10 +319,95 @@
       "day": 6,
       "kind": "workout",
       "ids": [
-        "09-brow-lift",
         "16-wide-eyes",
         "17-lower-lid-lift",
+        "23-v-eyes",
         "10-eye-squeeze"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 7,
+      "kind": "light",
+      "ids": [
+        "05-neck-stretch",
+        "11-chin-tuck",
+        "16-wide-eyes"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    }
+  ],
+  "massage": [
+    {
+      "day": 1,
+      "kind": "workout",
+      "ids": [
+        "24-jaw-release",
+        "25-jawline-sweep",
+        "26-frown-release",
+        "27-temple-circles"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 2,
+      "kind": "workout",
+      "ids": [
+        "24-jaw-release",
+        "25-jawline-sweep",
+        "26-frown-release",
+        "27-temple-circles"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 3,
+      "kind": "workout",
+      "ids": [
+        "24-jaw-release",
+        "25-jawline-sweep",
+        "26-frown-release",
+        "27-temple-circles"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 4,
+      "kind": "workout",
+      "ids": [
+        "24-jaw-release",
+        "25-jawline-sweep",
+        "26-frown-release",
+        "27-temple-circles"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 5,
+      "kind": "workout",
+      "ids": [
+        "24-jaw-release",
+        "25-jawline-sweep",
+        "26-frown-release",
+        "27-temple-circles"
+      ],
+      "repPct": 70,
+      "holdPlusSec": 0
+    },
+    {
+      "day": 6,
+      "kind": "workout",
+      "ids": [
+        "24-jaw-release",
+        "25-jawline-sweep",
+        "26-frown-release",
+        "27-temple-circles"
       ],
       "repPct": 70,
       "holdPlusSec": 0
@@ -285,8 +455,8 @@
       "ids": [
         "08-cheek-puff",
         "14-o-stretch",
-        "09-brow-lift",
-        "16-wide-eyes"
+        "18-lip-press",
+        "19-pout"
       ],
       "repPct": 70,
       "holdPlusSec": 0
@@ -295,10 +465,10 @@
       "day": 4,
       "kind": "workout",
       "ids": [
-        "02-chin-lift",
-        "04-mewing",
-        "17-lower-lid-lift",
-        "10-eye-squeeze"
+        "20-lip-corner-lift",
+        "21-smile-line-press",
+        "09-brow-lift",
+        "22-forehead-press"
       ],
       "repPct": 70,
       "holdPlusSec": 0
@@ -307,10 +477,10 @@
       "day": 5,
       "kind": "workout",
       "ids": [
-        "12-tongue-press",
-        "11-chin-tuck",
-        "05-neck-stretch",
-        "06-cheek-lift"
+        "16-wide-eyes",
+        "17-lower-lid-lift",
+        "23-v-eyes",
+        "10-eye-squeeze"
       ],
       "repPct": 70,
       "holdPlusSec": 0
@@ -319,10 +489,10 @@
       "day": 6,
       "kind": "workout",
       "ids": [
-        "07-fish-face",
-        "13-smiling-fish",
-        "08-cheek-puff",
-        "14-o-stretch"
+        "24-jaw-release",
+        "25-jawline-sweep",
+        "26-frown-release",
+        "27-temple-circles"
       ],
       "repPct": 70,
       "holdPlusSec": 0

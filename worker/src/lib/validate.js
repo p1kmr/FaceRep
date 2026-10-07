@@ -2,7 +2,7 @@ import { isReminderContext, REMINDER_LIMITS } from './reminders.js';
 
 // Strict input check: anything unexpected is rejected.
 export const CHAT_LIMITS = { questionChars: 500, turnChars: 1500, historyTurns: 10 };
-export const GOALS = ['jawline', 'cheekbones', 'eyes', 'full'];
+export const GOALS = ['jawline', 'cheekbones', 'lips', 'eyes', 'massage', 'full'];
 
 const isObj = (v) => !!v && typeof v === 'object' && !Array.isArray(v);
 const isInt = (v, min, max) => Number.isInteger(v) && v >= min && v <= max;

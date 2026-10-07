@@ -39,10 +39,12 @@ FaceRep is facial fitness for men and women: short, guided workouts for your jaw
 SEE THE MUSCLE YOU TRAIN
 Every exercise shows the working muscle lit up in red, moving from relaxed to squeeze in time with the timer. Choose whether the pictures show a man or a woman.
 
-THREE PROGRAMS
+FIVE PROGRAMS, 27 EXERCISES
 • Jawline: jaw clench, chin lift, jaw jut, mewing, tongue press, chin tuck and neck stretch
 • Cheekbones: cheek lift, fish face, smiling fish, cheek puff, O stretch and lion face
-• Eyes: brow lift, wide eyes, lower lid lift and eye squeeze
+• Lips: lip press, pout, lip corner lift and smile-line press
+• Eyes: brow lift, forehead press, wide eyes, lower lid lift, V eyes and eye squeeze
+• Face massage: jaw release, jawline sweep, frown release and temple circles
 
 A 28-DAY PLAN
 • 4 weeks that get harder: more exercises, more reps, longer holds

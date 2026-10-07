@@ -19,7 +19,7 @@ export const MAX_LEVEL = 3;
  * (CATALOG_VERSION in app/src/constants/exercises.ts) and give the new entries the new version. The
  * app sends its version with POST /plan, so an older app is never planned an exercise it doesn't have.
  */
-export const CATALOG_VERSION = 1;
+export const CATALOG_VERSION = 2;
 
 /**
  * [id, program, loadsJaw, since] in the app's catalog order (app/src/constants/exercises.ts
@@ -40,10 +40,20 @@ export const CATALOG = [
   ['08-cheek-puff', 'cheekbones', false, 1],
   ['14-o-stretch', 'cheekbones', false, 1],
   ['15-lion-face', 'cheekbones', true, 1],
+  ['18-lip-press', 'lips', false, 2],
+  ['19-pout', 'lips', false, 2],
+  ['20-lip-corner-lift', 'lips', false, 2],
+  ['21-smile-line-press', 'lips', false, 2],
   ['09-brow-lift', 'eyes', false, 1],
+  ['22-forehead-press', 'eyes', false, 2],
   ['16-wide-eyes', 'eyes', false, 1],
   ['17-lower-lid-lift', 'eyes', false, 1],
+  ['23-v-eyes', 'eyes', false, 2],
   ['10-eye-squeeze', 'eyes', false, 1],
+  ['24-jaw-release', 'massage', false, 2],
+  ['25-jawline-sweep', 'massage', false, 2],
+  ['26-frown-release', 'massage', false, 2],
+  ['27-temple-circles', 'massage', false, 2],
 ].map(([id, program, loadsJaw, since]) => ({ id, program, loadsJaw, since }));
 
 /**

@@ -8,7 +8,8 @@ import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
 import { Screen } from '@/components/ui/Screen';
-import { exercisesOf, PROGRAMS, type ProgramId } from '@/constants/exercises';
+import { exercisesOf, programsFor, type ProgramId } from '@/constants/exercises';
+import { useGuide } from '@/hooks/useGuide';
 import { useProgressState } from '@/hooks/useProgress';
 import { useSettings } from '@/hooks/useSettings';
 import { useToday } from '@/hooks/useToday';
@@ -19,7 +20,8 @@ export default function ExercisesScreen() {
   const { t } = useTranslation(['exercises', 'common']);
   const styles = useStyles();
   const { goal } = useSettings();
-  const [program, setProgram] = useState<ProgramId>(goal === 'full' ? 'jawline' : goal);
+  const programs = programsFor(useGuide());
+  const [program, setProgram] = useState<ProgramId>(goal === 'full' ? programs[0] : goal);
   const { sessions } = useProgressState();
   const today = useToday();
   const doneToday = new Set(sessions.filter((s) => s.day === today).flatMap((s) => s.exerciseIds));
@@ -31,7 +33,7 @@ export default function ExercisesScreen() {
         {t('exercises:title')}
       </AppText>
       <View style={styles.chips}>
-        {PROGRAMS.map((p) => (
+        {programs.map((p) => (
           <Chip key={p} label={t(`common:programs.${p}`)} selected={p === program} onPress={() => setProgram(p)} />
         ))}
       </View>

@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 
 import { GuidePicker } from '@/components/onboarding/GuidePicker';
 import { OnboardingStep } from '@/components/onboarding/OnboardingStep';
+import { goalsFor } from '@/constants/exercises';
 import type { GuideId } from '@/constants/guides';
 import { useSettingsDispatch } from '@/hooks/useSettings';
-import { setGuide } from '@/state/settings/actions';
+import { setGoal, setGuide } from '@/state/settings/actions';
 
 /** Who the exercise pictures show. Only in the flow when the build has more than one guide. */
 export default function GuideScreen() {
@@ -26,6 +27,8 @@ export default function GuideScreen() {
         onChange={(g) => {
           setPicked(g);
           dispatch(setGuide(g));
+          // The next step lists the focus areas in this guide's order: preselect the first one.
+          dispatch(setGoal(goalsFor(g)[0]));
         }}
       />
     </OnboardingStep>

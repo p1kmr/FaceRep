@@ -77,7 +77,7 @@ test('plan: week 1 of Level 1 leaves out the exercises that load the jaw; later 
 });
 
 test('plan: a program goal mostly trains that program and every one of its exercises comes up each week', () => {
-  for (const goal of ['jawline', 'cheekbones', 'eyes']) {
+  for (const goal of ['jawline', 'cheekbones', 'lips', 'eyes', 'massage']) {
     const own = CATALOG.filter((e) => e.program === goal).map((e) => e.id);
     const plan = buildPlan(goal, 1);
     for (let w = 1; w < 4; w++) {

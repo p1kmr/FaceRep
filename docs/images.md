@@ -95,6 +95,25 @@ near the horizontal center of the panel"). When the head moves on purpose (chin 
 | 15 Lion Face | front | cheeks and front of the neck | mouth wide, tongue out and down, eyes wide |
 | 16 Wide Eyes | front | upper eyelid arc | eyes wide WITHOUT raising the eyebrows |
 | 17 Lower Lid Lift | front | lower eyelid arc | looks slightly up, lower lids lifted like squinting into the sun |
+| 18 Lip Press | front | ring muscle around the lips | lips pressed and rolled slightly in |
+| 19 Pout | front | lips and chin muscle | long pout like blowing a kiss, cheeks NOT sucked in |
+| 20 Lip Corner Lift | front | small muscles at the mouth corners | lips closed, only the corners lift into a small smile |
+| 21 Smile-Line Press | front + hands | cheeks beside the fingertips | index fingertips on the smile lines; wide closed-lip smile |
+| 22 Forehead Press | front + hands | frontalis between the fingers | fingers flat across the forehead; tries to raise the brows |
+| 23 V Eyes | front + hands | ring muscle around each eye | middle and index fingertips make a V around each eye; looks up and squints |
+| 24 Jaw Release | front + hands | masseter under the fingertips | teeth apart, eyes half-closed, faint circular motion lines |
+| 25 Jawline Sweep | front + hands | jawline | left: knuckles under the chin; right: knuckles below the ears, trail line along the jaw |
+| 26 Frown Release | front + hands | between the brows | left: fingertips together between the brows; right: at the temples, trail line over the brows (say "the hands never cover the eyes") |
+| 27 Temple Circles | front + hands | temples | eyes closed, faint circular motion lines |
+
+For exercises with hands add: "Hands: … Natural, well-formed fingers, five per hand, drawn in the same pencil style."
+
+**The man's new exercises (18–27)** use the same table with this description instead of the woman's (it matches
+his first 17): "detailed graphite pencil anatomical illustration on pure white, like a premium anatomy atlas … fine
+muscle-fiber striations lightly visible on the face, the muscular neck, the shoulders and the upper chest … The man:
+athletic, symmetrical face; short thick dark-brown hair, textured and swept up and back at the front; strong straight
+eyebrows; light eyes; straight nose; high cheekbones; strong square jaw; clean-shaven; muscular neck. No clothing;
+head, neck, shoulders and the top of the chest, cropped across the upper chest."
 
 **Heroes** (photorealistic, same features, plain black crew-neck t-shirt, near-black low-key studio background):
 home 1536×1024, three-quarter view facing left, in the right third with the left two thirds empty for text (then cut to

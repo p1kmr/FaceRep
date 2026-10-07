@@ -7,12 +7,13 @@ import { Alert, View } from 'react-native';
 import { ToggleRow } from '@/components/settings/ToggleRow';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
+import { Chip } from '@/components/ui/Chip';
 import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Segmented } from '@/components/ui/Segmented';
 import { AVAILABLE_GUIDES } from '@/constants/exerciseImages';
-import { GOALS } from '@/constants/exercises';
+import { goalsFor } from '@/constants/exercises';
 import { LINKS } from '@/constants/links';
 import type { ThemeMode } from '@/constants/theme';
 import { useGuide } from '@/hooks/useGuide';
@@ -88,11 +89,12 @@ export default function SettingsScreen() {
           <AppText variant="footnote" muted>
             {t('settings:goal')}
           </AppText>
-          <Segmented
-            options={GOALS.map((g) => ({ id: g, label: t(`common:programs.${g}`) }))}
-            value={settings.goal}
-            onChange={(g) => dispatch(setGoal(g))}
-          />
+          {/* Six focus areas don't fit a segmented control: wrapping chips instead. */}
+          <View style={styles.chips} accessibilityRole="radiogroup">
+            {goalsFor(guide).map((g) => (
+              <Chip key={g} label={t(`common:programs.${g}`)} selected={settings.goal === g} onPress={() => dispatch(setGoal(g))} />
+            ))}
+          </View>
         </View>
         {AVAILABLE_GUIDES.length > 1 ? (
           <View style={styles.block}>
@@ -175,4 +177,5 @@ export default function SettingsScreen() {
 
 const useStyles = makeStyles(({ tokens }) => ({
   block: { padding: tokens.space.lg, gap: tokens.space.sm },
+  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.space.sm },
 }));
