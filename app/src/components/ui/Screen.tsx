@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView, type Edge } from 'react-native-safe-area-context';
 
+import { ASK_BUTTON_ROOM } from '@/constants/limits';
 import { makeStyles } from '@/theme/makeStyles';
 
 interface ScreenProps {
@@ -36,7 +37,8 @@ export function Screen({ children, scroll = true, centered = false, footer, edge
 const useStyles = makeStyles(({ colors, tokens }) => ({
   root: { flex: 1, backgroundColor: colors.background },
   content: { flexGrow: 1, padding: tokens.space.lg, gap: tokens.space.lg },
-  scrollEnd: { paddingBottom: tokens.space.xxl * 2 },
+  // Room for the floating Coach button so it never covers the last row.
+  scrollEnd: { paddingBottom: ASK_BUTTON_ROOM },
   centered: { alignItems: 'center', justifyContent: 'center' },
   footer: { paddingHorizontal: tokens.space.lg, paddingTop: tokens.space.sm, paddingBottom: tokens.space.md, gap: tokens.space.xs },
 }));

@@ -18,3 +18,15 @@ export const CHAT_LIMITS = {
 
 /** Ask for an App Store rating after this many finished workouts (never more than once per 120 days). */
 export const REVIEW_PROMPT = { afterWorkouts: 3, minDaysBetween: 120 } as const;
+
+/** Space kept free under every scrolling screen so the floating Coach button never covers the last row. */
+export const ASK_BUTTON_ROOM = 88;
+
+/** The first-time speech bubble next to the floating Coach button. */
+export const ASK_HINT = {
+  /** Shown on this many app opens at most, then never again. */
+  maxShows: 3,
+  delayMs: 1200,
+  /** Hides by itself after this long. */
+  visibleMs: 9000,
+} as const;

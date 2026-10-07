@@ -18,10 +18,6 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Label>{t('tabs.exercises')}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf={{ default: 'square.grid.2x2', selected: 'square.grid.2x2.fill' }} />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="coach">
-        <NativeTabs.Trigger.Label>{t('tabs.coach')}</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="sparkles" />
-      </NativeTabs.Trigger>
       <NativeTabs.Trigger name="progress">
         <NativeTabs.Trigger.Label>{t('tabs.progress')}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="chart.bar.fill" />

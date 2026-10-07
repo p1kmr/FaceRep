@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
+import { AskBubble } from '@/components/coach/AskBubble';
 import { useHydration } from '@/hooks/useHydration';
 import { useNavigationTheme } from '@/hooks/useNavigationTheme';
 import { useReminderSync } from '@/hooks/useReminderSync';
@@ -49,9 +50,12 @@ function RootNavigator() {
           <Stack.Screen name="paywall" options={{ presentation: 'modal', headerShown: false }} />
           <Stack.Screen name="plan-day" options={{ presentation: 'modal', title: '' }} />
           <Stack.Screen name="ai-consent" options={{ presentation: 'modal', title: '' }} />
+          <Stack.Screen name="coach" options={{ presentation: 'modal', headerShown: false }} />
           <Stack.Screen name="safety" options={{ presentation: 'modal', title: t('settings:safety') }} />
         </Stack.Protected>
       </Stack>
+      {/* The floating Coach button, over every main screen (like Elowa's Ask button). */}
+      {onboardingDone ? <AskBubble /> : null}
     </NavigationThemeProvider>
   );
 }

@@ -13,6 +13,20 @@
   "aiNote": "AI answers can be wrong. Not medical advice. Long-press an answer to report it.",
   "reportHint": "Long-press to report this answer",
   "reportSubject": "Report an AI Coach answer",
+  "bubble": {
+    "open": "Ask the Coach",
+    "openHint": "Opens the AI Coach. Drag to move the button."
+  },
+  "hint": {
+    "title": "Ask the Coach",
+    "body": "Technique, mewing, posture or skincare: ask me anything about your face workout.",
+    "technique": "Check my technique",
+    "mewing": "Mewing help",
+    "ask": "Ask a question",
+    "techniquePrompt": "How do I know I'm doing the exercises right?",
+    "mewingPrompt": "Am I doing mewing correctly?",
+    "close": "Close tip"
+  },
   "suggestions": {
     "jawline": "How long until I see jawline results?",
     "mewing": "Am I doing mewing correctly?",

@@ -9,11 +9,11 @@ import { haptics } from '@/services/haptics';
 import { makeStyles } from '@/theme/makeStyles';
 
 /** Text field + send. `onSend` returns false when the message didn't go out (keeps the draft). */
-export function Composer({ onSend, disabled }: { onSend: (text: string) => boolean; disabled: boolean }) {
+export function Composer({ onSend, disabled, initialText = '' }: { onSend: (text: string) => boolean; disabled: boolean; initialText?: string }) {
   const { t } = useTranslation('coach');
   const { colors } = useTheme();
   const styles = useStyles();
-  const [text, setText] = useState('');
+  const [text, setText] = useState(initialText.slice(0, CHAT_LIMITS.questionChars));
   const canSend = !disabled && text.trim().length > 0;
 
   const send = () => {

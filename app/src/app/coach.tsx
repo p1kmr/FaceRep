@@ -1,4 +1,4 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, KeyboardAvoidingView, Linking, Platform, Pressable, ScrollView, View } from 'react-native';
@@ -9,6 +9,7 @@ import { MessageBubble } from '@/components/coach/MessageBubble';
 import { TypingDots } from '@/components/coach/TypingDots';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
+import { IconButton } from '@/components/ui/IconButton';
 import { Chip } from '@/components/ui/Chip';
 import { COACH_SUGGESTIONS } from '@/constants/coach';
 import { LINKS } from '@/constants/links';
@@ -17,9 +18,14 @@ import { useFreeAiLabel } from '@/hooks/useFreeAiLabel';
 import { usePremium } from '@/hooks/usePremium';
 import { makeStyles } from '@/theme/makeStyles';
 
-/** The AI Coach (Premium; a few free answers a month). Long-press an answer to report it. */
+/**
+ * The AI Coach (Premium; a few free answers a month), opened from the floating button on every main
+ * screen or the Today card. Long-press an answer to report it.
+ */
 export default function CoachScreen() {
   const { t } = useTranslation('coach');
+  // `q` starts a question (e.g. from the floating button's hint); the user still sends it.
+  const { q } = useLocalSearchParams<{ q?: string }>();
   const styles = useStyles();
   const chat = useChat();
   const { isPremium } = usePremium();
@@ -40,18 +46,22 @@ export default function CoachScreen() {
     ).catch(() => {});
 
   return (
-    <SafeAreaView style={styles.root} edges={['top']}>
+    // A sheet like Elowa's chat: no top inset, keep the composer above the home indicator.
+    <SafeAreaView style={styles.root} edges={['bottom']}>
       <View style={styles.header}>
         <AppText variant="title" accessibilityRole="header">
           {t('title')}
         </AppText>
-        {chat.messages.length ? (
-          <Pressable onPress={confirmClear} accessibilityRole="button" hitSlop={8}>
-            <AppText style={styles.link}>{t('clear')}</AppText>
-          </Pressable>
-        ) : null}
+        <View style={styles.actions}>
+          {chat.messages.length ? (
+            <Pressable onPress={confirmClear} accessibilityRole="button" hitSlop={8}>
+              <AppText style={styles.link}>{t('clear')}</AppText>
+            </Pressable>
+          ) : null}
+          <IconButton icon="xmark" onPress={() => router.back()} accessibilityLabel={t('common:close')} />
+        </View>
       </View>
-      <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={90}>
+      <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={64}>
         <ScrollView
           ref={scroll}
           style={styles.flex}
@@ -99,7 +109,7 @@ export default function CoachScreen() {
               </AppText>
             </Pressable>
           ) : null}
-          <Composer onSend={chat.send} disabled={chat.thinking} />
+          <Composer onSend={chat.send} disabled={chat.thinking} initialText={typeof q === 'string' ? q : ''} />
           <AppText variant="caption" muted center>
             {t('aiNote')}
           </AppText>
@@ -120,6 +130,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     paddingTop: tokens.space.lg,
     paddingBottom: tokens.space.sm,
   },
+  actions: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.lg },
   content: { padding: tokens.space.lg, gap: tokens.space.md },
   empty: { gap: tokens.space.lg },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.space.sm },

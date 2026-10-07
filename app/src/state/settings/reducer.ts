@@ -4,6 +4,7 @@ import { DEFAULT_THEME_ID } from '@/constants/theme';
 
 import {
   AI_CONSENT_SET,
+  ASK_BUTTON_SET,
   GOAL_SET,
   HAPTICS_SET,
   ONBOARDING_COMPLETE,
@@ -14,7 +15,7 @@ import {
   THEME_MODE_SET,
   type SettingsAction,
 } from './actions';
-import type { Settings, SettingsState } from './types';
+import type { AskButtonSettings, Settings, SettingsState } from './types';
 
 export const DEFAULT_SETTINGS: Settings = {
   themeMode: 'system',
@@ -26,12 +27,24 @@ export const DEFAULT_SETTINGS: Settings = {
   haptics: true,
   aiConsent: null,
   lastReviewPromptOn: null,
+  askButton: { visible: true, side: 'right', y: 1, hintShows: 0 },
 };
 
 export const initialSettingsState: SettingsState = { hydrated: false, settings: DEFAULT_SETTINGS };
 
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
 const THEME_MODES = ['system', 'light', 'dark'];
+
+/** Valid values only: side left/right, y within 0–1, a whole number of hint shows. */
+function sanitizeAskButton(saved: Partial<AskButtonSettings> | undefined, base: AskButtonSettings): AskButtonSettings {
+  const a = saved ?? {};
+  return {
+    visible: typeof a.visible === 'boolean' ? a.visible : base.visible,
+    side: a.side === 'left' || a.side === 'right' ? a.side : base.side,
+    y: typeof a.y === 'number' && Number.isFinite(a.y) ? Math.min(1, Math.max(0, a.y)) : base.y,
+    hintShows: Number.isInteger(a.hintShows) && (a.hintShows as number) >= 0 ? (a.hintShows as number) : base.hintShows,
+  };
+}
 
 /** Keeps only valid saved values (a saved file can be old or edited), the rest from defaults. */
 export function sanitizeSettings(saved: Partial<Settings> | null): Settings {
@@ -51,6 +64,7 @@ export function sanitizeSettings(saved: Partial<Settings> | null): Settings {
     haptics: s.haptics !== false,
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
     lastReviewPromptOn: typeof s.lastReviewPromptOn === 'string' ? s.lastReviewPromptOn : null,
+    askButton: sanitizeAskButton(s.askButton, d.askButton),
   };
 }
 
@@ -80,6 +94,8 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { aiConsent: action.payload });
     case REVIEW_PROMPTED:
       return update(state, { lastReviewPromptOn: action.payload });
+    case ASK_BUTTON_SET:
+      return update(state, { askButton: sanitizeAskButton({ ...s.askButton, ...action.payload }, s.askButton) });
     case SETTINGS_RESET:
       return { hydrated: state.hydrated, settings: DEFAULT_SETTINGS };
     default:

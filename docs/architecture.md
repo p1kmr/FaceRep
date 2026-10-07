@@ -8,7 +8,8 @@ app/src/
 ├── app/            Routes (Expo Router). Thin: read hooks, render components. No business logic.
 │   ├── _layout.tsx          providers, splash, Stack with onboarding guard
 │   ├── onboarding/          welcome → goal → safety → reminder
-│   ├── (tabs)/              Today · Exercises · Coach · Progress · Settings (native iOS tab bar)
+│   ├── (tabs)/              Today · Exercises · Progress · Settings (native iOS tab bar)
+│   ├── coach.tsx            the AI Coach, a sheet opened by the floating button (or the Today card); ?q= starts a question
 │   ├── exercise/[id].tsx    exercise detail
 │   ├── workout.tsx          the guided player (full-screen modal): a plan day or single exercises
 │   ├── plan-day.tsx         one day of the 28-day plan, opened from the grid (start it or practice it)
@@ -109,4 +110,11 @@ paging (never into the future, never before the first workout). `hooks/useProgre
 Year: 12 small months like Elowa's Year view, a red dot on every training day and the number of training days per month;
 tap a month to open it. No calendar library (Elowa uses react-native-calendars for its scrolling month list; FaceRep's
 calendar sits inside the scrolling Progress page, so it pages with ‹ › instead).
+
+## Floating Coach button (same as Elowa's Ask button)
+`components/coach/AskBubble.tsx`, rendered once in the root layout over every main screen (hidden on the Coach itself,
+the workout player and the modals). Tap opens the Coach sheet; drag moves it, it snaps to the nearest side and the spot is
+remembered (`settings.askButton`: visible, side, y as a 0–1 fraction so it fits any screen). On the first 3 app opens it
+wiggles and shows `AskHint` with shortcuts that open the Coach with a question ready. Settings → Coach button hides it.
+`Screen` keeps `ASK_BUTTON_ROOM` free at the bottom so it never covers the last row. There is no Coach tab: one way in, as in Elowa.
 

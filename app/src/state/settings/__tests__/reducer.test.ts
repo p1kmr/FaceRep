@@ -1,4 +1,4 @@
-import { completeOnboarding, hydrateSettings, resetSettings, setGoal, setReminder } from '../actions';
+import { completeOnboarding, hydrateSettings, resetSettings, setAskButton, setGoal, setReminder } from '../actions';
 import { DEFAULT_SETTINGS, initialSettingsState, settingsReducer } from '../reducer';
 
 describe('settingsReducer', () => {
@@ -33,5 +33,19 @@ describe('settingsReducer', () => {
     let s = settingsReducer(initialSettingsState, hydrateSettings(null));
     s = settingsReducer(settingsReducer(s, setGoal('eyes')), resetSettings());
     expect(s).toEqual({ hydrated: true, settings: DEFAULT_SETTINGS });
+  });
+
+  it('remembers where the floating Coach button was dragged, within limits', () => {
+    let s = settingsReducer(initialSettingsState, setAskButton({ side: 'left', y: 0.4 }));
+    s = settingsReducer(s, setAskButton({ hintShows: 2 }));
+    expect(s.settings.askButton).toEqual({ visible: true, side: 'left', y: 0.4, hintShows: 2 });
+    s = settingsReducer(s, setAskButton({ y: 7, side: 'up' as never, hintShows: -1 }));
+    expect(s.settings.askButton).toEqual({ visible: true, side: 'left', y: 1, hintShows: 2 });
+    expect(settingsReducer(s, setAskButton({ visible: false })).settings.askButton.visible).toBe(false);
+  });
+
+  it('hydrates an old save without the button with the defaults', () => {
+    const s = settingsReducer(initialSettingsState, hydrateSettings({ goal: 'eyes', askButton: { side: 'left', y: 'x' } as never }));
+    expect(s.settings.askButton).toEqual({ ...DEFAULT_SETTINGS.askButton, side: 'left' });
   });
 });

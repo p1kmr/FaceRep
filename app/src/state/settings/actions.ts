@@ -2,7 +2,7 @@ import type { Goal } from '@/constants/exercises';
 import type { ThemeMode } from '@/constants/theme';
 import type { ISODate } from '@/utils/dates';
 
-import type { ReminderSettings, Settings } from './types';
+import type { AskButtonSettings, ReminderSettings, Settings } from './types';
 
 export const SETTINGS_HYDRATE = 'settings/hydrate';
 export const THEME_MODE_SET = 'settings/themeModeSet';
@@ -12,6 +12,7 @@ export const REMINDER_SET = 'settings/reminderSet';
 export const HAPTICS_SET = 'settings/hapticsSet';
 export const AI_CONSENT_SET = 'settings/aiConsentSet';
 export const REVIEW_PROMPTED = 'settings/reviewPrompted';
+export const ASK_BUTTON_SET = 'settings/askButtonSet';
 export const SETTINGS_RESET = 'settings/reset';
 
 export type SettingsAction =
@@ -23,6 +24,7 @@ export type SettingsAction =
   | { type: typeof HAPTICS_SET; payload: boolean }
   | { type: typeof AI_CONSENT_SET; payload: boolean }
   | { type: typeof REVIEW_PROMPTED; payload: ISODate }
+  | { type: typeof ASK_BUTTON_SET; payload: Partial<AskButtonSettings> }
   | { type: typeof SETTINGS_RESET };
 
 export const hydrateSettings = (saved: Partial<Settings> | null): SettingsAction => ({ type: SETTINGS_HYDRATE, payload: saved });
@@ -33,5 +35,7 @@ export const setReminder = (patch: Partial<ReminderSettings>): SettingsAction =>
 export const setHaptics = (on: boolean): SettingsAction => ({ type: HAPTICS_SET, payload: on });
 export const setAiConsent = (consent: boolean): SettingsAction => ({ type: AI_CONSENT_SET, payload: consent });
 export const reviewPrompted = (today: ISODate): SettingsAction => ({ type: REVIEW_PROMPTED, payload: today });
+/** Show/hide, move (side + height) or count a hint of the floating Coach button. */
+export const setAskButton = (patch: Partial<AskButtonSettings>): SettingsAction => ({ type: ASK_BUTTON_SET, payload: patch });
 /** Back to a fresh install (used by "Delete all data"). */
 export const resetSettings = (): SettingsAction => ({ type: SETTINGS_RESET });

@@ -217,7 +217,7 @@ function support(env) {
 also moves Premium to a new iPhone.</p>
 <p><strong>Cancel a subscription.</strong> iPhone Settings → your name → Subscriptions → ${c.app}.</p>
 <p><strong>The reminder doesn't show.</strong> Check iPhone Settings → Notifications → ${c.app}, and that the reminder is on in ${c.app} → Settings.</p>
-<p><strong>Report an AI answer.</strong> Long-press the answer in the Coach tab, or email ${c.mail}.</p>
+<p><strong>Report an AI answer.</strong> Long-press the answer in the Coach, or email ${c.mail}.</p>
 <p><strong>Delete everything.</strong> Settings → Delete all data, or delete the app.</p>
 
 <p class="muted">${c.app} is a fitness and wellness app, not medical advice.

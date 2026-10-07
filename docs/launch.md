@@ -81,7 +81,7 @@ Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Ch
 
 ## 4. Screenshots and preview
 - Required size now: iPhone 6.3" Dynamic Island (1206×2622 or 1179×2556); up to 10 screenshots, first 3 matter most.
-- Plan: (1) 3D figure, masseter glowing: "See the muscle you train" · (2) Jawline / Cheekbones / Eyes programs · (3) Hold-relax timer + streak · (4) AI Coach (labelled Premium) · (5) Progress · (6) "No login, no ads". One dark-mode shot. Captions 3–6 words.
+- Plan: (1) 3D figure, masseter glowing: "See the muscle you train" · (2) the 28-day plan · (3) Hold-relax timer + streak · (4) AI Coach from the floating button (labelled Premium) · (5) Progress calendar · (6) "No login, no ads". One dark-mode shot. Captions 3–6 words.
 - App Preview: 15–30 s, in-app footage only, muted autoplay. Open with the relaxed→squeeze glow in the first 2 seconds. No before/after faces.
 
 ## 5. What competitors get wrong (and FaceRep already does differently)

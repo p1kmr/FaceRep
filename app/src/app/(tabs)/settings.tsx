@@ -27,7 +27,7 @@ import { hasPurchasesKey, restorePurchases } from '@/services/purchases/purchase
 import { resetPlan } from '@/state/plan/actions';
 import { setPremium } from '@/state/premium/actions';
 import { resetProgress } from '@/state/progress/actions';
-import { resetSettings, setAiConsent, setGoal, setHaptics, setReminder, setThemeMode } from '@/state/settings/actions';
+import { resetSettings, setAiConsent, setAskButton, setGoal, setHaptics, setReminder, setThemeMode } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 const THEME_MODES: ThemeMode[] = ['system', 'light', 'dark'];
@@ -143,6 +143,13 @@ export default function SettingsScreen() {
           subtitle={t('settings:aiConsentHint')}
           value={settings.aiConsent === true}
           onValueChange={(on) => dispatch(setAiConsent(on))}
+          divider
+        />
+        <ToggleRow
+          title={t('settings:askButton')}
+          subtitle={t('settings:askButtonHint')}
+          value={settings.askButton.visible}
+          onValueChange={(on) => dispatch(setAskButton({ visible: on }))}
           divider
         />
         <ListRow title={t('settings:safety')} onPress={() => router.push('/safety')} chevron divider />

@@ -37,7 +37,7 @@ export default function TodayScreen() {
       <Card style={styles.grid}>
         <PlanGrid grid={plan.grid} onPressDay={openDay} />
       </Card>
-      <CoachCard onPress={() => router.navigate('/coach')} />
+      <CoachCard onPress={() => router.push('/coach')} />
     </Screen>
   );
 }

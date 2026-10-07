@@ -26,6 +26,8 @@
   },
   "aiConsent": "Allow AI Coach",
   "aiConsentHint": "Sends your Coach questions to the AI. Off = the Coach is unavailable.",
+  "askButton": "Coach button",
+  "askButtonHint": "The floating button on every screen. Drag it to move it.",
   "safety": "Exercise safety",
   "privacyPolicy": "Privacy Policy",
   "terms": "Terms of Use",
