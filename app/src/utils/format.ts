@@ -40,3 +40,16 @@ export function monthShort(iso: ISODate, locale: string): string {
 export function formatDay(iso: ISODate, locale: string): string {
   return fromISODate(iso).toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'short' });
 }
+
+/** "7:00 PM" or "19:00" (follows the language and the iPhone's 12/24-hour setting) for 'HH:mm'. */
+export function formatTime(time: string, locale: string): string {
+  const [h, m] = time.split(':').map(Number);
+  return new Date(2000, 0, 1, h, m).toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit' });
+}
+
+/** "Mon" for weekday 1 (0 = Sunday … 6 = Saturday), in the app language. */
+export function weekdayShortOf(day: number, locale: string): string {
+  // 2026-01-04 was a Sunday.
+  return new Date(2026, 0, 4 + day).toLocaleDateString(locale, { weekday: 'short' });
+}
+

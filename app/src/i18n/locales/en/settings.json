@@ -8,9 +8,9 @@
     "about": "About"
   },
   "goal": "Focus",
-  "reminder": "Daily reminder",
-  "reminderTime": "Reminder time",
-  "reminderDenied": "Notifications are off for {{app}}. Turn them on in the iPhone Settings app.",
+  "reminders": "Reminders",
+  "remindersOn_one": "{{count}} on",
+  "remindersOn_other": "{{count}} on",
   "haptics": "Haptics",
   "theme": {
     "title": "Theme",

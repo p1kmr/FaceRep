@@ -26,7 +26,7 @@ function RootNavigator() {
   const { onboardingDone } = useSettings();
   const { isDark } = useTheme();
   const navigationTheme = useNavigationTheme();
-  const { t } = useTranslation(['settings', 'exercises']);
+  const { t } = useTranslation(['settings', 'exercises', 'reminders']);
   useReminderSync();
 
   // Keep the splash until every store is loaded: no flash of the wrong theme or screen.
@@ -51,6 +51,8 @@ function RootNavigator() {
           <Stack.Screen name="plan-day" options={{ presentation: 'modal', title: '' }} />
           <Stack.Screen name="ai-consent" options={{ presentation: 'modal', title: '' }} />
           <Stack.Screen name="coach" options={{ presentation: 'modal', headerShown: false }} />
+          <Stack.Screen name="reminders" options={{ title: t('reminders:title') }} />
+          <Stack.Screen name="reminder" options={{ presentation: 'modal', title: '' }} />
           <Stack.Screen name="safety" options={{ presentation: 'modal', title: t('settings:safety') }} />
         </Stack.Protected>
       </Stack>

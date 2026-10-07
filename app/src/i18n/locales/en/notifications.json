@@ -1,6 +1,20 @@
 {
-  "daily": {
-    "title": "Time for your face workout",
-    "body": "5 minutes keeps your streak alive."
+  "kinds": {
+    "workout": {
+      "title": "Time for your face workout",
+      "body": "5 minutes keeps your streak alive."
+    },
+    "mewing": {
+      "title": "Mewing check",
+      "body": "Whole tongue on the roof of your mouth, lips closed, breathe through your nose."
+    },
+    "posture": {
+      "title": "Posture break",
+      "body": "Chin tuck: ears over your shoulders, chin gently back. Hold for 5 seconds."
+    },
+    "custom": {
+      "title": "Reminder",
+      "body": "From your {{app}} reminders."
+    }
   }
 }

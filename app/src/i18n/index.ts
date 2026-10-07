@@ -13,6 +13,7 @@ import en_notifications from './locales/en/notifications.json';
 import en_onboarding from './locales/en/onboarding.json';
 import en_paywall from './locales/en/paywall.json';
 import en_progress from './locales/en/progress.json';
+import en_reminders from './locales/en/reminders.json';
 import en_settings from './locales/en/settings.json';
 import en_workout from './locales/en/workout.json';
 
@@ -26,6 +27,7 @@ export const resources = {
     onboarding: en_onboarding,
     paywall: en_paywall,
     progress: en_progress,
+    reminders: en_reminders,
     settings: en_settings,
     workout: en_workout,
   },

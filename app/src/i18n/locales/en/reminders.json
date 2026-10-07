@@ -1,0 +1,47 @@
+{
+  "title": "Reminders",
+  "intro": "Workout, mewing and posture reminders on the days and times you choose. Notifications stay on your iPhone.",
+  "add": "Add reminder",
+  "count": "{{count}} of {{max}} reminders",
+  "empty": "No reminders yet.",
+  "kinds": {
+    "workout": "Workout",
+    "mewing": "Mewing check",
+    "posture": "Posture break",
+    "custom": "Your own"
+  },
+  "days": {
+    "everyDay": "Every day",
+    "weekdays": "Weekdays",
+    "weekends": "Weekends"
+  },
+  "summary": "{{days}} · {{times}}",
+  "toggle": "{{title}} on or off",
+  "edit": {
+    "newTitle": "New reminder",
+    "editTitle": "Edit reminder",
+    "type": "Type",
+    "name": "Name",
+    "namePlaceholder": "{{name}}",
+    "times": "Times",
+    "addTime": "Add a time",
+    "everyTwoHours": "Every 2 hours, 10:00–18:00",
+    "removeTime": "Remove {{time}}",
+    "days": "Days",
+    "save": "Save",
+    "delete": "Delete reminder",
+    "deleteConfirm": "Delete this reminder?",
+    "time": "Time {{n}}"
+  },
+  "errors": {
+    "noDays": "Pick at least one day.",
+    "tooMany": "You can have up to {{max}} reminders. Delete one to add another.",
+    "tooManyTimes": "That's more notifications than an iPhone keeps for one app. Use fewer times or days."
+  },
+  "permission": {
+    "off": "Notifications are off for {{app}}, so reminders can't show up.",
+    "open": "Open Settings",
+    "deniedTitle": "Notifications are off",
+    "denied": "Turn on notifications for {{app}} in the iPhone Settings app to get reminders."
+  }
+}

@@ -1,4 +1,6 @@
-import { completeOnboarding, hydrateSettings, resetSettings, setAskButton, setGoal, setReminder } from '../actions';
+import { workoutReminder } from '@/services/reminders/reminders';
+
+import { completeOnboarding, deleteReminder, hydrateSettings, resetSettings, saveReminder, setAskButton, setGoal } from '../actions';
 import { DEFAULT_SETTINGS, initialSettingsState, settingsReducer } from '../reducer';
 
 describe('settingsReducer', () => {
@@ -10,7 +12,8 @@ describe('settingsReducer', () => {
     expect(s.hydrated).toBe(true);
     expect(s.settings.goal).toBe(DEFAULT_SETTINGS.goal);
     expect(s.settings.themeMode).toBe('dark');
-    expect(s.settings.reminder).toEqual({ enabled: true, time: DEFAULT_SETTINGS.reminder.time });
+    // An old save with one daily reminder becomes the workout reminder (bad time → default).
+    expect(s.settings.reminders).toEqual([workoutReminder(true)]);
   });
 
   it('hydrating nothing gives a fresh install', () => {
@@ -23,10 +26,17 @@ describe('settingsReducer', () => {
     expect(s.settings).toMatchObject({ onboardingDone: true, onboardedOn: '2026-10-01' });
   });
 
-  it('ignores an invalid reminder time', () => {
-    const s = settingsReducer(initialSettingsState, setReminder({ time: '7pm' }));
-    expect(s).toBe(initialSettingsState);
-    expect(settingsReducer(s, setReminder({ time: '07:30' })).settings.reminder.time).toBe('07:30');
+  it('adds, edits and deletes reminders, ignoring invalid ones and the limits', () => {
+    const mewing = { id: 'm1', kind: 'mewing' as const, title: '', enabled: true, times: ['12:00', '10:00'], days: [5, 1] };
+    let s = settingsReducer(initialSettingsState, saveReminder(mewing));
+    expect(s.settings.reminders[1]).toEqual({ ...mewing, times: ['10:00', '12:00'], days: [1, 5] });
+    s = settingsReducer(s, saveReminder({ ...mewing, title: 'Tongue up' }));
+    expect(s.settings.reminders.map((r) => r.title)).toEqual(['', 'Tongue up']);
+    expect(settingsReducer(s, saveReminder({ ...mewing, id: 'bad', times: ['7pm'] }))).toBe(s);
+    s = settingsReducer(s, deleteReminder('m1'));
+    expect(s.settings.reminders.map((r) => r.id)).toEqual(['workout']);
+    for (let i = 0; i < 20; i++) s = settingsReducer(s, saveReminder({ ...mewing, id: `r${i}`, times: ['09:00'], days: [1] }));
+    expect(s.settings.reminders).toHaveLength(10);
   });
 
   it('reset keeps hydrated and restores defaults', () => {

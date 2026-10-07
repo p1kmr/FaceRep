@@ -1,17 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { syncDailyReminder } from '@/services/notifications/reminder';
+import { syncReminders } from '@/services/notifications/reminder';
+import { planNotifications } from '@/services/reminders/reminders';
 
 import { useSettings } from './useSettings';
 
-/** Keeps the scheduled daily reminder in line with Settings (time, on/off, language). */
+/** Keeps the scheduled notifications in line with the reminder list (and the app language). */
 export function useReminderSync() {
   const { t, i18n } = useTranslation('notifications');
-  const { reminder, onboardingDone } = useSettings();
-  const time = onboardingDone && reminder.enabled ? reminder.time : null;
+  const { reminders, onboardingDone } = useSettings();
+  const plan = useMemo(() => (onboardingDone ? planNotifications(reminders) : []), [reminders, onboardingDone]);
 
   useEffect(() => {
-    syncDailyReminder(time, { title: t('daily.title'), body: t('daily.body') }).catch(() => {});
-  }, [time, t, i18n.language]);
+    const byId = new Map(reminders.map((r) => [r.id, r]));
+    syncReminders(plan, (id) => {
+      const r = byId.get(id);
+      const kind = r?.kind ?? 'custom';
+      return { title: r?.title || t(`kinds.${kind}.title`), body: t(`kinds.${kind}.body`) };
+    }).catch(() => {});
+  }, [plan, reminders, t, i18n.language]);
 }

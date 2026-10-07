@@ -4,7 +4,6 @@ import * as WebBrowser from 'expo-web-browser';
 import { useTranslation } from 'react-i18next';
 import { Alert, View } from 'react-native';
 
-import { TimeRow } from '@/components/settings/TimeRow';
 import { ToggleRow } from '@/components/settings/ToggleRow';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
@@ -22,12 +21,11 @@ import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { useToast } from '@/hooks/useToast';
 import { useChat } from '@/hooks/useChat';
 import { wipeDatabase } from '@/services/db/database';
-import { ensureNotificationPermission } from '@/services/notifications/reminder';
 import { hasPurchasesKey, restorePurchases } from '@/services/purchases/purchases';
 import { resetPlan } from '@/state/plan/actions';
 import { setPremium } from '@/state/premium/actions';
 import { resetProgress } from '@/state/progress/actions';
-import { resetSettings, setAiConsent, setAskButton, setGoal, setHaptics, setReminder, setThemeMode } from '@/state/settings/actions';
+import { resetSettings, setAiConsent, setAskButton, setGoal, setHaptics, setThemeMode } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 const THEME_MODES: ThemeMode[] = ['system', 'light', 'dark'];
@@ -44,14 +42,6 @@ export default function SettingsScreen() {
   const chat = useChat();
   const toast = useToast();
   const open = (url: string) => () => WebBrowser.openBrowserAsync(url).catch(() => {});
-
-  const toggleReminder = async (on: boolean) => {
-    if (on && !(await ensureNotificationPermission().catch(() => false))) {
-      Alert.alert(t('settings:reminder'), t('settings:reminderDenied'));
-      return;
-    }
-    dispatch(setReminder({ enabled: on }));
-  };
 
   const restore = async () => {
     try {
@@ -101,15 +91,13 @@ export default function SettingsScreen() {
             onChange={(g) => dispatch(setGoal(g))}
           />
         </View>
-        <ToggleRow title={t('settings:reminder')} value={settings.reminder.enabled} onValueChange={toggleReminder} divider />
-        {settings.reminder.enabled ? (
-          <TimeRow
-            title={t('settings:reminderTime')}
-            value={settings.reminder.time}
-            onChange={(time) => dispatch(setReminder({ time }))}
-            divider
-          />
-        ) : null}
+        <ListRow
+          title={t('settings:reminders')}
+          subtitle={t('settings:remindersOn', { count: settings.reminders.filter((r) => r.enabled).length })}
+          onPress={() => router.push('/reminders')}
+          chevron
+          divider
+        />
         <ToggleRow title={t('settings:haptics')} value={settings.haptics} onValueChange={(on) => dispatch(setHaptics(on))} />
       </Card>
 

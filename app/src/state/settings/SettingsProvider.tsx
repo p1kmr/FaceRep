@@ -6,7 +6,7 @@ import { createDebouncedSave, load } from '@/services/storage/kv';
 
 import { hydrateSettings, type SettingsAction } from './actions';
 import { initialSettingsState, settingsReducer } from './reducer';
-import type { Settings, SettingsState } from './types';
+import type { SavedSettings, Settings, SettingsState } from './types';
 
 const VERSION = 1;
 
@@ -19,7 +19,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const persist = useMemo(() => createDebouncedSave<Settings>(STORAGE_KEYS.settings, VERSION), []);
 
   useEffect(() => {
-    load<Settings>(STORAGE_KEYS.settings, VERSION).then((saved) => dispatch(hydrateSettings(saved)));
+    load<SavedSettings>(STORAGE_KEYS.settings, VERSION).then((saved) => dispatch(hydrateSettings(saved)));
   }, []);
 
   useEffect(() => {

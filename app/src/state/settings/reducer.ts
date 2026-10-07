@@ -1,5 +1,6 @@
 import { GOALS } from '@/constants/exercises';
 import { REMINDER } from '@/constants/reminders';
+import { cleanReminder, saveProblem, workoutReminder, type Reminder } from '@/services/reminders/reminders';
 import { DEFAULT_THEME_ID } from '@/constants/theme';
 
 import {
@@ -8,14 +9,15 @@ import {
   GOAL_SET,
   HAPTICS_SET,
   ONBOARDING_COMPLETE,
-  REMINDER_SET,
+  REMINDER_DELETED,
+  REMINDER_SAVED,
   REVIEW_PROMPTED,
   SETTINGS_HYDRATE,
   SETTINGS_RESET,
   THEME_MODE_SET,
   type SettingsAction,
 } from './actions';
-import type { AskButtonSettings, Settings, SettingsState } from './types';
+import type { AskButtonSettings, SavedSettings, Settings, SettingsState } from './types';
 
 export const DEFAULT_SETTINGS: Settings = {
   themeMode: 'system',
@@ -23,7 +25,7 @@ export const DEFAULT_SETTINGS: Settings = {
   onboardingDone: false,
   onboardedOn: null,
   goal: 'jawline',
-  reminder: { enabled: false, time: REMINDER.defaultTime },
+  reminders: [workoutReminder()],
   haptics: true,
   aiConsent: null,
   lastReviewPromptOn: null,
@@ -33,6 +35,20 @@ export const DEFAULT_SETTINGS: Settings = {
 export const initialSettingsState: SettingsState = { hydrated: false, settings: DEFAULT_SETTINGS };
 
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
+
+
+function sanitizeReminders(s: SavedSettings): Reminder[] {
+  if (Array.isArray(s.reminders)) {
+    const seen = new Set<string>();
+    return s.reminders
+      .map(cleanReminder)
+      .filter((r): r is Reminder => !!r && !seen.has(r.id) && !!seen.add(r.id))
+      .slice(0, REMINDER.max);
+  }
+  const old = s.reminder;
+  if (old) return [workoutReminder(old.enabled === true, typeof old.time === 'string' && TIME.test(old.time) ? old.time : undefined)];
+  return DEFAULT_SETTINGS.reminders;
+}
 const THEME_MODES = ['system', 'light', 'dark'];
 
 /** Valid values only: side left/right, y within 0–1, a whole number of hint shows. */
@@ -47,20 +63,16 @@ function sanitizeAskButton(saved: Partial<AskButtonSettings> | undefined, base: 
 }
 
 /** Keeps only valid saved values (a saved file can be old or edited), the rest from defaults. */
-export function sanitizeSettings(saved: Partial<Settings> | null): Settings {
+export function sanitizeSettings(saved: SavedSettings | null): Settings {
   const s = saved ?? {};
   const d = DEFAULT_SETTINGS;
-  const reminder = s.reminder ?? d.reminder;
   return {
     ...d,
     themeMode: THEME_MODES.includes(s.themeMode as string) ? (s.themeMode as Settings['themeMode']) : d.themeMode,
     onboardingDone: s.onboardingDone === true,
     onboardedOn: typeof s.onboardedOn === 'string' ? s.onboardedOn : null,
     goal: GOALS.includes(s.goal as Settings['goal']) ? (s.goal as Settings['goal']) : d.goal,
-    reminder: {
-      enabled: reminder.enabled === true,
-      time: typeof reminder.time === 'string' && TIME.test(reminder.time) ? reminder.time : d.reminder.time,
-    },
+    reminders: sanitizeReminders(s),
     haptics: s.haptics !== false,
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
     lastReviewPromptOn: typeof s.lastReviewPromptOn === 'string' ? s.lastReviewPromptOn : null,
@@ -83,11 +95,14 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { goal: action.payload });
     case ONBOARDING_COMPLETE:
       return update(state, { onboardingDone: true, onboardedOn: s.onboardedOn ?? action.payload.today });
-    case REMINDER_SET: {
-      const time = action.payload.time;
-      if (time !== undefined && !TIME.test(time)) return state;
-      return update(state, { reminder: { ...s.reminder, ...action.payload } });
+    case REMINDER_SAVED: {
+      const r = cleanReminder(action.payload);
+      if (!r || saveProblem(s.reminders, r)) return state;
+      const exists = s.reminders.some((x) => x.id === r.id);
+      return update(state, { reminders: exists ? s.reminders.map((x) => (x.id === r.id ? r : x)) : [...s.reminders, r] });
     }
+    case REMINDER_DELETED:
+      return update(state, { reminders: s.reminders.filter((x) => x.id !== action.payload) });
     case HAPTICS_SET:
       return update(state, { haptics: action.payload });
     case AI_CONSENT_SET:

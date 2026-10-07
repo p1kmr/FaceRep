@@ -22,7 +22,7 @@ const MARGIN = 12;
 /** Room for the tab bar so the button never covers it. */
 const TAB_BAR = 64;
 /** Screens where the button would be in the way (or is the Coach itself). */
-const HIDDEN = ['/coach', '/workout', '/paywall', '/ai-consent', '/onboarding', '/plan-day', '/safety'];
+const HIDDEN = ['/coach', '/workout', '/paywall', '/ai-consent', '/onboarding', '/plan-day', '/safety', '/reminder'];
 const spring = { damping: 18, stiffness: 220 };
 /** The first-time hint shows at most once per app launch. */
 let hintShownThisLaunch = false;
@@ -56,7 +56,8 @@ export function AskBubble() {
   const lifted = useSharedValue(1);
   const wave = useSharedValue(0);
   const [hint, setHint] = useState(false);
-  const hidden = !askButton.visible || HIDDEN.some((p) => pathname.startsWith(p));
+  // Exact screen or its sub-screens: '/reminder' (the editor) hides it, '/reminders' (the list) doesn't.
+  const hidden = !askButton.visible || HIDDEN.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
   // First app opens: the button wiggles and a speech bubble says what the Coach can do.
   // Counted per launch, up to ASK_HINT.maxShows.

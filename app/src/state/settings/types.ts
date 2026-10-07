@@ -1,14 +1,10 @@
 import type { Goal } from '@/constants/exercises';
+import type { Reminder } from '@/services/reminders/reminders';
 import type { ThemeMode } from '@/constants/theme';
 import type { ISODate } from '@/utils/dates';
 
 /** 'HH:mm', 24-hour. */
 export type TimeOfDay = string;
-
-export interface ReminderSettings {
-  enabled: boolean;
-  time: TimeOfDay;
-}
 
 /** The floating Coach button: shown or not, and where the user dragged it (same as Elowa's Ask button). */
 export interface AskButtonSettings {
@@ -26,13 +22,17 @@ export interface Settings {
   onboardingDone: boolean;
   onboardedOn: ISODate | null;
   goal: Goal;
-  reminder: ReminderSettings;
+  /** The user's reminders (workout, mewing, posture, own). The first install has a workout one, off. */
+  reminders: Reminder[];
   haptics: boolean;
   /** Consent to send Coach questions to the AI (null = not asked yet). */
   aiConsent: boolean | null;
   lastReviewPromptOn: ISODate | null;
   askButton: AskButtonSettings;
 }
+
+/** What a save can hold: also older saves with one daily reminder ({ enabled, time }). */
+export type SavedSettings = Partial<Settings> & { reminder?: { enabled?: unknown; time?: unknown } };
 
 export interface SettingsState {
   hydrated: boolean;
