@@ -12,8 +12,9 @@ const rotate = <T>(list: readonly T[], by: number): T[] => {
 
 /**
  * Today's routine for a goal (pure: same goal + day → same list).
- * - A program goal: all of that program's exercises first, then others that rotate daily.
- * - Full face: two alternating halves of the catalog (jaw day, cheeks + eyes day).
+ * - A program goal: that program's exercises first. When it has more than `size`, a different window
+ *   is used each day so every exercise comes up; when it has fewer, others fill the gap, rotating daily.
+ * - Full face: a window of `size` that moves through the whole catalog, one window per day.
  * Always in catalog order, so the session flows from jaw to eyes.
  */
 export function buildDailyRoutine(goal: Goal, today: ISODate, size: number = WORKOUT.routineSize): ExerciseId[] {
@@ -24,7 +25,10 @@ export function buildDailyRoutine(goal: Goal, today: ISODate, size: number = WOR
   } else {
     const primary = EXERCISE_IDS.filter((id) => EXERCISES[id].program === goal);
     const others = EXERCISE_IDS.filter((id) => EXERCISES[id].program !== goal);
-    picked = [...primary.slice(0, size), ...rotate(others, day).slice(0, Math.max(0, size - primary.length))];
+    picked =
+      primary.length > size
+        ? rotate(primary, day * size).slice(0, size)
+        : [...primary, ...rotate(others, day).slice(0, size - primary.length)];
   }
   const order = (id: ExerciseId) => EXERCISE_IDS.indexOf(id);
   return [...new Set(picked)].sort((a, b) => order(a) - order(b));

@@ -60,6 +60,41 @@ export const EXERCISE_IMAGES: Record<ExerciseId, ExerciseImages> = {
     exercise: require('@/assets/exercises/10-eye-squeeze-exercise.webp'),
     thumb: require('@/assets/exercises/10-eye-squeeze-thumb.webp'),
   },
+  '11-chin-tuck': {
+    relaxed: require('@/assets/exercises/11-chin-tuck-relaxed.webp'),
+    exercise: require('@/assets/exercises/11-chin-tuck-exercise.webp'),
+    thumb: require('@/assets/exercises/11-chin-tuck-thumb.webp'),
+  },
+  '12-tongue-press': {
+    relaxed: require('@/assets/exercises/12-tongue-press-relaxed.webp'),
+    exercise: require('@/assets/exercises/12-tongue-press-exercise.webp'),
+    thumb: require('@/assets/exercises/12-tongue-press-thumb.webp'),
+  },
+  '13-smiling-fish': {
+    relaxed: require('@/assets/exercises/13-smiling-fish-relaxed.webp'),
+    exercise: require('@/assets/exercises/13-smiling-fish-exercise.webp'),
+    thumb: require('@/assets/exercises/13-smiling-fish-thumb.webp'),
+  },
+  '14-o-stretch': {
+    relaxed: require('@/assets/exercises/14-o-stretch-relaxed.webp'),
+    exercise: require('@/assets/exercises/14-o-stretch-exercise.webp'),
+    thumb: require('@/assets/exercises/14-o-stretch-thumb.webp'),
+  },
+  '15-lion-face': {
+    relaxed: require('@/assets/exercises/15-lion-face-relaxed.webp'),
+    exercise: require('@/assets/exercises/15-lion-face-exercise.webp'),
+    thumb: require('@/assets/exercises/15-lion-face-thumb.webp'),
+  },
+  '16-wide-eyes': {
+    relaxed: require('@/assets/exercises/16-wide-eyes-relaxed.webp'),
+    exercise: require('@/assets/exercises/16-wide-eyes-exercise.webp'),
+    thumb: require('@/assets/exercises/16-wide-eyes-thumb.webp'),
+  },
+  '17-lower-lid-lift': {
+    relaxed: require('@/assets/exercises/17-lower-lid-lift-relaxed.webp'),
+    exercise: require('@/assets/exercises/17-lower-lid-lift-exercise.webp'),
+    thumb: require('@/assets/exercises/17-lower-lid-lift-thumb.webp'),
+  },
 };
 
 export const HERO_IMAGES = {

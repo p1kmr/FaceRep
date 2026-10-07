@@ -10,6 +10,8 @@ export type Goal = ProgramId | 'full';
 export type MuscleId =
   | 'masseter'
   | 'platysma'
+  | 'deepNeck'
+  | 'underChin'
   | 'mentalis'
   | 'tongue'
   | 'neck'
@@ -17,18 +19,30 @@ export type MuscleId =
   | 'buccinator'
   | 'lips'
   | 'frontalis'
-  | 'orbicularisOculi';
+  | 'orbicularisOculi'
+  | 'eyelids';
 
+/**
+ * Catalog order: grouped by program (jaw → cheeks → eyes), which is also the order a workout runs in.
+ * The number in an ID is only its image file prefix and never changes (IDs are stored in SQLite).
+ */
 export const EXERCISE_IDS = [
   '01-jaw-clench',
   '02-chin-lift',
   '03-jaw-jut',
   '04-mewing',
+  '12-tongue-press',
+  '11-chin-tuck',
   '05-neck-stretch',
   '06-cheek-lift',
   '07-fish-face',
+  '13-smiling-fish',
   '08-cheek-puff',
+  '14-o-stretch',
+  '15-lion-face',
   '09-brow-lift',
+  '16-wide-eyes',
+  '17-lower-lid-lift',
   '10-eye-squeeze',
 ] as const;
 
@@ -55,11 +69,18 @@ export const EXERCISES: Record<ExerciseId, Exercise> = {
   '03-jaw-jut': { id: '03-jaw-jut', program: 'jawline', key: 'jawJut', muscles: ['platysma', 'mentalis'], reps: 10, holdSec: 5, relaxSec: 3, jawCaution: true },
   '04-mewing': { id: '04-mewing', program: 'jawline', key: 'mewing', muscles: ['tongue'], reps: 5, holdSec: 10, relaxSec: 4 },
   '05-neck-stretch': { id: '05-neck-stretch', program: 'jawline', key: 'neckStretch', muscles: ['neck'], reps: 6, holdSec: 8, relaxSec: 3 },
+  '11-chin-tuck': { id: '11-chin-tuck', program: 'jawline', key: 'chinTuck', muscles: ['deepNeck'], reps: 10, holdSec: 5, relaxSec: 3 },
+  '12-tongue-press': { id: '12-tongue-press', program: 'jawline', key: 'tonguePress', muscles: ['underChin', 'tongue'], reps: 8, holdSec: 8, relaxSec: 3 },
   '06-cheek-lift': { id: '06-cheek-lift', program: 'cheekbones', key: 'cheekLift', muscles: ['zygomaticus'], reps: 12, holdSec: 5, relaxSec: 3 },
   '07-fish-face': { id: '07-fish-face', program: 'cheekbones', key: 'fishFace', muscles: ['buccinator'], reps: 8, holdSec: 5, relaxSec: 3 },
   '08-cheek-puff': { id: '08-cheek-puff', program: 'cheekbones', key: 'cheekPuff', muscles: ['buccinator', 'lips'], reps: 8, holdSec: 5, relaxSec: 3 },
+  '13-smiling-fish': { id: '13-smiling-fish', program: 'cheekbones', key: 'smilingFish', muscles: ['buccinator', 'zygomaticus'], reps: 8, holdSec: 5, relaxSec: 3 },
+  '14-o-stretch': { id: '14-o-stretch', program: 'cheekbones', key: 'oStretch', muscles: ['lips'], reps: 8, holdSec: 5, relaxSec: 3 },
+  '15-lion-face': { id: '15-lion-face', program: 'cheekbones', key: 'lionFace', muscles: ['zygomaticus', 'platysma'], reps: 6, holdSec: 5, relaxSec: 4, jawCaution: true },
   '09-brow-lift': { id: '09-brow-lift', program: 'eyes', key: 'browLift', muscles: ['frontalis'], reps: 10, holdSec: 3, relaxSec: 2 },
   '10-eye-squeeze': { id: '10-eye-squeeze', program: 'eyes', key: 'eyeSqueeze', muscles: ['orbicularisOculi'], reps: 10, holdSec: 3, relaxSec: 2 },
+  '16-wide-eyes': { id: '16-wide-eyes', program: 'eyes', key: 'wideEyes', muscles: ['eyelids'], reps: 6, holdSec: 6, relaxSec: 3 },
+  '17-lower-lid-lift': { id: '17-lower-lid-lift', program: 'eyes', key: 'lowerLidLift', muscles: ['orbicularisOculi'], reps: 8, holdSec: 4, relaxSec: 3 },
 };
 
 export const PROGRAMS: ProgramId[] = ['jawline', 'cheekbones', 'eyes'];

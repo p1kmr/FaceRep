@@ -8,6 +8,8 @@
   "muscles": {
     "masseter": "Masseter",
     "platysma": "Platysma",
+    "deepNeck": "Deep neck flexors",
+    "underChin": "Under-chin muscles",
     "mentalis": "Mentalis",
     "tongue": "Tongue posture",
     "neck": "Side neck",
@@ -15,7 +17,8 @@
     "buccinator": "Buccinator",
     "lips": "Lips",
     "frontalis": "Frontalis",
-    "orbicularisOculi": "Orbicularis oculi"
+    "orbicularisOculi": "Orbicularis oculi",
+    "eyelids": "Upper eyelids"
   },
   "detail": {
     "how": "How to do it",
@@ -73,6 +76,41 @@
       "name": "Eye Squeeze",
       "cue": "Squeeze your eyes shut tightly, then release slowly.",
       "steps": ["Relax your forehead.", "Close your eyes and squeeze them shut.", "Hold, then open them slowly."]
+    },
+    "chinTuck": {
+      "name": "Chin Tuck",
+      "cue": "Glide your head straight back and make a small double chin.",
+      "steps": ["Sit or stand tall with your shoulders down and your eyes level.", "Glide your head straight back, as if a string pulls the back of your head, until your ears line up over your shoulders.", "Hold without tilting your chin up or down, then glide forward slowly."]
+    },
+    "tonguePress": {
+      "name": "Tongue Press",
+      "cue": "Press your tongue up against the roof of your mouth and hum.",
+      "steps": ["Sit tall with your lips closed and your teeth slightly apart.", "Press your whole tongue firmly up against the roof of your mouth, just behind your front teeth.", "Hum softly and feel the muscles under your chin tighten. Hold, then relax your tongue."]
+    },
+    "smilingFish": {
+      "name": "Smiling Fish",
+      "cue": "Make a fish face, then lift the corners of your mouth into a smile.",
+      "steps": ["Suck your cheeks in between your teeth and pucker your lips.", "Keep the fish face and pull the corners of your mouth up into a smile.", "Hold and feel your cheeks lift, then relax your whole face."]
+    },
+    "oStretch": {
+      "name": "O Stretch",
+      "cue": "Open your mouth into a long O and pull your lips over your teeth.",
+      "steps": ["Look straight ahead and keep your forehead relaxed.", "Open your mouth into a tall O and pull your lips over your teeth.", "Hold and feel your face lengthen, then close your mouth slowly."]
+    },
+    "lionFace": {
+      "name": "Lion Face",
+      "cue": "Open wide, stick your tongue out and widen your eyes.",
+      "steps": ["Breathe in through your nose.", "Breathe out as you open your mouth wide, stretch your tongue out toward your chin and open your eyes wide.", "Hold the stretch, then close your mouth and relax. Don't force your jaw open further than is comfortable."]
+    },
+    "wideEyes": {
+      "name": "Wide Eyes",
+      "cue": "Open your eyes as wide as you can without lifting your eyebrows.",
+      "steps": ["Rest a fingertip lightly on each eyebrow if it helps you keep your forehead still.", "Open your eyes as wide as you can, as if surprised, without lifting your eyebrows.", "Hold and stare at one point, then relax your eyes."]
+    },
+    "lowerLidLift": {
+      "name": "Lower Lid Lift",
+      "cue": "Look up and lift your lower eyelids, as if squinting into the sun.",
+      "steps": ["Keep your head level and look up slightly.", "Lift only your lower eyelids, as if squinting into bright light. Keep your forehead relaxed.", "Hold, then let your lower lids drop slowly."]
     }
   }
 }

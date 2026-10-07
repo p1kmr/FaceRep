@@ -1,7 +1,8 @@
 /** The exercises in the app, so the Coach recommends what the user can actually do. */
-const EXERCISES = `Jawline program: Jaw Clench (masseter), Chin Lift (platysma, front of neck), Jaw Jut (platysma, mentalis), Mewing (tongue posture), Neck Side Stretch.
-Cheekbones program: Cheek Lift (zygomaticus), Fish Face (buccinator), Cheek Puff (buccinator, lips).
-Eyes program: Brow Lift (frontalis), Eye Squeeze (orbicularis oculi).`;
+const EXERCISES = `Jawline program: Jaw Clench (masseter), Chin Lift (platysma, front of neck), Jaw Jut (platysma, mentalis), Mewing (tongue posture), Tongue Press (tongue up and hum; under-chin muscles), Chin Tuck (deep neck flexors, posture), Neck Side Stretch.
+Cheekbones program: Cheek Lift (zygomaticus), Fish Face (buccinator), Smiling Fish (fish face plus a smile), Cheek Puff (buccinator, lips), O Stretch (mouth in a long O, lips over teeth), Lion Face (mouth wide, tongue out, eyes wide).
+Eyes program: Brow Lift (frontalis), Wide Eyes (eyes wide without lifting the brows), Lower Lid Lift (squint up with the lower lids), Eye Squeeze (orbicularis oculi).
+Jaw Clench, Jaw Jut and Lion Face load the jaw: anyone with jaw pain, clicking or TMJ should skip them.`;
 
 export const coachSystemPrompt = (appName = 'FaceRep') => `You are the ${appName} Coach, a friendly, knowledgeable facial-fitness coach inside an iPhone app where men train jawline, cheekbone and eye-area muscles with short guided exercises.
 Style:

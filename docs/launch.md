@@ -40,9 +40,9 @@ SEE THE MUSCLE YOU TRAIN
 Every exercise shows a realistic 3D anatomy model with the working muscle lit up in red, moving from relaxed to squeeze in time with the timer.
 
 THREE PROGRAMS
-• Jawline: jaw clench, chin lift, jaw jut, mewing and neck stretch
-• Cheekbones: cheek lift, fish face, cheek puff
-• Eyes: brow lift, eye squeeze
+• Jawline: jaw clench, chin lift, jaw jut, mewing, tongue press, chin tuck and neck stretch
+• Cheekbones: cheek lift, fish face, smiling fish, cheek puff, O stretch and lion face
+• Eyes: brow lift, wide eyes, lower lid lift and eye squeeze
 
 BUILT FOR CONSISTENCY
 • A daily routine for your focus area
@@ -85,7 +85,7 @@ Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Ch
 ## 5. What competitors get wrong (and FaceRep already does differently)
 Reviews complain about: price jumps and web-checkout funnels, charges after cancelling, AI avatar demos, paywalls right after onboarding, ads mid-workout, login failures, "random scores", can't delete photos, repetitive programs, joint/ear pain.
 FaceRep: free exercises, in-app pricing only, real anatomy visuals, no login, no ads, no scores, on-device data, safety + jaw caution.
-Next ideas: progressive programs (level 2/3), sound/voice cue toggle, more exercises, a home-screen widget for the streak.
+Next ideas: progressive programs (level 2/3), sound/voice cue toggle, a home-screen widget for the streak.
 
 ## 6. App Store rules: status
 | Rule | What it needs | Status |

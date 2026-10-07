@@ -35,7 +35,7 @@ Purchases, DeviceCheck and notifications need a **development build** (`npx eas-
 
 ## Checks
 ```bash
-cd app && npm run lint && npm run typecheck && npm test     # 44 tests
+cd app && npm run lint && npm run typecheck && npm test     # 45 tests
 cd ../worker && npm test                                     # 16 tests
 ```
 
