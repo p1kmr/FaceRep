@@ -1,4 +1,4 @@
-import { bestStreak, currentStreak, lastDays, totals, workoutDays } from '@/services/progress/stats';
+import { bestStreak, currentStreak, totals, workoutDays } from '@/services/progress/stats';
 import { addDays, type ISODate } from '@/utils/dates';
 
 import type { ProgressState } from './types';
@@ -11,7 +11,6 @@ export function selectProgressSummary(s: ProgressState, today: ISODate) {
     streak: currentStreak(days, today),
     best: bestStreak(days),
     doneToday: days.has(today),
-    week: lastDays(s.sessions, today, 7),
     workoutsLast7Days: s.sessions.filter((x) => x.day >= weekAgo && x.day <= today).length,
     totals: totals(s.sessions),
   };

@@ -47,16 +47,6 @@ export interface DayBar {
   seconds: number;
 }
 
-/** The last `n` days ending today, oldest first, with workout seconds per day. */
-export function lastDays(sessions: readonly SessionSummary[], today: ISODate, n = 7): DayBar[] {
-  const byDay = new Map<ISODate, number>();
-  for (const s of sessions) byDay.set(s.day, (byDay.get(s.day) ?? 0) + s.durationSec);
-  return Array.from({ length: n }, (_, i) => {
-    const day = addDays(today, i - (n - 1));
-    return { day, seconds: byDay.get(day) ?? 0 };
-  });
-}
-
 export function totals(sessions: readonly SessionSummary[]) {
   return sessions.reduce(
     (t, s) => ({ workouts: t.workouts + 1, seconds: t.seconds + s.durationSec, reps: t.reps + s.totalReps }),

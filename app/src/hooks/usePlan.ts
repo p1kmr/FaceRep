@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 
 import { PLAN, type PlanDay, type PlanRef } from '@/constants/plan';
-import { contentLevel, freeWeek, isFreeDay, nextPlanRef, planGrid, planItems, planProgress, weekOf } from '@/services/plan/plan';
+import { contentLevel, freeWeek, isFreeDay, nextPlanRef, planDates, planGrid, planItems, planProgress, weekOf } from '@/services/plan/plan';
 import type { PlanError } from '@/services/plan/planApi';
 import { workoutSeconds, type WorkoutItem } from '@/services/workout/items';
 import { LoadPlanContext, PlanDispatchContext, PlanStateContext } from '@/state/plan/PlanProvider';
@@ -65,18 +65,20 @@ export function usePlan() {
   );
   const todayPlan = useMemo(() => dayAt(ref.day), [dayAt, ref.day]);
 
-  // After a finished level the grid shows the next one, starting at day 1.
-  const grid = useMemo(
-    () => planGrid(progress.finished && next ? { level: next.level, day: 1, completed: 0, doneToday: false, finished: false } : progress, isPremium),
-    [progress, next, isPremium],
+  // After a finished level the grid shows the next one, starting at day 1 (today).
+  const shown = useMemo(
+    () => (progress.finished && next ? { level: next.level, day: 1, completed: 0, doneToday: false, finished: false } : progress),
+    [progress, next],
   );
+  const dates = useMemo(() => planDates(sessions, shown, today), [sessions, shown, today]);
+  const grid = useMemo(() => planGrid(shown, isPremium, dates), [shown, isPremium, dates]);
 
   return {
     progress,
     /** Level and day the next workout counts for (null when today's plan day is already done). */
     next,
     /** Level, week and day shown in the header. */
-    showing: { level: ref.level, day: ref.day, week: weekOf(ref.day), weekName: PLAN.weeks[weekOf(ref.day) - 1] },
+    showing: { level: ref.level, day: ref.day, week: weekOf(ref.day), weekName: PLAN.weeks[weekOf(ref.day) - 1], date: dates[ref.day - 1] },
     today: todayPlan,
     dayAt,
     /** The plan day a workout of day `n` counts for: only the next day; any other day is practice. */

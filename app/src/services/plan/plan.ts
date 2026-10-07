@@ -3,7 +3,7 @@ import { PLAN, type PlanDay, type PlanDayKind, type PlanRef } from '@/constants/
 import freeWeekJson from '@/constants/planFreeWeek.json';
 import type { SessionSummary } from '@/services/progress/stats';
 import type { WorkoutItem } from '@/services/workout/items';
-import type { ISODate } from '@/utils/dates';
+import { addDays, type ISODate } from '@/utils/dates';
 
 /** Pure plan logic: which day you're on, what it contains, what's free. Unit-tested. */
 
@@ -89,16 +89,41 @@ export function nextPlanRef(p: PlanProgress): PlanRef | null {
   return p.finished ? { level: p.level + 1, day: 1 } : { level: p.level, day: p.day };
 }
 
+/**
+ * The calendar date of every day of a level: the date it was done, or, for days still ahead, the date
+ * it falls on if the user trains every day from now. A missed day simply moves the rest along.
+ */
+export function planDates(
+  sessions: readonly SessionSummary[],
+  p: Pick<PlanProgress, 'level' | 'completed' | 'doneToday'>,
+  today: ISODate,
+): ISODate[] {
+  const done = new Map<number, ISODate>();
+  for (const s of sessions) {
+    if (s.plan?.level !== p.level) continue;
+    const seen = done.get(s.plan.day);
+    if (!seen || s.day < seen) done.set(s.plan.day, s.day);
+  }
+  const next = p.doneToday ? addDays(today, 1) : today; // when the next day can be done
+  return Array.from({ length: PLAN.days }, (_, i) => done.get(i + 1) ?? addDays(next, i - p.completed));
+}
+
 export type PlanCellStatus = 'done' | 'today' | 'upcoming' | 'locked';
+export interface PlanCell {
+  day: number;
+  status: PlanCellStatus;
+  /** Done on, or planned for (see planDates). */
+  date: ISODate;
+}
 
 /** The 28 days of the current level for the 4×7 grid. */
-export function planGrid(p: PlanProgress, isPremium: boolean): { day: number; status: PlanCellStatus }[] {
+export function planGrid(p: PlanProgress, isPremium: boolean, dates: readonly ISODate[]): PlanCell[] {
   return Array.from({ length: PLAN.days }, (_, i) => {
     const day = i + 1;
     let status: PlanCellStatus = 'upcoming';
     if (day <= p.completed) status = 'done';
     else if (day === p.day && !p.doneToday) status = 'today';
     if (status !== 'done' && !isPremium && !isFreeDay({ level: p.level, day })) status = 'locked';
-    return { day, status };
+    return { day, status, date: dates[i] };
   });
 }

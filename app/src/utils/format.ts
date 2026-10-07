@@ -16,6 +16,26 @@ export function weekdayNarrow(iso: ISODate, locale: string): string {
   return fromISODate(iso).toLocaleDateString(locale, { weekday: 'narrow' });
 }
 
+/** Short weekday under a calendar cell ("Thu"), in the app language. */
+export function weekdayShort(iso: ISODate, locale: string): string {
+  return fromISODate(iso).toLocaleDateString(locale, { weekday: 'short' });
+}
+
+/** "October 2026", in the app language. */
+export function formatMonthYear(iso: ISODate, locale: string): string {
+  return fromISODate(iso).toLocaleDateString(locale, { month: 'long', year: 'numeric' });
+}
+
+/** "Oct 6", in the app language. */
+export function formatDayMonth(iso: ISODate, locale: string): string {
+  return fromISODate(iso).toLocaleDateString(locale, { day: 'numeric', month: 'short' });
+}
+
+/** One-letter month for the year chart ("J"), in the app language. */
+export function monthNarrow(iso: ISODate, locale: string): string {
+  return fromISODate(iso).toLocaleDateString(locale, { month: 'narrow' });
+}
+
 /** "Mon 6 Oct" style date, in the app language. */
 export function formatDay(iso: ISODate, locale: string): string {
   return fromISODate(iso).toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'short' });

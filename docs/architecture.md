@@ -94,4 +94,15 @@ it into reps and holds with `services/plan/plan.ts` → `planItems()`.
 - `hooks/usePlan.ts` gives the Today screen everything: header, today's day (ready / locked / loading / error), the 4×7 grid,
   and `dayAt(n)` for any day. Tapping a grid day opens `plan-day` (locked → paywall). Only the next day counts for the plan
   (`countsFor`); any other day is practice. This also lets App Review see Weeks 2–4 right after a sandbox purchase.
+- **Dates:** the plan counts days, not weekdays (install on a Thursday → Day 1 is Thursday; a missed day waits instead of
+  being "missed"). `planDates()` puts a real date on every day: the date it was done, or the date it falls on if the user
+  trains every day from now. The Today card shows it, the grid shows the weekday under each day, the day preview says
+  "Done on …" or "Planned for …".
+
+## Progress calendar (Week / Month / Year)
+The Mon–Sun calendar lives on the Progress tab, separate from the plan: the plan says how far you are, the calendar says
+when you trained. `services/progress/calendar.ts` (pure, tested) does the maths: week start from the iPhone's region
+settings (`hooks/useFirstWeekday.ts`, expo-localization; Monday when unknown), month grids, per-day and per-period totals,
+paging (never into the future). `hooks/useProgressCalendar.ts` feeds `components/progress/` (`WeekBars`, `MonthCalendar`,
+`YearBars`, `PeriodHeader`). Month: tap a day to see its workouts. Year: tap a month to open it. No calendar library.
 

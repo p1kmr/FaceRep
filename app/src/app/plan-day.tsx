@@ -11,11 +11,11 @@ import { PLAN } from '@/constants/plan';
 import { usePlan } from '@/hooks/usePlan';
 import { weekOf } from '@/services/plan/plan';
 import { makeStyles } from '@/theme/makeStyles';
-import { toMinutes } from '@/utils/format';
+import { formatDay, toMinutes } from '@/utils/format';
 
 /** One day of the plan, opened from the 28-day grid: its exercises, then start it (or practise it). */
 export default function PlanDayScreen() {
-  const { t } = useTranslation(['home', 'common']);
+  const { t, i18n } = useTranslation(['home', 'common']);
   const styles = useStyles();
   const params = useLocalSearchParams<{ day?: string }>();
   const n = Math.min(PLAN.days, Math.max(1, Number(params.day) || 1));
@@ -23,6 +23,14 @@ export default function PlanDayScreen() {
   const day = plan.dayAt(n);
   const counts = plan.countsFor(n);
   const week = weekOf(n);
+  const cell = plan.grid[n - 1];
+  const date = formatDay(cell.date, i18n.language);
+  const when =
+    cell.status === 'done'
+      ? t('plan.preview.doneOn', { date })
+      : cell.status === 'today'
+        ? t('plan.preview.today', { date })
+        : t('plan.preview.plannedFor', { date });
 
   const start = () => router.replace({ pathname: '/workout', params: { kind: 'plan', day: String(n) } });
 
@@ -68,9 +76,14 @@ export default function PlanDayScreen() {
   return (
     <Screen edges={['bottom']}>
       <View style={styles.root}>
-        <AppText variant="title" accessibilityRole="header">
-          {t('plan.header', { week, day: n, total: PLAN.days })}
-        </AppText>
+        <View style={styles.titles}>
+          <AppText variant="title" accessibilityRole="header">
+            {t('plan.header', { week, day: n, total: PLAN.days })}
+          </AppText>
+          <AppText variant="footnote" muted>
+            {when}
+          </AppText>
+        </View>
         {body}
       </View>
     </Screen>
@@ -79,4 +92,5 @@ export default function PlanDayScreen() {
 
 const useStyles = makeStyles(({ tokens }) => ({
   root: { gap: tokens.space.lg },
+  titles: { gap: tokens.space.xs },
 }));

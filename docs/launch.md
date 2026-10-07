@@ -48,7 +48,7 @@ A 28-DAY PLAN
 • 4 weeks that get harder: more exercises, more reps, longer holds
 • Light days to recover, and a day only moves on when you've done it
 • Hold and relax timer with haptics
-• Streaks, workout history and a daily reminder at your chosen time
+• Streaks, a week, month and year calendar of your workouts, and a daily reminder
 
 WHAT'S FREE
 Week 1 of the plan and every exercise on its own, any time. No account, no ads. Your workouts stay on your iPhone.
@@ -87,7 +87,7 @@ Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Ch
 ## 5. What competitors get wrong (and FaceRep already does differently)
 Reviews complain about: price jumps and web-checkout funnels, charges after cancelling, AI avatar demos, paywalls right after onboarding, ads mid-workout, login failures, "random scores", can't delete photos, repetitive programs, joint/ear pain.
 FaceRep: free exercises, in-app pricing only, real anatomy visuals, no login, no ads, no scores, on-device data, safety + jaw caution.
-Next ideas: Week / Month / Year views on Progress, sound/voice cue toggle, a home-screen widget for the streak.
+Next ideas: sound/voice cue toggle, a home-screen widget for the streak.
 
 ## 6. App Store rules: status
 | Rule | What it needs | Status |

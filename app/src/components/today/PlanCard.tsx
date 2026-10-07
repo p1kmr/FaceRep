@@ -10,7 +10,7 @@ import { PLAN } from '@/constants/plan';
 import type { usePlan } from '@/hooks/usePlan';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
-import { toMinutes } from '@/utils/format';
+import { formatDay, toMinutes } from '@/utils/format';
 
 import { AppText } from '../ui/AppText';
 import { Badge } from '../ui/Badge';
@@ -51,7 +51,7 @@ function Thumbs({ ids, blurred }: { ids: readonly ExerciseId[]; blurred?: boolea
 
 /** Today's plan day: Week · Day header, the exercises, one button. Also the locked, loading and done states. */
 export function PlanCard({ plan, goal, isPremium, onStart, onPractice, onUnlock }: PlanCardProps) {
-  const { t } = useTranslation(['home', 'common']);
+  const { t, i18n } = useTranslation(['home', 'common']);
   const styles = useStyles();
   const { colors } = useTheme();
   const { progress, showing, today } = plan;
@@ -131,7 +131,7 @@ export function PlanCard({ plan, goal, isPremium, onStart, onPractice, onUnlock 
             {t('home:plan.header', { week: showing.week, day: showing.day, total: PLAN.days })}
           </AppText>
           <AppText variant="footnote" muted>
-            {subtitle}
+            {subtitle} · {formatDay(showing.date, i18n.language)}
           </AppText>
         </View>
         <View style={styles.badges}>

@@ -4,20 +4,24 @@ import { Pressable, View } from 'react-native';
 
 import { PLAN } from '@/constants/plan';
 import { useTheme } from '@/hooks/useTheme';
-import type { PlanCellStatus } from '@/services/plan/plan';
+import type { PlanCell, PlanCellStatus } from '@/services/plan/plan';
 import { makeStyles } from '@/theme/makeStyles';
+import { formatDay, weekdayShort } from '@/utils/format';
 
 import { AppText } from '../ui/AppText';
 
 interface PlanGridProps {
-  grid: { day: number; status: PlanCellStatus }[];
+  grid: PlanCell[];
   /** A day was tapped (locked days too, so the screen can open the paywall). */
   onPressDay: (day: number, status: PlanCellStatus) => void;
 }
 
-/** The 28 days as 4 rows of 7: a check when done, a ring for today, a lock for Premium days. Tap a day to open it. */
+/**
+ * The 28 days as 4 rows of 7: a check when done, a ring for today, a lock for Premium days, with the
+ * weekday each one was done on (or falls on if you train every day). Tap a day to open it.
+ */
 export function PlanGrid({ grid, onPressDay }: PlanGridProps) {
-  const { t } = useTranslation('home');
+  const { t, i18n } = useTranslation('home');
   const { colors } = useTheme();
   const styles = useStyles();
   const weeks = Array.from({ length: PLAN.days / PLAN.daysPerWeek }, (_, w) => grid.slice(w * PLAN.daysPerWeek, (w + 1) * PLAN.daysPerWeek));
@@ -29,24 +33,29 @@ export function PlanGrid({ grid, onPressDay }: PlanGridProps) {
           <AppText variant="caption" muted style={styles.week}>
             {t('plan.grid.week', { week: w + 1 })}
           </AppText>
-          {cells.map(({ day, status }) => (
+          {cells.map(({ day, status, date }) => (
             <Pressable
               key={day}
               onPress={() => onPressDay(day, status)}
               accessibilityRole="button"
-              accessibilityLabel={t(`plan.grid.cell.${status}`, { day })}
+              accessibilityLabel={`${t(`plan.grid.cell.${status}`, { day })}, ${formatDay(date, i18n.language)}`}
               hitSlop={2}
-              style={({ pressed }) => [styles.cell, status === 'done' && styles.done, status === 'today' && styles.today, pressed && styles.pressed]}
+              style={({ pressed }) => [styles.column, pressed && styles.pressed]}
             >
-              {status === 'done' ? (
-                <SymbolView name="checkmark" size={13} weight="bold" tintColor={colors.onPrimary} />
-              ) : status === 'locked' ? (
-                <SymbolView name="lock.fill" size={11} tintColor={colors.textMuted} />
-              ) : (
-                <AppText variant="caption" style={status === 'today' ? styles.todayText : styles.dayText}>
-                  {day}
-                </AppText>
-              )}
+              <View style={[styles.cell, status === 'done' && styles.done, status === 'today' && styles.today]}>
+                {status === 'done' ? (
+                  <SymbolView name="checkmark" size={13} weight="bold" tintColor={colors.onPrimary} />
+                ) : status === 'locked' ? (
+                  <SymbolView name="lock.fill" size={11} tintColor={colors.textMuted} />
+                ) : (
+                  <AppText variant="caption" style={status === 'today' ? styles.todayText : styles.dayText}>
+                    {day}
+                  </AppText>
+                )}
+              </View>
+              <AppText variant="caption" muted style={[styles.weekday, status === 'today' && styles.todayText]} numberOfLines={1}>
+                {weekdayShort(date, i18n.language)}
+              </AppText>
             </Pressable>
           ))}
         </View>
@@ -60,10 +69,11 @@ export function PlanGrid({ grid, onPressDay }: PlanGridProps) {
 
 const useStyles = makeStyles(({ colors, tokens }) => ({
   root: { gap: tokens.space.sm },
-  row: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.sm },
-  week: { width: 26 },
+  row: { flexDirection: 'row', alignItems: 'flex-start', gap: tokens.space.sm },
+  week: { width: 26, paddingTop: tokens.space.sm + 2 },
+  column: { flex: 1, alignItems: 'center', gap: 2 },
   cell: {
-    flex: 1,
+    width: '100%',
     aspectRatio: 1,
     maxWidth: 40,
     borderRadius: tokens.radius.pill,
@@ -75,5 +85,6 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   today: { borderWidth: 2, borderColor: colors.primary, backgroundColor: colors.surface },
   pressed: { opacity: 0.6 },
   dayText: { color: colors.textMuted },
+  weekday: { fontSize: tokens.font.size.caption - 2 },
   todayText: { color: colors.primary, fontWeight: tokens.font.weight.bold },
 }));

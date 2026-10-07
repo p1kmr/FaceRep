@@ -2,7 +2,7 @@ import { EXERCISES, GOALS } from '@/constants/exercises';
 import { PLAN, type PlanDay } from '@/constants/plan';
 import type { SessionSummary } from '@/services/progress/stats';
 
-import { contentLevel, freeWeek, isFreeDay, nextPlanRef, parsePlanDays, planGrid, planItems, planProgress, weekOf } from '../plan';
+import { contentLevel, freeWeek, isFreeDay, nextPlanRef, parsePlanDays, planDates, planGrid, planItems, planProgress, weekOf } from '../plan';
 
 const day = (n: number, over: Partial<PlanDay> = {}): PlanDay => ({ day: n, kind: 'workout', ids: ['09-brow-lift'], repPct: 100, holdPlusSec: 0, ...over });
 let seq = 0;
@@ -91,10 +91,35 @@ describe('free days and the grid', () => {
   });
 
   it('shows done, today, upcoming, and locks Premium days for free users only', () => {
-    const p = planProgress([session('2026-10-01', { level: 1, day: 1 })], '2026-10-02');
-    const free = planGrid(p, false);
-    expect(free.slice(0, 3).map((c) => c.status)).toEqual(['done', 'today', 'upcoming']);
+    const sessions = [session('2026-10-01', { level: 1, day: 1 })];
+    const p = planProgress(sessions, '2026-10-02');
+    const dates = planDates(sessions, p, '2026-10-02');
+    const free = planGrid(p, false, dates);
+    expect(free.slice(0, 3)).toEqual([
+      { day: 1, status: 'done', date: '2026-10-01' },
+      { day: 2, status: 'today', date: '2026-10-02' },
+      { day: 3, status: 'upcoming', date: '2026-10-03' },
+    ]);
     expect(free.slice(7).every((c) => c.status === 'locked')).toBe(true);
-    expect(planGrid(p, true).some((c) => c.status === 'locked')).toBe(false);
+    expect(planGrid(p, true, dates).some((c) => c.status === 'locked')).toBe(false);
+  });
+});
+
+describe('planDates', () => {
+  it('done days keep the date they were done; days ahead fall one per day from the next free day', () => {
+    // Day 1 on Thu Oct 1, day 2 on Sat Oct 3 (Friday missed), nothing yet today (Tue Oct 6).
+    const sessions = [session('2026-10-01', { level: 1, day: 1 }), session('2026-10-03', { level: 1, day: 2 }), session('2026-10-05')];
+    const today = '2026-10-06';
+    const dates = planDates(sessions, planProgress(sessions, today), today);
+    expect(dates.slice(0, 4)).toEqual(['2026-10-01', '2026-10-03', '2026-10-06', '2026-10-07']);
+    expect(dates).toHaveLength(PLAN.days);
+    expect(dates[PLAN.days - 1]).toBe('2026-10-31'); // day 3 today, so day 28 is 25 days later
+  });
+
+  it('when today is done, the next day falls tomorrow; other levels are ignored', () => {
+    const sessions = [session('2026-10-06', { level: 2, day: 1 }), session('2026-09-02', { level: 1, day: 2 })];
+    const today = '2026-10-06';
+    const dates = planDates(sessions, planProgress(sessions, today), today);
+    expect(dates.slice(0, 2)).toEqual(['2026-10-06', '2026-10-07']);
   });
 });

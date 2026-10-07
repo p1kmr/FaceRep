@@ -9,7 +9,7 @@ import { AppText } from '../ui/AppText';
 
 const HEIGHT = 120;
 
-/** Minutes per day for the last 7 days. Bars are relative to the busiest day (at least 5 min). */
+/** Minutes per day for one week. Bars are relative to the busiest day (at least 5 min). */
 export function WeekBars({ week }: { week: DayBar[] }) {
   const { t, i18n } = useTranslation('common');
   const styles = useStyles();

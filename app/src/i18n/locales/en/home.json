@@ -38,11 +38,14 @@
     "preview": {
       "practice": "Practice Day {{day}}",
       "practiceNote": "Practicing this day doesn't move your plan on. Day {{day}} is your next day.",
-      "practiceNoteDone": "Practicing this day doesn't move your plan on. Your next day opens tomorrow."
+      "practiceNoteDone": "Practicing this day doesn't move your plan on. Your next day opens tomorrow.",
+      "doneOn": "Done on {{date}}",
+      "today": "Today, {{date}}",
+      "plannedFor": "Planned for {{date}} if you train every day"
     },
     "grid": {
       "title": "Your 28-day plan",
-      "hint": "Tap a day to see its exercises.",
+      "hint": "Tap a day to see its exercises. Weekdays show when you did a day, or when it falls if you train every day.",
       "week": "W{{week}}",
       "cell": {
         "done": "Day {{day}}, done",
