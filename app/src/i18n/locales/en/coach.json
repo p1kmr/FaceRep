@@ -45,7 +45,9 @@
     "jawline": "How long until I see jawline results?",
     "mewing": "Am I doing mewing correctly?",
     "reminder": "Remind me to check my mewing every 2 hours on weekdays",
-    "skincare": "Simple skincare routine for men?",
+    "skincare": "Simple skincare routine?",
+    "skincare_man": "Simple skincare routine for men?",
+    "skincare_woman": "Simple skincare routine for women?",
     "doubleChin": "Which exercises help a double chin?"
   },
   "errors": {

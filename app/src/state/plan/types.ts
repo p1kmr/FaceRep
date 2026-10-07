@@ -6,6 +6,8 @@ import type { PlanError } from '@/services/plan/planApi';
 export interface PlanCache {
   goal: Goal;
   level: number;
+  /** CATALOG_VERSION when loaded: after an update that adds exercises, the plan is loaded again. */
+  catalog: number;
   days: PlanDay[];
 }
 

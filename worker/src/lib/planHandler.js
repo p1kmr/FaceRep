@@ -1,4 +1,4 @@
-import { premiumDays } from './plan.js';
+import { CATALOG_VERSION, premiumDays } from './plan.js';
 import { validatePlanRequest } from './validate.js';
 
 const MAX_BODY_BYTES = 1_000;
@@ -34,5 +34,7 @@ export async function handlePlan({ method, rawBody, ip }, { checkRateLimit, isPr
   if (premium === 'unavailable') return { status: 503, body: { error: 'unavailable' } };
   if (!premium) return { status: 402, body: { error: 'premium' } };
 
-  return { status: 200, body: { goal: input.goal, level: input.level, days: premiumDays(input.goal, input.level) } };
+  // A newer app than this Worker knows gets the exercises the Worker has (all of them are in that app).
+  const catalog = Math.min(input.catalog, CATALOG_VERSION);
+  return { status: 200, body: { goal: input.goal, level: input.level, days: premiumDays(input.goal, input.level, catalog) } };
 }

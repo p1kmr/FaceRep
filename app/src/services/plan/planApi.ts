@@ -1,5 +1,5 @@
 import { CONFIG } from '@/constants/config';
-import type { Goal } from '@/constants/exercises';
+import { CATALOG_VERSION, type Goal } from '@/constants/exercises';
 import { PLAN, type PlanDay } from '@/constants/plan';
 
 import { contentLevel, parsePlanDays } from './plan';
@@ -18,7 +18,8 @@ export const premiumRange = (level: number) => ({ from: level === 1 ? PLAN.freeD
 
 /**
  * Asks our Worker for the Premium days. The Worker checks the subscription with RevenueCat itself,
- * so a patched app still gets nothing. Only the random app ID, goal and level are sent.
+ * so a patched app still gets nothing. Only the random app ID, goal, level and the app's catalog
+ * version (which exercises it has) are sent.
  */
 export async function requestPlanDays(
   input: { appUserId: string; goal: Goal; level: number },
@@ -33,7 +34,7 @@ export async function requestPlanDays(
     response = await fetchImpl(CONFIG.planUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ appUserId: input.appUserId, goal: input.goal, level }),
+      body: JSON.stringify({ appUserId: input.appUserId, goal: input.goal, level, catalog: CATALOG_VERSION }),
       signal: controller.signal,
     });
   } catch {

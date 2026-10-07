@@ -11,6 +11,7 @@ import { Card } from '../ui/Card';
 const POINTS: { key: string; icon: SymbolViewProps['name'] }[] = [
   { key: 'gentle', icon: 'hand.raised.fill' },
   { key: 'jaw', icon: 'exclamationmark.triangle.fill' },
+  { key: 'treatments', icon: 'syringe.fill' },
   { key: 'stop', icon: 'stop.circle.fill' },
   { key: 'results', icon: 'info.circle.fill' },
 ];

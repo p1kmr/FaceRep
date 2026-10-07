@@ -1,4 +1,5 @@
 import type { Goal } from '@/constants/exercises';
+import type { GuideId } from '@/constants/guides';
 import type { Reminder } from '@/services/reminders/reminders';
 import type { ThemeMode } from '@/constants/theme';
 import type { ISODate } from '@/utils/dates';
@@ -22,6 +23,8 @@ export interface Settings {
   onboardingDone: boolean;
   onboardedOn: ISODate | null;
   goal: Goal;
+  /** Who the exercise pictures show (man or woman). Display only: the plan doesn't depend on it. */
+  guide: GuideId;
   /** The user's reminders (workout, mewing, posture, own). The first install has a workout one, off. */
   reminders: Reminder[];
   haptics: boolean;

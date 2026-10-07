@@ -38,8 +38,9 @@ export function validateChatRequest(body) {
 /** POST /plan: { appUserId, goal, level }. Levels 1–3 (see lib/plan.js MAX_LEVEL). */
 export function validatePlanRequest(body) {
   if (!isObj(body)) return null;
-  const { appUserId, goal, level, ...rest } = body;
+  // catalog: the app's exercise catalog version (apps before it existed send none: version 1).
+  const { appUserId, goal, level, catalog = 1, ...rest } = body;
   if (Object.keys(rest).length) return null;
-  if (!isUserId(appUserId) || !GOALS.includes(goal) || !isInt(level, 1, 3)) return null;
-  return { appUserId, goal, level };
+  if (!isUserId(appUserId) || !GOALS.includes(goal) || !isInt(level, 1, 3) || !isInt(catalog, 1, 1000)) return null;
+  return { appUserId, goal, level, catalog };
 }

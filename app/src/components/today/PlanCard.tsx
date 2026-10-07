@@ -4,9 +4,9 @@ import { SymbolView } from 'expo-symbols';
 import { useTranslation } from 'react-i18next';
 import { ActivityIndicator, View } from 'react-native';
 
-import { EXERCISE_IMAGES } from '@/constants/exerciseImages';
 import { EXERCISE_IDS, EXERCISES, type ExerciseId, type Goal } from '@/constants/exercises';
 import { PLAN } from '@/constants/plan';
+import { useGuideImages } from '@/hooks/useGuide';
 import type { usePlan } from '@/hooks/usePlan';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
@@ -35,10 +35,11 @@ const teaserIds = (goal: Goal): ExerciseId[] =>
 function Thumbs({ ids, blurred }: { ids: readonly ExerciseId[]; blurred?: boolean }) {
   const styles = useStyles();
   const { colors } = useTheme();
+  const images = useGuideImages();
   return (
     <View style={styles.thumbs} accessible={false}>
       {ids.map((id) => (
-        <Image key={id} source={EXERCISE_IMAGES[id].thumb} style={styles.thumb} contentFit="cover" blurRadius={blurred ? 14 : 0} />
+        <Image key={id} source={images.exercises[id].thumb} style={styles.thumb} contentFit="cover" blurRadius={blurred ? 14 : 0} />
       ))}
       {blurred ? (
         <View style={styles.lock}>

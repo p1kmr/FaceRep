@@ -11,9 +11,11 @@ import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Segmented } from '@/components/ui/Segmented';
+import { AVAILABLE_GUIDES } from '@/constants/exerciseImages';
 import { GOALS } from '@/constants/exercises';
 import { LINKS } from '@/constants/links';
 import type { ThemeMode } from '@/constants/theme';
+import { useGuide } from '@/hooks/useGuide';
 import { usePlanDispatch } from '@/hooks/usePlan';
 import { usePremium, usePremiumDispatch } from '@/hooks/usePremium';
 import { useProgressDispatch } from '@/hooks/useProgress';
@@ -25,7 +27,7 @@ import { hasPurchasesKey, restorePurchases } from '@/services/purchases/purchase
 import { resetPlan } from '@/state/plan/actions';
 import { setPremium } from '@/state/premium/actions';
 import { resetProgress } from '@/state/progress/actions';
-import { resetSettings, setAiConsent, setAskButton, setGoal, setHaptics, setThemeMode } from '@/state/settings/actions';
+import { resetSettings, setAiConsent, setAskButton, setGoal, setGuide, setHaptics, setThemeMode } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 const THEME_MODES: ThemeMode[] = ['system', 'light', 'dark'];
@@ -35,6 +37,7 @@ export default function SettingsScreen() {
   const styles = useStyles();
   const settings = useSettings();
   const dispatch = useSettingsDispatch();
+  const guide = useGuide();
   const progressDispatch = useProgressDispatch();
   const planDispatch = usePlanDispatch();
   const { isPremium } = usePremium();
@@ -91,6 +94,18 @@ export default function SettingsScreen() {
             onChange={(g) => dispatch(setGoal(g))}
           />
         </View>
+        {AVAILABLE_GUIDES.length > 1 ? (
+          <View style={styles.block}>
+            <AppText variant="footnote" muted>
+              {t('settings:guide')}
+            </AppText>
+            <Segmented
+              options={AVAILABLE_GUIDES.map((g) => ({ id: g, label: t(`common:guides.${g}`) }))}
+              value={guide}
+              onChange={(g) => dispatch(setGuide(g))}
+            />
+          </View>
+        ) : null}
         <ListRow
           title={t('settings:reminders')}
           subtitle={t('settings:remindersOn', { count: settings.reminders.filter((r) => r.enabled).length })}

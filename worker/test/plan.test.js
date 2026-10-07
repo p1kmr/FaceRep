@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 
-import { buildPlan, CATALOG, FREE_DAYS, freeWeek, LIGHT_DAY, MAX_LEVEL, PLAN_DAYS, premiumDays, WEEKS } from '../src/lib/plan.js';
+import { buildPlan, CATALOG, CATALOG_VERSION, FREE_DAYS, freeWeek, LIGHT_DAY, MAX_LEVEL, PLAN_DAYS, premiumDays, WEEKS } from '../src/lib/plan.js';
 import { handlePlan } from '../src/lib/planHandler.js';
 import { GOALS } from '../src/lib/validate.js';
 
@@ -10,14 +10,32 @@ const appFile = (path) => readFileSync(new URL(`../../app/src/${path}`, import.m
 const loadsJaw = new Set(CATALOG.filter((e) => e.loadsJaw).map((e) => e.id));
 const programOf = Object.fromEntries(CATALOG.map((e) => [e.id, e.program]));
 
-test('plan: catalog matches the app (order, program, jaw caution)', () => {
+test('plan: catalog matches the app (order, program, jaw caution, catalog version)', () => {
   const source = appFile('constants/exercises.ts');
+  const appVersion = Number(source.match(/export const CATALOG_VERSION = (\d+);/)[1]);
+  assert.equal(appVersion, CATALOG_VERSION, 'bump CATALOG_VERSION in the app and here together');
   const ids = [...source.match(/export const EXERCISE_IDS = \[([\s\S]*?)\] as const/)[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
   const fromApp = ids.map((id) => {
     const entry = source.match(new RegExp(`'${id}': \\{([^}]*)\\}`))[1];
     return { id, program: entry.match(/program: '(\w+)'/)[1], loadsJaw: /jawCaution: true/.test(entry) };
   });
-  assert.deepEqual(CATALOG, fromApp);
+  assert.deepEqual(
+    CATALOG.map(({ since: _, ...e }) => e),
+    fromApp,
+  );
+  assert.ok(CATALOG.every((e) => Number.isInteger(e.since) && e.since >= 1 && e.since <= CATALOG_VERSION));
+});
+
+test('plan: an app only gets exercises its catalog version has', () => {
+  for (const goal of GOALS) {
+    for (let catalog = 1; catalog <= CATALOG_VERSION; catalog++) {
+      const known = new Set(CATALOG.filter((e) => e.since <= catalog).map((e) => e.id));
+      for (let level = 1; level <= MAX_LEVEL; level++) {
+        assert.ok(buildPlan(goal, level, catalog).every((d) => d.ids.every((id) => known.has(id))), `${goal} L${level} v${catalog}`);
+      }
+    }
+  }
+  assert.ok(LIGHT_DAY.ids.every((id) => CATALOG.find((e) => e.id === id).since === 1), 'light days work for every app');
 });
 
 test('plan: the free week bundled in the app is exactly Level 1, days 1–7 (run npm run plan:export)', () => {
@@ -97,6 +115,13 @@ test('/plan: Premium gets the premium days of its goal and level', async () => {
   assert.deepEqual(res.body, { goal: 'jawline', level: 1, days: premiumDays('jawline', 1) });
 });
 
+test('/plan: the catalog version is optional (older apps: 1); a newer app gets what this Worker has', async () => {
+  const days = (catalog) => handlePlan(request({ appUserId, goal: 'full', level: 2, ...(catalog ? { catalog } : {}) }), deps()).then((r) => r.body.days);
+  assert.deepEqual(await days(undefined), premiumDays('full', 2, 1));
+  assert.deepEqual(await days(1), premiumDays('full', 2, 1));
+  assert.deepEqual(await days(CATALOG_VERSION + 5), premiumDays('full', 2, CATALOG_VERSION));
+});
+
 test('/plan: free users, missing setup and outages never get the plan', async () => {
   const body = { appUserId, goal: 'eyes', level: 1 };
   const free = await handlePlan(request(body), deps({ isPremium: async () => false }));
@@ -121,10 +146,12 @@ test('/plan: strict input, rate limits before asking RevenueCat', async () => {
     request({ appUserId, goal: 'nose', level: 1 }),
     request({ appUserId: 'me', goal: 'jawline', level: 1 }),
     request({ appUserId, goal: 'jawline', level: 1, isPremium: true }),
+    request({ appUserId, goal: 'jawline', level: 1, catalog: 0 }),
+    request({ appUserId, goal: 'jawline', level: 1, catalog: '2' }),
     request('x'.repeat(2_000)),
   ];
   const statuses = await Promise.all(bad.map((r) => handlePlan(r, deps({ isPremium })).then((res) => res.status)));
-  assert.deepEqual(statuses, [405, 400, 400, 400, 400, 400, 413]);
+  assert.deepEqual(statuses, [405, 400, 400, 400, 400, 400, 400, 400, 413]);
   const limited = await handlePlan(request({ appUserId, goal: 'jawline', level: 1 }), deps({ isPremium, checkRateLimit: async () => 'limited' }));
   assert.equal(limited.status, 429);
   const limiterDown = await handlePlan(request({ appUserId, goal: 'jawline', level: 1 }), deps({ isPremium, checkRateLimit: async () => 'unavailable' }));

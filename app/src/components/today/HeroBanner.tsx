@@ -3,7 +3,7 @@ import { SymbolView } from 'expo-symbols';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 
-import { HERO_IMAGES } from '@/constants/exerciseImages';
+import { useGuideImages } from '@/hooks/useGuide';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 
@@ -14,9 +14,10 @@ export function HeroBanner({ streak, doneToday }: { streak: number; doneToday: b
   const { t } = useTranslation('home');
   const styles = useStyles();
   const { colors } = useTheme();
+  const { hero } = useGuideImages();
   return (
     <View style={styles.root}>
-      <Image source={HERO_IMAGES.home} style={StyleSheet.absoluteFill} contentFit="cover" contentPosition="right" accessible={false} />
+      <Image source={hero.home} style={StyleSheet.absoluteFill} contentFit="cover" contentPosition="right" accessible={false} />
       <View style={styles.content}>
         <View style={styles.streak}>
           <SymbolView name="flame.fill" size={16} tintColor={colors.streak} />

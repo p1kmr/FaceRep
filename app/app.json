@@ -4,7 +4,7 @@
     "slug": "facerep",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/brand/icon.png",
     "scheme": "facerep",
     "userInterfaceStyle": "automatic",
     "ios": {
@@ -78,7 +78,7 @@
     },
     "web": {
       "output": "single",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/brand/favicon.png"
     },
     "plugins": [
       [
@@ -94,7 +94,7 @@
         "expo-splash-screen",
         {
           "backgroundColor": "#F4F5F7",
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/brand/splash-icon.png",
           "imageWidth": 150,
           "dark": {
             "backgroundColor": "#0B0D10"

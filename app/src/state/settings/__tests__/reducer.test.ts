@@ -1,6 +1,6 @@
 import { workoutReminder } from '@/services/reminders/reminders';
 
-import { completeOnboarding, deleteReminder, hydrateSettings, resetSettings, saveReminder, setAskButton, setGoal } from '../actions';
+import { completeOnboarding, deleteReminder, hydrateSettings, resetSettings, saveReminder, setAskButton, setGoal, setGuide } from '../actions';
 import { DEFAULT_SETTINGS, initialSettingsState, settingsReducer } from '../reducer';
 
 describe('settingsReducer', () => {
@@ -18,6 +18,17 @@ describe('settingsReducer', () => {
 
   it('hydrating nothing gives a fresh install', () => {
     expect(settingsReducer(initialSettingsState, hydrateSettings(null)).settings).toEqual(DEFAULT_SETTINGS);
+  });
+
+  it('keeps who the pictures show; an unknown or missing guide falls back to the default', () => {
+    expect(DEFAULT_SETTINGS.guide).toBe('man');
+    let s = settingsReducer(initialSettingsState, setGuide('woman'));
+    expect(s.settings.guide).toBe('woman');
+    expect(settingsReducer(s, setGuide('robot' as never))).toBe(s);
+    s = settingsReducer(s, hydrateSettings({ guide: 'woman' }));
+    expect(s.settings.guide).toBe('woman');
+    expect(settingsReducer(s, hydrateSettings({ guide: 'female' as never })).settings.guide).toBe('man');
+    expect(settingsReducer(s, hydrateSettings({ goal: 'eyes' })).settings.guide).toBe('man');
   });
 
   it('keeps the first onboarding date', () => {

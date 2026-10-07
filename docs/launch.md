@@ -25,19 +25,19 @@ Research done 2026-10-06 (App Store lookup/search APIs, USPTO, Apple guidelines 
 
 ## 3. App Store metadata draft (FaceRep)
 - **Name (26):** `FaceRep: Jawline Exercises`
-- **Subtitle (26):** `Face Yoga for Men & Mewing`
-- **Keywords (96):** `double,chin,cheekbone,jaw,tongue,posture,glow,facial,fitness,looksmax,workout,eye,skincare,coach`
-  (swap `looksmax` for `toning` or `neck` if you want distance from rating apps)
+- **Subtitle (27):** `Face Yoga & Mewing Workouts` (was `Face Yoga for Men & Mewing`; the app now has a Woman picture set, so the listing is for both. Keep a men-first look in the screenshots if you like, and add a women-focused **custom product page** in App Store Connect with her screenshots for ads and search.)
+- **Keywords (97):** `double,chin,cheekbone,jaw,tongue,posture,glow,facial,fitness,men,women,workout,eye,skincare,coach`
+  (`looksmax` was dropped for `men,women`; it also kept distance from rating apps)
 - **Promotional text (160):** See the exact muscle you're training. A 3D anatomy guide and hold-relax timer coach every rep of a 28-day plan for jawline, cheekbones and eyes. Week 1 is free.
 - **Category:** Health & Fitness (secondary: Lifestyle). **Age rating:** 13+.
 - **Subscriptions:** group "FaceRep Premium": "Premium Monthly" $3.99, "Premium Yearly" $29.99 with a 7-day free trial.
 - **Description:**
 
 ```
-FaceRep is facial fitness built for men: short, guided workouts for your jawline, cheekbones and eye area. A few minutes a day.
+FaceRep is facial fitness for men and women: short, guided workouts for your jawline, cheekbones and eye area. A few minutes a day.
 
 SEE THE MUSCLE YOU TRAIN
-Every exercise shows a realistic 3D anatomy model with the working muscle lit up in red, moving from relaxed to squeeze in time with the timer.
+Every exercise shows the working muscle lit up in red, moving from relaxed to squeeze in time with the timer. Choose whether the pictures show a man or a woman.
 
 THREE PROGRAMS
 • Jawline: jaw clench, chin lift, jaw jut, mewing, tongue press, chin tuck and neck stretch
@@ -111,7 +111,7 @@ Next ideas: sound/voice cue toggle, a home-screen widget for the streak.
 
 **App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe). Workout history and reminders stay on device → not "collected". No tracking.
 
-**Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. Mention reminders: Settings → Reminders (local notifications the user sets up; permission is asked when one is turned on), and the Coach can propose reminder changes that only apply after the user taps Confirm. Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 are Premium. On Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account; the days load from our server right after purchase, and tapping any day (e.g. Day 15) then shows its exercises and lets you start it. Settings → Restore restores the purchase." 
+**Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. Mention the picture choice: onboarding asks whether the exercise pictures show a man or a woman (display only, stays on the device; Settings → Exercise pictures). Mention reminders: Settings → Reminders (local notifications the user sets up; permission is asked when one is turned on), and the Coach can propose reminder changes that only apply after the user taps Confirm. Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 are Premium. On Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account; the days load from our server right after purchase, and tapping any day (e.g. Day 15) then shows its exercises and lets you start it. Settings → Restore restores the purchase." 
 
 ## 7. Keeping the developer account safe
 Accounts get terminated for: hidden features or server switches that change the app after review, fake reviews or rating manipulation, bait-and-switch or confusing subscriptions, copying other apps or names, misleading health claims.
@@ -133,6 +133,6 @@ Do: ship exactly what was reviewed, describe every feature in review notes, make
 
 ## 9. AI-generated assets
 - Purely AI-generated images have no US copyright (Copyright Office 2025; *Thaler* cert denied 2026). Others could copy them; the app and brand are what you protect.
-- **Figma AI:** you own the output; the policy forbids removing AI provenance metadata or claiming it's human-made. The app assets are cropped/compressed (which drops the C2PA "Content Credentials"), so **keep the original files** (`FaceKit-AI-originals.zip`) and **label the images as AI-generated** (Settings footer, privacy page, store description).
+- **Figma AI:** you own the output; the policy forbids removing AI provenance metadata or claiming it's human-made. The app assets are cropped/compressed (which drops the C2PA "Content Credentials"), so **keep the original files** (`FaceKit-AI-originals.zip`, and `FaceRep-woman-originals.zip` for the woman set made with Figma AI in October 2026, see docs/images.md) and **label the images as AI-generated** (Settings footer, privacy page, store description).
 - **Google Flow / Veo:** carries SynthID; **a visible watermark is added automatically for users in India** even on paid plans, and it must not be cropped. Another reason to stay with the two-frame image animation.
 - The model is fictional: don't prompt with real people's names, and reverse-image-search the final hero once.

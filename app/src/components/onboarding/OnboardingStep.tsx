@@ -4,13 +4,15 @@ import { View } from 'react-native';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
 import { Screen } from '@/components/ui/Screen';
+import { AVAILABLE_GUIDES } from '@/constants/exerciseImages';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { ProgressDots } from './ProgressDots';
 
-/** Steps after the welcome screen, in order (used for the progress dots). */
-export const ONBOARDING_STEPS = ['goal', 'safety', 'reminder'] as const;
-export type OnboardingStepId = (typeof ONBOARDING_STEPS)[number];
+export type OnboardingStepId = 'guide' | 'goal' | 'safety' | 'reminder';
+
+/** Steps after the welcome screen, in order (progress dots). "Who the pictures show" only when there's a choice. */
+export const ONBOARDING_STEPS: OnboardingStepId[] = [...(AVAILABLE_GUIDES.length > 1 ? (['guide'] as const) : []), 'goal', 'safety', 'reminder'];
 
 interface OnboardingStepProps {
   step: OnboardingStepId;

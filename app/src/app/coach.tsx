@@ -16,6 +16,7 @@ import { COACH_SUGGESTIONS } from '@/constants/coach';
 import { LINKS } from '@/constants/links';
 import { useChat } from '@/hooks/useChat';
 import { useFreeAiLabel } from '@/hooks/useFreeAiLabel';
+import { useGuide } from '@/hooks/useGuide';
 import { usePremium } from '@/hooks/usePremium';
 import { makeStyles } from '@/theme/makeStyles';
 
@@ -31,6 +32,8 @@ export default function CoachScreen() {
   const chat = useChat();
   const { isPremium } = usePremium();
   const freeLabel = useFreeAiLabel();
+  // Words that differ for the chosen guide ("skincare for men / women"), via i18next context.
+  const guide = useGuide();
   const scroll = useRef<ScrollView>(null);
   const empty = !chat.messages.length && !chat.pending;
 
@@ -75,7 +78,7 @@ export default function CoachScreen() {
               <AppText muted>{t('intro')}</AppText>
               <View style={styles.chips}>
                 {COACH_SUGGESTIONS.map((k) => (
-                  <Chip key={k} label={t(`suggestions.${k}`)} onPress={() => chat.send(t(`suggestions.${k}`))} />
+                  <Chip key={k} label={t(`suggestions.${k}`, { context: guide })} onPress={() => chat.send(t(`suggestions.${k}`, { context: guide }))} />
                 ))}
               </View>
             </View>

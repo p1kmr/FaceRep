@@ -8,6 +8,7 @@
     "about": "About"
   },
   "goal": "Focus",
+  "guide": "Exercise pictures",
   "reminders": "Reminders",
   "remindersOn_one": "{{count}} on",
   "remindersOn_other": "{{count}} on",

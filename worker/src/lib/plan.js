@@ -15,28 +15,36 @@ export const FREE_DAYS = 7;
 export const MAX_LEVEL = 3;
 
 /**
- * [id, program, loadsJaw] in the app's catalog order (app/src/constants/exercises.ts EXERCISE_IDS,
- * program and jawCaution). A test fails when the two drift apart.
+ * Version of the exercise catalog. When exercises are added, bump it here and in the app
+ * (CATALOG_VERSION in app/src/constants/exercises.ts) and give the new entries the new version. The
+ * app sends its version with POST /plan, so an older app is never planned an exercise it doesn't have.
+ */
+export const CATALOG_VERSION = 1;
+
+/**
+ * [id, program, loadsJaw, since] in the app's catalog order (app/src/constants/exercises.ts
+ * EXERCISE_IDS, program and jawCaution); `since` is the catalog version that added the exercise.
+ * A test fails when the two drift apart.
  */
 export const CATALOG = [
-  ['01-jaw-clench', 'jawline', true],
-  ['02-chin-lift', 'jawline', false],
-  ['03-jaw-jut', 'jawline', true],
-  ['04-mewing', 'jawline', false],
-  ['12-tongue-press', 'jawline', false],
-  ['11-chin-tuck', 'jawline', false],
-  ['05-neck-stretch', 'jawline', false],
-  ['06-cheek-lift', 'cheekbones', false],
-  ['07-fish-face', 'cheekbones', false],
-  ['13-smiling-fish', 'cheekbones', false],
-  ['08-cheek-puff', 'cheekbones', false],
-  ['14-o-stretch', 'cheekbones', false],
-  ['15-lion-face', 'cheekbones', true],
-  ['09-brow-lift', 'eyes', false],
-  ['16-wide-eyes', 'eyes', false],
-  ['17-lower-lid-lift', 'eyes', false],
-  ['10-eye-squeeze', 'eyes', false],
-].map(([id, program, loadsJaw]) => ({ id, program, loadsJaw }));
+  ['01-jaw-clench', 'jawline', true, 1],
+  ['02-chin-lift', 'jawline', false, 1],
+  ['03-jaw-jut', 'jawline', true, 1],
+  ['04-mewing', 'jawline', false, 1],
+  ['12-tongue-press', 'jawline', false, 1],
+  ['11-chin-tuck', 'jawline', false, 1],
+  ['05-neck-stretch', 'jawline', false, 1],
+  ['06-cheek-lift', 'cheekbones', false, 1],
+  ['07-fish-face', 'cheekbones', false, 1],
+  ['13-smiling-fish', 'cheekbones', false, 1],
+  ['08-cheek-puff', 'cheekbones', false, 1],
+  ['14-o-stretch', 'cheekbones', false, 1],
+  ['15-lion-face', 'cheekbones', true, 1],
+  ['09-brow-lift', 'eyes', false, 1],
+  ['16-wide-eyes', 'eyes', false, 1],
+  ['17-lower-lid-lift', 'eyes', false, 1],
+  ['10-eye-squeeze', 'eyes', false, 1],
+].map(([id, program, loadsJaw, since]) => ({ id, program, loadsJaw, since }));
 
 /**
  * Each week gets harder: more exercises, more reps, longer holds. Week 1 leaves out the exercises
@@ -69,9 +77,10 @@ const inCatalogOrder = (ids) => [...new Set(ids)].sort((a, b) => order.get(a) - 
  * The exercises of one workout. `n` counts workouts only (light days skipped), so the window moves
  * through the goal's exercises and every one comes up. A program with fewer exercises than `count`
  * is topped up from the others, rotating daily. Full face rotates through the whole catalog.
+ * Only exercises the app's catalog version has.
  */
-function pickIds(goal, n, count, loadsJaw) {
-  const pool = CATALOG.filter((e) => loadsJaw || !e.loadsJaw).map((e) => e.id);
+function pickIds(goal, n, count, loadsJaw, catalog) {
+  const pool = CATALOG.filter((e) => e.since <= catalog && (loadsJaw || !e.loadsJaw)).map((e) => e.id);
   if (goal === 'full') return inCatalogOrder(rotate(pool, n * count).slice(0, count));
   const primary = pool.filter((id) => CATALOG[order.get(id)].program === goal);
   const others = pool.filter((id) => CATALOG[order.get(id)].program !== goal);
@@ -82,8 +91,8 @@ function pickIds(goal, n, count, loadsJaw) {
   return inCatalogOrder(picked);
 }
 
-/** All 28 days of a goal and level (pure: same input, same plan). */
-export function buildPlan(goal, level) {
+/** All 28 days of a goal and level, for an app with this catalog version (pure: same input, same plan). */
+export function buildPlan(goal, level, catalog = CATALOG_VERSION) {
   const bonus = level - 1;
   const days = [];
   let workouts = 0;
@@ -98,7 +107,7 @@ export function buildPlan(goal, level) {
     const final = day === PLAN_DAYS;
     const count = week.count + (final ? FINAL_EXTRA : 0);
     // From Level 2 on, people know the movements: the jaw exercises are in from day 1.
-    const ids = pickIds(goal, workouts, count, week.loadsJaw || level > 1);
+    const ids = pickIds(goal, workouts, count, week.loadsJaw || level > 1, catalog);
     workouts++;
     days.push({ day, kind: final ? 'final' : 'workout', ids, repPct: repPct(week.repPct), holdPlusSec: holdPlusSec(week.holdPlusSec) });
   }
@@ -106,8 +115,8 @@ export function buildPlan(goal, level) {
 }
 
 /** The days a Premium request gets: Level 1 without its free week, every day of Levels 2 and 3. */
-export function premiumDays(goal, level) {
-  const days = buildPlan(goal, level);
+export function premiumDays(goal, level, catalog = CATALOG_VERSION) {
+  const days = buildPlan(goal, level, catalog);
   return level === 1 ? days.filter((d) => d.day > FREE_DAYS) : days;
 }
 

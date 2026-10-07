@@ -16,7 +16,7 @@ app/src/
 │   └── paywall, ai-consent, safety (modals)
 ├── components/     ui/ (AppText, Button, Card, Chip, Badge, IconButton, ProgressRing, Screen, Segmented…),
 │                   exercise/, today/, progress/, coach/, paywall/, onboarding/, settings/
-├── constants/      config.ts, theme/, exercises.ts, exerciseImages.ts, limits.ts, links.ts, storageKeys.ts…
+├── constants/      config.ts, theme/, exercises.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
 ├── state/          settings/, premium/, progress/, plan/, chat/  (+ AppProviders.tsx)
 ├── hooks/          useSettings, usePremium, usePaywall, useProgress*, usePlan, useWorkout, useChat, useTheme…
 ├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, plan/, notifications/, workout/ (pure)
@@ -74,7 +74,7 @@ change, so the face is identical and the app stays small (no video). Leaving the
 | `localStorage` / IndexedDB | **SQLite** (`expo-sqlite`, async) and the Keychain (`expo-secure-store`) |
 | `.env` | `EXPO_PUBLIC_*` only (public, bundled); secrets live in the Worker |
 | CSS dark mode | `useColorScheme()` + `ThemeProvider` tokens (`constants/theme`) |
-| `import img from './a.png'` dynamic paths | `require()` with **static paths only** (see `constants/exerciseImages.ts`) |
+| `import img from './a.png'` dynamic paths | `require()` with **static paths only**; `npm run images` writes them for every picture (docs/images.md) |
 | Framer Motion | **Reanimated** (`useSharedValue`, `withTiming`) |
 | Page scroll | wrap in `ScrollView`/`FlatList`; safe areas via `react-native-safe-area-context` |
 | `fetch` to your API | same `fetch`, but only to **our** Worker (keys never in the app) |
@@ -100,6 +100,16 @@ it into reps and holds with `services/plan/plan.ts` → `planItems()`.
   trains every day from now. The Today card shows it; the grid's circles show the **date** (red when done, ring for
   today, lock for Premium) with the weekday under it, never the plan day number, which only appears in text ("Day 9
   of 28") so it can't be mistaken for a date. The day preview says "Done on …" or "Planned for …".
+
+## Exercise pictures (Man / Woman)
+Pictures live in `assets/guides/<man|woman>/` (hero photos + `exercises/<id>/relaxed|exercise|thumb.webp`), never by plan
+day. `scripts/guide-images.js` (`npm run images`) converts new files, cuts thumbnails and writes
+`constants/guideImages.generated.ts`; only complete guides are in it, and a test fails when it's stale (docs/images.md).
+`settings.guide` holds the choice; `useGuide()` falls back to the man when a set isn't in the build and
+`useGuideImages()` gives the pictures. The onboarding step and the Settings row only appear with two complete guides.
+The choice changes pictures and a few words (i18next `context`, e.g. the Coach's skincare suggestion), never the plan,
+and it isn't sent to the Worker. `POST /plan` sends `CATALOG_VERSION` instead, so the Worker never plans an exercise
+the installed app doesn't have; the plan cache is dropped when the version changes.
 
 ## Progress calendar (Week / Month / Year)
 The Mon–Sun calendar lives on the Progress tab, separate from the plan: the plan says how far you are, the calendar says

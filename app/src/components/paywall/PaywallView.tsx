@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Linking, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HERO_IMAGES } from '@/constants/exerciseImages';
 import { LINKS } from '@/constants/links';
+import { useGuideImages } from '@/hooks/useGuide';
 import type { PlanCard } from '@/hooks/usePaywall';
 import { useTheme } from '@/hooks/useTheme';
 import type { PlanId } from '@/services/purchases/plans';
@@ -41,6 +41,7 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
   const { colors } = useTheme();
   const styles = useStyles();
   const [selected, setSelected] = useState<PlanId>('yearly');
+  const { hero } = useGuideImages();
   const card = cards.find((c) => c.id === selected) ?? cards[0];
   const trial = card.trialDays;
 
@@ -52,7 +53,7 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
     <SafeAreaView style={styles.root} edges={['bottom']}>
       <ScrollView contentContainerStyle={styles.content} bounces={false}>
         <View style={styles.hero}>
-          <Image source={HERO_IMAGES.paywall} style={StyleSheet.absoluteFill} contentFit="cover" contentPosition="top" />
+          <Image source={hero.paywall} style={StyleSheet.absoluteFill} contentFit="cover" contentPosition="top" />
           <SafeAreaView edges={['top']} style={styles.top}>
             <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel={t('close')} hitSlop={12} style={styles.close}>
               <SymbolView name="xmark" size={15} weight="bold" tintColor={colors.onImage} />

@@ -3,8 +3,8 @@ import { SymbolView } from 'expo-symbols';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 
-import { EXERCISE_IMAGES } from '@/constants/exerciseImages';
 import { EXERCISES, type ExerciseId } from '@/constants/exercises';
+import { useGuideImages } from '@/hooks/useGuide';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 
@@ -26,6 +26,7 @@ export function ExerciseRow({ id, onPress, done, divider, reps, holdSec }: Exerc
   const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
+  const images = useGuideImages();
   const e = EXERCISES[id];
   const name = t(`exercises:items.${e.key}.name`);
   const meta = `${t(`exercises:muscles.${e.muscles[0]}`)} · ${t('common:reps', { reps: reps ?? e.reps, hold: holdSec ?? e.holdSec })}`;
@@ -37,7 +38,7 @@ export function ExerciseRow({ id, onPress, done, divider, reps, holdSec }: Exerc
       accessibilityLabel={`${name}, ${meta}`}
       style={({ pressed }) => [styles.row, divider && styles.divider, pressed && styles.pressed]}
     >
-      <Image source={EXERCISE_IMAGES[id].thumb} style={styles.thumb} contentFit="cover" />
+      <Image source={images.exercises[id].thumb} style={styles.thumb} contentFit="cover" />
       <View style={styles.text}>
         <AppText variant="headline" numberOfLines={1}>
           {name}

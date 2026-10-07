@@ -1,4 +1,5 @@
 import type { Goal } from '@/constants/exercises';
+import type { GuideId } from '@/constants/guides';
 import type { ThemeMode } from '@/constants/theme';
 import type { ISODate } from '@/utils/dates';
 
@@ -9,6 +10,7 @@ import type { AskButtonSettings, SavedSettings } from './types';
 export const SETTINGS_HYDRATE = 'settings/hydrate';
 export const THEME_MODE_SET = 'settings/themeModeSet';
 export const GOAL_SET = 'settings/goalSet';
+export const GUIDE_SET = 'settings/guideSet';
 export const ONBOARDING_COMPLETE = 'settings/onboardingComplete';
 export const REMINDER_SAVED = 'settings/reminderSaved';
 export const REMINDER_DELETED = 'settings/reminderDeleted';
@@ -22,6 +24,7 @@ export type SettingsAction =
   | { type: typeof SETTINGS_HYDRATE; payload: SavedSettings | null }
   | { type: typeof THEME_MODE_SET; payload: ThemeMode }
   | { type: typeof GOAL_SET; payload: Goal }
+  | { type: typeof GUIDE_SET; payload: GuideId }
   | { type: typeof ONBOARDING_COMPLETE; payload: { today: ISODate } }
   | { type: typeof REMINDER_SAVED; payload: Reminder }
   | { type: typeof REMINDER_DELETED; payload: string }
@@ -34,6 +37,8 @@ export type SettingsAction =
 export const hydrateSettings = (saved: SavedSettings | null): SettingsAction => ({ type: SETTINGS_HYDRATE, payload: saved });
 export const setThemeMode = (mode: ThemeMode): SettingsAction => ({ type: THEME_MODE_SET, payload: mode });
 export const setGoal = (goal: Goal): SettingsAction => ({ type: GOAL_SET, payload: goal });
+/** Who the exercise pictures show. Ignored when it isn't a known guide. */
+export const setGuide = (guide: GuideId): SettingsAction => ({ type: GUIDE_SET, payload: guide });
 export const completeOnboarding = (today: ISODate): SettingsAction => ({ type: ONBOARDING_COMPLETE, payload: { today } });
 /** Adds a reminder, or replaces the one with the same id. Ignored when invalid or over the limits. */
 export const saveReminder = (reminder: Reminder): SettingsAction => ({ type: REMINDER_SAVED, payload: reminder });

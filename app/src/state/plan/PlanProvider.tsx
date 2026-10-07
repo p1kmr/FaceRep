@@ -1,12 +1,12 @@
 import { createContext, useCallback, useEffect, useReducer, useRef, type Dispatch, type ReactNode } from 'react';
 
-import { GOALS, type Goal } from '@/constants/exercises';
+import { CATALOG_VERSION, type Goal } from '@/constants/exercises';
 import { STORAGE_KEYS } from '@/constants/storageKeys';
-import { parsePlanDays } from '@/services/plan/plan';
-import { PlanRequestError, premiumRange, requestPlanDays } from '@/services/plan/planApi';
+import { PlanRequestError, requestPlanDays } from '@/services/plan/planApi';
 import { load, save } from '@/services/storage/kv';
 
 import { hydratePlan, planFailed, planLoaded, planRequested, type PlanAction } from './actions';
+import { validCache } from './cache';
 import { initialPlanState, planReducer } from './reducer';
 import { planKey } from './selectors';
 import type { PlanCache, PlanState } from './types';
@@ -19,14 +19,6 @@ export const PlanStateContext = createContext<PlanState | null>(null);
 export const PlanDispatchContext = createContext<Dispatch<PlanAction> | null>(null);
 /** Loads the Premium days of a goal and content level from the Worker (one request at a time per key). */
 export const LoadPlanContext = createContext<LoadPlan | null>(null);
-
-/** The saved copy is checked like a server answer: anything odd and it's dropped (it reloads). */
-function validCache(v: PlanCache | null): PlanCache | null {
-  if (!v || !GOALS.includes(v.goal) || !Number.isInteger(v.level) || v.level < 1) return null;
-  const { from, to } = premiumRange(v.level);
-  const days = parsePlanDays(v.days, from, to);
-  return days ? { goal: v.goal, level: v.level, days } : null;
-}
 
 /** The Premium part of the 28-day plan: cached on the device, loaded from the Worker when needed. */
 export function PlanProvider({ children }: { children: ReactNode }) {
@@ -45,7 +37,7 @@ export function PlanProvider({ children }: { children: ReactNode }) {
     inFlight.current.add(key);
     dispatch(planRequested(key));
     try {
-      const cache: PlanCache = { goal, level, days: await requestPlanDays({ appUserId, goal, level }) };
+      const cache: PlanCache = { goal, level, catalog: CATALOG_VERSION, days: await requestPlanDays({ appUserId, goal, level }) };
       dispatch(planLoaded(cache));
       await save(STORAGE_KEYS.planCache, VERSION, cache).catch(() => {}); // still works until restart
     } catch (err) {

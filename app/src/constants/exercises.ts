@@ -48,6 +48,12 @@ export const EXERCISE_IDS = [
 
 export type ExerciseId = (typeof EXERCISE_IDS)[number];
 
+/**
+ * Version of this catalog. Bump it when exercises are added (and in worker/src/lib/plan.js, whose
+ * test checks both). POST /plan sends it, so the Worker never plans an exercise this app doesn't have.
+ */
+export const CATALOG_VERSION = 1;
+
 export interface Exercise {
   id: ExerciseId;
   program: ProgramId;

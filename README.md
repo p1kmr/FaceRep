@@ -35,13 +35,14 @@ Purchases, DeviceCheck and notifications need a **development build** (`npx eas-
 
 ## Checks
 ```bash
-cd app && npm run lint && npm run typecheck && npm test     # 82 tests
-cd ../worker && npm test                                     # 32 tests
+cd app && npm run lint && npm run typecheck && npm test     # 89 tests (includes the picture check)
+cd ../worker && npm test                                     # 34 tests
 ```
 
 ## Before the first TestFlight build
 - [ ] Trademark search for "FaceRep" in India (tmsearch.ipindia.gov.in) and the EU (TMview); then the App Store Connect app record with bundle ID `com.p1kmr.facerep` (reserves the name) and `npx eas-cli init` (adds `extra.eas.projectId`).
-- [ ] Real app icon (`app/assets/images/icon.png` is a placeholder).
+- [ ] Real app icon (`app/assets/brand/icon.png` is a placeholder).
+- [ ] Store text for men and women (docs/launch.md §3), since the app now offers a Woman picture set.
 - [ ] Worker deployed: `cd worker && npx wrangler login && npm run deploy` (URL already in `app/eas.json` and `links.ts`; D1 already created). Support email in `links.ts` and `wrangler.jsonc`.
 - [x] RevenueCat project "FaceRep" (entitlement `premium`, products `facerep_premium_monthly` / `facerep_premium_yearly`, offering with `$rc_monthly` and `$rc_annual`); public key in `app/eas.json`. Still: App Store Connect keys in RevenueCat, and the same product IDs in App Store Connect.
 - [ ] Worker secrets: `REVENUECAT_SECRET_KEY` (without it Weeks 2–4 stay locked for everyone), `IP_HASH_SECRET`, then DeviceCheck.

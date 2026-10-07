@@ -1,4 +1,5 @@
 import { GOALS } from '@/constants/exercises';
+import { DEFAULT_GUIDE, isGuideId } from '@/constants/guides';
 import { REMINDER } from '@/constants/reminders';
 import { cleanReminder, saveProblem, workoutReminder, type Reminder } from '@/services/reminders/reminders';
 import { DEFAULT_THEME_ID } from '@/constants/theme';
@@ -7,6 +8,7 @@ import {
   AI_CONSENT_SET,
   ASK_BUTTON_SET,
   GOAL_SET,
+  GUIDE_SET,
   HAPTICS_SET,
   ONBOARDING_COMPLETE,
   REMINDER_DELETED,
@@ -25,6 +27,7 @@ export const DEFAULT_SETTINGS: Settings = {
   onboardingDone: false,
   onboardedOn: null,
   goal: 'jawline',
+  guide: DEFAULT_GUIDE,
   reminders: [workoutReminder()],
   haptics: true,
   aiConsent: null,
@@ -72,6 +75,7 @@ export function sanitizeSettings(saved: SavedSettings | null): Settings {
     onboardingDone: s.onboardingDone === true,
     onboardedOn: typeof s.onboardedOn === 'string' ? s.onboardedOn : null,
     goal: GOALS.includes(s.goal as Settings['goal']) ? (s.goal as Settings['goal']) : d.goal,
+    guide: isGuideId(s.guide) ? s.guide : d.guide,
     reminders: sanitizeReminders(s),
     haptics: s.haptics !== false,
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
@@ -93,6 +97,8 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { themeMode: action.payload });
     case GOAL_SET:
       return update(state, { goal: action.payload });
+    case GUIDE_SET:
+      return isGuideId(action.payload) ? update(state, { guide: action.payload }) : state;
     case ONBOARDING_COMPLETE:
       return update(state, { onboardingDone: true, onboardedOn: s.onboardedOn ?? action.payload.today });
     case REMINDER_SAVED: {

@@ -64,8 +64,8 @@ process a subscription. We never sell or share your data for advertising.
 <p>${c.app} is published by ${c.name} ("we"). Contact: ${c.mail}. For EU and UK users, we are the data controller.</p>
 
 <h2>Data that stays on your iPhone</h2>
-<p>Your workout history (date, exercises, reps and duration), your Coach chat history, your focus area, your reminders and
-app settings are stored only in ${c.app}'s database on your device. We cannot see them. Reminders are scheduled locally by
+<p>Your workout history (date, exercises, reps and duration), your Coach chat history, your focus area, who the exercise
+pictures show (man or woman), your reminders and app settings are stored only in ${c.app}'s database on your device. We cannot see them. Reminders are scheduled locally by
 iOS; their names, times and days only leave your iPhone with a Coach question (see below). ${c.app} does not use the camera,
 photos, contacts or location.</p>
 
@@ -83,7 +83,7 @@ photos, contacts or location.</p>
   <td>To answer your question</td>
 </tr>
 <tr>
-  <td><strong>Premium plan request</strong>: the random app ID, your focus area and your plan level. No workout history.</td>
+  <td><strong>Premium plan request</strong>: the random app ID, your focus area, your plan level and the version of the exercise list in your app (so the plan only uses exercises your app has). No workout history, and not who the exercise pictures show.</td>
   <td>With Premium only, when your plan needs Weeks 2 to 4 or a new level (about once per level; the answer is then kept on
   your iPhone)</td>
   <td>Our server on Cloudflare, which asks RevenueCat whether the app ID has an active subscription</td>

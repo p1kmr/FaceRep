@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { ONBOARDING_STEPS } from '@/components/onboarding/OnboardingStep';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
-import { HERO_IMAGES } from '@/constants/exerciseImages';
+import { WELCOME_IMAGE } from '@/constants/exerciseImages';
 import { makeStyles } from '@/theme/makeStyles';
 
 /** Full-bleed hero photo (dark in both themes), headline, one button. */
@@ -15,13 +16,13 @@ export default function WelcomeScreen() {
   const styles = useStyles();
   return (
     <View style={styles.root}>
-      <Image source={HERO_IMAGES.onboarding} style={StyleSheet.absoluteFill} contentFit="cover" contentPosition="top" />
+      <Image source={WELCOME_IMAGE} style={StyleSheet.absoluteFill} contentFit="cover" contentPosition="top" />
       <SafeAreaView edges={['bottom']} style={styles.bottom}>
         <AppText variant="display" style={styles.title} accessibilityRole="header">
           {t('welcome.title')}
         </AppText>
         <AppText style={styles.body}>{t('welcome.body')}</AppText>
-        <Button title={t('welcome.cta')} onPress={() => router.push('/onboarding/goal')} fullWidth />
+        <Button title={t('welcome.cta')} onPress={() => router.push(ONBOARDING_STEPS[0] === 'guide' ? '/onboarding/guide' : '/onboarding/goal')} fullWidth />
       </SafeAreaView>
     </View>
   );

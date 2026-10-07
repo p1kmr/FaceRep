@@ -1,5 +1,10 @@
 {
-  "tabs": { "today": "Today", "exercises": "Exercises", "progress": "Progress", "settings": "Settings" },
+  "tabs": {
+    "today": "Today",
+    "exercises": "Exercises",
+    "progress": "Progress",
+    "settings": "Settings"
+  },
   "premium": "Premium",
   "close": "Close",
   "cancel": "Cancel",
@@ -17,6 +22,10 @@
     "eyes": "Eyes",
     "full": "Full face"
   },
-  "aiImages": "The 3D figure and photos in {{app}} are AI-generated and show a fictional person.",
+  "guides": {
+    "man": "Man",
+    "woman": "Woman"
+  },
+  "aiImages": "The 3D figures and photos in {{app}} are AI-generated and show fictional people.",
   "disclaimer": "{{app}} is a wellness and fitness app, not medical advice. Results vary from person to person."
 }

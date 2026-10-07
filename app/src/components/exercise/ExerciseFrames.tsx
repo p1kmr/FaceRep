@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import { StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 import Animated, { useAnimatedStyle, useReducedMotion, useSharedValue, withTiming } from 'react-native-reanimated';
 
-import { EXERCISE_IMAGES } from '@/constants/exerciseImages';
 import type { ExerciseId } from '@/constants/exercises';
 import { MOTION } from '@/constants/motion';
+import { useGuideImages } from '@/hooks/useGuide';
 import { makeStyles } from '@/theme/makeStyles';
 
 interface ExerciseFramesProps {
@@ -27,7 +27,7 @@ export function ExerciseFrames({ id, squeeze, label, fill, style }: ExerciseFram
   const styles = useStyles();
   const reduceMotion = useReducedMotion();
   const visible = useSharedValue(squeeze ? 1 : 0);
-  const images = EXERCISE_IMAGES[id];
+  const images = useGuideImages().exercises[id];
 
   useEffect(() => {
     visible.value = reduceMotion ? (squeeze ? 1 : 0) : withTiming(squeeze ? 1 : 0, { duration: MOTION.crossfadeMs });

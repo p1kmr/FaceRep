@@ -4,6 +4,10 @@
     "body": "A guided 28-day plan for your jawline, cheekbones and eyes. A few minutes a day.",
     "cta": "Get started"
   },
+  "guide": {
+    "title": "Who should the exercises show?",
+    "body": "Pick the face in the exercise pictures. Your plan is the same either way, and you can change it in Settings."
+  },
   "goal": {
     "title": "What do you want to focus on?",
     "body": "You can change this any time in Settings.",
@@ -19,6 +23,7 @@
     "points": {
       "gentle": "Move slowly and gently. A light burn in the muscle is fine; pain is not.",
       "jaw": "If you have jaw pain, clicking or a jaw joint problem (TMJ), skip the jaw clench, jaw jut and lion face, and ask a doctor or dentist first.",
+      "treatments": "Had Botox, fillers or another cosmetic treatment recently? Ask your practitioner when it's OK to start face exercises.",
       "stop": "Stop right away if anything hurts, feels numb or makes you dizzy.",
       "results": "Exercises can tone muscles and improve posture. They can't change bone structure, and results differ for everyone."
     },

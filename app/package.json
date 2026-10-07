@@ -10,6 +10,8 @@
     "lint": "expo lint",
     "typecheck": "tsc --noEmit",
     "test": "jest",
+    "images": "node scripts/guide-images.js",
+    "images:check": "node scripts/guide-images.js --check",
     "test:worker": "npm --prefix ../worker test"
   },
   "dependencies": {
@@ -53,6 +55,7 @@
     "eslint-config-expo": "~57.0.2",
     "jest": "^29.7.0",
     "jest-expo": "^57.0.5",
+    "sharp": "0.35.4",
     "typescript": "~6.0.3"
   }
 }

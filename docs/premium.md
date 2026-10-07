@@ -16,7 +16,7 @@ Worker directly. **Apple DeviceCheck** proves a request comes from the app on a 
 iPhone app ── purchase/restore (react-native-purchases, public appl_ key) ──► RevenueCat ◄────┘
   │  random appUserId (Keychain)                                                ▲
   │  POST /chat { appUserId, deviceToken, question, history, context }          │ GET /v1/subscribers/<appUserId> (sk_ key)
-  │  POST /plan { appUserId, goal, level }  (Premium days of the 28-day plan)   │
+  │  POST /plan { appUserId, goal, level, catalog }  (Premium plan days)        │
   └──────────────────────────────────────────────► Cloudflare Worker ───────────┘
                                                      │  D1: free_usage (per ID per month), rate_limits (per day)
                                                      ├──► Apple DeviceCheck (token validation only)
@@ -55,7 +55,7 @@ by the Worker (`worker/src/lib/plan.js`) and sent by `POST /plan` after the Work
   active. Free users see Days 8–28 as locked, with blurred placeholder thumbnails (`expo-image` `blurRadius`, no new
   dependency) and an "Unlock the full plan" button. Week 1 is bundled (`constants/planFreeWeek.json`), so it works offline
   and on the first launch.
-- **Worker (`lib/planHandler.js`):** strict body `{ appUserId, goal, level }` → daily limit (30 per ID / 300 per IP, prefix
+- **Worker (`lib/planHandler.js`):** strict body `{ appUserId, goal, level, catalog? }` (catalog = the app's exercise catalog version, 1 when missing; the plan only uses exercises that version has) → daily limit (30 per ID / 300 per IP, prefix
   `plan:`) → RevenueCat → 200 with the days, 402 `premium` for free users. **Fails closed:** no `REVENUECAT_SECRET_KEY` or
   RevenueCat down → 503 for everyone (unlike `/chat`, which stays open without the key).
 - The app sends data requests, never code: the Worker returns JSON days, which the app checks (`parsePlanDays`) before use
