@@ -8,7 +8,7 @@ import { PeriodHeader } from '@/components/progress/PeriodHeader';
 import { SessionRow } from '@/components/progress/SessionRow';
 import { StatTile } from '@/components/progress/StatTile';
 import { WeekBars } from '@/components/progress/WeekBars';
-import { YearBars } from '@/components/progress/YearBars';
+import { YearMonths } from '@/components/progress/YearMonths';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
 import { Screen } from '@/components/ui/Screen';
@@ -101,7 +101,13 @@ export default function ProgressScreen() {
       <SectionHeader title={t('progress:calendar')} />
       <Card style={styles.calendar}>
         <Segmented options={VIEWS.map((v) => ({ id: v, label: t(`progress:views.${v}`) }))} value={view} onChange={changeView} />
-        <PeriodHeader title={title} onPrevious={() => move(-1)} onNext={() => move(1)} canGoForward={cal.canGoForward} />
+        <PeriodHeader
+          title={title}
+          onPrevious={() => move(-1)}
+          onNext={() => move(1)}
+          canGoForward={cal.canGoForward}
+          canGoBack={cal.canGoBack}
+        />
         {view === 'week' ? <WeekBars week={cal.week} /> : null}
         {view === 'month' ? (
           <MonthCalendar
@@ -113,7 +119,7 @@ export default function ProgressScreen() {
             onPressDay={(day) => setSelected(day === selected ? null : day)}
           />
         ) : null}
-        {view === 'year' ? <YearBars months={cal.year} today={cal.today} onPressMonth={openMonth} /> : null}
+        {view === 'year' ? <YearMonths months={cal.year} today={cal.today} workoutsOn={cal.workoutsOn} onPressMonth={openMonth} /> : null}
         <AppText variant="footnote" muted center accessibilityLiveRegion="polite">
           {summary}
         </AppText>

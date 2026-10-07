@@ -45,7 +45,7 @@
     },
     "grid": {
       "title": "Your 28-day plan",
-      "hint": "Tap a day to see its exercises. Weekdays show when you did a day, or when it falls if you train every day.",
+      "hint": "Numbers are dates: red when done, ringed for today. Days ahead show when they fall if you train every day. Tap a day to see its exercises.",
       "week": "W{{week}}",
       "cell": {
         "done": "Day {{day}}, done",

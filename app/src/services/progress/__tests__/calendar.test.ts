@@ -1,4 +1,4 @@
-import { canGoForward, dayTotals, monthWeeks, periodOf, shiftAnchor, startOfWeek, summarize, weekDays, yearMonths } from '../calendar';
+import { canGoBack, canGoForward, dayTotals, monthWeeks, periodOf, shiftAnchor, startOfWeek, summarize, weekDays, yearMonths } from '../calendar';
 import type { SessionSummary } from '../stats';
 
 const MON = 1;
@@ -50,6 +50,13 @@ describe('paging', () => {
     expect(canGoForward('2026-09-20', 'month', MON, '2026-10-08')).toBe(true);
     expect(canGoForward('2026-01-01', 'year', MON, '2026-10-08')).toBe(false);
   });
+
+  it('never goes back past the period of the first workout', () => {
+    expect(canGoBack('2026-10-08', 'month', MON, '2026-09-20')).toBe(true);
+    expect(canGoBack('2026-09-25', 'month', MON, '2026-09-20')).toBe(false);
+    expect(canGoBack('2026-09-21', 'week', MON, '2026-09-20')).toBe(true); // Sep 20 is a Sunday: the week before
+    expect(canGoBack('2026-10-08', 'year', MON, '2026-01-01')).toBe(false);
+  });
 });
 
 describe('totals', () => {
@@ -61,11 +68,12 @@ describe('totals', () => {
     expect(summarize(totals, periodOf('2026-10-08', 'month', MON))).toEqual({ days: 2, workouts: 3, seconds: 350 });
   });
 
-  it('gives 12 months for the year chart', () => {
-    const months = yearMonths('2026-10-08', totals);
+  it('gives the 12 small months of the year view, each with its grid and totals', () => {
+    const months = yearMonths('2026-10-08', MON, totals);
     expect(months).toHaveLength(12);
-    expect(months[8]).toEqual({ month: '2026-09-01', days: 1, workouts: 1, seconds: 999 });
-    expect(months[9]).toMatchObject({ month: '2026-10-01', workouts: 3 });
+    expect(months[8]).toMatchObject({ month: '2026-09-01', days: 1, workouts: 1, seconds: 999 });
+    expect(months[9]).toMatchObject({ month: '2026-10-01', days: 2, workouts: 3 });
+    expect(months[9].weeks).toEqual(monthWeeks('2026-10-01', MON));
     expect(months.reduce((n, m) => n + m.workouts, 0)).toBe(4); // last year's workout isn't counted
   });
 });

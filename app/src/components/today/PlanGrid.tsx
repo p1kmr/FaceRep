@@ -6,6 +6,7 @@ import { PLAN } from '@/constants/plan';
 import { useTheme } from '@/hooks/useTheme';
 import type { PlanCell, PlanCellStatus } from '@/services/plan/plan';
 import { makeStyles } from '@/theme/makeStyles';
+import { fromISODate } from '@/utils/dates';
 import { formatDay, weekdayShort } from '@/utils/format';
 
 import { AppText } from '../ui/AppText';
@@ -17,8 +18,9 @@ interface PlanGridProps {
 }
 
 /**
- * The 28 days as 4 rows of 7: a check when done, a ring for today, a lock for Premium days, with the
- * weekday each one was done on (or falls on if you train every day). Tap a day to open it.
+ * The 28 days as 4 rows of 7 (plan weeks). Every number is a real date, like the iPhone calendar: red
+ * when done, a ring for today, a lock for Premium days. Days ahead show the date they fall on if you
+ * train every day. The plan day number ("Day 9") is only in text, so it's never mistaken for a date.
  */
 export function PlanGrid({ grid, onPressDay }: PlanGridProps) {
   const { t, i18n } = useTranslation('home');
@@ -43,13 +45,16 @@ export function PlanGrid({ grid, onPressDay }: PlanGridProps) {
               style={({ pressed }) => [styles.column, pressed && styles.pressed]}
             >
               <View style={[styles.cell, status === 'done' && styles.done, status === 'today' && styles.today]}>
-                {status === 'done' ? (
-                  <SymbolView name="checkmark" size={13} weight="bold" tintColor={colors.onPrimary} />
-                ) : status === 'locked' ? (
-                  <SymbolView name="lock.fill" size={11} tintColor={colors.textMuted} />
+                {status === 'locked' ? (
+                  <SymbolView
+                    name="lock.fill"
+                    size={11}
+                    tintColor={colors.textMuted}
+                    fallback={<AppText variant="caption" style={styles.dayText}>{fromISODate(date).getDate()}</AppText>}
+                  />
                 ) : (
-                  <AppText variant="caption" style={status === 'today' ? styles.todayText : styles.dayText}>
-                    {day}
+                  <AppText variant="caption" style={status === 'done' ? styles.doneText : status === 'today' ? styles.todayText : styles.dayText}>
+                    {fromISODate(date).getDate()}
                   </AppText>
                 )}
               </View>
@@ -85,6 +90,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   today: { borderWidth: 2, borderColor: colors.primary, backgroundColor: colors.surface },
   pressed: { opacity: 0.6 },
   dayText: { color: colors.textMuted },
+  doneText: { color: colors.onPrimary, fontWeight: tokens.font.weight.bold },
   weekday: { fontSize: tokens.font.size.caption - 2 },
   todayText: { color: colors.primary, fontWeight: tokens.font.weight.bold },
 }));

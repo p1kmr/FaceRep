@@ -13,10 +13,12 @@ interface PeriodHeaderProps {
   onNext: () => void;
   /** False for the current period: there is nothing to see in the future. */
   canGoForward: boolean;
+  /** False for the period of the first workout: there is nothing before it. */
+  canGoBack: boolean;
 }
 
 /** ‹ October 2026 › */
-export function PeriodHeader({ title, onPrevious, onNext, canGoForward }: PeriodHeaderProps) {
+export function PeriodHeader({ title, onPrevious, onNext, canGoForward, canGoBack }: PeriodHeaderProps) {
   const { t } = useTranslation('progress');
   const { colors } = useTheme();
   const styles = useStyles();
@@ -41,7 +43,7 @@ export function PeriodHeader({ title, onPrevious, onNext, canGoForward }: Period
   );
   return (
     <View style={styles.row}>
-      {arrow('left', onPrevious, true, t('previous'))}
+      {arrow('left', onPrevious, canGoBack, t('previous'))}
       <AppText variant="headline" center style={styles.title} accessibilityRole="header">
         {title}
       </AppText>

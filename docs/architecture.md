@@ -96,13 +96,17 @@ it into reps and holds with `services/plan/plan.ts` → `planItems()`.
   (`countsFor`); any other day is practice. This also lets App Review see Weeks 2–4 right after a sandbox purchase.
 - **Dates:** the plan counts days, not weekdays (install on a Thursday → Day 1 is Thursday; a missed day waits instead of
   being "missed"). `planDates()` puts a real date on every day: the date it was done, or the date it falls on if the user
-  trains every day from now. The Today card shows it, the grid shows the weekday under each day, the day preview says
-  "Done on …" or "Planned for …".
+  trains every day from now. The Today card shows it; the grid's circles show the **date** (red when done, ring for
+  today, lock for Premium) with the weekday under it, never the plan day number, which only appears in text ("Day 9
+  of 28") so it can't be mistaken for a date. The day preview says "Done on …" or "Planned for …".
 
 ## Progress calendar (Week / Month / Year)
 The Mon–Sun calendar lives on the Progress tab, separate from the plan: the plan says how far you are, the calendar says
 when you trained. `services/progress/calendar.ts` (pure, tested) does the maths: week start from the iPhone's region
 settings (`hooks/useFirstWeekday.ts`, expo-localization; Monday when unknown), month grids, per-day and per-period totals,
-paging (never into the future). `hooks/useProgressCalendar.ts` feeds `components/progress/` (`WeekBars`, `MonthCalendar`,
-`YearBars`, `PeriodHeader`). Month: tap a day to see its workouts. Year: tap a month to open it. No calendar library.
+paging (never into the future, never before the first workout). `hooks/useProgressCalendar.ts` feeds
+`components/progress/` (`WeekBars`, `MonthCalendar`, `YearMonths`, `PeriodHeader`). Month: tap a day to see its workouts.
+Year: 12 small months like Elowa's Year view, a red dot on every training day and the number of training days per month;
+tap a month to open it. No calendar library (Elowa uses react-native-calendars for its scrolling month list; FaceRep's
+calendar sits inside the scrolling Progress page, so it pages with ‹ › instead).
 

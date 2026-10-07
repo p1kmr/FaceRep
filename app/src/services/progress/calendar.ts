@@ -87,15 +87,19 @@ export function summarize(totals: ReadonlyMap<ISODate, DayTotal>, { from, to }: 
   return { days, workouts, seconds };
 }
 
-/** The 12 months of the anchor's year: first day of each month with its workouts and seconds. */
-export function yearMonths(anchor: ISODate, totals: ReadonlyMap<ISODate, DayTotal>) {
+/** The 12 months of the anchor's year for the Year view: each month's grid and its totals. */
+export function yearMonths(anchor: ISODate, firstWeekday: number, totals: ReadonlyMap<ISODate, DayTotal>) {
   const year = anchor.slice(0, 4);
   return Array.from({ length: 12 }, (_, i) => {
     const month = `${year}-${pad(i + 1)}-01`;
-    return { month, ...summarize(totals, periodOf(month, 'month', 0)) };
+    return { month, weeks: monthWeeks(month, firstWeekday), ...summarize(totals, periodOf(month, 'month', firstWeekday)) };
   });
 }
 
 /** No paging into periods that haven't started yet. */
 export const canGoForward = (anchor: ISODate, view: CalendarView, firstWeekday: number, today: ISODate) =>
   periodOf(shiftAnchor(anchor, view, 1), view, firstWeekday).from <= today;
+
+/** No paging back past the period of the first workout (or today, before any workout). */
+export const canGoBack = (anchor: ISODate, view: CalendarView, firstWeekday: number, firstDay: ISODate) =>
+  periodOf(anchor, view, firstWeekday).from > firstDay;

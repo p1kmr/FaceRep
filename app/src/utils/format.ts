@@ -31,9 +31,9 @@ export function formatDayMonth(iso: ISODate, locale: string): string {
   return fromISODate(iso).toLocaleDateString(locale, { day: 'numeric', month: 'short' });
 }
 
-/** One-letter month for the year chart ("J"), in the app language. */
-export function monthNarrow(iso: ISODate, locale: string): string {
-  return fromISODate(iso).toLocaleDateString(locale, { month: 'narrow' });
+/** "Oct", in the app language. */
+export function monthShort(iso: ISODate, locale: string): string {
+  return fromISODate(iso).toLocaleDateString(locale, { month: 'short' });
 }
 
 /** "Mon 6 Oct" style date, in the app language. */

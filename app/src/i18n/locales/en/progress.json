@@ -23,8 +23,8 @@
   "tapDay": "Tap a day to see its workouts.",
   "dayA11y_one": "{{date}}, {{count}} workout",
   "dayA11y_other": "{{date}}, {{count}} workouts",
-  "monthA11y_one": "{{month}}, {{count}} workout",
-  "monthA11y_other": "{{month}}, {{count}} workouts",
+  "monthDaysA11y_one": "{{month}}, trained on {{count}} day. Open the month.",
+  "monthDaysA11y_other": "{{month}}, trained on {{count}} days. Open the month.",
   "history": "History",
   "empty": {
     "title": "No workouts yet",
