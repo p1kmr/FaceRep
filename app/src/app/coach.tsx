@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Composer } from '@/components/coach/Composer';
 import { MessageBubble } from '@/components/coach/MessageBubble';
+import { ReminderActionCard } from '@/components/coach/ReminderActionCard';
 import { TypingDots } from '@/components/coach/TypingDots';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
@@ -80,13 +81,17 @@ export default function CoachScreen() {
             </View>
           ) : null}
           {chat.messages.map((m) => (
-            <Pressable
-              key={m.id}
-              onLongPress={m.role === 'assistant' ? () => report(m.text) : undefined}
-              accessibilityHint={m.role === 'assistant' ? t('reportHint') : undefined}
-            >
-              <MessageBubble role={m.role} text={m.text} />
-            </Pressable>
+            <View key={m.id} style={styles.turn}>
+              <Pressable
+                onLongPress={m.role === 'assistant' ? () => report(m.text) : undefined}
+                accessibilityHint={m.role === 'assistant' ? t('reportHint') : undefined}
+              >
+                <MessageBubble role={m.role} text={m.text} />
+              </Pressable>
+              {(chat.actions[m.id] ?? []).map((p, i) => (
+                <ReminderActionCard key={i} proposed={p} onResolve={(accept) => chat.resolveAction(m.id, i, accept)} />
+              ))}
+            </View>
           ))}
           {chat.pending ? <MessageBubble role="user" text={chat.pending.text} /> : null}
           {chat.thinking ? <TypingDots /> : null}
@@ -132,6 +137,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   },
   actions: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.lg },
   content: { padding: tokens.space.lg, gap: tokens.space.md },
+  turn: { gap: tokens.space.sm },
   empty: { gap: tokens.space.lg },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.space.sm },
   error: {

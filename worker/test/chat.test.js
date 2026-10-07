@@ -83,7 +83,7 @@ test('chat: a free answer is counted only after the model answered', async () =>
 
 test('model: falls back once; reads both response shapes; cleans markdown and reasoning', async () => {
   const ai = fakeAi([new Error('overloaded'), { response: 'Fallback answer' }]);
-  assert.equal(await generateAnswer({ ai, messages: [], model: 'main', fallbackModel: 'lite' }), 'Fallback answer');
+  assert.deepEqual(await generateAnswer({ ai, messages: [], model: 'main', fallbackModel: 'lite' }), { answer: 'Fallback answer', toolCalls: [] });
   assert.deepEqual(ai.calls.map((c) => c.model), ['main', 'lite']);
   assert.equal(extractText({ choices: [{ message: { content: 'a' } }] }), 'a');
   assert.equal(extractText({ response: 'b' }), 'b');

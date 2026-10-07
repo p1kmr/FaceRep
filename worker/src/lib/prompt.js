@@ -25,9 +25,23 @@ Safety (always):
 - If you don't know, say so. Don't invent studies or numbers.
 You also get the user's anonymous training context (focus area, current streak, workouts in the last 7 days). Use it only when it helps.`;
 
-export function buildMessages({ locale, context, history, question, appName }) {
+/** Reminder rules: with tools the Coach proposes changes (the user confirms); without, it points to Settings. */
+export const reminderRules = (canPropose) =>
+  canPropose
+    ? `Reminders:
+- The app has reminders: workout, mewing (tongue posture check), posture (chin tuck / neck) and custom, each with 1 to 6 times a day and weekdays.
+- Only when the user clearly asks to add, change, pause, resume or delete a reminder, call create_reminder, update_reminder or delete_reminder. Never invent reminders otherwise. For "every 2 hours" use times like 10:00, 12:00, 14:00, 16:00, 18:00.
+- The user must confirm every change in the app, so in your text say briefly what you prepared and ask them to confirm below. Never claim it is already done.
+- Use the ids from the user's reminders below. Times are 24-hour 'HH:mm' in the user's local time.`
+    : `Reminders: you can't change reminders right now. If asked, tell the user to set them in Settings, Reminders.`;
+
+export function buildMessages({ locale, context, history, question, appName, reminders = [], canPropose = false }) {
+  const reminderInfo = canPropose ? `\nThe user's reminders (JSON): ${JSON.stringify(reminders)}` : '';
   return [
-    { role: 'system', content: `${coachSystemPrompt(appName)}\nLocale: ${locale}\nTraining context (JSON): ${JSON.stringify(context)}` },
+    {
+      role: 'system',
+      content: `${coachSystemPrompt(appName)}\n${reminderRules(canPropose)}\nLocale: ${locale}\nTraining context (JSON): ${JSON.stringify(context)}${reminderInfo}`,
+    },
     ...history.map((t) => ({ role: t.role, content: t.text })),
     { role: 'user', content: question },
   ];

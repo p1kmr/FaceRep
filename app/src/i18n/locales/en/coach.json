@@ -13,23 +13,38 @@
   "aiNote": "AI answers can be wrong. Not medical advice. Long-press an answer to report it.",
   "reportHint": "Long-press to report this answer",
   "reportSubject": "Report an AI Coach answer",
+  "actions": {
+    "prepared": "I prepared this for you. Check it and confirm below.",
+    "create": "New reminder",
+    "update": "Change reminder",
+    "pause": "Pause reminder",
+    "resume": "Turn reminder back on",
+    "delete": "Delete reminder",
+    "confirm": "Confirm",
+    "decline": "No thanks",
+    "done": "Saved",
+    "declined": "Not saved",
+    "open": "See reminders",
+    "missing": "This reminder doesn't exist anymore."
+  },
   "bubble": {
     "open": "Ask the Coach",
     "openHint": "Opens the AI Coach. Drag to move the button."
   },
   "hint": {
     "title": "Ask the Coach",
-    "body": "Technique, mewing, posture or skincare: ask me anything about your face workout.",
+    "body": "Technique, mewing, posture or skincare: ask me anything. I can also set reminders for you.",
     "technique": "Check my technique",
-    "mewing": "Mewing help",
+    "remind": "Set a reminder",
     "ask": "Ask a question",
     "techniquePrompt": "How do I know I'm doing the exercises right?",
-    "mewingPrompt": "Am I doing mewing correctly?",
+    "remindPrompt": "Remind me to ",
     "close": "Close tip"
   },
   "suggestions": {
     "jawline": "How long until I see jawline results?",
     "mewing": "Am I doing mewing correctly?",
+    "reminder": "Remind me to check my mewing every 2 hours on weekdays",
     "skincare": "Simple skincare routine for men?",
     "doubleChin": "Which exercises help a double chin?"
   },
@@ -45,7 +60,7 @@
   "consent": {
     "title": "Before you ask the Coach",
     "what": "The Coach is an AI. To answer, your question is sent to our server and processed by an AI model (Cloudflare Workers AI).",
-    "sent": "Sent: your question, the last few messages of this chat, your focus area, your streak and how many workouts you did this week.",
+    "sent": "Sent: your question, the last few messages of this chat, your focus area, your streak, how many workouts you did this week, and the names and times of your reminders (so the Coach can suggest changes you confirm).",
     "notSent": "Not sent: your name, photos, contacts or location. We don't have an account for you.",
     "storage": "Our server doesn't keep your questions. The chat history stays on this iPhone, and you can delete it any time.",
     "medical": "The Coach gives general fitness and skincare tips, not medical advice.",

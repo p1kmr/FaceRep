@@ -1,5 +1,6 @@
 import { buildMessages } from './prompt.js';
 import { generateAnswer } from './model.js';
+import { REMINDER_TOOLS, sanitizeActions } from './reminders.js';
 import { validateChatRequest } from './validate.js';
 
 // Includes room for the DeviceCheck token (a few KB).
@@ -33,17 +34,22 @@ export async function handleChat({ method, rawBody, ip }, { ai, model, fallbackM
   const access = checkAccess ? await checkAccess(input) : { ok: true, commit: async () => {} };
   if (!access.ok) return { status: access.status, body: access.body };
 
-  const answer = await generateAnswer({
+  const result = await generateAnswer({
     ai,
     model,
     fallbackModel,
     maxOutputTokens,
-    messages: buildMessages({ ...input, appName }),
+    // The main model can propose reminder changes (function calling); the fallback only answers.
+    messages: buildMessages({ ...input, appName, canPropose: true }),
+    fallbackMessages: buildMessages({ ...input, appName, canPropose: false }),
+    tools: REMINDER_TOOLS,
   }).catch(() => null);
-  if (!answer) {
+  const actions = result ? sanitizeActions(result.toolCalls, input.reminders) : [];
+  if (!result || (!result.answer && !actions.length)) {
     console.error('chat: model call failed');
     return { status: 502, body: { error: 'model' } };
   }
   await access.commit(); // a failed model call is never counted
-  return { status: 200, body: { answer } };
+  // `actions` are proposals: the app shows them and changes nothing until the user confirms.
+  return { status: 200, body: actions.length ? { answer: result.answer, actions } : { answer: result.answer } };
 }

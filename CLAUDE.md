@@ -24,6 +24,7 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
 - **Dates:** `'YYYY-MM-DD'` strings, math via `utils/dates.ts`. Reducers never call `Date.now()`.
 - **Health/safety claims:** never promise results, never claim bone/face-shape changes, never medical claims (App Store 1.4.1, 2.3.1). Keep the safety screen and jaw caution.
 - **AI:** no Coach question goes to the Worker before AI consent (guideline 5.1.2(i)). The model and its keys live only in `worker/`.
+- **Reminders:** at most 10, scheduled as repeating local notifications (≤ 60, iOS keeps 64). The Coach only *proposes* reminder changes; nothing changes until the user taps Confirm on the card.
 - **Premium plan:** Weeks 2–4 and Levels 2+ are built only by `worker/src/lib/plan.js` and sent by `POST /plan` after the Worker checks RevenueCat. Never bundle them in the app. `POST /plan` sends only the random app ID, goal and level (no AI, no history).
 - **SQLite schema:** never edit a shipped migration in `services/db/migrations.ts`; append a new one.
 - **Tests:** every change to a reducer or a pure service needs tests.

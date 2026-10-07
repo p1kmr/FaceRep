@@ -1,7 +1,11 @@
+import { extractToolCalls } from './reminders.js';
+
 /**
  * Workers AI (env.AI.run). Newer models answer in the OpenAI shape ({ choices: [{ message }] }),
  * older ones as { response }. If the main model fails, times out or returns nothing, the lighter
  * fallback model is tried once. Both timeouts together stay under the app's 30 s limit.
+ * Only the main model gets `tools` (function calling); the fallback answers in text only, with its
+ * own messages (`fallbackMessages`) that don't promise tools it doesn't have.
  */
 
 /** Pulls the answer text out of either response shape. */
@@ -37,9 +41,12 @@ async function withTimeout(promise, ms) {
   }
 }
 
+/** { answer, toolCalls } (answer may be empty when the model only called tools), or null when nothing came back. */
 export async function generateAnswer({
   ai,
   messages,
+  fallbackMessages = messages,
+  tools,
   model,
   fallbackModel,
   maxOutputTokens = 700,
@@ -47,18 +54,21 @@ export async function generateAnswer({
   timeoutMs = 15_000,
   fallbackTimeoutMs = 11_000,
 }) {
-  const once = async (m, ms) => {
+  const once = async (m, msgs, withTools, ms) => {
     try {
-      const result = await withTimeout(ai.run(m, { messages, max_completion_tokens: maxOutputTokens, temperature }), ms);
-      return cleanAnswer(extractText(result));
+      const input = { messages: msgs, max_completion_tokens: maxOutputTokens, temperature, ...(withTools && tools?.length ? { tools } : {}) };
+      const result = await withTimeout(ai.run(m, input), ms);
+      const answer = cleanAnswer(extractText(result));
+      const toolCalls = withTools ? extractToolCalls(result) : [];
+      return answer || toolCalls.length ? { answer, toolCalls } : null;
     } catch {
-      return '';
+      return null;
     }
   };
-  let answer = await once(model, timeoutMs);
-  if (!answer && fallbackModel && fallbackModel !== model) {
+  let out = await once(model, messages, true, timeoutMs);
+  if (!out && fallbackModel && fallbackModel !== model) {
     console.error('ai: main model failed, trying the fallback');
-    answer = await once(fallbackModel, fallbackTimeoutMs);
+    out = await once(fallbackModel, fallbackMessages, false, fallbackTimeoutMs);
   }
-  return answer || null;
+  return out;
 }

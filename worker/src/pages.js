@@ -64,16 +64,18 @@ process a subscription. We never sell or share your data for advertising.
 <p>${c.app} is published by ${c.name} ("we"). Contact: ${c.mail}. For EU and UK users, we are the data controller.</p>
 
 <h2>Data that stays on your iPhone</h2>
-<p>Your workout history (date, exercises, reps and duration), your Coach chat history, your focus area, reminder time and
-app settings are stored only in ${c.app}'s database on your device. We cannot see them. The daily reminder is scheduled
-locally by iOS; nothing is sent to a server. ${c.app} does not use the camera, photos, contacts or location.</p>
+<p>Your workout history (date, exercises, reps and duration), your Coach chat history, your focus area, your reminders and
+app settings are stored only in ${c.app}'s database on your device. We cannot see them. Reminders are scheduled locally by
+iOS; their names, times and days only leave your iPhone with a Coach question (see below). ${c.app} does not use the camera,
+photos, contacts or location.</p>
 
 <h2>Data that leaves your iPhone</h2>
 <table>
 <tr><th>What</th><th>When</th><th>Sent to</th><th>Why</th></tr>
 <tr>
   <td><strong>Your Coach question</strong>: the text you type, the last few messages of the chat, an anonymous training
-  context (your focus area, your current streak and how many workouts you did in the last 7 days), the app language and a
+  context (your focus area, your current streak and how many workouts you did in the last 7 days), the names, times and
+  days of your reminders (so the Coach can suggest changes to them, which you confirm in the app), the app language and a
   random app ID.<br><em>Please don't include your name or other details that identify you in questions.</em></td>
   <td>Only when you send a question, after you allowed the AI Coach on the consent screen</td>
   <td>Our server on Cloudflare, which has the answer written by an AI model that also runs on Cloudflare (Cloudflare

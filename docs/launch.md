@@ -48,7 +48,8 @@ A 28-DAY PLAN
 • 4 weeks that get harder: more exercises, more reps, longer holds
 • Light days to recover, and a day only moves on when you've done it
 • Hold and relax timer with haptics
-• Streaks, a week, month and year calendar of your workouts, and a daily reminder
+• Streaks and a week, month and year calendar of your workouts
+• Reminders for workouts, mewing checks and posture breaks, on your days and times (or ask the Coach to set them)
 
 WHAT'S FREE
 Week 1 of the plan and every exercise on its own, any time. No account, no ads. Your workouts stay on your iPhone.
@@ -99,6 +100,7 @@ Next ideas: sound/voice cue toggle, a home-screen widget for the streak.
 | 3.1.1 unlocking | paid content unlocked only by Apple IAP | Weeks 2–4 unlock only when RevenueCat (Apple receipts) says Premium; the Worker checks too ✅ |
 | 3.1.2(a) ongoing value | a subscription must keep giving value | Levels 2–3 and new rounds after Day 28, plus the unlimited Coach ✅ (a single 28-day plan alone would be weak) |
 | 2.3.2 in-app purchases in metadata | description and screenshots say what's paid | Description lists "What's free" and "Premium" ✅; label any screenshot of Weeks 2–4 as Premium |
+| 4.5.4 notifications | not required to use the app, no ads in them, ask at a sensible time | Only user-made reminders; permission asked when one is turned on; "Not now" works; no Time Sensitive/Critical alerts ✅ |
 | 2.5.2 self-contained | no downloaded code that changes features | `/plan` returns JSON data (days and exercise IDs), checked by the app; no code ✅ |
 | Free trial wording | "free trial" means the StoreKit trial | Week 1 is called "Week 1 is free", never a "trial" ✅ |
 | 4.3 spam | clearly different from existing apps | 3D anatomy + timer + AI Coach; keep updating |
@@ -107,9 +109,9 @@ Next ideas: sound/voice cue toggle, a home-screen widget for the streak.
 | 1.2 objectification | no "hot or not" | No ratings, Coach refuses to rate looks ✅ |
 | Age rating | answer the new questionnaire | Suggest **13+** (wellness + occasional skin/medical info via AI) |
 
-**App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions, processed but not stored; declare to be safe). Workout history stays on device → not "collected". No tracking.
+**App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe). Workout history and reminders stay on device → not "collected". No tracking.
 
-**Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 are Premium. On Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account; the days load from our server right after purchase, and tapping any day (e.g. Day 15) then shows its exercises and lets you start it. Settings → Restore restores the purchase." 
+**Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. Mention reminders: Settings → Reminders (local notifications the user sets up; permission is asked when one is turned on), and the Coach can propose reminder changes that only apply after the user taps Confirm. Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 are Premium. On Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account; the days load from our server right after purchase, and tapping any day (e.g. Day 15) then shows its exercises and lets you start it. Settings → Restore restores the purchase." 
 
 ## 7. Keeping the developer account safe
 Accounts get terminated for: hidden features or server switches that change the app after review, fake reviews or rating manipulation, bait-and-switch or confusing subscriptions, copying other apps or names, misleading health claims.

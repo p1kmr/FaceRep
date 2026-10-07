@@ -118,3 +118,15 @@ remembered (`settings.askButton`: visible, side, y as a 0–1 fraction so it fit
 wiggles and shows `AskHint` with shortcuts that open the Coach with a question ready. Settings → Coach button hides it.
 `Screen` keeps `ASK_BUTTON_ROOM` free at the bottom so it never covers the last row. There is no Coach tab: one way in, as in Elowa.
 
+## Reminders
+Up to 10 reminders (`settings.reminders`): type (workout, mewing, posture, custom), optional name, 1–6 times a day and
+weekdays. `services/reminders/reminders.ts` (pure, tested) checks them and turns them into repeating iOS notifications
+(daily, or weekly per weekday), capped at 60 because iOS keeps at most 64 per app; `useReminderSync` reschedules on any
+change. Settings → Reminders (`app/reminders.tsx`, editor `app/reminder.tsx`); `hooks/useReminders` saves with the limits
+and asks for notification permission when one is turned on. Old saves with one daily reminder become the workout reminder.
+
+**The Coach can propose changes** (Elowa-style): each question sends the reminder list (id, name, type, times, days, on/off).
+The Worker gives the main model three tools (`create_reminder`, `update_reminder`, `delete_reminder`, `worker/src/lib/reminders.js`),
+checks every call against that list and returns them as `actions`; the fallback model gets no tools. The app checks them again
+(`parseChatReply`) and shows `ReminderActionCard`s: nothing changes until the user taps Confirm. Cards live in memory only.
+

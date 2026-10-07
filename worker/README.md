@@ -2,7 +2,7 @@
 
 Three jobs:
 - `POST /plan`: the Premium part of the 28-day plan (Weeks 2–4, Levels 2–3), only after RevenueCat confirms Premium (`src/lib/plan.js`, `src/lib/planHandler.js`). Needs `REVENUECAT_SECRET_KEY`; without it nobody gets them. After changing `plan.js`, run `npm run plan:export` (updates the free week bundled in the app).
-- `POST /chat`: the AI Coach. Receives a question (+ the last few turns and an anonymous training context), checks it, applies daily limits and the Premium / free-allowance check, asks a **Workers AI** model and returns a cleaned-up answer.
+- `POST /chat`: the AI Coach. With the user's reminder list it can also propose reminder changes (function calling, `src/lib/reminders.js`), which the app shows for the user to confirm. Receives a question (+ the last few turns and an anonymous training context), checks it, applies daily limits and the Premium / free-allowance check, asks a **Workers AI** model and returns a cleaned-up answer.
 - `GET /privacy`, `/terms`, `/support`: the public pages App Store Connect asks for (`src/pages.js`), so no separate website is needed.
 
 ```

@@ -8,9 +8,9 @@ import { makeStyles } from '@/theme/makeStyles';
 
 import { AppText } from '../ui/AppText';
 
-export type AskHintChoice = 'technique' | 'mewing' | 'ask';
+export type AskHintChoice = 'technique' | 'remind' | 'ask';
 
-const CHOICES: AskHintChoice[] = ['technique', 'mewing', 'ask'];
+const CHOICES: AskHintChoice[] = ['technique', 'remind', 'ask'];
 
 /**
  * First-time speech bubble next to the floating Coach button (same as Elowa's): what the Coach can do,

@@ -1,3 +1,5 @@
+import { isReminderContext, REMINDER_LIMITS } from './reminders.js';
+
 // Strict input check: anything unexpected is rejected.
 export const CHAT_LIMITS = { questionChars: 500, turnChars: 1500, historyTurns: 10 };
 export const GOALS = ['jawline', 'cheekbones', 'eyes', 'full'];
@@ -22,13 +24,15 @@ const isTurn = (t) =>
 /** Returns the clean request or null. */
 export function validateChatRequest(body) {
   if (!isObj(body)) return null;
-  const { appUserId, locale, question, history, context, deviceToken, ...rest } = body;
+  const { appUserId, locale, question, history, context, deviceToken, reminders, ...rest } = body;
   if (Object.keys(rest).length) return null;
   if (!isUserId(appUserId) || !isLocale(locale) || !isDeviceToken(deviceToken)) return null;
   if (!isText(question, CHAT_LIMITS.questionChars)) return null;
   if (!Array.isArray(history) || history.length > CHAT_LIMITS.historyTurns || !history.every(isTurn)) return null;
   if (!isContext(context)) return null;
-  return { appUserId, locale, question: question.trim(), history, context, deviceToken };
+  // Optional: the user's reminders (names, times, days), so the Coach can propose changes to them.
+  if (reminders !== undefined && !(Array.isArray(reminders) && reminders.length <= REMINDER_LIMITS.max && reminders.every(isReminderContext))) return null;
+  return { appUserId, locale, question: question.trim(), history, context, deviceToken, reminders: reminders ?? [] };
 }
 
 /** POST /plan: { appUserId, goal, level }. Levels 1–3 (see lib/plan.js MAX_LEVEL). */
