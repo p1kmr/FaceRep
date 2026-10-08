@@ -20,6 +20,7 @@ export const MIRROR_SET = 'settings/mirrorSet';
 export const AI_CONSENT_SET = 'settings/aiConsentSet';
 export const REVIEW_PROMPTED = 'settings/reviewPrompted';
 export const ASK_BUTTON_SET = 'settings/askButtonSet';
+export const PLAN_GRID_TIP_SEEN = 'settings/planGridTipSeen';
 export const SETTINGS_RESET = 'settings/reset';
 
 export type SettingsAction =
@@ -36,6 +37,7 @@ export type SettingsAction =
   | { type: typeof AI_CONSENT_SET; payload: boolean }
   | { type: typeof REVIEW_PROMPTED; payload: ISODate }
   | { type: typeof ASK_BUTTON_SET; payload: Partial<AskButtonSettings> }
+  | { type: typeof PLAN_GRID_TIP_SEEN }
   | { type: typeof SETTINGS_RESET };
 
 export const hydrateSettings = (saved: SavedSettings | null): SettingsAction => ({ type: SETTINGS_HYDRATE, payload: saved });
@@ -54,5 +56,7 @@ export const setAiConsent = (consent: boolean): SettingsAction => ({ type: AI_CO
 export const reviewPrompted = (today: ISODate): SettingsAction => ({ type: REVIEW_PROMPTED, payload: today });
 /** Show/hide, move (side + height) or count a hint of the floating Coach button. */
 export const setAskButton = (patch: Partial<AskButtonSettings>): SettingsAction => ({ type: ASK_BUTTON_SET, payload: patch });
+/** The user closed the 28-day grid tip, or tapped a day: never show it again. */
+export const planGridTipSeen = (): SettingsAction => ({ type: PLAN_GRID_TIP_SEEN });
 /** Back to a fresh install (used by "Delete all data"). */
 export const resetSettings = (): SettingsAction => ({ type: SETTINGS_RESET });

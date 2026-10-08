@@ -21,6 +21,7 @@ interface PlanGridProps {
  * The 28 days as 4 rows of 7 (plan weeks). Every number is a real date, like the iPhone calendar: red
  * when done, a ring for today, a lock for Premium days. Days ahead show the date they fall on if you
  * train every day. The plan day number ("Day 9") is only in text, so it's never mistaken for a date.
+ * How to read it is a one-time tip on Today (PlanGridTip), so the grid itself stays compact.
  */
 export function PlanGrid({ grid, onPressDay }: PlanGridProps) {
   const { t, i18n } = useTranslation('home');
@@ -65,9 +66,6 @@ export function PlanGrid({ grid, onPressDay }: PlanGridProps) {
           ))}
         </View>
       ))}
-      <AppText variant="footnote" muted>
-        {t('plan.grid.hint')}
-      </AppText>
     </View>
   );
 }

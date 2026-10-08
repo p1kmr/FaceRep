@@ -52,11 +52,11 @@
         "today": "Tag {{day}}, heute",
         "upcoming": "Tag {{day}}",
         "locked": "Tag {{day}}, Premium"
+      },
+      "tip": {
+        "title": "So liest du deinen Plan",
+        "done": "Verstanden"
       }
     }
-  },
-  "coachCard": {
-    "title": "Frag den Coach",
-    "body": "Fragen zu Technik, Mewing oder einer einfachen Hautpflege-Routine?"
   }
 }

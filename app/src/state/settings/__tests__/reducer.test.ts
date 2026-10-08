@@ -4,6 +4,7 @@ import {
   completeOnboarding,
   deleteReminder,
   hydrateSettings,
+  planGridTipSeen,
   resetSettings,
   saveReminder,
   setAskButton,
@@ -91,5 +92,16 @@ describe('settingsReducer', () => {
     expect(settingsReducer(s, hydrateSettings({ goal: 'eyes' })).settings).toMatchObject({ voiceCues: true, mirror: false });
     const odd = settingsReducer(s, hydrateSettings({ voiceCues: false, mirror: 'yes' as never }));
     expect(odd.settings).toMatchObject({ voiceCues: false, mirror: false });
+  });
+
+  it('shows the 28-day grid tip until it is dismissed, also after an update', () => {
+    expect(DEFAULT_SETTINGS.planGridTipSeen).toBe(false);
+    const seen = settingsReducer(initialSettingsState, planGridTipSeen());
+    expect(seen.settings.planGridTipSeen).toBe(true);
+    expect(settingsReducer(seen, hydrateSettings({ planGridTipSeen: true })).settings.planGridTipSeen).toBe(true);
+    // Saves from before the tip existed, or odd values, show it once.
+    expect(settingsReducer(seen, hydrateSettings({ goal: 'eyes' })).settings.planGridTipSeen).toBe(false);
+    expect(settingsReducer(seen, hydrateSettings({ planGridTipSeen: 'yes' as never })).settings.planGridTipSeen).toBe(false);
+    expect(settingsReducer(seen, resetSettings()).settings.planGridTipSeen).toBe(false);
   });
 });

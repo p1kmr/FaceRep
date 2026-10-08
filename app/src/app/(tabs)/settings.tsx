@@ -114,8 +114,9 @@ export default function SettingsScreen() {
         ) : (
           <ListRow title={t('settings:premium.upgrade')} onPress={() => router.push('/paywall')} chevron divider />
         )}
-        {hasPurchasesKey() ? <ListRow title={t('settings:premium.restore')} onPress={restore} divider /> : null}
-        <ListRow title={t('settings:premium.manage')} onPress={open(LINKS.manageSubscriptions)} chevron />
+        {hasPurchasesKey() ? <ListRow title={t('settings:premium.restore')} onPress={restore} divider={isPremium} /> : null}
+        {/* Only subscribers have something to manage; everyone else would land on an empty Apple page. */}
+        {isPremium ? <ListRow title={t('settings:premium.manage')} onPress={open(LINKS.manageSubscriptions)} chevron /> : null}
       </Card>
 
       <SectionHeader title={t('settings:sections.privacy')} />

@@ -36,6 +36,8 @@ export interface Settings {
   aiConsent: boolean | null;
   lastReviewPromptOn: ISODate | null;
   askButton: AskButtonSettings;
+  /** The 28-day grid's "how to read it" tip on Today was dismissed (it shows until then). */
+  planGridTipSeen: boolean;
 }
 
 /** What a save can hold: also older saves with one daily reminder ({ enabled, time }). */

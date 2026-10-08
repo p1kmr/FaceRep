@@ -53,11 +53,11 @@
         "today": "Dia {{day}}, hoje",
         "upcoming": "Dia {{day}}",
         "locked": "Dia {{day}}, Premium"
+      },
+      "tip": {
+        "title": "Como ler seu plano",
+        "done": "Entendi"
       }
     }
-  },
-  "coachCard": {
-    "title": "Pergunte ao Coach",
-    "body": "Dúvidas sobre técnica, mewing ou uma rotina simples de skincare?"
   }
 }

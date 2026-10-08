@@ -33,7 +33,7 @@ export default function ProgressScreen() {
   const { sessions } = useProgressState();
   const { streak, best, totals } = useProgressSummary();
   const today = useToday();
-  const [view, setView] = useState<CalendarView>('week');
+  const [view, setView] = useState<CalendarView>('month');
   const [anchor, setAnchor] = useState<ISODate>(today);
   const [selected, setSelected] = useState<ISODate | null>(null);
   const cal = useProgressCalendar(view, anchor);

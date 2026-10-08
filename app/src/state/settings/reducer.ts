@@ -12,6 +12,7 @@ import {
   HAPTICS_SET,
   MIRROR_SET,
   ONBOARDING_COMPLETE,
+  PLAN_GRID_TIP_SEEN,
   REMINDER_DELETED,
   REMINDER_SAVED,
   REVIEW_PROMPTED,
@@ -37,6 +38,7 @@ export const DEFAULT_SETTINGS: Settings = {
   aiConsent: null,
   lastReviewPromptOn: null,
   askButton: { visible: true, side: 'right', y: 1, hintShows: 0 },
+  planGridTipSeen: false,
 };
 
 export const initialSettingsState: SettingsState = { hydrated: false, settings: DEFAULT_SETTINGS };
@@ -87,6 +89,7 @@ export function sanitizeSettings(saved: SavedSettings | null): Settings {
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
     lastReviewPromptOn: typeof s.lastReviewPromptOn === 'string' ? s.lastReviewPromptOn : null,
     askButton: sanitizeAskButton(s.askButton, d.askButton),
+    planGridTipSeen: s.planGridTipSeen === true,
   };
 }
 
@@ -127,6 +130,8 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { lastReviewPromptOn: action.payload });
     case ASK_BUTTON_SET:
       return update(state, { askButton: sanitizeAskButton({ ...s.askButton, ...action.payload }, s.askButton) });
+    case PLAN_GRID_TIP_SEEN:
+      return update(state, { planGridTipSeen: true });
     case SETTINGS_RESET:
       return { hydrated: state.hydrated, settings: DEFAULT_SETTINGS };
     default:

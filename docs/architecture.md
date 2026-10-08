@@ -9,7 +9,7 @@ app/src/
 │   ├── _layout.tsx          providers, splash, Stack with onboarding guard
 │   ├── onboarding/          welcome → guide → goal
 │   ├── (tabs)/              Today · Exercises · Progress · Settings (native iOS tab bar)
-│   ├── coach.tsx            the AI Coach, a sheet opened by the floating button (or the Today card); ?q= starts a question
+│   ├── coach.tsx            the AI Coach, a sheet opened by the floating button; ?q= starts a question
 │   ├── exercise/[id].tsx    exercise detail
 │   ├── workout.tsx          the guided player (full-screen modal): a plan day or single exercises
 │   ├── plan-day.tsx         one day of the 28-day plan, opened from the grid (start it or practice it)
@@ -118,6 +118,8 @@ it into reps and holds with `services/plan/plan.ts` → `planItems()`.
   trains every day from now. The Today card shows it; the grid's circles show the **date** (red when done, ring for
   today, lock for Premium) with the weekday under it, never the plan day number, which only appears in text ("Day 9
   of 28") so it can't be mistaken for a date. The day preview says "Done on …" or "Planned for …".
+  How to read the grid is a one-time tip above it (`PlanGridTip`), closed by "Got it" or the first tap on a day
+  (`settings.planGridTipSeen`), so the grid stays compact.
 
 ## Exercise catalog and programs
 27 exercises in 5 programs (jawline, cheekbones, lips, eyes, massage) plus the "full face" goal; the order of
@@ -142,7 +144,7 @@ The Mon–Sun calendar lives on the Progress tab, separate from the plan: the pl
 when you trained. `services/progress/calendar.ts` (pure, tested) does the maths: week start from the iPhone's region
 settings (`hooks/useFirstWeekday.ts`, expo-localization; Monday when unknown), month grids, per-day and per-period totals,
 paging (never into the future, never before the first workout). `hooks/useProgressCalendar.ts` feeds
-`components/progress/` (`WeekBars`, `MonthCalendar`, `YearMonths`, `PeriodHeader`). Month: tap a day to see its workouts.
+`components/progress/` (`WeekBars`, `MonthCalendar`, `YearMonths`, `PeriodHeader`). The calendar opens on Month: tap a day to see its workouts.
 Year: 12 small months like Elowa's Year view, a red dot on every training day and the number of training days per month;
 tap a month to open it. No calendar library (Elowa uses react-native-calendars for its scrolling month list; FaceRep's
 calendar sits inside the scrolling Progress page, so it pages with ‹ › instead).
