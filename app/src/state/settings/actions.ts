@@ -15,6 +15,8 @@ export const ONBOARDING_COMPLETE = 'settings/onboardingComplete';
 export const REMINDER_SAVED = 'settings/reminderSaved';
 export const REMINDER_DELETED = 'settings/reminderDeleted';
 export const HAPTICS_SET = 'settings/hapticsSet';
+export const VOICE_CUES_SET = 'settings/voiceCuesSet';
+export const MIRROR_SET = 'settings/mirrorSet';
 export const AI_CONSENT_SET = 'settings/aiConsentSet';
 export const REVIEW_PROMPTED = 'settings/reviewPrompted';
 export const ASK_BUTTON_SET = 'settings/askButtonSet';
@@ -29,6 +31,8 @@ export type SettingsAction =
   | { type: typeof REMINDER_SAVED; payload: Reminder }
   | { type: typeof REMINDER_DELETED; payload: string }
   | { type: typeof HAPTICS_SET; payload: boolean }
+  | { type: typeof VOICE_CUES_SET; payload: boolean }
+  | { type: typeof MIRROR_SET; payload: boolean }
   | { type: typeof AI_CONSENT_SET; payload: boolean }
   | { type: typeof REVIEW_PROMPTED; payload: ISODate }
   | { type: typeof ASK_BUTTON_SET; payload: Partial<AskButtonSettings> }
@@ -44,6 +48,8 @@ export const completeOnboarding = (today: ISODate): SettingsAction => ({ type: O
 export const saveReminder = (reminder: Reminder): SettingsAction => ({ type: REMINDER_SAVED, payload: reminder });
 export const deleteReminder = (id: string): SettingsAction => ({ type: REMINDER_DELETED, payload: id });
 export const setHaptics = (on: boolean): SettingsAction => ({ type: HAPTICS_SET, payload: on });
+export const setVoiceCues = (on: boolean): SettingsAction => ({ type: VOICE_CUES_SET, payload: on });
+export const setMirror = (on: boolean): SettingsAction => ({ type: MIRROR_SET, payload: on });
 export const setAiConsent = (consent: boolean): SettingsAction => ({ type: AI_CONSENT_SET, payload: consent });
 export const reviewPrompted = (today: ISODate): SettingsAction => ({ type: REVIEW_PROMPTED, payload: today });
 /** Show/hide, move (side + height) or count a hint of the floating Coach button. */

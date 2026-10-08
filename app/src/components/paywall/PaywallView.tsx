@@ -138,6 +138,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   plans: { gap: tokens.space.lg, paddingTop: tokens.space.sm },
   loading: { opacity: 0.6 },
   footer: { paddingHorizontal: tokens.space.lg, paddingTop: tokens.space.sm, paddingBottom: tokens.space.sm, gap: tokens.space.sm },
-  links: { flexDirection: 'row', justifyContent: 'center', gap: tokens.space.xl },
+  // Wraps when a language's words don't fit one line (German on a 375-pt iPhone).
+  links: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', columnGap: tokens.space.xl, rowGap: tokens.space.xs },
   link: { color: colors.textMuted, textDecorationLine: 'underline' },
 }));

@@ -11,7 +11,7 @@ export interface Palette {
   onPrimary: string;
   /** Soft tint of primary for selected chips and badges. */
   primarySoft: string;
-  /** Background behind the white 3D exercise renders (matches the image edges). */
+  /** Background behind the white exercise drawings (matches the image edges). */
   plate: string;
   /** Streak flame and "today done" highlights. */
   streak: string;

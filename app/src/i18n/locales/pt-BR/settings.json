@@ -1,0 +1,51 @@
+{
+  "title": "Ajustes",
+  "sections": {
+    "training": "Treino",
+    "appearance": "Aparência",
+    "premium": "Premium",
+    "privacy": "Privacidade e segurança",
+    "about": "Sobre"
+  },
+  "goal": "Foco",
+  "guide": "Imagens dos exercícios",
+  "reminders": "Lembretes",
+  "remindersOn_one": "{{count}} ativo",
+  "remindersOn_other": "{{count}} ativos",
+  "remindersOn_zero": "{{count}} ativos",
+  "haptics": "Retorno tátil",
+  "voiceCues": "Instruções por voz",
+  "voiceCuesHint": "Diz Contraia, Relaxe e o que vem a seguir, para você acompanhar de olhos fechados.",
+  "mirror": "Espelho nos treinos",
+  "mirrorHint": "Sua câmera frontal ao lado da figura. Nada é gravado nem salvo.",
+  "theme": {
+    "title": "Tema",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Escuro"
+  },
+  "language": "Idioma",
+  "languageHint": "Altere no app Ajustes do iPhone.",
+  "premium": {
+    "active": "Premium ativo",
+    "upgrade": "Assinar o Premium",
+    "restore": "Restaurar compras",
+    "manage": "Gerenciar assinatura"
+  },
+  "aiConsent": "Permitir Coach de IA",
+  "aiConsentHint": "Envia suas perguntas ao Coach para a IA. Desativado = o Coach fica indisponível.",
+  "askButton": "Botão do Coach",
+  "askButtonHint": "O botão flutuante em todas as telas. Arraste para movê-lo.",
+  "safety": "Segurança nos exercícios",
+  "privacyPolicy": "Política de Privacidade",
+  "terms": "Termos de Uso",
+  "support": "Suporte",
+  "delete": {
+    "row": "Apagar todos os dados",
+    "title": "Apagar todos os dados?",
+    "body": "Isso apaga seus treinos, a conversa com o Coach e os ajustes deste iPhone. Sua assinatura não é afetada.",
+    "confirm": "Apagar"
+  },
+  "deleted": "Todos os dados foram apagados",
+  "version": "Versão {{version}}"
+}

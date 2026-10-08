@@ -1,0 +1,44 @@
+{
+  "headline": "Débloque le plan complet",
+  "subhead": "La semaine 1 est gratuite. Premium ajoute le reste de ton plan de 28 jours et le Coach IA.",
+  "benefits": {
+    "plan": "Semaines 2 à 4 : plus d'exercices, de répétitions et de temps de maintien chaque semaine",
+    "levels": "Niveaux 2 et 3 une fois le plan terminé, puis de nouveaux cycles",
+    "coach": "Réponses illimitées du Coach IA sur la technique et ta routine"
+  },
+  "aiNote": "Le Coach répond grâce à une IA (Cloudflare Workers AI). On te demandera ton accord avant ta première question.",
+  "plans": {
+    "monthly": "Mensuel",
+    "yearly": "Annuel"
+  },
+  "perMonth": "par mois",
+  "perYear": "par an",
+  "perMonthPrice": "{{price}} / mois",
+  "bestValue": "Meilleure offre",
+  "bestValueSave": "Économise {{percent}} %",
+  "startTrial": "Commencer l'essai gratuit",
+  "continue": "Continuer",
+  "trialThen_one": "{{count}} jour gratuit, puis {{price}} par {{period}}. Annulable à tout moment.",
+  "trialThen_other": "{{count}} jours gratuits, puis {{price}} par {{period}}. Annulable à tout moment.",
+  "month": "mois",
+  "year": "an",
+  "cancelAnytime": "Renouvellement automatique. Annulable à tout moment dans Réglages.",
+  "renewal": "Le paiement est débité sur ton compte Apple. L'abonnement se renouvelle automatiquement, sauf s'il est annulé au moins 24 heures avant la fin de la période en cours. Gère-le ou annule-le dans les réglages de ton compte App Store.",
+  "restoreButton": "Restaurer",
+  "terms": "Conditions d'utilisation",
+  "privacy": "Confidentialité",
+  "close": "Fermer",
+  "errors": {
+    "unavailableTitle": "Indisponible",
+    "unavailable": "Impossible de charger les offres. Vérifie ta connexion et réessaie.",
+    "failedTitle": "Échec de l'achat"
+  },
+  "restore": {
+    "doneTitle": "Achats restaurés",
+    "done": "Ton abonnement Premium est de nouveau actif.",
+    "noneTitle": "Rien à restaurer",
+    "none": "Aucun abonnement actif trouvé pour ce compte Apple.",
+    "failedTitle": "Échec de la restauration",
+    "failed": "Vérifie ta connexion et réessaie."
+  }
+}

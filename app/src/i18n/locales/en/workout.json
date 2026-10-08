@@ -2,6 +2,7 @@
   "phase": {
     "ready": "Get ready",
     "hold": "Squeeze",
+    "hold_massage": "Massage",
     "relax": "Relax",
     "rest": "Next up",
     "done": "Done"
@@ -13,6 +14,15 @@
   "skip": "Skip",
   "end": "End workout",
   "paused": "Paused",
+  "voiceCues": "Voice cues",
+  "mirror": "Mirror",
+  "mirrorA11y": "Mirror: your front camera. Nothing is recorded.",
+  "mirrorDenied": {
+    "title": "Camera access is off",
+    "body": "To use the mirror, allow Camera for {{app}} in Settings. The camera is only a mirror: nothing is recorded or saved.",
+    "open": "Open Settings",
+    "cancel": "Not now"
+  },
   "endConfirm": {
     "title": "End this workout?",
     "body": "The exercises you finished will still count.",
@@ -29,5 +39,15 @@
   },
   "a11y": {
     "timer": "{{phase}}, {{seconds}} seconds left"
+  },
+  "voice": {
+    "start": "Get ready. {{name}}.",
+    "next": "Next up: {{name}}.",
+    "hold": "Squeeze",
+    "hold_massage": "Massage",
+    "holdLast": "Last one. Squeeze.",
+    "holdLast_massage": "Last one. Massage.",
+    "relax": "Relax",
+    "done": "Workout complete. Nice work."
   }
 }

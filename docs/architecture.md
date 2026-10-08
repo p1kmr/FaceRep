@@ -59,8 +59,26 @@ Schema changes: append to `services/db/migrations.ts` (tracked with `PRAGMA user
 
 ## The workout player
 `services/workout/timer.ts` is a pure state machine (`ready → hold → relax → … → rest → … → done`), ticked once a second
-by `useWorkout()`. The 3D figure is two still renders (relaxed / exercise) crossfaded with Reanimated on every phase
+by `useWorkout()`. The figure is two still drawings (relaxed / exercise) crossfaded with Reanimated on every phase
 change, so the face is identical and the app stays small (no video). Leaving the app pauses the workout.
+
+While it runs, `useWorkout()` also:
+- **keeps the screen on** (`expo-keep-awake`, only while running; paused or finished lets it sleep). Without it iOS
+  Auto-Lock locks the phone after 30 s–5 min without a touch (always 30 s in Low Power Mode), the app goes to the
+  background and the workout pauses. Hands-on exercises make that likely. This is the iOS version of the web's Screen
+  Wake Lock API.
+- **speaks cues** (Settings → Voice cues, on by default; also the speaker button in the player). `services/workout/cues.ts`
+  is pure and tested: it turns each state change into "Get ready. Lip Press." / "Squeeze" ("Massage" for the massage
+  program) / "Last one. Squeeze." / "Relax" / "Next up: …" / "Workout complete". `services/voice.ts` (the only
+  `expo-speech` import) speaks them with the iPhone's built-in voice in the app's language: offline, no permission.
+  `useApplicationAudioSession: false` gives speech its own iOS audio session, so the user's music is turned down for a
+  cue and comes back instead of stopping.
+
+**Mirror** (Settings → Mirror in workouts, or the person button in the player): `components/exercise/MirrorView.tsx`
+shows the front camera (`expo-camera`) in a corner of the figure. `hooks/useMirror.ts` asks for the camera the first time
+it's turned on; iOS asks only once, so after "Don't Allow" an alert offers the Settings app. Nothing is recorded or saved,
+and the camera stops in the background. The microphone purpose string exists only because the camera library can record
+video with sound (Apple rejects builds whose code can reach the microphone without one); FaceRep never asks for it.
 
 ## React (web) → React Native: what changes
 | You know (React web) | In this app |
@@ -148,3 +166,9 @@ The Worker gives the main model three tools (`create_reminder`, `update_reminder
 checks every call against that list and returns them as `actions`; the fallback model gets no tools. The app checks them again
 (`parseChatReply`) and shows `ReminderActionCard`s: nothing changes until the user taps Confirm. Cards live in memory only.
 
+
+## Languages
+Six languages, bundled in the app (no network loading): see [i18n.md](i18n.md). iOS's per-app language (Settings app →
+FaceRep → Language) picks it; Settings → Language in the app opens that page. Voice cues, reminder notifications,
+dates and Coach replies follow the same language. `npm run i18n:check` (also in `npm test`) keeps every language's keys
+and `{{placeholders}}` in line with English.

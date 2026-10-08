@@ -1,0 +1,47 @@
+{
+  "title": "Erinnerungen",
+  "intro": "Erinnerungen für Training, Mewing und Haltung an den Tagen und Uhrzeiten deiner Wahl. Die Mitteilungen bleiben auf deinem iPhone.",
+  "add": "Erinnerung hinzufügen",
+  "count": "{{count}} von {{max}} Erinnerungen",
+  "empty": "Noch keine Erinnerungen.",
+  "kinds": {
+    "workout": "Training",
+    "mewing": "Mewing-Check",
+    "posture": "Haltungspause",
+    "custom": "Eigene"
+  },
+  "days": {
+    "everyDay": "Jeden Tag",
+    "weekdays": "Wochentags",
+    "weekends": "Am Wochenende"
+  },
+  "summary": "{{days}} · {{times}}",
+  "toggle": "{{title}} ein- oder ausschalten",
+  "edit": {
+    "newTitle": "Neue Erinnerung",
+    "editTitle": "Erinnerung bearbeiten",
+    "type": "Art",
+    "name": "Name",
+    "namePlaceholder": "{{name}}",
+    "times": "Uhrzeiten",
+    "addTime": "Uhrzeit hinzufügen",
+    "everyTwoHours": "Alle 2 Stunden, 10:00–18:00",
+    "removeTime": "{{time}} entfernen",
+    "days": "Tage",
+    "save": "Speichern",
+    "delete": "Erinnerung löschen",
+    "deleteConfirm": "Diese Erinnerung löschen?",
+    "time": "Uhrzeit {{n}}"
+  },
+  "errors": {
+    "noDays": "Wähl mindestens einen Tag aus.",
+    "tooMany": "Du kannst bis zu {{max}} Erinnerungen haben. Lösch eine, um eine neue hinzuzufügen.",
+    "tooManyTimes": "Das sind mehr Mitteilungen, als ein iPhone für eine App speichert. Wähl weniger Uhrzeiten oder Tage."
+  },
+  "permission": {
+    "off": "Mitteilungen für {{app}} sind aus, deshalb können keine Erinnerungen erscheinen.",
+    "open": "Einstellungen öffnen",
+    "deniedTitle": "Mitteilungen sind aus",
+    "denied": "Aktiviere Mitteilungen für {{app}} in der App „Einstellungen“, um Erinnerungen zu bekommen."
+  }
+}

@@ -20,7 +20,7 @@
   "month": "month",
   "year": "year",
   "cancelAnytime": "Renews automatically. Cancel anytime in Settings.",
-  "renewal": "Payment is charged to your Apple ID. The subscription renews automatically unless cancelled at least 24 hours before the end of the period. Manage or cancel it in your App Store account settings.",
+  "renewal": "Payment is charged to your Apple Account. The subscription renews automatically unless cancelled at least 24 hours before the end of the period. Manage or cancel it in your App Store account settings.",
   "restoreButton": "Restore",
   "terms": "Terms of Use",
   "privacy": "Privacy",
@@ -34,7 +34,7 @@
     "doneTitle": "Restored",
     "done": "Your Premium subscription is active again.",
     "noneTitle": "Nothing to restore",
-    "none": "We couldn't find an active subscription for this Apple ID.",
+    "none": "We couldn't find an active subscription for this Apple Account.",
     "failedTitle": "Restore failed",
     "failed": "Please check your connection and try again."
   }

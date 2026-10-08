@@ -1,0 +1,63 @@
+{
+  "greeting": "Vamos para o treino de hoje?",
+  "doneGreeting": "Treino de hoje concluído. Mandou bem.",
+  "streak_one": "Sequência de {{count}} dia",
+  "streak_other": "Sequência de {{count}} dias",
+  "streak_zero": "Sequência de {{count}} dias",
+  "noStreak": "Comece sua sequência hoje",
+  "plan": {
+    "header": "Semana {{week}} · Dia {{day}} de {{total}}",
+    "level": "Nível {{level}}",
+    "weeks": {
+      "learn": "Aprenda os movimentos",
+      "build": "Evolua",
+      "strengthen": "Fortaleça",
+      "peak": "Semana de pico"
+    },
+    "light": "Dia leve: alongamento e recuperação",
+    "final": "Último dia do nível",
+    "meta": "{{exercises}} · {{minutes}}",
+    "start": "Começar Dia {{day}}",
+    "startLevel": "Começar Nível {{level}}",
+    "levelDone": "Nível {{level}} concluído: todos os 28 dias feitos.",
+    "practice": "Praticar de novo",
+    "doneToday": "Dia {{day}} concluído. O Dia {{next}} libera amanhã.",
+    "doneLevelToday": "Nível {{level}} concluído. O Nível {{next}} começa amanhã.",
+    "doneFreeWeek": "Semana 1 concluída. As semanas 2 a 4 fazem parte do Premium.",
+    "locked": {
+      "title": "As semanas 2 a 4 são Premium",
+      "body": "Cada semana traz mais exercícios, repetições e tempo de contração. A semana 1 e cada exercício avulso continuam grátis.",
+      "cta": "Desbloquear o plano completo"
+    },
+    "loading": "Carregando o resto do seu plano…",
+    "error": {
+      "offline": "Conecte-se à internet uma vez para carregar o resto do seu plano. Depois disso, ele funciona offline.",
+      "premium": "Ainda não foi possível confirmar sua assinatura. Tente de novo em um minuto ou use Restaurar compras em Ajustes.",
+      "server": "Não foi possível carregar o plano. Tente de novo daqui a pouco.",
+      "retry": "Tentar de novo"
+    },
+    "preview": {
+      "practice": "Praticar Dia {{day}}",
+      "practiceNote": "Praticar este dia não avança seu plano. O Dia {{day}} é o seu próximo dia.",
+      "practiceNoteDone": "Praticar este dia não avança seu plano. Seu próximo dia libera amanhã.",
+      "doneOn": "Concluído em {{date}}",
+      "today": "Hoje, {{date}}",
+      "plannedFor": "Previsto para {{date}} se você treinar todo dia"
+    },
+    "grid": {
+      "title": "Seu plano de 28 dias",
+      "hint": "Os números são datas: em vermelho quando concluídos e com um círculo no dia de hoje. Os próximos dias mostram a data em que caem se você treinar todo dia. Toque em um dia para ver os exercícios.",
+      "week": "S{{week}}",
+      "cell": {
+        "done": "Dia {{day}}, concluído",
+        "today": "Dia {{day}}, hoje",
+        "upcoming": "Dia {{day}}",
+        "locked": "Dia {{day}}, Premium"
+      }
+    }
+  },
+  "coachCard": {
+    "title": "Pergunte ao Coach",
+    "body": "Dúvidas sobre técnica, mewing ou uma rotina simples de skincare?"
+  }
+}

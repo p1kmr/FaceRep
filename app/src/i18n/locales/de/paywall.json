@@ -1,0 +1,41 @@
+{
+  "headline": "Den ganzen Plan freischalten",
+  "subhead": "Woche 1 ist kostenlos. Premium bringt den Rest deines 28-Tage-Plans und den KI-Coach.",
+  "benefits": {
+    "plan": "Wochen 2 bis 4: jede Woche mehr Übungen, Wiederholungen und Haltezeit",
+    "levels": "Level 2 und 3, wenn du fertig bist, und danach neue Runden",
+    "coach": "Unbegrenzt Antworten vom KI-Coach zu Technik und Routine"
+  },
+  "aiNote": "Coach-Fragen beantwortet eine KI (Cloudflare Workers AI). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.",
+  "plans": { "monthly": "Monatlich", "yearly": "Jährlich" },
+  "perMonth": "pro Monat",
+  "perYear": "pro Jahr",
+  "perMonthPrice": "{{price}} / Monat",
+  "bestValue": "Bestes Angebot",
+  "bestValueSave": "Spare {{percent}} %",
+  "startTrial": "Gratis testen",
+  "continue": "Weiter",
+  "trialThen_one": "{{count}} Tag gratis, danach {{price}} pro {{period}}. Jederzeit kündbar.",
+  "trialThen_other": "{{count}} Tage gratis, danach {{price}} pro {{period}}. Jederzeit kündbar.",
+  "month": "Monat",
+  "year": "Jahr",
+  "cancelAnytime": "Verlängert sich automatisch. Jederzeit in den Einstellungen kündbar.",
+  "renewal": "Die Zahlung wird über deinen Apple Account abgerechnet. Das Abo verlängert sich automatisch, wenn es nicht mindestens 24 Stunden vor Ende des Zeitraums gekündigt wird. Verwalten oder kündigen kannst du es in den Account-Einstellungen des App Store.",
+  "restoreButton": "Wiederherstellen",
+  "terms": "Nutzungsbedingungen",
+  "privacy": "Datenschutz",
+  "close": "Schließen",
+  "errors": {
+    "unavailableTitle": "Nicht verfügbar",
+    "unavailable": "Die Abos konnten nicht geladen werden. Prüf deine Verbindung und versuch es noch mal.",
+    "failedTitle": "Kauf fehlgeschlagen"
+  },
+  "restore": {
+    "doneTitle": "Wiederhergestellt",
+    "done": "Dein Premium-Abo ist wieder aktiv.",
+    "noneTitle": "Nichts wiederherzustellen",
+    "none": "Wir haben für diesen Apple Account kein aktives Abo gefunden.",
+    "failedTitle": "Wiederherstellen fehlgeschlagen",
+    "failed": "Bitte prüf deine Verbindung und versuch es noch mal."
+  }
+}

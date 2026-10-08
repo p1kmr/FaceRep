@@ -1,0 +1,47 @@
+{
+  "title": "Lembretes",
+  "intro": "Lembretes de treino, mewing e postura nos dias e horários que você escolher. As notificações ficam no seu iPhone.",
+  "add": "Adicionar lembrete",
+  "count": "{{count}} de {{max}} lembretes",
+  "empty": "Nenhum lembrete ainda.",
+  "kinds": {
+    "workout": "Treino",
+    "mewing": "Checagem de mewing",
+    "posture": "Pausa para a postura",
+    "custom": "Personalizado"
+  },
+  "days": {
+    "everyDay": "Todos os dias",
+    "weekdays": "Dias úteis",
+    "weekends": "Fins de semana"
+  },
+  "summary": "{{days}} · {{times}}",
+  "toggle": "Ativar ou desativar {{title}}",
+  "edit": {
+    "newTitle": "Novo lembrete",
+    "editTitle": "Editar lembrete",
+    "type": "Tipo",
+    "name": "Nome",
+    "namePlaceholder": "{{name}}",
+    "times": "Horários",
+    "addTime": "Adicionar horário",
+    "everyTwoHours": "A cada 2 horas, 10:00–18:00",
+    "removeTime": "Remover {{time}}",
+    "days": "Dias",
+    "save": "Salvar",
+    "delete": "Apagar lembrete",
+    "deleteConfirm": "Apagar este lembrete?",
+    "time": "Horário {{n}}"
+  },
+  "errors": {
+    "noDays": "Escolha pelo menos um dia.",
+    "tooMany": "Você pode ter até {{max}} lembretes. Apague um para adicionar outro.",
+    "tooManyTimes": "São mais notificações do que o iPhone guarda para um app. Use menos horários ou dias."
+  },
+  "permission": {
+    "off": "As notificações do {{app}} estão desativadas, então os lembretes não podem aparecer.",
+    "open": "Abrir Ajustes",
+    "deniedTitle": "Notificações desativadas",
+    "denied": "Ative as notificações do {{app}} no app Ajustes do iPhone para receber lembretes."
+  }
+}

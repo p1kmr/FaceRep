@@ -4,7 +4,7 @@
  * Contact details come from Worker vars (`LEGAL_NAME`, `SUPPORT_EMAIL` in wrangler.jsonc).
  */
 
-const UPDATED = 'October 7, 2026';
+const UPDATED = 'October 8, 2026';
 
 const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -66,8 +66,10 @@ process a subscription. We never sell or share your data for advertising.
 <h2>Data that stays on your iPhone</h2>
 <p>Your workout history (date, exercises, reps and duration), your Coach chat history, your focus area, who the exercise
 pictures show (man or woman), your reminders and app settings are stored only in ${c.app}'s database on your device. We cannot see them. Reminders are scheduled locally by
-iOS; their names, times and days only leave your iPhone with a Coach question (see below). ${c.app} does not use the camera,
-photos, contacts or location.</p>
+iOS; their names, times and days only leave your iPhone with a Coach question (see below).</p>
+<p>The optional workout mirror shows your front camera on the screen while you exercise, so you can check your form. The
+picture is never recorded, saved or sent anywhere, and the camera is on only while the mirror is shown. Voice cues are
+spoken by your iPhone's built-in voice, on the device. ${c.app} does not use your photos, microphone, contacts or location.</p>
 
 <h2>Data that leaves your iPhone</h2>
 <table>
@@ -131,14 +133,14 @@ providers' Standard Contractual Clauses or equivalent safeguards.</p>
   <li><strong>Delete your data:</strong> Settings → Delete all data, or delete the app. This erases your workouts, chat and
   settings from your iPhone. A random app ID stays in the iPhone's Keychain so your subscription keeps working.</li>
   <li><strong>Stop AI processing:</strong> turn off Settings → Allow AI Coach. ${c.app} then sends no Coach questions to our server.</li>
-  <li><strong>Subscriptions:</strong> manage or cancel in your Apple ID settings.</li>
+  <li><strong>Subscriptions:</strong> manage or cancel in your Apple Account settings.</li>
   <li>Depending on where you live, you may have rights to access, correct, delete or port your data, to object or restrict
   processing, and to complain to your data protection authority. Because we don't keep an account or your workout data,
   most requests are fulfilled by the in-app controls above; for anything else, email ${c.mail}.</li>
 </ul>
 
 <h2>AI-generated images</h2>
-<p>The 3D figure and the photos in ${c.app} are AI-generated and show a fictional person.</p>
+<p>The exercise drawings and the photos in ${c.app} are AI-generated and show fictional people.</p>
 
 <h2>Children</h2>
 <p>${c.app} is not directed to children under 13, and we do not knowingly collect data from them.</p>
@@ -177,9 +179,9 @@ AI Coach answers are generated automatically and may be wrong.</p>
   <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and unlimited
   AI Coach answers (daily fair-use limits apply). The Premium part of the plan is loaded from our server, so the first time
   it needs an internet connection.</li>
-  <li>Payment is charged to your Apple ID at confirmation of purchase.</li>
+  <li>Payment is charged to your Apple Account at confirmation of purchase.</li>
   <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the period.</li>
-  <li>You can manage and cancel subscriptions in your Apple ID account settings after purchase.</li>
+  <li>You can manage and cancel subscriptions in your Apple Account settings after purchase.</li>
   <li>If a free trial is offered, any unused part of it is forfeited when you buy a subscription.</li>
   <li>Refunds are handled by Apple under its policies.</li>
 </ul>
@@ -215,7 +217,7 @@ function support(env) {
 
 <h2>Common questions</h2>
 <p><strong>Where is my data?</strong> Only on your iPhone. ${c.app} has no account, so we can't recover it for you.</p>
-<p><strong>Restore Premium.</strong> Settings → Restore purchases, signed in with the same Apple ID you bought with. This
+<p><strong>Restore Premium.</strong> Settings → Restore purchases, signed in with the same Apple Account you bought with. This
 also moves Premium to a new iPhone.</p>
 <p><strong>Cancel a subscription.</strong> iPhone Settings → your name → Subscriptions → ${c.app}.</p>
 <p><strong>The reminder doesn't show.</strong> Check iPhone Settings → Notifications → ${c.app}, and that the reminder is on in ${c.app} → Settings.</p>

@@ -1,0 +1,20 @@
+{
+  "kinds": {
+    "workout": {
+      "title": "C'est l'heure de ta séance visage",
+      "body": "5 minutes suffisent pour garder ta série."
+    },
+    "mewing": {
+      "title": "Point mewing",
+      "body": "Toute la langue contre le palais, lèvres fermées, respire par le nez."
+    },
+    "posture": {
+      "title": "Pause posture",
+      "body": "Menton rentré : oreilles au-dessus des épaules, menton doucement vers l'arrière. Tiens 5 secondes."
+    },
+    "custom": {
+      "title": "Rappel",
+      "body": "Un de tes rappels {{app}}."
+    }
+  }
+}

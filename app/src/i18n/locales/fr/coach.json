@@ -1,0 +1,73 @@
+{
+  "title": "Coach",
+  "intro": "Je suis ton Coach {{app}}. Pose-moi tes questions sur les exercices du visage, la technique, la posture ou une routine de soins simple.",
+  "placeholder": "Pose ta question sur ta séance ou tes soins",
+  "send": "Envoyer",
+  "clear": "Effacer la discussion",
+  "clearConfirm": "Supprimer cette conversation de ton iPhone ?",
+  "thinking": "Le Coach écrit",
+  "freeLeft_one": "{{count}} réponse gratuite restante ce mois-ci",
+  "freeLeft_other": "{{count}} réponses gratuites restantes ce mois-ci",
+  "freeRefill": "Tes réponses gratuites reviennent le {{date}}",
+  "unlock": "Réponses illimitées avec Premium",
+  "aiNote": "Les réponses de l'IA peuvent être fausses. Pas un avis médical. Appuie longuement sur une réponse pour la signaler.",
+  "reportHint": "Appuie longuement pour signaler cette réponse",
+  "reportSubject": "Signaler une réponse du Coach IA",
+  "actions": {
+    "prepared": "Je t'ai préparé ça. Vérifie et confirme ci-dessous.",
+    "create": "Nouveau rappel",
+    "update": "Modifier le rappel",
+    "pause": "Mettre le rappel en pause",
+    "resume": "Réactiver le rappel",
+    "delete": "Supprimer le rappel",
+    "confirm": "Confirmer",
+    "decline": "Non merci",
+    "done": "Enregistré",
+    "declined": "Non enregistré",
+    "open": "Voir les rappels",
+    "missing": "Ce rappel n'existe plus."
+  },
+  "bubble": {
+    "open": "Demander au Coach",
+    "openHint": "Ouvre le Coach IA. Fais glisser pour déplacer le bouton."
+  },
+  "hint": {
+    "title": "Demande au Coach",
+    "body": "Technique, mewing, posture ou soins : demande-moi ce que tu veux. Je peux aussi créer des rappels pour toi.",
+    "technique": "Vérifier ma technique",
+    "remind": "Créer un rappel",
+    "ask": "Poser une question",
+    "techniquePrompt": "Comment savoir si je fais bien les exercices ?",
+    "remindPrompt": "Rappelle-moi de ",
+    "close": "Fermer l'astuce"
+  },
+  "suggestions": {
+    "jawline": "Combien de temps avant de voir des résultats sur ma mâchoire ?",
+    "mewing": "Est-ce que je fais bien le mewing ?",
+    "reminder": "Rappelle-moi de vérifier mon mewing toutes les 2 heures en semaine",
+    "skincare": "Une routine de soins simple ?",
+    "skincare_man": "Une routine de soins simple pour homme ?",
+    "skincare_woman": "Une routine de soins simple pour femme ?",
+    "doubleChin": "Quels exercices pour le double menton ?"
+  },
+  "errors": {
+    "notConfigured": "Le Coach n'est pas encore configuré dans cette version.",
+    "offline": "Tu sembles hors ligne. Vérifie ta connexion et réessaie.",
+    "rateLimited": "Ça fait beaucoup de questions pour une journée. Réessaie demain.",
+    "freeUsed": "Tu as utilisé tes réponses gratuites de ce mois-ci.",
+    "device": "Impossible de vérifier cet iPhone. Mets l'app à jour et réessaie.",
+    "server": "Le Coach ne peut pas répondre pour l'instant. Réessaie dans un moment.",
+    "retry": "Réessayer"
+  },
+  "consent": {
+    "title": "Avant de poser ta question au Coach",
+    "what": "Le Coach est une IA. Pour te répondre, ta question est envoyée à notre serveur et traitée par un modèle d'IA (Cloudflare Workers AI).",
+    "sent": "Envoyé : ta question, les derniers messages de cette discussion, ton objectif, ta série en cours, le nombre de séances faites cette semaine, ainsi que les noms et horaires de tes rappels (pour que le Coach puisse proposer des modifications que tu confirmes).",
+    "notSent": "Non envoyé : ton nom, tes photos, tes contacts ou ta position. Tu n'as pas de compte chez nous.",
+    "storage": "Notre serveur ne conserve pas tes questions. L'historique de la discussion reste sur cet iPhone, et tu peux le supprimer à tout moment.",
+    "medical": "Le Coach donne des conseils généraux de fitness et de soins de la peau, pas des avis médicaux.",
+    "allow": "Accepter et continuer",
+    "notNow": "Plus tard",
+    "withdraw": "Tu peux désactiver cette option dans Réglages."
+  }
+}

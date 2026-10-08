@@ -20,7 +20,7 @@ interface ExerciseFramesProps {
 }
 
 /**
- * The 3D figure: relaxed and exercise renders stacked, crossfading on every squeeze/release.
+ * The exercise drawing: relaxed and exercise frames stacked, crossfading on every squeeze/release.
  * Two still frames keep the app small and the face identical (no video needed).
  */
 export function ExerciseFrames({ id, squeeze, label, fill, style }: ExerciseFramesProps) {

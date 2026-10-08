@@ -1,0 +1,20 @@
+{
+  "kinds": {
+    "workout": {
+      "title": "Hora do seu treino facial",
+      "body": "5 minutos e sua sequência continua."
+    },
+    "mewing": {
+      "title": "Checagem de mewing",
+      "body": "A língua toda no céu da boca, lábios fechados, respire pelo nariz."
+    },
+    "posture": {
+      "title": "Pausa para a postura",
+      "body": "Retração do queixo: orelhas alinhadas com os ombros, queixo levemente para trás. Segure por 5 segundos."
+    },
+    "custom": {
+      "title": "Lembrete",
+      "body": "Dos seus lembretes do {{app}}."
+    }
+  }
+}

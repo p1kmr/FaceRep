@@ -1,0 +1,47 @@
+{
+  "title": "Recordatorios",
+  "intro": "Recordatorios de entrenamiento, mewing y postura en los días y horas que elijas. Las notificaciones se quedan en tu iPhone.",
+  "add": "Añadir recordatorio",
+  "count": "{{count}} de {{max}} recordatorios",
+  "empty": "Aún no hay recordatorios.",
+  "kinds": {
+    "workout": "Entrenamiento",
+    "mewing": "Control de mewing",
+    "posture": "Pausa para la postura",
+    "custom": "Personalizado"
+  },
+  "days": {
+    "everyDay": "Todos los días",
+    "weekdays": "Entre semana",
+    "weekends": "Fines de semana"
+  },
+  "summary": "{{days}} · {{times}}",
+  "toggle": "Activar o desactivar {{title}}",
+  "edit": {
+    "newTitle": "Nuevo recordatorio",
+    "editTitle": "Editar recordatorio",
+    "type": "Tipo",
+    "name": "Nombre",
+    "namePlaceholder": "{{name}}",
+    "times": "Horas",
+    "addTime": "Añadir una hora",
+    "everyTwoHours": "Cada 2 horas, 10:00–18:00",
+    "removeTime": "Quitar {{time}}",
+    "days": "Días",
+    "save": "Guardar",
+    "delete": "Eliminar recordatorio",
+    "deleteConfirm": "¿Eliminar este recordatorio?",
+    "time": "Hora {{n}}"
+  },
+  "errors": {
+    "noDays": "Elige al menos un día.",
+    "tooMany": "Puedes tener hasta {{max}} recordatorios. Elimina uno para añadir otro.",
+    "tooManyTimes": "Son más notificaciones de las que un iPhone guarda para una sola app. Usa menos horas o días."
+  },
+  "permission": {
+    "off": "Las notificaciones de {{app}} están desactivadas, así que los recordatorios no pueden aparecer.",
+    "open": "Abrir Ajustes",
+    "deniedTitle": "Notificaciones desactivadas",
+    "denied": "Activa las notificaciones de {{app}} en la app Ajustes del iPhone para recibir recordatorios."
+  }
+}

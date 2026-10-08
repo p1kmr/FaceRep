@@ -1,0 +1,47 @@
+{
+  "title": "Rappels",
+  "intro": "Des rappels pour tes séances, ton mewing et ta posture, aux jours et heures de ton choix. Les notifications restent sur ton iPhone.",
+  "add": "Ajouter un rappel",
+  "count": "{{count}} sur {{max}} rappels",
+  "empty": "Aucun rappel pour l'instant.",
+  "kinds": {
+    "workout": "Séance",
+    "mewing": "Point mewing",
+    "posture": "Pause posture",
+    "custom": "Personnalisé"
+  },
+  "days": {
+    "everyDay": "Tous les jours",
+    "weekdays": "En semaine",
+    "weekends": "Le week-end"
+  },
+  "summary": "{{days}} · {{times}}",
+  "toggle": "Activer ou désactiver {{title}}",
+  "edit": {
+    "newTitle": "Nouveau rappel",
+    "editTitle": "Modifier le rappel",
+    "type": "Type",
+    "name": "Nom",
+    "namePlaceholder": "{{name}}",
+    "times": "Heures",
+    "addTime": "Ajouter une heure",
+    "everyTwoHours": "Toutes les 2 heures, 10:00–18:00",
+    "removeTime": "Supprimer {{time}}",
+    "days": "Jours",
+    "save": "Enregistrer",
+    "delete": "Supprimer le rappel",
+    "deleteConfirm": "Supprimer ce rappel ?",
+    "time": "Heure {{n}}"
+  },
+  "errors": {
+    "noDays": "Choisis au moins un jour.",
+    "tooMany": "Tu peux avoir jusqu'à {{max}} rappels. Supprimes-en un pour en ajouter un autre.",
+    "tooManyTimes": "Ça fait plus de notifications qu'un iPhone n'en garde pour une app. Choisis moins d'heures ou de jours."
+  },
+  "permission": {
+    "off": "Les notifications sont désactivées pour {{app}}, donc les rappels ne peuvent pas s'afficher.",
+    "open": "Ouvrir Réglages",
+    "deniedTitle": "Notifications désactivées",
+    "denied": "Active les notifications pour {{app}} dans l'app Réglages de l'iPhone pour recevoir tes rappels."
+  }
+}

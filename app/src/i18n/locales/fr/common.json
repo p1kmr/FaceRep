@@ -1,0 +1,33 @@
+{
+  "tabs": {
+    "today": "Aujourd'hui",
+    "exercises": "Exercices",
+    "progress": "Progrès",
+    "settings": "Réglages"
+  },
+  "premium": "Premium",
+  "close": "Fermer",
+  "cancel": "Annuler",
+  "done": "OK",
+  "continue": "Continuer",
+  "start": "Commencer",
+  "minutes_one": "{{count}} min",
+  "minutes_other": "{{count}} min",
+  "exercises_one": "{{count}} exercice",
+  "exercises_other": "{{count}} exercices",
+  "reps": "{{reps}} × {{hold}} s",
+  "programs": {
+    "jawline": "Mâchoire",
+    "cheekbones": "Pommettes",
+    "lips": "Lèvres",
+    "eyes": "Yeux",
+    "massage": "Massage",
+    "full": "Visage complet"
+  },
+  "guides": {
+    "man": "Homme",
+    "woman": "Femme"
+  },
+  "aiImages": "Les dessins et photos des exercices de {{app}} sont générés par IA et montrent des personnes fictives.",
+  "disclaimer": "{{app}} est une app de bien-être et de fitness, pas un avis médical. Les résultats varient d'une personne à l'autre."
+}

@@ -28,6 +28,10 @@ export interface Settings {
   /** The user's reminders (workout, mewing, posture, own). The first install has a workout one, off. */
   reminders: Reminder[];
   haptics: boolean;
+  /** Spoken cues in workouts ("Squeeze", "Relax", "Next up: …"), with the iPhone's own voice. */
+  voiceCues: boolean;
+  /** Front camera as a mirror in workouts. Nothing is recorded or saved. */
+  mirror: boolean;
   /** Consent to send Coach questions to the AI (null = not asked yet). */
   aiConsent: boolean | null;
   lastReviewPromptOn: ISODate | null;

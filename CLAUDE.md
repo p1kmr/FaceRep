@@ -1,6 +1,6 @@
 # FaceRep: rules for AI coding assistants
 
-Facial-fitness iOS app for men: **FaceRep** (App Store name "FaceRep: Jawline Exercises", bundle ID `com.p1kmr.facerep`).
+Facial-fitness iOS app for men and women: **FaceRep** (App Store name draft "FaceRep: Face Yoga & Jawline", bundle ID `com.p1kmr.facerep`).
 Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as the owner's Elowa app.
 
 ## Behavior
@@ -19,7 +19,7 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
 
 ## Hard rules
 - **Theme:** no color literals outside `src/constants/theme/`. Use `useTheme()` / `makeStyles`. Light and dark must both work.
-- **Text:** no hard-coded user-visible strings; `t('namespace:key')`. `{{app}}` = the app name (constants/config.ts).
+- **Text:** no hard-coded user-visible strings; `t('namespace:key')`. `{{app}}` = the app name (constants/config.ts). Six languages (en, es, pt-BR, de, fr, it; docs/i18n.md): a new or changed English text needs the same key in every `locales/<code>/`, and `npm run i18n:check` must pass. Never make a translation stronger than the English (health, subscription text).
 - **Images:** pictures live in `app/assets/guides/<man|woman>/` by exercise ID (never by plan week or day; see docs/images.md). Add files and run `npm run images`; never edit `constants/guideImages.generated.ts` by hand. Components get pictures from `useGuideImages()`. The Man/Woman choice is display-only and never leaves the device.
 - **Dates:** `'YYYY-MM-DD'` strings, math via `utils/dates.ts`. Reducers never call `Date.now()`.
 - **Health/safety claims:** never promise results, never claim bone/face-shape changes, never medical claims (App Store 1.4.1, 2.3.1). Keep the safety screen and jaw caution.

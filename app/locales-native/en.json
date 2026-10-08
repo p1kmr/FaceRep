@@ -1,0 +1,5 @@
+{
+  "CFBundleDisplayName": "FaceRep",
+  "NSCameraUsageDescription": "FaceRep uses the front camera only as a mirror during workouts, so you can check your form. Nothing is recorded, saved or sent.",
+  "NSMicrophoneUsageDescription": "FaceRep doesn't use the microphone. The workout mirror shows the camera picture only and never records sound."
+}

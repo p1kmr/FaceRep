@@ -1,6 +1,17 @@
 import { workoutReminder } from '@/services/reminders/reminders';
 
-import { completeOnboarding, deleteReminder, hydrateSettings, resetSettings, saveReminder, setAskButton, setGoal, setGuide } from '../actions';
+import {
+  completeOnboarding,
+  deleteReminder,
+  hydrateSettings,
+  resetSettings,
+  saveReminder,
+  setAskButton,
+  setGoal,
+  setGuide,
+  setMirror,
+  setVoiceCues,
+} from '../actions';
 import { DEFAULT_SETTINGS, initialSettingsState, settingsReducer } from '../reducer';
 
 describe('settingsReducer', () => {
@@ -68,5 +79,17 @@ describe('settingsReducer', () => {
   it('hydrates an old save without the button with the defaults', () => {
     const s = settingsReducer(initialSettingsState, hydrateSettings({ goal: 'eyes', askButton: { side: 'left', y: 'x' } as never }));
     expect(s.settings.askButton).toEqual({ ...DEFAULT_SETTINGS.askButton, side: 'left' });
+  });
+
+  it('voice cues start on and the mirror off; both are remembered', () => {
+    expect(DEFAULT_SETTINGS.voiceCues).toBe(true);
+    expect(DEFAULT_SETTINGS.mirror).toBe(false);
+    let s = settingsReducer(initialSettingsState, setVoiceCues(false));
+    s = settingsReducer(s, setMirror(true));
+    expect(s.settings).toMatchObject({ voiceCues: false, mirror: true });
+    // A save from before these settings existed gets the defaults; odd values don't switch anything on.
+    expect(settingsReducer(s, hydrateSettings({ goal: 'eyes' })).settings).toMatchObject({ voiceCues: true, mirror: false });
+    const odd = settingsReducer(s, hydrateSettings({ voiceCues: false, mirror: 'yes' as never }));
+    expect(odd.settings).toMatchObject({ voiceCues: false, mirror: false });
   });
 });

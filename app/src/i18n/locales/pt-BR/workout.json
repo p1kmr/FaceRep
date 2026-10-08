@@ -1,0 +1,54 @@
+{
+  "phase": {
+    "ready": "Prepare-se",
+    "hold": "Contraia",
+    "hold_massage": "Massageie",
+    "relax": "Relaxe",
+    "rest": "A seguir",
+    "done": "Pronto"
+  },
+  "rep": "Repetição {{rep}} de {{reps}}",
+  "exerciseOf": "{{index}} de {{total}}",
+  "pause": "Pausar",
+  "resume": "Continuar",
+  "skip": "Pular",
+  "end": "Encerrar treino",
+  "paused": "Pausado",
+  "voiceCues": "Instruções por voz",
+  "mirror": "Espelho",
+  "mirrorA11y": "Espelho: sua câmera frontal. Nada é gravado.",
+  "mirrorDenied": {
+    "title": "Acesso à câmera desativado",
+    "body": "Para usar o espelho, permita o acesso à Câmera para o {{app}} em Ajustes. A câmera é só um espelho: nada é gravado nem salvo.",
+    "open": "Abrir Ajustes",
+    "cancel": "Agora não"
+  },
+  "endConfirm": {
+    "title": "Encerrar este treino?",
+    "body": "Os exercícios que você terminou continuam valendo.",
+    "end": "Encerrar",
+    "keep": "Continuar treinando"
+  },
+  "complete": {
+    "title": "Treino concluído",
+    "body": "{{reps}} repetições em {{time}}.",
+    "streak_one": "Sequência de {{count}} dia",
+    "streak_other": "Sequência de {{count}} dias",
+    "streak_zero": "Sequência de {{count}} dias",
+    "nothing": "Nenhuma repetição concluída desta vez. Tente de novo.",
+    "done": "Concluir"
+  },
+  "a11y": {
+    "timer": "{{phase}}, faltam {{seconds}} segundos"
+  },
+  "voice": {
+    "start": "Prepare-se. {{name}}.",
+    "next": "A seguir: {{name}}.",
+    "hold": "Contraia",
+    "hold_massage": "Massageie",
+    "holdLast": "Última. Contraia.",
+    "holdLast_massage": "Última. Massageie.",
+    "relax": "Relaxe",
+    "done": "Treino concluído. Mandou bem."
+  }
+}

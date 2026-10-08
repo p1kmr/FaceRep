@@ -116,8 +116,25 @@
           "faceIDPermission": false
         }
       ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "FaceRep uses the front camera only as a mirror during workouts, so you can check your form. Nothing is recorded, saved or sent.",
+          "microphonePermission": "FaceRep doesn't use the microphone. The workout mirror shows the camera picture only and never records sound.",
+          "recordAudioAndroid": false,
+          "barcodeScannerEnabled": false
+        }
+      ],
       "expo-font"
     ],
+    "locales": {
+      "en": "./locales-native/en.json",
+      "es": "./locales-native/es.json",
+      "pt-BR": "./locales-native/pt-BR.json",
+      "de": "./locales-native/de.json",
+      "fr": "./locales-native/fr.json",
+      "it": "./locales-native/it.json"
+    },
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true

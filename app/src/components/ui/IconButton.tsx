@@ -12,19 +12,23 @@ interface IconButtonProps {
   /** Large round button (player controls). */
   size?: 'small' | 'large';
   tone?: 'surface' | 'primary';
+  /** On/off button (voice, mirror): read as a switch by VoiceOver, filled while on. */
+  toggled?: boolean;
 }
 
-export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', tone = 'surface' }: IconButtonProps) {
+export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', tone: toneProp = 'surface', toggled }: IconButtonProps) {
   const styles = useStyles();
   const { colors } = useTheme();
   const large = size === 'large';
+  const tone = toggled ? 'primary' : toneProp;
   return (
     <Pressable
       onPress={() => {
         haptics.tap();
         onPress();
       }}
-      accessibilityRole="button"
+      accessibilityRole={toggled === undefined ? 'button' : 'switch'}
+      aria-checked={toggled}
       accessibilityLabel={accessibilityLabel}
       hitSlop={8}
       style={({ pressed }) => [styles.base, large && styles.large, tone === 'primary' && styles.primary, pressed && styles.pressed]}

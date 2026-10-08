@@ -1,0 +1,41 @@
+{
+  "welcome": {
+    "title": "Trainier dein Gesicht wie deinen Körper",
+    "body": "Ein geführter 28-Tage-Plan für Kieferlinie, Wangenknochen, Lippen und Augen. Nur ein paar Minuten am Tag.",
+    "cta": "Los geht's"
+  },
+  "guide": {
+    "title": "Wen sollen die Übungen zeigen?",
+    "body": "Wähl das Gesicht für die Übungsbilder. Dein Plan bleibt gleich, und du kannst die Wahl jederzeit in den Einstellungen ändern."
+  },
+  "goal": {
+    "title": "Worauf willst du dich konzentrieren?",
+    "body": "Du kannst das jederzeit in den Einstellungen ändern.",
+    "options": {
+      "jawline": "Kiefer, Kinn und Hals",
+      "cheekbones": "Wangen und Lächeln",
+      "lips": "Lippen und Lachlinien",
+      "eyes": "Stirn, Brauen und Augen",
+      "massage": "Sanfte Gesichtsmassage zum Entspannen",
+      "full": "Von allem etwas, täglich im Wechsel"
+    }
+  },
+  "safety": {
+    "title": "Bevor du startest",
+    "points": {
+      "gentle": "Beweg dich langsam und sanft. Ein leichtes Brennen im Muskel ist okay, Schmerz nicht.",
+      "jaw": "Wenn du Kieferschmerzen, Kieferknacken oder Probleme mit dem Kiefergelenk (CMD) hast, lass „Kiefer anspannen“, „Kiefer vorschieben“ und „Löwengesicht“ weg und lass dich vorher ärztlich oder zahnärztlich beraten.",
+      "treatments": "Hattest du kürzlich Botox, Filler oder eine andere kosmetische Behandlung? Frag die behandelnde Praxis, ab wann Gesichtsübungen okay sind, und drück oder massier die behandelte Stelle bis dahin nicht.",
+      "stop": "Hör sofort auf, wenn etwas wehtut, sich taub anfühlt oder dir schwindelig wird.",
+      "results": "Übungen können Muskeln kräftigen und die Haltung verbessern. Den Knochenbau verändern sie nicht, und die Ergebnisse sind bei jedem anders."
+    },
+    "accept": "Verstanden"
+  },
+  "reminder": {
+    "title": "Tägliche Erinnerung?",
+    "body": "Dranbleiben macht den Unterschied. Wähl eine Uhrzeit, und wir erinnern dich einmal am Tag.",
+    "allow": "Erinnere mich",
+    "skip": "Nicht jetzt",
+    "time": "Uhrzeit"
+  }
+}

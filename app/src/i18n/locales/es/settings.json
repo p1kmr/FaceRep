@@ -1,0 +1,50 @@
+{
+  "title": "Ajustes",
+  "sections": {
+    "training": "Entrenamiento",
+    "appearance": "Apariencia",
+    "premium": "Premium",
+    "privacy": "Privacidad y seguridad",
+    "about": "Información"
+  },
+  "goal": "Enfoque",
+  "guide": "Imágenes de los ejercicios",
+  "reminders": "Recordatorios",
+  "remindersOn_one": "{{count}} activo",
+  "remindersOn_other": "{{count}} activos",
+  "haptics": "Respuesta háptica",
+  "voiceCues": "Guía por voz",
+  "voiceCuesHint": "Dice “Aprieta”, “Relaja” y qué viene después, para que puedas seguir el ejercicio con los ojos cerrados.",
+  "mirror": "Espejo en los entrenamientos",
+  "mirrorHint": "Tu cámara frontal junto a la figura. No se graba ni se guarda nada.",
+  "theme": {
+    "title": "Tema",
+    "system": "Sistema",
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
+  "language": "Idioma",
+  "languageHint": "Cámbialo en la app Ajustes.",
+  "premium": {
+    "active": "Premium está activo",
+    "upgrade": "Obtener Premium",
+    "restore": "Restaurar compras",
+    "manage": "Gestionar suscripción"
+  },
+  "aiConsent": "Permitir el Coach con IA",
+  "aiConsentHint": "Envía a la IA las preguntas que le haces al Coach. Si lo desactivas, el Coach no está disponible.",
+  "askButton": "Botón del Coach",
+  "askButtonHint": "El botón flotante de todas las pantallas. Arrástralo para moverlo.",
+  "safety": "Seguridad de los ejercicios",
+  "privacyPolicy": "Política de privacidad",
+  "terms": "Términos de uso",
+  "support": "Soporte",
+  "delete": {
+    "row": "Eliminar todos los datos",
+    "title": "¿Eliminar todos los datos?",
+    "body": "Esto elimina tus entrenamientos, el chat y los ajustes de este iPhone. Tu suscripción no se ve afectada.",
+    "confirm": "Eliminar"
+  },
+  "deleted": "Todos los datos eliminados",
+  "version": "Versión {{version}}"
+}

@@ -1,0 +1,5 @@
+{
+  "CFBundleDisplayName": "FaceRep",
+  "NSCameraUsageDescription": "FaceRep utilise la caméra avant uniquement comme miroir pendant les séances, pour que tu puisses vérifier ta technique. Rien n'est enregistré, sauvegardé ni envoyé.",
+  "NSMicrophoneUsageDescription": "FaceRep n'utilise pas le micro. Le miroir des séances affiche seulement l'image de la caméra et n'enregistre jamais le son."
+}

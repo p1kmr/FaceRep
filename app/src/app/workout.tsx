@@ -5,19 +5,23 @@ import { Alert, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ExerciseFrames } from '@/components/exercise/ExerciseFrames';
+import { MirrorView } from '@/components/exercise/MirrorView';
 import { RepPips } from '@/components/exercise/RepPips';
 import { WorkoutComplete } from '@/components/exercise/WorkoutComplete';
 import { AppText } from '@/components/ui/AppText';
 import { IconButton } from '@/components/ui/IconButton';
 import { ProgressRing } from '@/components/ui/ProgressRing';
 import { isExerciseId } from '@/constants/exercises';
+import { useMirror } from '@/hooks/useMirror';
 import { usePlan } from '@/hooks/usePlan';
 import { useProgressSummary, useSaveWorkout } from '@/hooks/useProgress';
 import { useReviewPrompt } from '@/hooks/useReviewPrompt';
+import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { useTheme } from '@/hooks/useTheme';
 import { useWorkout } from '@/hooks/useWorkout';
 import { defaultItem, type WorkoutItem } from '@/services/workout/items';
 import { currentExercise, phaseDuration, workoutResult, type WorkoutResult } from '@/services/workout/timer';
+import { setVoiceCues } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 /**
@@ -44,6 +48,9 @@ export default function WorkoutScreen() {
   const { colors } = useTheme();
   const styles = useStyles();
   const { state, pause, resume, skip } = useWorkout(setup.items);
+  const { voiceCues } = useSettings();
+  const settingsDispatch = useSettingsDispatch();
+  const mirror = useMirror();
   const saveWorkout = useSaveWorkout();
   const askForReview = useReviewPrompt();
   const { streak } = useProgressSummary();
@@ -92,7 +99,7 @@ export default function WorkoutScreen() {
   if (!e) return <SafeAreaView style={styles.root} />;
   const name = t(`exercises:items.${e.key}.name`);
   const duration = phaseDuration(state);
-  const phaseLabel = state.paused ? t('paused') : t(`phase.${state.phase}`);
+  const phaseLabel = state.paused ? t('paused') : t(`phase.${state.phase}`, { context: e.program === 'massage' ? 'massage' : undefined });
   const squeeze = state.phase === 'hold';
 
   return (
@@ -102,10 +109,22 @@ export default function WorkoutScreen() {
         <AppText variant="footnote" muted>
           {t('exerciseOf', { index: state.index + 1, total: state.queue.length })}
         </AppText>
-        <IconButton icon="forward.end.fill" onPress={skip} accessibilityLabel={t('skip')} />
+        <View style={styles.actions}>
+          <IconButton
+            icon={voiceCues ? 'speaker.wave.2.fill' : 'speaker.slash.fill'}
+            onPress={() => settingsDispatch(setVoiceCues(!voiceCues))}
+            accessibilityLabel={t('voiceCues')}
+            toggled={voiceCues}
+          />
+          <IconButton icon="person.crop.square" onPress={() => mirror.setOn(!mirror.on)} accessibilityLabel={t('mirror')} toggled={mirror.on} />
+          <IconButton icon="forward.end.fill" onPress={skip} accessibilityLabel={t('skip')} />
+        </View>
       </View>
 
-      <ExerciseFrames id={e.id} squeeze={squeeze} label={`${name}, ${phaseLabel}`} fill style={styles.frames} />
+      <View style={styles.frames}>
+        <ExerciseFrames id={e.id} squeeze={squeeze} label={`${name}, ${phaseLabel}`} fill />
+        {mirror.on ? <MirrorView style={styles.mirror} /> : null}
+      </View>
 
       <View style={styles.info}>
         <AppText variant="title" center>
@@ -132,7 +151,15 @@ export default function WorkoutScreen() {
             <AppText style={styles.seconds} center>
               {state.remaining}
             </AppText>
-            <AppText variant="caption" center style={squeeze ? styles.phaseOn : styles.phaseOff}>
+            {/* Some languages' phase words are 9–10 letters: shrink to stay inside the ring. */}
+            <AppText
+              variant="caption"
+              center
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+              style={[styles.phase, squeeze ? styles.phaseOn : styles.phaseOff]}
+            >
               {phaseLabel.toUpperCase()}
             </AppText>
           </View>
@@ -161,7 +188,9 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     paddingHorizontal: tokens.space.lg,
     paddingVertical: tokens.space.sm,
   },
-  frames: { marginHorizontal: tokens.space.lg },
+  actions: { flexDirection: 'row', gap: tokens.space.sm },
+  frames: { flex: 1, marginHorizontal: tokens.space.lg },
+  mirror: { position: 'absolute', right: tokens.space.md, bottom: tokens.space.md, width: '38%' },
   info: { paddingHorizontal: tokens.space.xl, paddingTop: tokens.space.lg, gap: tokens.space.xs },
   controls: {
     flexDirection: 'row',
@@ -172,6 +201,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   },
   side: { width: 88, alignItems: 'center' },
   seconds: { fontSize: 40, lineHeight: 44, fontWeight: tokens.font.weight.heavy, color: colors.text, fontVariant: ['tabular-nums'] },
-  phaseOn: { color: colors.primary, fontWeight: tokens.font.weight.bold, letterSpacing: 1 },
-  phaseOff: { color: colors.textMuted, fontWeight: tokens.font.weight.bold, letterSpacing: 1 },
+  phase: { maxWidth: 84, fontWeight: tokens.font.weight.bold, letterSpacing: 0.5 },
+  phaseOn: { color: colors.primary },
+  phaseOff: { color: colors.textMuted },
 }));

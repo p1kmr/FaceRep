@@ -1,0 +1,279 @@
+{
+  "title": "Übungen",
+  "programIntro": {
+    "jawline": "Training für Kaumuskel, Kinn und Hals für eine markanter wirkende Kieferlinie.",
+    "cheekbones": "Heben und kräftigen: für die Muskeln rund um Wangen und Mund.",
+    "lips": "Die Muskeln rund um deine Lippen und Mundwinkel.",
+    "eyes": "Stirn-, Brauen- und Augenmuskeln, ideal nach langer Bildschirmzeit.",
+    "massage": "Sanfte Massage mit den Fingerspitzen zum Entspannen von Kiefer, Brauen und Schläfen. Saubere Hände, leichter Druck."
+  },
+  "muscles": {
+    "masseter": "Kaumuskel",
+    "platysma": "Halshautmuskel",
+    "deepNeck": "Tiefe Halsbeuger",
+    "underChin": "Muskeln unterm Kinn",
+    "mentalis": "Kinnmuskel",
+    "tongue": "Zungenhaltung",
+    "neck": "Seitlicher Hals",
+    "zygomaticus": "Jochbeinmuskel",
+    "buccinator": "Wangenmuskel",
+    "lips": "Lippen",
+    "frontalis": "Stirnmuskel",
+    "orbicularisOculi": "Augenringmuskel",
+    "eyelids": "Oberlider",
+    "corrugator": "Zwischen den Brauen",
+    "temporalis": "Schläfen"
+  },
+  "detail": {
+    "how": "So geht's",
+    "plan": "{{reps}} Wdh. · {{hold}} s halten · {{relax}} s lockern",
+    "start": "Übung starten",
+    "jawCaution": "Lass diese Übung weg, wenn du Kieferschmerzen, Kieferknacken oder Kiefergelenkprobleme (CMD) hast.",
+    "handsCaution": "Mit sauberen Händen und leichtem Druck. Lass gereizte Haut aus und drück nicht auf Stellen, die kürzlich mit Botox oder Fillern behandelt wurden."
+  },
+  "items": {
+    "jawClench": {
+      "name": "Kiefer anspannen",
+      "cue": "Beiß die Backenzähne zusammen und spür, wie sich deine Kiefermuskeln wölben.",
+      "steps": [
+        "Setz dich aufrecht hin, Lippen geschlossen, Schultern locker.",
+        "Beiß mit etwa halber Kraft auf die Backenzähne.",
+        "Halte und spür, wie sich der Muskel vor deinem Ohr anspannt. Dann langsam lösen."
+      ]
+    },
+    "chinLift": {
+      "name": "Kinn heben",
+      "cue": "Leg den Kopf in den Nacken und schieb die Unterlippe über die Oberlippe.",
+      "steps": [
+        "Setz oder stell dich mit geradem Rücken hin.",
+        "Leg den Kopf zurück, bis du an die Decke schaust.",
+        "Schieb die Unterlippe über die Oberlippe und spür die Dehnung vorn am Hals."
+      ]
+    },
+    "jawJut": {
+      "name": "Kiefer vorschieben",
+      "cue": "Schieb den Unterkiefer nach vorn und heb das Kinn leicht an.",
+      "steps": [
+        "Schau geradeaus und heb dann das Kinn ein wenig an.",
+        "Schieb den Unterkiefer nach vorn, bis du eine Dehnung unter dem Kinn spürst.",
+        "Halten, dann den Kiefer langsam zurücknehmen."
+      ]
+    },
+    "mewing": {
+      "name": "Mewing",
+      "cue": "Drück die ganze Zunge flach gegen den Gaumen.",
+      "steps": [
+        "Schließ die Lippen und lass die Zähne locker aufeinanderliegen.",
+        "Leg die ganze Zunge, auch den hinteren Teil, an den Gaumen.",
+        "Atme durch die Nase und halte die Position, ohne zu verkrampfen."
+      ]
+    },
+    "neckStretch": {
+      "name": "Seitliche Halsdehnung",
+      "cue": "Neig dein Ohr zur Schulter und lass die Schultern unten.",
+      "steps": [
+        "Setz dich aufrecht hin und lass die Schultern sinken.",
+        "Neig dein rechtes Ohr langsam zur rechten Schulter.",
+        "Halte die Dehnung, komm zurück zur Mitte und wechsle bei der nächsten Wiederholung die Seite."
+      ]
+    },
+    "cheekLift": {
+      "name": "Wangen heben",
+      "cue": "Lächle breit mit geschlossenen Lippen und schieb die Wangen Richtung Augen.",
+      "steps": [
+        "Lass die Lippen geschlossen.",
+        "Lächle so breit du kannst und schieb die Wangen nach oben Richtung Augen.",
+        "Halten, dann das ganze Gesicht entspannen."
+      ]
+    },
+    "fishFace": {
+      "name": "Fischgesicht",
+      "cue": "Saug die Wangen ein und spitz die Lippen.",
+      "steps": [
+        "Saug die Wangen zwischen die Zähne.",
+        "Spitz die Lippen wie ein Fisch.",
+        "Halten, dann lösen und entspannen."
+      ]
+    },
+    "cheekPuff": {
+      "name": "Wangen aufblasen",
+      "cue": "Füll deine Wangen mit Luft und halte sie rund.",
+      "steps": [
+        "Atme ein und schließ die Lippen.",
+        "Drück die Luft in beide Wangen, sodass sie sich aufblähen.",
+        "Halten, dann die Luft langsam rauslassen."
+      ]
+    },
+    "browLift": {
+      "name": "Brauen heben",
+      "cue": "Zieh deine Augenbrauen so hoch du kannst.",
+      "steps": [
+        "Schau mit entspanntem Gesicht geradeaus.",
+        "Heb die Augenbrauen so hoch du kannst.",
+        "Halten, dann langsam senken."
+      ]
+    },
+    "eyeSqueeze": {
+      "name": "Augen zukneifen",
+      "cue": "Kneif die Augen fest zu und lös sie dann langsam.",
+      "steps": [
+        "Entspann deine Stirn.",
+        "Schließ die Augen und kneif sie fest zu.",
+        "Halten, dann langsam öffnen."
+      ]
+    },
+    "chinTuck": {
+      "name": "Kinn einziehen",
+      "cue": "Schieb den Kopf gerade nach hinten und mach ein kleines Doppelkinn.",
+      "steps": [
+        "Setz oder stell dich aufrecht hin, Schultern unten, Blick geradeaus.",
+        "Schieb den Kopf gerade nach hinten, als würde ein Faden am Hinterkopf ziehen, bis deine Ohren über den Schultern sind.",
+        "Halten, ohne das Kinn zu heben oder zu senken, dann langsam wieder nach vorn gleiten."
+      ]
+    },
+    "tonguePress": {
+      "name": "Zungendruck",
+      "cue": "Drück die Zunge gegen den Gaumen und summe.",
+      "steps": [
+        "Setz dich aufrecht hin, Lippen geschlossen, Zähne leicht auseinander.",
+        "Drück die ganze Zunge fest gegen den Gaumen, direkt hinter den Schneidezähnen.",
+        "Summ leise und spür, wie sich die Muskeln unterm Kinn anspannen. Halten, dann die Zunge entspannen."
+      ]
+    },
+    "smilingFish": {
+      "name": "Lächelnder Fisch",
+      "cue": "Mach ein Fischgesicht und zieh dann die Mundwinkel zu einem Lächeln hoch.",
+      "steps": [
+        "Saug die Wangen zwischen die Zähne und spitz die Lippen.",
+        "Halte das Fischgesicht und zieh die Mundwinkel zu einem Lächeln nach oben.",
+        "Halten und spüren, wie sich die Wangen heben, dann das ganze Gesicht entspannen."
+      ]
+    },
+    "oStretch": {
+      "name": "O-Dehnung",
+      "cue": "Öffne den Mund zu einem langen O und zieh die Lippen über die Zähne.",
+      "steps": [
+        "Schau geradeaus und lass die Stirn entspannt.",
+        "Öffne den Mund zu einem hohen O und zieh die Lippen über die Zähne.",
+        "Halten und spüren, wie sich dein Gesicht in die Länge streckt, dann den Mund langsam schließen."
+      ]
+    },
+    "lionFace": {
+      "name": "Löwengesicht",
+      "cue": "Mund weit auf, Zunge raus und Augen weit öffnen.",
+      "steps": [
+        "Atme durch die Nase ein.",
+        "Atme aus, öffne dabei den Mund weit, streck die Zunge Richtung Kinn und reiß die Augen weit auf.",
+        "Halte die Dehnung, dann Mund schließen und entspannen. Öffne den Kiefer nicht weiter, als es angenehm ist."
+      ]
+    },
+    "wideEyes": {
+      "name": "Große Augen",
+      "cue": "Öffne die Augen so weit du kannst, ohne die Augenbrauen zu heben.",
+      "steps": [
+        "Leg eine Fingerspitze leicht auf jede Augenbraue, wenn dir das hilft, die Stirn ruhig zu halten.",
+        "Öffne die Augen so weit du kannst, wie überrascht, ohne die Augenbrauen zu heben.",
+        "Halten und auf einen Punkt schauen, dann die Augen entspannen."
+      ]
+    },
+    "lowerLidLift": {
+      "name": "Unterlid heben",
+      "cue": "Schau nach oben und heb die Unterlider, als würdest du in die Sonne blinzeln.",
+      "steps": [
+        "Halte den Kopf gerade und schau leicht nach oben.",
+        "Heb nur die Unterlider, als würdest du in helles Licht blinzeln. Lass die Stirn entspannt.",
+        "Halten, dann die Unterlider langsam sinken lassen."
+      ]
+    },
+    "lipPress": {
+      "name": "Lippen pressen",
+      "cue": "Press die Lippen aufeinander und roll sie sanft ein.",
+      "steps": [
+        "Schließ den Mund und lass den Kiefer locker.",
+        "Press die Lippen aufeinander und roll sie leicht über die Zähne nach innen.",
+        "Halten, dann die Lippen locker lassen."
+      ]
+    },
+    "pout": {
+      "name": "Kussmund",
+      "cue": "Schieb die Lippen weit nach vorn, wie zu einem Kuss.",
+      "steps": [
+        "Zähne auseinander, Gesicht entspannt.",
+        "Schieb die Lippen so weit nach vorn, wie es angenehm ist, als würdest du einen Kuss zuwerfen.",
+        "Halten, dann die Lippen entspannen."
+      ]
+    },
+    "lipCornerLift": {
+      "name": "Mundwinkel heben",
+      "cue": "Heb bei geschlossenen Lippen nur die Mundwinkel an.",
+      "steps": [
+        "Lippen geschlossen, Wangen weich.",
+        "Heb nur die Mundwinkel zu einem kleinen Lächeln an.",
+        "Halten, dann die Mundwinkel sinken lassen."
+      ]
+    },
+    "smileLinePress": {
+      "name": "Lachlinien-Druck",
+      "cue": "Fingerspitzen auf die Lachlinien, gegen leichten Druck lächeln.",
+      "steps": [
+        "Leg die Zeigefinger leicht auf die Linien von der Nase zu den Mundwinkeln.",
+        "Lächle breit, während deine Finger die Haut sanft festhalten.",
+        "Halten, dann Lächeln und Finger entspannen."
+      ]
+    },
+    "foreheadPress": {
+      "name": "Stirndruck",
+      "cue": "Handflächen auf die Stirn, Brauen gegen leichten Druck heben.",
+      "steps": [
+        "Leg beide Handflächen flach auf die Stirn, direkt über den Augenbrauen.",
+        "Versuch, die Augenbrauen zu heben, während deine Hände die Haut sanft festhalten.",
+        "Halten, dann die Stirn entspannen."
+      ]
+    },
+    "vEyes": {
+      "name": "V-Augen",
+      "cue": "Finger als V um die Augen, nach oben schauen und die Augen zusammenkneifen.",
+      "steps": [
+        "Leg die Mittelfinger leicht an die inneren Enden der Augenbrauen und die Zeigefinger an die äußeren Enden, sodass ein V entsteht.",
+        "Schau nach oben und heb die Unterlider, bis du die Augen kräftig zusammenkneifst.",
+        "Halten, dann die Augen entspannen."
+      ]
+    },
+    "jawRelease": {
+      "name": "Kiefer lockern",
+      "cue": "Langsame Kreise mit den Fingerspitzen auf dem Kiefermuskel, Zähne auseinander.",
+      "steps": [
+        "Lass die Zähne auseinander und den Kiefer locker hängen.",
+        "Such den Muskel hinten an jeder Wange und drück leicht mit den Fingerspitzen.",
+        "Mach langsame Kreise, dann lass die Hände ruhen."
+      ]
+    },
+    "jawlineSweep": {
+      "name": "Kieferlinie ausstreichen",
+      "cue": "Streich mit den Knöcheln vom Kinn den Kiefer entlang bis zu den Ohren.",
+      "steps": [
+        "Mach lockere Fäuste und leg die Knöchel unter die Mitte deines Kinns.",
+        "Streich langsam die Kieferlinie entlang bis knapp unter die Ohren.",
+        "Nimm die Hände weg und beginne wieder am Kinn."
+      ]
+    },
+    "frownRelease": {
+      "name": "Brauen ausstreichen",
+      "cue": "Streich von der Mitte zwischen den Brauen nach außen zu den Schläfen.",
+      "steps": [
+        "Leg die Fingerspitzen zwischen die Augenbrauen.",
+        "Streich langsam nach außen über die Brauen bis zu den Schläfen.",
+        "Nimm die Hände weg und beginne wieder in der Mitte."
+      ]
+    },
+    "templeCircles": {
+      "name": "Schläfenkreise",
+      "cue": "Langsame, sanfte Kreise an den Schläfen.",
+      "steps": [
+        "Leg die Fingerspitzen auf die Schläfen, neben die Augen.",
+        "Mach mit leichtem Druck langsame Kreise und atme dabei langsam aus.",
+        "Lass die Hände kurz ruhen und wiederhole dann."
+      ]
+    }
+  }
+}

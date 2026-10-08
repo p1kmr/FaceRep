@@ -1,0 +1,5 @@
+{
+  "CFBundleDisplayName": "FaceRep",
+  "NSCameraUsageDescription": "FaceRep usa la fotocamera frontale solo come specchio durante gli allenamenti, così puoi controllare l'esecuzione. Non viene registrato, salvato o inviato nulla.",
+  "NSMicrophoneUsageDescription": "FaceRep non usa il microfono. Lo specchio dell'allenamento mostra solo l'immagine della fotocamera e non registra mai l'audio."
+}

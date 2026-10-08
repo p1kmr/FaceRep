@@ -2,21 +2,19 @@ import Constants from 'expo-constants';
 import { router } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import { useTranslation } from 'react-i18next';
-import { Alert, View } from 'react-native';
+import { Alert, Platform, View } from 'react-native';
 
 import { ToggleRow } from '@/components/settings/ToggleRow';
+import { TrainingCard } from '@/components/settings/TrainingCard';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
-import { Chip } from '@/components/ui/Chip';
 import { ListRow } from '@/components/ui/ListRow';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Segmented } from '@/components/ui/Segmented';
-import { AVAILABLE_GUIDES } from '@/constants/exerciseImages';
-import { goalsFor } from '@/constants/exercises';
+import { LANGUAGE_NAMES, SUPPORTED_LANGUAGES, type Language } from '@/constants/i18n';
 import { LINKS } from '@/constants/links';
 import type { ThemeMode } from '@/constants/theme';
-import { useGuide } from '@/hooks/useGuide';
 import { usePlanDispatch } from '@/hooks/usePlan';
 import { usePremium, usePremiumDispatch } from '@/hooks/usePremium';
 import { useProgressDispatch } from '@/hooks/useProgress';
@@ -24,21 +22,21 @@ import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { useToast } from '@/hooks/useToast';
 import { useChat } from '@/hooks/useChat';
 import { wipeDatabase } from '@/services/db/database';
+import { openSystemSettings } from '@/services/notifications/reminder';
 import { hasPurchasesKey, restorePurchases } from '@/services/purchases/purchases';
 import { resetPlan } from '@/state/plan/actions';
 import { setPremium } from '@/state/premium/actions';
 import { resetProgress } from '@/state/progress/actions';
-import { resetSettings, setAiConsent, setAskButton, setGoal, setGuide, setHaptics, setThemeMode } from '@/state/settings/actions';
+import { resetSettings, setAiConsent, setAskButton, setThemeMode } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 const THEME_MODES: ThemeMode[] = ['system', 'light', 'dark'];
 
 export default function SettingsScreen() {
-  const { t } = useTranslation(['settings', 'common', 'paywall']);
+  const { t, i18n } = useTranslation(['settings', 'common', 'paywall']);
   const styles = useStyles();
   const settings = useSettings();
   const dispatch = useSettingsDispatch();
-  const guide = useGuide();
   const progressDispatch = useProgressDispatch();
   const planDispatch = usePlanDispatch();
   const { isPremium } = usePremium();
@@ -84,50 +82,29 @@ export default function SettingsScreen() {
       </AppText>
 
       <SectionHeader title={t('settings:sections.training')} />
+      <TrainingCard />
+
+      <SectionHeader title={t('settings:sections.appearance')} />
       <Card>
         <View style={styles.block}>
           <AppText variant="footnote" muted>
-            {t('settings:goal')}
+            {t('settings:theme.title')}
           </AppText>
-          {/* Six focus areas don't fit a segmented control: wrapping chips instead. */}
-          <View style={styles.chips} accessibilityRole="radiogroup">
-            {goalsFor(guide).map((g) => (
-              <Chip key={g} label={t(`common:programs.${g}`)} selected={settings.goal === g} onPress={() => dispatch(setGoal(g))} />
-            ))}
-          </View>
+          <Segmented
+            options={THEME_MODES.map((m) => ({ id: m, label: t(`settings:theme.${m}`) }))}
+            value={settings.themeMode}
+            onChange={(m) => dispatch(setThemeMode(m))}
+          />
         </View>
-        {AVAILABLE_GUIDES.length > 1 ? (
-          <View style={styles.block}>
-            <AppText variant="footnote" muted>
-              {t('settings:guide')}
-            </AppText>
-            <Segmented
-              options={AVAILABLE_GUIDES.map((g) => ({ id: g, label: t(`common:guides.${g}`) }))}
-              value={guide}
-              onChange={(g) => dispatch(setGuide(g))}
-            />
-          </View>
+        {/* iOS keeps a per-app language in the Settings app (Apple's recommended way); the app restarts in it. */}
+        {SUPPORTED_LANGUAGES.length > 1 && Platform.OS === 'ios' ? (
+          <ListRow
+            title={t('settings:language')}
+            subtitle={`${LANGUAGE_NAMES[i18n.language as Language] ?? i18n.language} · ${t('settings:languageHint')}`}
+            onPress={openSystemSettings}
+            chevron
+          />
         ) : null}
-        <ListRow
-          title={t('settings:reminders')}
-          subtitle={t('settings:remindersOn', { count: settings.reminders.filter((r) => r.enabled).length })}
-          onPress={() => router.push('/reminders')}
-          chevron
-          divider
-        />
-        <ToggleRow title={t('settings:haptics')} value={settings.haptics} onValueChange={(on) => dispatch(setHaptics(on))} />
-      </Card>
-
-      <SectionHeader title={t('settings:sections.appearance')} />
-      <Card style={styles.block}>
-        <AppText variant="footnote" muted>
-          {t('settings:theme.title')}
-        </AppText>
-        <Segmented
-          options={THEME_MODES.map((m) => ({ id: m, label: t(`settings:theme.${m}`) }))}
-          value={settings.themeMode}
-          onChange={(m) => dispatch(setThemeMode(m))}
-        />
       </Card>
 
       <SectionHeader title={t('settings:sections.premium')} />
@@ -177,5 +154,4 @@ export default function SettingsScreen() {
 
 const useStyles = makeStyles(({ tokens }) => ({
   block: { padding: tokens.space.lg, gap: tokens.space.sm },
-  chips: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.space.sm },
 }));

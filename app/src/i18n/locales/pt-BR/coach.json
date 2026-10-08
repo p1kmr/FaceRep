@@ -1,0 +1,74 @@
+{
+  "title": "Coach",
+  "intro": "Sou seu Coach do {{app}}. Pergunte sobre exercícios faciais, técnica, postura ou uma rotina simples de skincare.",
+  "placeholder": "Pergunte sobre seu treino facial ou skincare",
+  "send": "Enviar",
+  "clear": "Limpar conversa",
+  "clearConfirm": "Apagar esta conversa do seu iPhone?",
+  "thinking": "O Coach está digitando",
+  "freeLeft_one": "Resta {{count}} resposta grátis este mês",
+  "freeLeft_other": "Restam {{count}} respostas grátis este mês",
+  "freeLeft_zero": "Restam {{count}} respostas grátis este mês",
+  "freeRefill": "Suas respostas grátis renovam em {{date}}",
+  "unlock": "Respostas ilimitadas com o Premium",
+  "aiNote": "Respostas de IA podem conter erros. Não é aconselhamento médico. Mantenha uma resposta pressionada para reportá-la.",
+  "reportHint": "Mantenha pressionado para reportar esta resposta",
+  "reportSubject": "Reportar uma resposta do Coach de IA",
+  "actions": {
+    "prepared": "Preparei isto para você. Confira e confirme abaixo.",
+    "create": "Novo lembrete",
+    "update": "Alterar lembrete",
+    "pause": "Pausar lembrete",
+    "resume": "Reativar lembrete",
+    "delete": "Apagar lembrete",
+    "confirm": "Confirmar",
+    "decline": "Dispensar",
+    "done": "Salvo",
+    "declined": "Não salvo",
+    "open": "Ver lembretes",
+    "missing": "Este lembrete não existe mais."
+  },
+  "bubble": {
+    "open": "Pergunte ao Coach",
+    "openHint": "Abre o Coach de IA. Arraste para mover o botão."
+  },
+  "hint": {
+    "title": "Pergunte ao Coach",
+    "body": "Técnica, mewing, postura ou skincare: pode perguntar. Também posso criar lembretes para você.",
+    "technique": "Conferir minha técnica",
+    "remind": "Criar um lembrete",
+    "ask": "Fazer uma pergunta",
+    "techniquePrompt": "Como sei se estou fazendo os exercícios do jeito certo?",
+    "remindPrompt": "Me lembre de ",
+    "close": "Fechar dica"
+  },
+  "suggestions": {
+    "jawline": "Quanto tempo leva para ver resultados na mandíbula?",
+    "mewing": "Estou fazendo mewing do jeito certo?",
+    "reminder": "Me lembre de checar meu mewing a cada 2 horas nos dias úteis",
+    "skincare": "Rotina simples de skincare?",
+    "skincare_man": "Rotina simples de skincare para homens?",
+    "skincare_woman": "Rotina simples de skincare para mulheres?",
+    "doubleChin": "Quais exercícios ajudam na papada?"
+  },
+  "errors": {
+    "notConfigured": "O Coach ainda não está configurado nesta versão.",
+    "offline": "Parece que você está offline. Verifique sua conexão e tente de novo.",
+    "rateLimited": "Foram muitas perguntas por hoje. Tente de novo amanhã.",
+    "freeUsed": "Você já usou as respostas grátis deste mês.",
+    "device": "Não conseguimos verificar este iPhone. Atualize o app e tente de novo.",
+    "server": "O Coach não conseguiu responder agora. Tente de novo daqui a pouco.",
+    "retry": "Tentar de novo"
+  },
+  "consent": {
+    "title": "Antes de perguntar ao Coach",
+    "what": "O Coach é uma IA. Para responder, sua pergunta é enviada ao nosso servidor e processada por um modelo de IA (Cloudflare Workers AI).",
+    "sent": "Enviado: sua pergunta, as últimas mensagens desta conversa, sua área de foco, sua sequência, quantos treinos você fez nesta semana e os nomes e horários dos seus lembretes (para que o Coach possa sugerir mudanças que você confirma).",
+    "notSent": "Não enviado: seu nome, fotos, contatos ou localização. Não existe nenhuma conta sua com a gente.",
+    "storage": "Nosso servidor não guarda suas perguntas. O histórico da conversa fica neste iPhone, e você pode apagá-lo quando quiser.",
+    "medical": "O Coach dá dicas gerais de fitness e skincare, e não aconselhamento médico.",
+    "allow": "Concordar e continuar",
+    "notNow": "Agora não",
+    "withdraw": "Você pode desativar isso em Ajustes."
+  }
+}

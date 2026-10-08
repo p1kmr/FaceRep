@@ -1,0 +1,41 @@
+{
+  "welcome": {
+    "title": "Entraîne ton visage comme tu entraînes ton corps",
+    "body": "Un plan guidé de 28 jours pour ta mâchoire, tes pommettes, tes lèvres et tes yeux. Quelques minutes par jour.",
+    "cta": "C'est parti"
+  },
+  "guide": {
+    "title": "Qui doit apparaître dans les exercices ?",
+    "body": "Choisis le visage des illustrations. Ton plan reste le même dans les deux cas, et tu peux changer ça dans Réglages."
+  },
+  "goal": {
+    "title": "Sur quoi veux-tu te concentrer ?",
+    "body": "Tu peux changer ça à tout moment dans Réglages.",
+    "options": {
+      "jawline": "Mâchoire, menton et cou",
+      "cheekbones": "Joues et sourire",
+      "lips": "Lèvres et plis du sourire",
+      "eyes": "Front, sourcils et yeux",
+      "massage": "Massage doux du visage pour se détendre",
+      "full": "Un peu de tout, en alternant chaque jour"
+    }
+  },
+  "safety": {
+    "title": "Avant de commencer",
+    "points": {
+      "gentle": "Bouge lentement et en douceur. Une légère brûlure dans le muscle, ça va ; une douleur, non.",
+      "jaw": "Si tu as mal à la mâchoire, des craquements ou un problème d'articulation de la mâchoire (ATM), saute les exercices Mâchoire serrée, Mâchoire en avant et Tête de lion, et demande d'abord l'avis d'un médecin ou d'un dentiste.",
+      "treatments": "Tu as eu récemment du Botox, des injections de comblement ou un autre soin esthétique ? Demande à ton praticien quand tu peux commencer les exercices du visage et, d'ici là, n'appuie pas sur la zone traitée et ne la masse pas.",
+      "stop": "Arrête tout de suite si quelque chose fait mal, provoque un engourdissement ou des vertiges.",
+      "results": "Les exercices peuvent tonifier les muscles et améliorer la posture. Ils ne peuvent pas changer la structure osseuse, et les résultats varient d'une personne à l'autre."
+    },
+    "accept": "J'ai compris"
+  },
+  "reminder": {
+    "title": "Un petit rappel chaque jour ?",
+    "body": "C'est la régularité qui fait la différence. Choisis une heure et on t'enverra un rappel une fois par jour.",
+    "allow": "Rappelle-moi",
+    "skip": "Plus tard",
+    "time": "Heure du rappel"
+  }
+}

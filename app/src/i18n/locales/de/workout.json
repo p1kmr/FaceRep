@@ -1,0 +1,53 @@
+{
+  "phase": {
+    "ready": "Bereit",
+    "hold": "Anspannen",
+    "hold_massage": "Massieren",
+    "relax": "Lockern",
+    "rest": "Nächste",
+    "done": "Fertig"
+  },
+  "rep": "Wdh. {{rep}}/{{reps}}",
+  "exerciseOf": "{{index}} von {{total}}",
+  "pause": "Pause",
+  "resume": "Weiter",
+  "skip": "Überspringen",
+  "end": "Training beenden",
+  "paused": "Pausiert",
+  "voiceCues": "Sprachansagen",
+  "mirror": "Spiegel",
+  "mirrorA11y": "Spiegel: deine Frontkamera. Es wird nichts aufgenommen.",
+  "mirrorDenied": {
+    "title": "Kamerazugriff ist aus",
+    "body": "Um den Spiegel zu nutzen, erlaube {{app}} in den Einstellungen den Zugriff auf die Kamera. Die Kamera ist nur ein Spiegel: Es wird nichts aufgenommen oder gespeichert.",
+    "open": "Einstellungen öffnen",
+    "cancel": "Nicht jetzt"
+  },
+  "endConfirm": {
+    "title": "Training beenden?",
+    "body": "Die Übungen, die du geschafft hast, zählen trotzdem.",
+    "end": "Beenden",
+    "keep": "Weitermachen"
+  },
+  "complete": {
+    "title": "Training geschafft",
+    "body": "{{reps}} Wiederholungen in {{time}}.",
+    "streak_one": "{{count}} Tag in Folge",
+    "streak_other": "{{count}} Tage in Folge",
+    "nothing": "Diesmal keine Wiederholung geschafft. Probier's gleich noch mal.",
+    "done": "Fertig"
+  },
+  "a11y": {
+    "timer": "{{phase}}, noch {{seconds}} Sekunden"
+  },
+  "voice": {
+    "start": "Mach dich bereit. {{name}}.",
+    "next": "Als Nächstes: {{name}}.",
+    "hold": "Anspannen",
+    "hold_massage": "Massieren",
+    "holdLast": "Ein letztes Mal. Anspannen.",
+    "holdLast_massage": "Ein letztes Mal. Massieren.",
+    "relax": "Locker lassen",
+    "done": "Training geschafft. Gut gemacht."
+  }
+}

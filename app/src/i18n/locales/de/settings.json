@@ -1,0 +1,50 @@
+{
+  "title": "Einstellungen",
+  "sections": {
+    "training": "Training",
+    "appearance": "Darstellung",
+    "premium": "Premium",
+    "privacy": "Datenschutz und Sicherheit",
+    "about": "Info"
+  },
+  "goal": "Fokus",
+  "guide": "Übungsbilder",
+  "reminders": "Erinnerungen",
+  "remindersOn_one": "{{count}} aktiv",
+  "remindersOn_other": "{{count}} aktiv",
+  "haptics": "Haptik",
+  "voiceCues": "Sprachansagen",
+  "voiceCuesHint": "Sagt „Anspannen“, „Locker lassen“ und die nächste Übung an, damit du mit geschlossenen Augen mitmachen kannst.",
+  "mirror": "Spiegel im Training",
+  "mirrorHint": "Deine Frontkamera neben der Figur. Es wird nichts aufgenommen oder gespeichert.",
+  "theme": {
+    "title": "Design",
+    "system": "System",
+    "light": "Hell",
+    "dark": "Dunkel"
+  },
+  "language": "Sprache",
+  "languageHint": "Du kannst sie in der App „Einstellungen“ ändern.",
+  "premium": {
+    "active": "Premium ist aktiv",
+    "upgrade": "Premium holen",
+    "restore": "Käufe wiederherstellen",
+    "manage": "Abo verwalten"
+  },
+  "aiConsent": "KI-Coach erlauben",
+  "aiConsentHint": "Sendet deine Coach-Fragen an die KI. Aus = Coach nicht verfügbar.",
+  "askButton": "Coach-Button",
+  "askButtonHint": "Der schwebende Button auf jedem Bildschirm. Zieh ihn, um ihn zu verschieben.",
+  "safety": "Sicherheitshinweise",
+  "privacyPolicy": "Datenschutzerklärung",
+  "terms": "Nutzungsbedingungen",
+  "support": "Support",
+  "delete": {
+    "row": "Alle Daten löschen",
+    "title": "Alle Daten löschen?",
+    "body": "Das löscht deine Trainings, den Chat und deine Einstellungen von diesem iPhone. Dein Abo ist davon nicht betroffen.",
+    "confirm": "Löschen"
+  },
+  "deleted": "Alle Daten gelöscht",
+  "version": "Version {{version}}"
+}

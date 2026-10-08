@@ -1,0 +1,20 @@
+{
+  "kinds": {
+    "workout": {
+      "title": "Hora de tu entrenamiento facial",
+      "body": "5 minutos mantienen viva tu racha."
+    },
+    "mewing": {
+      "title": "Control de mewing",
+      "body": "Toda la lengua en el paladar, labios cerrados y respira por la nariz."
+    },
+    "posture": {
+      "title": "Pausa para la postura",
+      "body": "Retracción de barbilla: orejas sobre los hombros y barbilla suavemente hacia atrás. Mantén 5 segundos."
+    },
+    "custom": {
+      "title": "Recordatorio",
+      "body": "De tus recordatorios de {{app}}."
+    }
+  }
+}

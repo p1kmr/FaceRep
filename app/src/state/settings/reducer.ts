@@ -10,6 +10,7 @@ import {
   GOAL_SET,
   GUIDE_SET,
   HAPTICS_SET,
+  MIRROR_SET,
   ONBOARDING_COMPLETE,
   REMINDER_DELETED,
   REMINDER_SAVED,
@@ -17,6 +18,7 @@ import {
   SETTINGS_HYDRATE,
   SETTINGS_RESET,
   THEME_MODE_SET,
+  VOICE_CUES_SET,
   type SettingsAction,
 } from './actions';
 import type { AskButtonSettings, SavedSettings, Settings, SettingsState } from './types';
@@ -30,6 +32,8 @@ export const DEFAULT_SETTINGS: Settings = {
   guide: DEFAULT_GUIDE,
   reminders: [workoutReminder()],
   haptics: true,
+  voiceCues: true,
+  mirror: false,
   aiConsent: null,
   lastReviewPromptOn: null,
   askButton: { visible: true, side: 'right', y: 1, hintShows: 0 },
@@ -78,6 +82,8 @@ export function sanitizeSettings(saved: SavedSettings | null): Settings {
     guide: isGuideId(s.guide) ? s.guide : d.guide,
     reminders: sanitizeReminders(s),
     haptics: s.haptics !== false,
+    voiceCues: s.voiceCues !== false,
+    mirror: s.mirror === true,
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
     lastReviewPromptOn: typeof s.lastReviewPromptOn === 'string' ? s.lastReviewPromptOn : null,
     askButton: sanitizeAskButton(s.askButton, d.askButton),
@@ -111,6 +117,10 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { reminders: s.reminders.filter((x) => x.id !== action.payload) });
     case HAPTICS_SET:
       return update(state, { haptics: action.payload });
+    case VOICE_CUES_SET:
+      return update(state, { voiceCues: action.payload === true });
+    case MIRROR_SET:
+      return update(state, { mirror: action.payload === true });
     case AI_CONSENT_SET:
       return update(state, { aiConsent: action.payload });
     case REVIEW_PROMPTED:

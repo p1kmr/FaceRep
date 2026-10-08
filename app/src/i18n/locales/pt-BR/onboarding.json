@@ -1,0 +1,41 @@
+{
+  "welcome": {
+    "title": "Treine o rosto como você treina o corpo",
+    "body": "Um plano guiado de 28 dias para mandíbula, maçãs do rosto, lábios e olhos. Poucos minutos por dia.",
+    "cta": "Começar"
+  },
+  "guide": {
+    "title": "Quem deve aparecer nos exercícios?",
+    "body": "Escolha o rosto das imagens dos exercícios. Seu plano é o mesmo nos dois casos, e você pode mudar isso em Ajustes."
+  },
+  "goal": {
+    "title": "No que você quer focar?",
+    "body": "Você pode mudar isso quando quiser em Ajustes.",
+    "options": {
+      "jawline": "Mandíbula, queixo e pescoço",
+      "cheekbones": "Bochechas e sorriso",
+      "lips": "Lábios e linhas do sorriso",
+      "eyes": "Testa, sobrancelhas e olhos",
+      "massage": "Massagem facial suave para relaxar",
+      "full": "Um pouco de tudo, em dias alternados"
+    }
+  },
+  "safety": {
+    "title": "Antes de começar",
+    "points": {
+      "gentle": "Faça os movimentos devagar e com suavidade. Uma leve queimação no músculo é normal; dor, não.",
+      "jaw": "Se você tem dor na mandíbula, estalos ou algum problema na articulação da mandíbula (ATM), pule a Contração da mandíbula, a Projeção da mandíbula e a Cara de leão, e consulte antes um médico ou dentista.",
+      "treatments": "Fez Botox, preenchimento ou outro procedimento estético recentemente? Pergunte ao profissional que fez o procedimento quando você pode começar os exercícios faciais e, até lá, não pressione nem massageie a área tratada.",
+      "stop": "Pare na hora se sentir dor, dormência ou tontura.",
+      "results": "Os exercícios podem tonificar os músculos e melhorar a postura. Eles não mudam a estrutura óssea, e os resultados variam de pessoa para pessoa."
+    },
+    "accept": "Entendi"
+  },
+  "reminder": {
+    "title": "Um lembrete diário?",
+    "body": "A constância é o que faz a diferença. Escolha um horário e enviaremos um lembrete por dia.",
+    "allow": "Me lembre",
+    "skip": "Agora não",
+    "time": "Horário do lembrete"
+  }
+}

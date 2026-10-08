@@ -1,0 +1,20 @@
+{
+  "kinds": {
+    "workout": {
+      "title": "È ora del tuo allenamento viso",
+      "body": "Bastano 5 minuti per mantenere la tua serie."
+    },
+    "mewing": {
+      "title": "Controllo mewing",
+      "body": "Tutta la lingua contro il palato, labbra chiuse, respira dal naso."
+    },
+    "posture": {
+      "title": "Pausa postura",
+      "body": "Retrazione del mento: orecchie sopra le spalle, mento delicatamente indietro. Tieni per 5 secondi."
+    },
+    "custom": {
+      "title": "Promemoria",
+      "body": "Dai tuoi promemoria di {{app}}."
+    }
+  }
+}

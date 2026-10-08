@@ -1,0 +1,50 @@
+{
+  "title": "Impostazioni",
+  "sections": {
+    "training": "Allenamento",
+    "appearance": "Aspetto",
+    "premium": "Premium",
+    "privacy": "Privacy e sicurezza",
+    "about": "Info"
+  },
+  "goal": "Obiettivo",
+  "guide": "Immagini degli esercizi",
+  "reminders": "Promemoria",
+  "remindersOn_one": "{{count}} attivo",
+  "remindersOn_other": "{{count}} attivi",
+  "haptics": "Feedback aptico",
+  "voiceCues": "Indicazioni vocali",
+  "voiceCuesHint": "Dice Contrai, Rilassati e cosa viene dopo, così puoi seguire anche a occhi chiusi.",
+  "mirror": "Specchio negli allenamenti",
+  "mirrorHint": "La fotocamera frontale accanto alla figura. Non viene registrato né salvato nulla.",
+  "theme": {
+    "title": "Tema",
+    "system": "Sistema",
+    "light": "Chiaro",
+    "dark": "Scuro"
+  },
+  "language": "Lingua",
+  "languageHint": "Puoi cambiarla nell'app Impostazioni.",
+  "premium": {
+    "active": "Premium è attivo",
+    "upgrade": "Passa a Premium",
+    "restore": "Ripristina acquisti",
+    "manage": "Gestisci abbonamento"
+  },
+  "aiConsent": "Consenti Coach IA",
+  "aiConsentHint": "Invia all'IA le tue domande per il Coach. Disattivato = il Coach non è disponibile.",
+  "askButton": "Pulsante del Coach",
+  "askButtonHint": "Il pulsante mobile su ogni schermata. Trascinalo per spostarlo.",
+  "safety": "Sicurezza degli esercizi",
+  "privacyPolicy": "Informativa sulla privacy",
+  "terms": "Termini d'uso",
+  "support": "Assistenza",
+  "delete": {
+    "row": "Elimina tutti i dati",
+    "title": "Eliminare tutti i dati?",
+    "body": "Verranno eliminati allenamenti, chat e impostazioni da questo iPhone. Il tuo abbonamento non cambia.",
+    "confirm": "Elimina"
+  },
+  "deleted": "Tutti i dati sono stati eliminati",
+  "version": "Versione {{version}}"
+}

@@ -1,0 +1,73 @@
+{
+  "title": "Coach",
+  "intro": "Ich bin dein {{app}}-Coach. Frag mich zu Gesichtsübungen, Technik, Haltung oder einer einfachen Hautpflege-Routine.",
+  "placeholder": "Frag zu deinem Gesichtstraining oder zur Hautpflege",
+  "send": "Senden",
+  "clear": "Chat löschen",
+  "clearConfirm": "Diese Unterhaltung von deinem iPhone löschen?",
+  "thinking": "Der Coach schreibt",
+  "freeLeft_one": "Noch {{count}} kostenlose Antwort in diesem Monat",
+  "freeLeft_other": "Noch {{count}} kostenlose Antworten in diesem Monat",
+  "freeRefill": "Neue kostenlose Antworten am {{date}}",
+  "unlock": "Unbegrenzt Antworten mit Premium",
+  "aiNote": "KI-Antworten können falsch sein. Keine medizinische Beratung. Halte eine Antwort gedrückt, um sie zu melden.",
+  "reportHint": "Gedrückt halten, um diese Antwort zu melden",
+  "reportSubject": "Antwort des KI-Coachs melden",
+  "actions": {
+    "prepared": "Ich hab das für dich vorbereitet. Prüf es und bestätige unten.",
+    "create": "Neue Erinnerung",
+    "update": "Erinnerung ändern",
+    "pause": "Erinnerung pausieren",
+    "resume": "Erinnerung wieder einschalten",
+    "delete": "Erinnerung löschen",
+    "confirm": "Bestätigen",
+    "decline": "Nein danke",
+    "done": "Gespeichert",
+    "declined": "Nicht gespeichert",
+    "open": "Erinnerungen ansehen",
+    "missing": "Diese Erinnerung gibt es nicht mehr."
+  },
+  "bubble": {
+    "open": "Frag den Coach",
+    "openHint": "Öffnet den KI-Coach. Zum Verschieben den Button ziehen."
+  },
+  "hint": {
+    "title": "Frag den Coach",
+    "body": "Technik, Mewing, Haltung oder Hautpflege: Frag mich alles. Ich kann auch Erinnerungen für dich einrichten.",
+    "technique": "Meine Technik prüfen",
+    "remind": "Erinnerung einrichten",
+    "ask": "Frage stellen",
+    "techniquePrompt": "Woran merke ich, dass ich die Übungen richtig mache?",
+    "remindPrompt": "Erinnere mich ",
+    "close": "Tipp schließen"
+  },
+  "suggestions": {
+    "jawline": "Wann sehe ich Ergebnisse an meiner Kieferlinie?",
+    "mewing": "Mache ich Mewing richtig?",
+    "reminder": "Erinnere mich wochentags alle 2 Stunden an meinen Mewing-Check",
+    "skincare": "Einfache Hautpflege-Routine?",
+    "skincare_man": "Einfache Hautpflege für Männer?",
+    "skincare_woman": "Einfache Hautpflege für Frauen?",
+    "doubleChin": "Welche Übungen helfen bei einem Doppelkinn?"
+  },
+  "errors": {
+    "notConfigured": "Der Coach ist in diesem Build noch nicht eingerichtet.",
+    "offline": "Du scheinst offline zu sein. Prüf deine Verbindung und versuch es noch mal.",
+    "rateLimited": "Das sind ganz schön viele Fragen für einen Tag. Versuch es morgen wieder.",
+    "freeUsed": "Du hast die kostenlosen Antworten für diesen Monat aufgebraucht.",
+    "device": "Wir konnten dieses iPhone nicht verifizieren. Bitte aktualisiere die App und versuch es noch mal.",
+    "server": "Der Coach konnte gerade nicht antworten. Versuch es gleich noch mal.",
+    "retry": "Erneut versuchen"
+  },
+  "consent": {
+    "title": "Bevor du den Coach fragst",
+    "what": "Der Coach ist eine KI. Für eine Antwort wird deine Frage an unseren Server gesendet und von einem KI-Modell (Cloudflare Workers AI) verarbeitet.",
+    "sent": "Gesendet werden: deine Frage, die letzten Nachrichten dieses Chats, dein Fokus, deine Serie, wie viele Trainings du diese Woche gemacht hast, und die Namen und Uhrzeiten deiner Erinnerungen (damit der Coach Änderungen vorschlagen kann, die du bestätigst).",
+    "notSent": "Nicht gesendet werden: dein Name, Fotos, Kontakte oder dein Standort. Bei uns gibt es kein Konto von dir.",
+    "storage": "Unser Server speichert deine Fragen nicht. Der Chatverlauf bleibt auf diesem iPhone, und du kannst ihn jederzeit löschen.",
+    "medical": "Der Coach gibt allgemeine Fitness- und Hautpflegetipps, keine medizinische Beratung.",
+    "allow": "Zustimmen und weiter",
+    "notNow": "Nicht jetzt",
+    "withdraw": "Du kannst das in den Einstellungen ausschalten."
+  }
+}

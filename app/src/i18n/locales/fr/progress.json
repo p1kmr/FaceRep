@@ -1,0 +1,39 @@
+{
+  "title": "Progrès",
+  "streak": "Série actuelle",
+  "best": "Meilleure série",
+  "days_one": "{{count}} jour",
+  "days_other": "{{count}} jours",
+  "workouts": "Séances",
+  "minutes": "Minutes",
+  "reps": "Répétitions",
+  "repsCount_one": "{{count}} répétition",
+  "repsCount_other": "{{count}} répétitions",
+  "calendar": "Calendrier",
+  "views": {
+    "week": "Semaine",
+    "month": "Mois",
+    "year": "Année"
+  },
+  "previous": "Précédent",
+  "next": "Suivant",
+  "summaryWeek": "{{days}} sur 7 jours · {{minutes}}",
+  "summaryPeriod": "{{workouts}} · {{days}} · {{minutes}}",
+  "workoutCount_one": "{{count}} séance",
+  "workoutCount_other": "{{count}} séances",
+  "dayCount_one": "{{count}} jour",
+  "dayCount_other": "{{count}} jours",
+  "noWorkoutDay": "Aucune séance ce jour-là.",
+  "tapDay": "Touche un jour pour voir ses séances.",
+  "dayA11y_one": "{{date}}, {{count}} séance",
+  "dayA11y_other": "{{date}}, {{count}} séances",
+  "monthDaysA11y_one": "{{month}}, entraînement sur {{count}} jour. Ouvrir le mois.",
+  "monthDaysA11y_other": "{{month}}, entraînement sur {{count}} jours. Ouvrir le mois.",
+  "history": "Historique",
+  "empty": {
+    "title": "Aucune séance pour l'instant",
+    "body": "Termine ta première séance et elle apparaîtra ici."
+  },
+  "session": "{{exercises}} · {{minutes}}",
+  "sessionPlan": "Jour {{day}} · {{exercises}} · {{minutes}}"
+}

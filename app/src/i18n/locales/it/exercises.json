@@ -1,0 +1,279 @@
+{
+  "title": "Esercizi",
+  "programIntro": {
+    "jawline": "Lavoro su massetere, mento e collo per una mascella dall'aspetto più definito.",
+    "cheekbones": "Solleva e tonifica i muscoli intorno alle guance e alla bocca.",
+    "lips": "I muscoli intorno alle labbra e agli angoli della bocca.",
+    "eyes": "Muscoli di fronte, sopracciglia e occhi, ottimi dopo tante ore davanti allo schermo.",
+    "massage": "Massaggio delicato con i polpastrelli per rilassare mascella, sopracciglia e tempie. Mani pulite, pressione leggera."
+  },
+  "muscles": {
+    "masseter": "Massetere",
+    "platysma": "Platisma",
+    "deepNeck": "Flessori profondi del collo",
+    "underChin": "Muscoli sotto il mento",
+    "mentalis": "Muscolo mentale",
+    "tongue": "Postura della lingua",
+    "neck": "Lato del collo",
+    "zygomaticus": "Zigomatico",
+    "buccinator": "Buccinatore",
+    "lips": "Labbra",
+    "frontalis": "Muscolo frontale",
+    "orbicularisOculi": "Orbicolare dell'occhio",
+    "eyelids": "Palpebre superiori",
+    "corrugator": "Tra le sopracciglia",
+    "temporalis": "Tempie"
+  },
+  "detail": {
+    "how": "Come si fa",
+    "plan": "{{reps}} ripetizioni · tieni {{hold}}s · rilassa {{relax}}s",
+    "start": "Inizia l'esercizio",
+    "jawCaution": "Salta questo esercizio se hai dolore alla mascella, schiocchi o un problema all'ATM.",
+    "handsCaution": "Usa mani pulite e una pressione leggera. Evita la pelle irritata e non premere su zone trattate di recente con Botox o filler."
+  },
+  "items": {
+    "jawClench": {
+      "name": "Mascella serrata",
+      "cue": "Stringi i denti posteriori e senti i muscoli della mascella gonfiarsi.",
+      "steps": [
+        "Siediti con la schiena dritta, labbra chiuse e spalle rilassate.",
+        "Stringi i denti posteriori con circa metà della tua forza.",
+        "Tieni e senti contrarsi il muscolo davanti all'orecchio, poi rilascia lentamente."
+      ]
+    },
+    "chinLift": {
+      "name": "Mento in su",
+      "cue": "Inclina la testa all'indietro e spingi il labbro inferiore sopra quello superiore.",
+      "steps": [
+        "Siediti o stai in piedi con la schiena dritta.",
+        "Inclina la testa all'indietro fino a guardare il soffitto.",
+        "Spingi il labbro inferiore sopra quello superiore e senti allungarsi la parte anteriore del collo."
+      ]
+    },
+    "jawJut": {
+      "name": "Mascella in avanti",
+      "cue": "Spingi la mandibola in avanti e solleva leggermente il mento.",
+      "steps": [
+        "Guarda dritto davanti a te, poi solleva un po' il mento.",
+        "Fai scivolare la mandibola in avanti finché senti un allungamento sotto il mento.",
+        "Tieni, poi riporta lentamente indietro la mandibola."
+      ]
+    },
+    "mewing": {
+      "name": "Mewing",
+      "cue": "Premi tutta la lingua, piatta, contro il palato.",
+      "steps": [
+        "Chiudi le labbra e fai toccare leggermente i denti.",
+        "Appoggia tutta la lingua, compresa la parte posteriore, contro il palato.",
+        "Respira dal naso e mantieni la posizione senza forzare."
+      ]
+    },
+    "neckStretch": {
+      "name": "Stretching laterale del collo",
+      "cue": "Inclina l'orecchio verso la spalla e tieni le spalle basse.",
+      "steps": [
+        "Siediti con la schiena dritta e abbassa le spalle.",
+        "Inclina lentamente l'orecchio destro verso la spalla destra.",
+        "Mantieni l'allungamento, torna al centro e cambia lato alla ripetizione successiva."
+      ]
+    },
+    "cheekLift": {
+      "name": "Sollevamento guance",
+      "cue": "Sorridi ampiamente a labbra chiuse e solleva le guance verso gli occhi.",
+      "steps": [
+        "Tieni le labbra chiuse.",
+        "Sorridi più che puoi e spingi le guance in su verso gli occhi.",
+        "Tieni, poi rilassa completamente il viso."
+      ]
+    },
+    "fishFace": {
+      "name": "Faccia da pesce",
+      "cue": "Risucchia le guance e sporgi le labbra.",
+      "steps": [
+        "Risucchia le guance tra i denti.",
+        "Sporgi le labbra come un pesce.",
+        "Tieni, poi rilascia e rilassati."
+      ]
+    },
+    "cheekPuff": {
+      "name": "Guance gonfie",
+      "cue": "Riempi le guance d'aria e tienile ben tonde.",
+      "steps": [
+        "Prendi fiato e chiudi le labbra.",
+        "Spingi l'aria in entrambe le guance per gonfiarle.",
+        "Tieni, poi fai uscire l'aria lentamente."
+      ]
+    },
+    "browLift": {
+      "name": "Sollevamento sopracciglia",
+      "cue": "Alza le sopracciglia più in alto che puoi.",
+      "steps": [
+        "Guarda dritto davanti a te con il viso rilassato.",
+        "Solleva le sopracciglia più in alto che puoi.",
+        "Tieni, poi abbassale lentamente."
+      ]
+    },
+    "eyeSqueeze": {
+      "name": "Occhi strizzati",
+      "cue": "Strizza forte gli occhi, poi rilascia lentamente.",
+      "steps": [
+        "Rilassa la fronte.",
+        "Chiudi gli occhi e strizzali forte.",
+        "Tieni, poi riaprili lentamente."
+      ]
+    },
+    "chinTuck": {
+      "name": "Retrazione del mento",
+      "cue": "Porta la testa dritta indietro e fai un piccolo doppio mento.",
+      "steps": [
+        "Siediti o stai in piedi con la schiena dritta, le spalle basse e lo sguardo in avanti.",
+        "Fai scivolare la testa dritta indietro, come se un filo ti tirasse la nuca, finché le orecchie sono allineate sopra le spalle.",
+        "Tieni senza inclinare il mento in su o in giù, poi torna in avanti lentamente."
+      ]
+    },
+    "tonguePress": {
+      "name": "Pressione della lingua",
+      "cue": "Premi la lingua contro il palato e canticchia a bocca chiusa.",
+      "steps": [
+        "Siediti con la schiena dritta, le labbra chiuse e i denti leggermente separati.",
+        "Premi con decisione tutta la lingua contro il palato, appena dietro i denti davanti.",
+        "Canticchia piano a bocca chiusa e senti contrarsi i muscoli sotto il mento. Tieni, poi rilassa la lingua."
+      ]
+    },
+    "smilingFish": {
+      "name": "Pesce sorridente",
+      "cue": "Fai la faccia da pesce, poi solleva gli angoli della bocca in un sorriso.",
+      "steps": [
+        "Risucchia le guance tra i denti e sporgi le labbra.",
+        "Mantieni la faccia da pesce e tira su gli angoli della bocca in un sorriso.",
+        "Tieni e senti sollevarsi le guance, poi rilassa tutto il viso."
+      ]
+    },
+    "oStretch": {
+      "name": "Allungamento a O",
+      "cue": "Apri la bocca a forma di O allungata e tira le labbra sopra i denti.",
+      "steps": [
+        "Guarda dritto davanti a te e tieni la fronte rilassata.",
+        "Apri la bocca formando una O alta e tira le labbra sopra i denti.",
+        "Tieni e senti il viso allungarsi, poi chiudi lentamente la bocca."
+      ]
+    },
+    "lionFace": {
+      "name": "Faccia da leone",
+      "cue": "Apri bene la bocca, tira fuori la lingua e spalanca gli occhi.",
+      "steps": [
+        "Inspira dal naso.",
+        "Espira mentre apri bene la bocca, allunghi la lingua verso il mento e spalanchi gli occhi.",
+        "Mantieni l'allungamento, poi chiudi la bocca e rilassati. Non aprire la mascella più di quanto ti sia comodo."
+      ]
+    },
+    "wideEyes": {
+      "name": "Occhi spalancati",
+      "cue": "Spalanca gli occhi più che puoi senza alzare le sopracciglia.",
+      "steps": [
+        "Se ti aiuta a tenere ferma la fronte, appoggia leggermente un polpastrello su ogni sopracciglio.",
+        "Spalanca gli occhi più che puoi, come per la sorpresa, senza alzare le sopracciglia.",
+        "Tieni fissando un punto, poi rilassa gli occhi."
+      ]
+    },
+    "lowerLidLift": {
+      "name": "Sollevamento palpebre inferiori",
+      "cue": "Guarda in alto e solleva le palpebre inferiori, come se strizzassi gli occhi al sole.",
+      "steps": [
+        "Tieni la testa dritta e guarda leggermente in alto.",
+        "Solleva solo le palpebre inferiori, come se strizzassi gli occhi per una luce forte. Tieni la fronte rilassata.",
+        "Tieni, poi lascia scendere lentamente le palpebre inferiori."
+      ]
+    },
+    "lipPress": {
+      "name": "Pressione delle labbra",
+      "cue": "Premi le labbra tra loro e arrotolale delicatamente verso l'interno.",
+      "steps": [
+        "Chiudi la bocca e tieni la mascella rilassata.",
+        "Premi le labbra tra loro e arrotolale leggermente verso l'interno sopra i denti.",
+        "Tieni, poi lascia andare le labbra."
+      ]
+    },
+    "pout": {
+      "name": "Labbra a bacio",
+      "cue": "Spingi le labbra in avanti, come per dare un bacio.",
+      "steps": [
+        "Tieni i denti separati e il viso rilassato.",
+        "Spingi le labbra in avanti quanto ti è comodo, come per mandare un bacio.",
+        "Tieni, poi rilassa le labbra."
+      ]
+    },
+    "lipCornerLift": {
+      "name": "Angoli della bocca in su",
+      "cue": "A labbra chiuse, solleva solo gli angoli della bocca.",
+      "steps": [
+        "Tieni le labbra chiuse e le guance morbide.",
+        "Solleva solo gli angoli della bocca in un piccolo sorriso.",
+        "Tieni, poi lascia scendere gli angoli."
+      ]
+    },
+    "smileLinePress": {
+      "name": "Pressione sulle linee del sorriso",
+      "cue": "Polpastrelli sulle linee del sorriso, sorridi contro una leggera pressione.",
+      "steps": [
+        "Appoggia leggermente gli indici sulle linee che vanno dal naso agli angoli della bocca.",
+        "Sorridi ampiamente mentre le dita tengono delicatamente ferma la pelle.",
+        "Tieni, poi rilassa il sorriso e le dita."
+      ]
+    },
+    "foreheadPress": {
+      "name": "Pressione sulla fronte",
+      "cue": "Palmi sulla fronte, alza le sopracciglia contro una leggera pressione.",
+      "steps": [
+        "Appoggia entrambi i palmi sulla fronte, appena sopra le sopracciglia.",
+        "Prova ad alzare le sopracciglia mentre le mani tengono delicatamente ferma la pelle.",
+        "Tieni, poi rilassa la fronte."
+      ]
+    },
+    "vEyes": {
+      "name": "Occhi a V",
+      "cue": "Dita a V intorno agli occhi, guarda in alto e strizza.",
+      "steps": [
+        "Premi leggermente i medi all'inizio interno delle sopracciglia e gli indici alle estremità esterne, formando una V.",
+        "Guarda in alto e solleva le palpebre inferiori strizzando bene gli occhi.",
+        "Tieni, poi rilassa gli occhi."
+      ]
+    },
+    "jawRelease": {
+      "name": "Rilascio della mascella",
+      "cue": "Cerchi lenti con i polpastrelli sul muscolo della mascella, denti separati.",
+      "steps": [
+        "Separa i denti e lascia la mascella morbida.",
+        "Trova il muscolo nella parte posteriore di ogni guancia e premi leggermente con i polpastrelli.",
+        "Fai dei cerchi lenti, poi riposa le mani."
+      ]
+    },
+    "jawlineSweep": {
+      "name": "Scorrimento sulla mascella",
+      "cue": "Fai scorrere le nocche dal mento lungo la mascella fino alle orecchie.",
+      "steps": [
+        "Chiudi le mani a pugno morbido e appoggia le nocche sotto il centro del mento.",
+        "Falle scorrere lentamente lungo la linea della mascella fino a sotto le orecchie.",
+        "Stacca le mani e ricomincia dal mento."
+      ]
+    },
+    "frownRelease": {
+      "name": "Distensione della fronte",
+      "cue": "Liscia la pelle dalla zona tra le sopracciglia fino alle tempie.",
+      "steps": [
+        "Appoggia i polpastrelli tra le sopracciglia.",
+        "Falli scorrere lentamente verso l'esterno, sopra le sopracciglia, fino alle tempie.",
+        "Stacca le mani e ricomincia dal centro."
+      ]
+    },
+    "templeCircles": {
+      "name": "Cerchi sulle tempie",
+      "cue": "Cerchi lenti e delicati sulle tempie.",
+      "steps": [
+        "Appoggia i polpastrelli sulle tempie, accanto agli occhi.",
+        "Fai dei cerchi lenti con una pressione leggera mentre espiri lentamente.",
+        "Riposa le mani, poi ripeti."
+      ]
+    }
+  }
+}

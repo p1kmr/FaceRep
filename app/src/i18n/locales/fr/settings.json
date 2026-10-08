@@ -1,0 +1,50 @@
+{
+  "title": "Réglages",
+  "sections": {
+    "training": "Entraînement",
+    "appearance": "Apparence",
+    "premium": "Premium",
+    "privacy": "Confidentialité et sécurité",
+    "about": "À propos"
+  },
+  "goal": "Objectif",
+  "guide": "Illustrations des exercices",
+  "reminders": "Rappels",
+  "remindersOn_one": "{{count}} activé",
+  "remindersOn_other": "{{count}} activés",
+  "haptics": "Retour haptique",
+  "voiceCues": "Guidage vocal",
+  "voiceCuesHint": "Annonce « Contracte », « Relâche » et l'exercice suivant, pour que tu puisses suivre les yeux fermés.",
+  "mirror": "Miroir pendant les séances",
+  "mirrorHint": "Ta caméra avant à côté de l'illustration. Rien n'est enregistré ni sauvegardé.",
+  "theme": {
+    "title": "Thème",
+    "system": "Système",
+    "light": "Clair",
+    "dark": "Sombre"
+  },
+  "language": "Langue",
+  "languageHint": "Modifie-la dans l'app Réglages.",
+  "premium": {
+    "active": "Premium est actif",
+    "upgrade": "Passer à Premium",
+    "restore": "Restaurer les achats",
+    "manage": "Gérer l'abonnement"
+  },
+  "aiConsent": "Autoriser le Coach IA",
+  "aiConsentHint": "Tes questions au Coach sont envoyées à l'IA. Si c'est désactivé, le Coach est indisponible.",
+  "askButton": "Bouton du Coach",
+  "askButtonHint": "Le bouton flottant sur chaque écran. Fais-le glisser pour le déplacer.",
+  "safety": "Sécurité des exercices",
+  "privacyPolicy": "Politique de confidentialité",
+  "terms": "Conditions d'utilisation",
+  "support": "Assistance",
+  "delete": {
+    "row": "Supprimer toutes les données",
+    "title": "Supprimer toutes les données ?",
+    "body": "Tes séances, ta discussion et tes réglages seront supprimés de cet iPhone. Ton abonnement n'est pas concerné.",
+    "confirm": "Supprimer"
+  },
+  "deleted": "Toutes les données ont été supprimées",
+  "version": "Version {{version}}"
+}

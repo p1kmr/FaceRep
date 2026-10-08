@@ -1,0 +1,41 @@
+{
+  "headline": "Sblocca il piano completo",
+  "subhead": "La settimana 1 è gratis. Premium aggiunge il resto del piano di 28 giorni e il Coach IA.",
+  "benefits": {
+    "plan": "Settimane da 2 a 4: più esercizi, ripetizioni e tempo di tenuta ogni settimana",
+    "levels": "Livelli 2 e 3 quando finisci, e poi nuovi cicli",
+    "coach": "Risposte illimitate del Coach IA su tecnica e routine"
+  },
+  "aiNote": "Alle domande per il Coach risponde un'IA (Cloudflare Workers AI). Ti chiederemo il permesso prima della tua prima domanda.",
+  "plans": { "monthly": "Mensile", "yearly": "Annuale" },
+  "perMonth": "al mese",
+  "perYear": "all'anno",
+  "perMonthPrice": "{{price}} / mese",
+  "bestValue": "Più conveniente",
+  "bestValueSave": "Risparmi il {{percent}}%",
+  "startTrial": "Inizia la prova gratuita",
+  "continue": "Continua",
+  "trialThen_one": "{{count}} giorno gratis, poi {{price}} ogni {{period}}. Annulla quando vuoi.",
+  "trialThen_other": "{{count}} giorni gratis, poi {{price}} ogni {{period}}. Annulla quando vuoi.",
+  "month": "mese",
+  "year": "anno",
+  "cancelAnytime": "Si rinnova automaticamente. Annulla quando vuoi in Impostazioni.",
+  "renewal": "Il pagamento viene addebitato sul tuo Account Apple. L'abbonamento si rinnova automaticamente a meno che non venga annullato almeno 24 ore prima della fine del periodo in corso. Puoi gestirlo o annullarlo nelle impostazioni del tuo account App Store.",
+  "restoreButton": "Ripristina",
+  "terms": "Termini d'uso",
+  "privacy": "Privacy",
+  "close": "Chiudi",
+  "errors": {
+    "unavailableTitle": "Non disponibile",
+    "unavailable": "Non è stato possibile caricare i piani. Controlla la connessione e riprova.",
+    "failedTitle": "Acquisto non riuscito"
+  },
+  "restore": {
+    "doneTitle": "Ripristinato",
+    "done": "Il tuo abbonamento Premium è di nuovo attivo.",
+    "noneTitle": "Niente da ripristinare",
+    "none": "Non abbiamo trovato abbonamenti attivi per questo Account Apple.",
+    "failedTitle": "Ripristino non riuscito",
+    "failed": "Controlla la connessione e riprova."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "welcome": {
+    "title": "Entrena tu cara como entrenas tu cuerpo",
+    "body": "Un plan guiado de 28 días para tu mandíbula, tus pómulos, tus labios y tus ojos. Unos minutos al día.",
+    "cta": "Empezar"
+  },
+  "guide": {
+    "title": "¿Quién quieres que aparezca en los ejercicios?",
+    "body": "Elige qué cara aparece en las imágenes de los ejercicios. Tu plan es el mismo en ambos casos y puedes cambiar esta opción en Ajustes."
+  },
+  "goal": {
+    "title": "¿En qué quieres enfocarte?",
+    "body": "Puedes cambiarlo cuando quieras en Ajustes.",
+    "options": {
+      "jawline": "Mandíbula, barbilla y cuello",
+      "cheekbones": "Mejillas y sonrisa",
+      "lips": "Labios y líneas de la sonrisa",
+      "eyes": "Frente, cejas y ojos",
+      "massage": "Masaje facial suave para relajarte",
+      "full": "Un poco de todo, alternando días"
+    }
+  },
+  "safety": {
+    "title": "Antes de empezar",
+    "points": {
+      "gentle": "Muévete despacio y con suavidad. Un ligero ardor en el músculo está bien; el dolor, no.",
+      "jaw": "Si tienes dolor de mandíbula, chasquidos o un problema en la articulación de la mandíbula (ATM), sáltate el apretón de mandíbula, la mandíbula al frente y la cara de león, y consulta antes a un médico o dentista.",
+      "treatments": "¿Te pusiste bótox, rellenos u otro tratamiento estético hace poco? Pregunta a tu especialista cuándo puedes empezar con los ejercicios faciales y, hasta entonces, no presiones ni masajees la zona tratada.",
+      "stop": "Para de inmediato si algo te duele, sientes adormecimiento o te mareas.",
+      "results": "Los ejercicios pueden tonificar los músculos y mejorar la postura. No pueden cambiar la estructura ósea, y los resultados varían en cada persona."
+    },
+    "accept": "Entendido"
+  },
+  "reminder": {
+    "title": "¿Un recordatorio diario?",
+    "body": "La constancia es lo que marca la diferencia. Elige una hora y te lo recordaremos una vez al día.",
+    "allow": "Recuérdamelo",
+    "skip": "Ahora no",
+    "time": "Hora del recordatorio"
+  }
+}

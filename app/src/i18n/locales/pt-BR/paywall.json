@@ -1,0 +1,41 @@
+{
+  "headline": "Desbloqueie o plano completo",
+  "subhead": "A semana 1 é grátis. O Premium libera o resto do seu plano de 28 dias e o Coach de IA.",
+  "benefits": {
+    "plan": "Semanas 2 a 4: mais exercícios, repetições e tempo de contração a cada semana",
+    "levels": "Níveis 2 e 3 quando você terminar, e novas rodadas depois disso",
+    "coach": "Respostas ilimitadas do Coach de IA sobre técnica e rotina"
+  },
+  "aiNote": "As perguntas ao Coach são respondidas por uma IA (Cloudflare Workers AI). Vamos pedir sua permissão antes da primeira pergunta.",
+  "plans": { "monthly": "Mensal", "yearly": "Anual" },
+  "perMonth": "por mês",
+  "perYear": "por ano",
+  "perMonthPrice": "{{price}} / mês",
+  "bestValue": "Mais vantajoso",
+  "bestValueSave": "Economize {{percent}}%",
+  "startTrial": "Começar teste grátis",
+  "continue": "Continuar",
+  "trialThen_one": "{{count}} dia grátis, depois {{price}} por {{period}}. Cancele quando quiser.",
+  "trialThen_other": "{{count}} dias grátis, depois {{price}} por {{period}}. Cancele quando quiser.",
+  "month": "mês",
+  "year": "ano",
+  "cancelAnytime": "Renovação automática. Cancele quando quiser em Ajustes.",
+  "renewal": "O pagamento é cobrado na sua Conta Apple. A assinatura é renovada automaticamente, a menos que seja cancelada pelo menos 24 horas antes do fim do período. Gerencie ou cancele a assinatura nos ajustes da sua conta da App Store.",
+  "restoreButton": "Restaurar",
+  "terms": "Termos de Uso",
+  "privacy": "Privacidade",
+  "close": "Fechar",
+  "errors": {
+    "unavailableTitle": "Indisponível",
+    "unavailable": "Não foi possível carregar os planos de assinatura. Verifique sua conexão e tente de novo.",
+    "failedTitle": "Falha na compra"
+  },
+  "restore": {
+    "doneTitle": "Restaurado",
+    "done": "Sua assinatura Premium está ativa de novo.",
+    "noneTitle": "Nada para restaurar",
+    "none": "Não encontramos uma assinatura ativa para esta Conta Apple.",
+    "failedTitle": "Falha ao restaurar",
+    "failed": "Verifique sua conexão e tente de novo."
+  }
+}

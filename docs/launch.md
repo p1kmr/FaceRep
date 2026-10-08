@@ -24,20 +24,33 @@ Research done 2026-10-06 (App Store lookup/search APIs, USPTO, Apple guidelines 
 - Worker: `facerep-api`; RevenueCat project: "FaceRep" (separate from Elowa).
 
 ## 3. App Store metadata draft (FaceRep)
-- **Name (26):** `FaceRep: Jawline Exercises`
-- **Subtitle (27):** `Face Yoga & Mewing Workouts` (was `Face Yoga for Men & Mewing`; the app now has a Woman picture set, so the listing is for both. Keep a men-first look in the screenshots if you like, and add a women-focused **custom product page** in App Store Connect with her screenshots for ads and search.)
-- **Keywords (97):** `double,chin,cheekbone,jaw,tongue,posture,glow,facial,fitness,men,women,workout,eye,skincare,coach`
-  (`looksmax` was dropped for `men,women`; it also kept distance from rating apps)
-- **Promotional text (160):** See the exact muscle you're training. A 3D anatomy guide and hold-relax timer coach every rep of a 28-day plan for jawline, cheekbones and eyes. Week 1 is free.
+- **Name (28):** `FaceRep: Face Yoga & Jawline` (recommended, 2026-10-08). Was `FaceRep: Jawline Exercises`, which reads
+  as men-only while women now see Lips first. The name is the strongest search field, so it now carries one term for each
+  audience: "face yoga" (large, mostly women, crowded: Luvly, FaceYogi) and "jawline" (mostly men, where FaceRep started).
+  Keeping the old name is also fine: then use the women-focused custom product page below for ads and search.
+  The name can only change with a new app version, so decide before the first submission.
+- **Subtitle (30):** `Lips, Cheeks & Mewing Workouts` (no word repeated from the name: Apple counts each word once
+  across name, subtitle and keywords)
+- **Keywords (100):** `double,chin,cheekbone,jaw,tongue,posture,facial,fitness,men,women,exercise,eye,massage,skincare,glow`
+  (`looksmax` was dropped for `men,women`; it also kept distance from rating apps. `face`, `yoga`, `jawline`, `lips`,
+  `cheeks`, `mewing`, `workouts` are already in the name and subtitle.)
+- **Promotional text (158):** See the muscle you train. Voice-guided face workouts for jawline, cheekbones, lips and eyes, with a 28-day plan and an optional camera mirror. Week 1 is free.
+- **Custom product page (women):** in App Store Connect → Custom Product Pages, same app, her screenshots (Woman pictures,
+  Lips program first) and promotional text that leads with lips and eyes. Use its link for ads aimed at women.
+- **Other languages:** name, subtitle, keywords, promotional text and description for Spanish, Portuguese (Brazil),
+  German, French and Italian are in [store-listing.md](store-listing.md).
 - **Category:** Health & Fitness (secondary: Lifestyle). **Age rating:** 13+.
 - **Subscriptions:** group "FaceRep Premium": "Premium Monthly" $3.99, "Premium Yearly" $29.99 with a 7-day free trial.
 - **Description:**
 
 ```
-FaceRep is facial fitness for men and women: short, guided workouts for your jawline, cheekbones and eye area. A few minutes a day.
+FaceRep is facial fitness for men and women: short, guided workouts for your jawline, cheekbones, lips and eye area, plus face massage. A few minutes a day.
 
 SEE THE MUSCLE YOU TRAIN
 Every exercise shows the working muscle lit up in red, moving from relaxed to squeeze in time with the timer. Choose whether the pictures show a man or a woman.
+
+FOLLOW ALONG WITHOUT LOOKING
+Voice cues tell you when to squeeze, relax and what comes next, so you can train with your eyes closed or your hands on your face. The screen stays on while you train. Turn on the mirror to see yourself next to the drawing and check your form: the camera picture is never recorded or saved.
 
 FIVE PROGRAMS, 27 EXERCISES
 • Jawline: jaw clench, chin lift, jaw jut, mewing, tongue press, chin tuck and neck stretch
@@ -49,7 +62,7 @@ FIVE PROGRAMS, 27 EXERCISES
 A 28-DAY PLAN
 • 4 weeks that get harder: more exercises, more reps, longer holds
 • Light days to recover, and a day only moves on when you've done it
-• Hold and relax timer with haptics
+• Hold and relax timer with voice cues and haptics
 • Streaks and a week, month and year calendar of your workouts
 • Reminders for workouts, mewing checks and posture breaks, on your days and times (or ask the Coach to set them)
 
@@ -65,32 +78,32 @@ SAFETY
 Move gently and stop if anything hurts. If you have jaw pain or a jaw joint problem, ask a doctor or dentist before jaw exercises. FaceRep is a fitness and wellness app, not medical advice. Results vary.
 
 SUBSCRIPTION
-Premium is available monthly or yearly. Payment is charged to your Apple ID and renews automatically unless cancelled at least 24 hours before the period ends. Manage it in your App Store account settings.
+Premium is available monthly or yearly. Payment is charged to your Apple Account and renews automatically unless cancelled at least 24 hours before the period ends. Manage it in your App Store account settings.
 
-The 3D figure and photos are AI-generated and show a fictional person.
+The exercise drawings and photos are AI-generated and show fictional people.
 
 Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 Privacy Policy: https://<your-worker-url>/privacy
 ```
 
-- **What's New (1.0):** First release: a 28-day plan for jawline, cheekbones and eyes with a 3D anatomy guide, streaks, and the AI Coach.
+- **What's New (1.0):** First release: a 28-day plan with five programs (jawline, cheekbones, lips, eyes and face massage), exercise drawings of a man or a woman, voice cues, a camera mirror, streaks and the AI Coach.
 
 Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Cheekbones`.
 
 ### Keyword map
 - Strong, crowded: face yoga, face exercise(s), jawline exercises, mewing, looksmax, double chin (dominated by photo editors).
-- **Gaps to own:** face yoga for men, cheekbone exercises, tongue posture, facial fitness, skincare for men, jawline workout.
+- **Gaps to own:** face yoga for men, cheekbone exercises, tongue posture, facial fitness, skincare for men, jawline workout, lip exercises, face massage.
 - **Never use:** competitor names (Luvly, FaceYogi, Umax…), "#1/best", "lose double chin in 7 days", "reshape bone", "anti-aging", "guaranteed", TMJ/therapy/treat, "rate my face", "PSL", "attractiveness score".
 
 ## 4. Screenshots and preview
 - Required size now: iPhone 6.3" Dynamic Island (1206×2622 or 1179×2556); up to 10 screenshots, first 3 matter most.
-- Plan: (1) 3D figure, masseter glowing: "See the muscle you train" · (2) the 28-day plan · (3) Hold-relax timer + streak · (4) AI Coach from the floating button (labelled Premium) · (5) Progress calendar · (6) "No login, no ads". One dark-mode shot. Captions 3–6 words.
+- Plan: (1) anatomy drawing, masseter glowing: "See the muscle you train" · (2) the 28-day plan · (3) Hold-relax timer + streak · (4) AI Coach from the floating button (labelled Premium) · (5) Progress calendar · (6) "No login, no ads". One dark-mode shot. Captions 3–6 words.
 - App Preview: 15–30 s, in-app footage only, muted autoplay. Open with the relaxed→squeeze glow in the first 2 seconds. No before/after faces.
 
 ## 5. What competitors get wrong (and FaceRep already does differently)
 Reviews complain about: price jumps and web-checkout funnels, charges after cancelling, AI avatar demos, paywalls right after onboarding, ads mid-workout, login failures, "random scores", can't delete photos, repetitive programs, joint/ear pain.
 FaceRep: free exercises, in-app pricing only, real anatomy visuals, no login, no ads, no scores, on-device data, safety + jaw caution.
-Next ideas: sound/voice cue toggle, a home-screen widget for the streak.
+Done since: voice cues, keep-screen-on, camera mirror, five languages. Next idea: a home-screen widget for the streak.
 
 ## 6. App Store rules: status
 | Rule | What it needs | Status |
@@ -105,15 +118,15 @@ Next ideas: sound/voice cue toggle, a home-screen widget for the streak.
 | 4.5.4 notifications | not required to use the app, no ads in them, ask at a sensible time | Only user-made reminders; permission asked when one is turned on; "Not now" works; no Time Sensitive/Critical alerts ✅ |
 | 2.5.2 self-contained | no downloaded code that changes features | `/plan` returns JSON data (days and exercise IDs), checked by the app; no code ✅ |
 | Free trial wording | "free trial" means the StoreKit trial | Week 1 is called "Week 1 is free", never a "trial" ✅ |
-| 4.3 spam | clearly different from existing apps | 3D anatomy + timer + AI Coach; keep updating |
+| 4.3 spam | clearly different from existing apps | Anatomy drawings (man or woman) + voice-guided timer + mirror + AI Coach; keep updating |
 | 5.1.1 privacy | policy in app + ASC, deletion route | `/privacy` page, Settings → Delete all data ✅ |
 | 5.1.2(i) third-party AI | disclose + explicit permission before sending | AI consent screen names Cloudflare Workers AI ✅ |
 | 1.2 objectification | no "hot or not" | No ratings, Coach refuses to rate looks ✅ |
 | Age rating | answer the new questionnaire | Suggest **13+** (wellness + occasional skin/medical info via AI) |
 
-**App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe). Workout history and reminders stay on device → not "collected". No tracking.
+**App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe). Workout history and reminders stay on device → not "collected". The mirror's camera picture is shown live and never stored or sent → not "collected". No tracking.
 
-**Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. Mention the picture choice: onboarding asks whether the exercise pictures show a man or a woman (display only, stays on the device; Settings → Exercise pictures). Mention reminders: Settings → Reminders (local notifications the user sets up; permission is asked when one is turned on), and the Coach can propose reminder changes that only apply after the user taps Confirm. Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 are Premium. On Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account; the days load from our server right after purchase, and tapping any day (e.g. Day 15) then shows its exercises and lets you start it. Settings → Restore restores the purchase." 
+**Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. The app is in English, Spanish, Portuguese (Brazil), German, French and Italian (it follows the iPhone's language; Settings → Language opens the per-app language page). Mention the mirror: the person button in the workout player (or Settings → Mirror in workouts) shows the front camera next to the drawing; the camera permission is asked only then, and nothing is recorded, saved or sent. Mention the picture choice: onboarding asks whether the exercise pictures show a man or a woman (display only, stays on the device; Settings → Exercise pictures). Mention reminders: Settings → Reminders (local notifications the user sets up; permission is asked when one is turned on), and the Coach can propose reminder changes that only apply after the user taps Confirm. Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 are Premium. On Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account; the days load from our server right after purchase, and tapping any day (e.g. Day 15) then shows its exercises and lets you start it. Settings → Restore restores the purchase." 
 
 ## 7. Keeping the developer account safe
 Accounts get terminated for: hidden features or server switches that change the app after review, fake reviews or rating manipulation, bait-and-switch or confusing subscriptions, copying other apps or names, misleading health claims.

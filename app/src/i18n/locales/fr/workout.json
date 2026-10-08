@@ -1,0 +1,53 @@
+{
+  "phase": {
+    "ready": "En place",
+    "hold": "Contracte",
+    "hold_massage": "Massage",
+    "relax": "Relâche",
+    "rest": "Suivant",
+    "done": "Terminé"
+  },
+  "rep": "Rép. {{rep}} sur {{reps}}",
+  "exerciseOf": "{{index}} sur {{total}}",
+  "pause": "Pause",
+  "resume": "Reprendre",
+  "skip": "Passer",
+  "end": "Terminer la séance",
+  "paused": "En pause",
+  "voiceCues": "Guidage vocal",
+  "mirror": "Miroir",
+  "mirrorA11y": "Miroir : ta caméra avant. Rien n'est enregistré.",
+  "mirrorDenied": {
+    "title": "Accès à la caméra désactivé",
+    "body": "Pour utiliser le miroir, autorise l'accès à l'appareil photo pour {{app}} dans Réglages. La caméra sert uniquement de miroir : rien n'est enregistré ni sauvegardé.",
+    "open": "Ouvrir Réglages",
+    "cancel": "Plus tard"
+  },
+  "endConfirm": {
+    "title": "Terminer cette séance ?",
+    "body": "Les exercices déjà faits compteront quand même.",
+    "end": "Terminer",
+    "keep": "Continuer"
+  },
+  "complete": {
+    "title": "Séance terminée",
+    "body": "{{reps}} rép. en {{time}}.",
+    "streak_one": "Série de {{count}} jour",
+    "streak_other": "Série de {{count}} jours",
+    "nothing": "Aucune répétition terminée cette fois. Retente le coup !",
+    "done": "OK"
+  },
+  "a11y": {
+    "timer": "{{phase}}, {{seconds}} secondes restantes"
+  },
+  "voice": {
+    "start": "Prépare-toi. {{name}}.",
+    "next": "Exercice suivant : {{name}}.",
+    "hold": "Contracte",
+    "hold_massage": "Massage",
+    "holdLast": "Une dernière. Contracte.",
+    "holdLast_massage": "Une dernière. Massage.",
+    "relax": "Relâche",
+    "done": "Séance terminée. Beau travail."
+  }
+}

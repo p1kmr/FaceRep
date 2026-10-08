@@ -1,0 +1,62 @@
+{
+  "greeting": "Iniziamo l'allenamento di oggi?",
+  "doneGreeting": "Allenamento di oggi fatto. Ottimo lavoro.",
+  "streak_one": "Serie di {{count}} giorno",
+  "streak_other": "Serie di {{count}} giorni",
+  "noStreak": "Inizia la tua serie oggi",
+  "plan": {
+    "header": "Settimana {{week}} · Giorno {{day}} di {{total}}",
+    "level": "Livello {{level}}",
+    "weeks": {
+      "learn": "Impara i movimenti",
+      "build": "Costruisci la base",
+      "strengthen": "Rafforza",
+      "peak": "Settimana di picco"
+    },
+    "light": "Giorno leggero: allungamento e recupero",
+    "final": "Ultimo giorno del livello",
+    "meta": "{{exercises}} · {{minutes}}",
+    "start": "Inizia il giorno {{day}}",
+    "startLevel": "Inizia il livello {{level}}",
+    "levelDone": "Livello {{level}} completato: tutti i 28 giorni fatti.",
+    "practice": "Allenati di nuovo",
+    "doneToday": "Giorno {{day}} fatto. Il giorno {{next}} si sblocca domani.",
+    "doneLevelToday": "Livello {{level}} completato. Il livello {{next}} inizia domani.",
+    "doneFreeWeek": "Settimana 1 fatta. Le settimane da 2 a 4 fanno parte di Premium.",
+    "locked": {
+      "title": "Le settimane da 2 a 4 sono Premium",
+      "body": "Ogni settimana aggiunge esercizi, ripetizioni e tempo di tenuta. La settimana 1 e ogni singolo esercizio restano gratis.",
+      "cta": "Sblocca il piano completo"
+    },
+    "loading": "Caricamento del resto del piano…",
+    "error": {
+      "offline": "Connettiti a internet una volta per caricare il resto del piano. Dopo funziona anche offline.",
+      "premium": "Non è stato ancora possibile confermare il tuo abbonamento. Riprova tra un minuto, oppure usa Ripristina acquisti in Impostazioni.",
+      "server": "Non è stato possibile caricare il piano. Riprova tra poco.",
+      "retry": "Riprova"
+    },
+    "preview": {
+      "practice": "Allenati con il giorno {{day}}",
+      "practiceNote": "Allenarti con questo giorno non fa avanzare il piano. Il prossimo è il giorno {{day}}.",
+      "practiceNoteDone": "Allenarti con questo giorno non fa avanzare il piano. Il prossimo giorno si sblocca domani.",
+      "doneOn": "Completato: {{date}}",
+      "today": "Oggi, {{date}}",
+      "plannedFor": "Previsto per {{date}} se ti alleni ogni giorno"
+    },
+    "grid": {
+      "title": "Il tuo piano di 28 giorni",
+      "hint": "I numeri sono date: rossi se completati, cerchiati per oggi. I giorni futuri mostrano quando cadono se ti alleni ogni giorno. Tocca un giorno per vederne gli esercizi.",
+      "week": "S{{week}}",
+      "cell": {
+        "done": "Giorno {{day}}, completato",
+        "today": "Giorno {{day}}, oggi",
+        "upcoming": "Giorno {{day}}",
+        "locked": "Giorno {{day}}, Premium"
+      }
+    }
+  },
+  "coachCard": {
+    "title": "Chiedi al Coach",
+    "body": "Domande sulla tecnica, sul mewing o su una semplice routine di skincare?"
+  }
+}

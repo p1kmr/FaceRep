@@ -1,0 +1,279 @@
+{
+  "title": "Ejercicios",
+  "programIntro": {
+    "jawline": "Masetero, barbilla y cuello para una mandíbula de aspecto más definido.",
+    "cheekbones": "Eleva y tonifica los músculos alrededor de las mejillas y la boca.",
+    "lips": "Los músculos alrededor de los labios y de las comisuras de la boca.",
+    "eyes": "Músculos de la frente, las cejas y los ojos, ideal después de muchas horas frente a la pantalla.",
+    "massage": "Masaje suave con las yemas de los dedos para relajar la mandíbula, las cejas y las sienes. Manos limpias y presión ligera."
+  },
+  "muscles": {
+    "masseter": "Masetero",
+    "platysma": "Platisma",
+    "deepNeck": "Flexores profundos del cuello",
+    "underChin": "Músculos bajo la barbilla",
+    "mentalis": "Mentoniano",
+    "tongue": "Postura de la lengua",
+    "neck": "Lateral del cuello",
+    "zygomaticus": "Cigomático",
+    "buccinator": "Buccinador",
+    "lips": "Labios",
+    "frontalis": "Frontal",
+    "orbicularisOculi": "Orbicular de los ojos",
+    "eyelids": "Párpados superiores",
+    "corrugator": "Entrecejo",
+    "temporalis": "Sienes"
+  },
+  "detail": {
+    "how": "Cómo hacerlo",
+    "plan": "{{reps}} repeticiones · mantén {{hold}} s · relaja {{relax}} s",
+    "start": "Empezar ejercicio",
+    "jawCaution": "Sáltate este ejercicio si tienes dolor de mandíbula, chasquidos o un problema de ATM.",
+    "handsCaution": "Usa las manos limpias y presión ligera. Evita la piel irritada y no presiones una zona tratada hace poco con bótox o rellenos."
+  },
+  "items": {
+    "jawClench": {
+      "name": "Apretón de mandíbula",
+      "cue": "Aprieta las muelas y siente cómo se marcan los músculos de la mandíbula.",
+      "steps": [
+        "Siéntate con la espalda recta, los labios cerrados y los hombros relajados.",
+        "Muerde con las muelas usando más o menos la mitad de tu fuerza.",
+        "Mantén y siente cómo se tensa el músculo delante de la oreja; luego suelta despacio."
+      ]
+    },
+    "chinLift": {
+      "name": "Elevación de barbilla",
+      "cue": "Inclina la cabeza hacia atrás y sube el labio inferior por encima del superior.",
+      "steps": [
+        "Siéntate o ponte de pie con la espalda recta.",
+        "Inclina la cabeza hacia atrás hasta mirar al techo.",
+        "Sube el labio inferior por encima del superior y siente el estiramiento en la parte delantera del cuello."
+      ]
+    },
+    "jawJut": {
+      "name": "Mandíbula al frente",
+      "cue": "Lleva la mandíbula hacia adelante y levanta un poco la barbilla.",
+      "steps": [
+        "Mira al frente y luego levanta un poco la barbilla.",
+        "Desliza la mandíbula hacia adelante hasta notar un estiramiento bajo la barbilla.",
+        "Mantén y luego lleva la mandíbula hacia atrás despacio."
+      ]
+    },
+    "mewing": {
+      "name": "Mewing",
+      "cue": "Apoya toda la lengua, plana, contra el paladar.",
+      "steps": [
+        "Cierra los labios y junta los dientes suavemente.",
+        "Coloca toda la lengua, incluida la parte de atrás, contra el paladar.",
+        "Respira por la nariz y mantén la posición sin forzar."
+      ]
+    },
+    "neckStretch": {
+      "name": "Estiramiento lateral de cuello",
+      "cue": "Inclina la oreja hacia el hombro y mantén los hombros abajo.",
+      "steps": [
+        "Siéntate con la espalda recta y baja los hombros.",
+        "Inclina despacio la oreja derecha hacia el hombro derecho.",
+        "Mantén el estiramiento, vuelve al centro y cambia de lado en la siguiente repetición."
+      ]
+    },
+    "cheekLift": {
+      "name": "Elevación de mejillas",
+      "cue": "Sonríe ampliamente con los labios cerrados y sube las mejillas hacia los ojos.",
+      "steps": [
+        "Mantén los labios cerrados.",
+        "Sonríe todo lo que puedas y empuja las mejillas hacia los ojos.",
+        "Mantén y luego relaja la cara por completo."
+      ]
+    },
+    "fishFace": {
+      "name": "Cara de pez",
+      "cue": "Hunde las mejillas hacia dentro y frunce los labios.",
+      "steps": [
+        "Hunde las mejillas hacia dentro, entre los dientes.",
+        "Frunce los labios como un pez.",
+        "Mantén, luego suelta y relaja."
+      ]
+    },
+    "cheekPuff": {
+      "name": "Mejillas infladas",
+      "cue": "Llena las mejillas de aire y mantenlas redondas.",
+      "steps": [
+        "Toma aire y cierra los labios.",
+        "Lleva el aire a las dos mejillas para que se inflen.",
+        "Mantén y luego suelta el aire despacio."
+      ]
+    },
+    "browLift": {
+      "name": "Elevación de cejas",
+      "cue": "Levanta las cejas lo más alto que puedas.",
+      "steps": [
+        "Mira al frente con la cara relajada.",
+        "Levanta las cejas lo más alto que puedas.",
+        "Mantén y luego bájalas despacio."
+      ]
+    },
+    "eyeSqueeze": {
+      "name": "Ojos apretados",
+      "cue": "Cierra los ojos con fuerza y luego suelta despacio.",
+      "steps": [
+        "Relaja la frente.",
+        "Cierra los ojos y apriétalos.",
+        "Mantén y luego ábrelos despacio."
+      ]
+    },
+    "chinTuck": {
+      "name": "Retracción de barbilla",
+      "cue": "Lleva la cabeza recta hacia atrás hasta formar una pequeña papada.",
+      "steps": [
+        "Siéntate o ponte de pie con la espalda recta, los hombros abajo y la mirada al frente.",
+        "Desliza la cabeza recta hacia atrás, como si un hilo tirara de tu nuca, hasta que las orejas queden alineadas sobre los hombros.",
+        "Mantén sin subir ni bajar la barbilla y luego vuelve hacia adelante despacio."
+      ]
+    },
+    "tonguePress": {
+      "name": "Presión de lengua",
+      "cue": "Presiona la lengua contra el paladar y tararea.",
+      "steps": [
+        "Siéntate con la espalda recta, los labios cerrados y los dientes un poco separados.",
+        "Presiona con firmeza toda la lengua contra el paladar, justo detrás de los dientes delanteros.",
+        "Tararea suavemente y siente cómo se tensan los músculos bajo la barbilla. Mantén y luego relaja la lengua."
+      ]
+    },
+    "smilingFish": {
+      "name": "Pez sonriente",
+      "cue": "Pon cara de pez y luego sube las comisuras de la boca en una sonrisa.",
+      "steps": [
+        "Hunde las mejillas entre los dientes y frunce los labios.",
+        "Mantén la cara de pez y sube las comisuras de la boca para sonreír.",
+        "Mantén y siente cómo suben las mejillas; luego relaja toda la cara."
+      ]
+    },
+    "oStretch": {
+      "name": "Estiramiento en O",
+      "cue": "Abre la boca formando una O alargada y cubre los dientes con los labios.",
+      "steps": [
+        "Mira al frente y mantén la frente relajada.",
+        "Abre la boca formando una O alta y cubre los dientes con los labios.",
+        "Mantén y siente cómo se estira la cara; luego cierra la boca despacio."
+      ]
+    },
+    "lionFace": {
+      "name": "Cara de león",
+      "cue": "Abre bien la boca, saca la lengua y abre mucho los ojos.",
+      "steps": [
+        "Inhala por la nariz.",
+        "Exhala mientras abres bien la boca, estiras la lengua hacia la barbilla y abres mucho los ojos.",
+        "Mantén el estiramiento y luego cierra la boca y relájate. No fuerces la mandíbula a abrirse más de lo que te resulte cómodo."
+      ]
+    },
+    "wideEyes": {
+      "name": "Ojos bien abiertos",
+      "cue": "Abre los ojos todo lo que puedas sin levantar las cejas.",
+      "steps": [
+        "Apoya suavemente la yema de un dedo sobre cada ceja si te ayuda a mantener la frente quieta.",
+        "Abre los ojos todo lo que puedas, como si te sorprendieras, sin levantar las cejas.",
+        "Mantén la mirada fija en un punto y luego relaja los ojos."
+      ]
+    },
+    "lowerLidLift": {
+      "name": "Elevación de párpado inferior",
+      "cue": "Mira hacia arriba y sube los párpados inferiores, como si entrecerraras los ojos al sol.",
+      "steps": [
+        "Mantén la cabeza recta y mira un poco hacia arriba.",
+        "Sube solo los párpados inferiores, como si entrecerraras los ojos ante una luz intensa. Mantén la frente relajada.",
+        "Mantén y luego deja que los párpados inferiores bajen despacio."
+      ]
+    },
+    "lipPress": {
+      "name": "Presión de labios",
+      "cue": "Presiona los labios entre sí y mételos suavemente hacia dentro.",
+      "steps": [
+        "Cierra la boca y mantén la mandíbula relajada.",
+        "Presiona los labios entre sí y mételos un poco hacia dentro, sobre los dientes.",
+        "Mantén y luego deja que los labios se relajen."
+      ]
+    },
+    "pout": {
+      "name": "Labios en beso",
+      "cue": "Lleva los labios hacia adelante todo lo que puedas, como si dieras un beso.",
+      "steps": [
+        "Separa un poco los dientes y relaja la cara.",
+        "Lleva los labios hacia adelante todo lo que te resulte cómodo, como si lanzaras un beso.",
+        "Mantén y luego relaja los labios."
+      ]
+    },
+    "lipCornerLift": {
+      "name": "Elevación de comisuras",
+      "cue": "Con los labios cerrados, sube solo las comisuras de la boca.",
+      "steps": [
+        "Mantén los labios cerrados y las mejillas relajadas.",
+        "Sube solo las comisuras de la boca en una pequeña sonrisa.",
+        "Mantén y luego deja que las comisuras bajen."
+      ]
+    },
+    "smileLinePress": {
+      "name": "Sonrisa con presión",
+      "cue": "Con las yemas sobre las líneas de la sonrisa, sonríe contra una ligera presión.",
+      "steps": [
+        "Apoya suavemente los dedos índices sobre las líneas que van de la nariz a las comisuras de la boca.",
+        "Sonríe ampliamente mientras los dedos sujetan la piel con suavidad.",
+        "Mantén y luego relaja la sonrisa y los dedos."
+      ]
+    },
+    "foreheadPress": {
+      "name": "Presión en la frente",
+      "cue": "Con las palmas en la frente, sube las cejas contra una ligera presión.",
+      "steps": [
+        "Apoya las dos palmas planas sobre la frente, justo encima de las cejas.",
+        "Intenta subir las cejas mientras las manos sujetan la piel con suavidad.",
+        "Mantén y luego relaja la frente."
+      ]
+    },
+    "vEyes": {
+      "name": "Ojos en V",
+      "cue": "Dedos en V alrededor de los ojos; mira hacia arriba y entrecierra los ojos.",
+      "steps": [
+        "Presiona suavemente con los dedos medios el extremo interior de las cejas y con los índices el extremo exterior, formando una V.",
+        "Mira hacia arriba y sube con firmeza los párpados inferiores, entrecerrando los ojos.",
+        "Mantén y luego relaja los ojos."
+      ]
+    },
+    "jawRelease": {
+      "name": "Relajación de mandíbula",
+      "cue": "Círculos lentos con las yemas sobre el músculo de la mandíbula, con los dientes separados.",
+      "steps": [
+        "Separa los dientes y deja la mandíbula suelta.",
+        "Busca el músculo en la parte de atrás de cada mejilla y presiona suavemente con las yemas de los dedos.",
+        "Haz círculos lentos y luego descansa las manos."
+      ]
+    },
+    "jawlineSweep": {
+      "name": "Barrido de mandíbula",
+      "cue": "Desliza los nudillos desde la barbilla, por la mandíbula, hasta las orejas.",
+      "steps": [
+        "Cierra las manos sin apretar y coloca los nudillos bajo el centro de la barbilla.",
+        "Deslízalos despacio por el contorno de la mandíbula hasta justo debajo de las orejas.",
+        "Retira las manos y vuelve a empezar desde la barbilla."
+      ]
+    },
+    "frownRelease": {
+      "name": "Relajación del ceño",
+      "cue": "Alisa desde el entrecejo hacia las sienes.",
+      "steps": [
+        "Coloca las yemas de los dedos entre las cejas.",
+        "Deslízalas despacio hacia afuera, por encima de las cejas, hasta las sienes.",
+        "Retira las manos y vuelve a empezar desde el centro."
+      ]
+    },
+    "templeCircles": {
+      "name": "Círculos en las sienes",
+      "cue": "Círculos lentos y suaves sobre las sienes.",
+      "steps": [
+        "Coloca las yemas de los dedos en las sienes, al lado de los ojos.",
+        "Haz círculos lentos con presión ligera mientras sueltas el aire despacio.",
+        "Descansa las manos y repite."
+      ]
+    }
+  }
+}

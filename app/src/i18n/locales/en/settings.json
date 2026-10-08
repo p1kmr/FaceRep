@@ -13,12 +13,18 @@
   "remindersOn_one": "{{count}} on",
   "remindersOn_other": "{{count}} on",
   "haptics": "Haptics",
+  "voiceCues": "Voice cues",
+  "voiceCuesHint": "Says Squeeze, Relax and what's next, so you can follow along with your eyes closed.",
+  "mirror": "Mirror in workouts",
+  "mirrorHint": "Your front camera next to the figure. Nothing is recorded or saved.",
   "theme": {
     "title": "Theme",
     "system": "System",
     "light": "Light",
     "dark": "Dark"
   },
+  "language": "Language",
+  "languageHint": "Change it in the Settings app.",
   "premium": {
     "active": "Premium is active",
     "upgrade": "Get Premium",

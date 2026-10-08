@@ -1,0 +1,47 @@
+{
+  "title": "Promemoria",
+  "intro": "Promemoria per allenamento, mewing e postura nei giorni e agli orari che scegli. Le notifiche restano sul tuo iPhone.",
+  "add": "Aggiungi promemoria",
+  "count": "{{count}} promemoria su {{max}}",
+  "empty": "Ancora nessun promemoria.",
+  "kinds": {
+    "workout": "Allenamento",
+    "mewing": "Controllo mewing",
+    "posture": "Pausa postura",
+    "custom": "Personalizzato"
+  },
+  "days": {
+    "everyDay": "Ogni giorno",
+    "weekdays": "Giorni feriali",
+    "weekends": "Weekend"
+  },
+  "summary": "{{days}} · {{times}}",
+  "toggle": "Attiva o disattiva {{title}}",
+  "edit": {
+    "newTitle": "Nuovo promemoria",
+    "editTitle": "Modifica promemoria",
+    "type": "Tipo",
+    "name": "Nome",
+    "namePlaceholder": "{{name}}",
+    "times": "Orari",
+    "addTime": "Aggiungi un orario",
+    "everyTwoHours": "Ogni 2 ore, 10:00–18:00",
+    "removeTime": "Rimuovi {{time}}",
+    "days": "Giorni",
+    "save": "Salva",
+    "delete": "Elimina promemoria",
+    "deleteConfirm": "Eliminare questo promemoria?",
+    "time": "Orario {{n}}"
+  },
+  "errors": {
+    "noDays": "Scegli almeno un giorno.",
+    "tooMany": "Puoi avere fino a {{max}} promemoria. Eliminane uno per aggiungerne un altro.",
+    "tooManyTimes": "Sono più notifiche di quante un iPhone ne conservi per una sola app. Usa meno orari o meno giorni."
+  },
+  "permission": {
+    "off": "Le notifiche sono disattivate per {{app}}, quindi i promemoria non possono comparire.",
+    "open": "Apri Impostazioni",
+    "deniedTitle": "Notifiche disattivate",
+    "denied": "Attiva le notifiche per {{app}} nell'app Impostazioni dell'iPhone per ricevere i promemoria."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "headline": "Desbloquea el plan completo",
+  "subhead": "La semana 1 es gratis. Premium añade el resto de tu plan de 28 días y el Coach con IA.",
+  "benefits": {
+    "plan": "Semanas 2 a 4: más ejercicios, repeticiones y tiempo de contracción cada semana",
+    "levels": "Niveles 2 y 3 al terminar, y nuevas rondas después",
+    "coach": "Respuestas ilimitadas del Coach con IA sobre técnica y rutina"
+  },
+  "aiNote": "Las preguntas al Coach las responde una IA (Cloudflare Workers AI). Te pediremos permiso antes de tu primera pregunta.",
+  "plans": { "monthly": "Mensual", "yearly": "Anual" },
+  "perMonth": "al mes",
+  "perYear": "al año",
+  "perMonthPrice": "{{price}} / mes",
+  "bestValue": "Mejor precio",
+  "bestValueSave": "Ahorra un {{percent}} %",
+  "startTrial": "Empezar prueba gratis",
+  "continue": "Continuar",
+  "trialThen_one": "{{count}} día gratis, luego {{price}} al {{period}}. Cancela cuando quieras.",
+  "trialThen_other": "{{count}} días gratis, luego {{price}} al {{period}}. Cancela cuando quieras.",
+  "month": "mes",
+  "year": "año",
+  "cancelAnytime": "Se renueva automáticamente. Cancela cuando quieras en Ajustes.",
+  "renewal": "El pago se carga a tu Cuenta de Apple. La suscripción se renueva automáticamente a menos que se cancele al menos 24 horas antes de que termine el periodo. Puedes gestionarla o cancelarla en los ajustes de tu cuenta del App Store.",
+  "restoreButton": "Restaurar",
+  "terms": "Términos de uso",
+  "privacy": "Privacidad",
+  "close": "Cerrar",
+  "errors": {
+    "unavailableTitle": "No disponible",
+    "unavailable": "No se pudieron cargar los planes. Revisa tu conexión e inténtalo de nuevo.",
+    "failedTitle": "Error en la compra"
+  },
+  "restore": {
+    "doneTitle": "Compra restaurada",
+    "done": "Tu suscripción Premium vuelve a estar activa.",
+    "noneTitle": "Nada que restaurar",
+    "none": "No encontramos ninguna suscripción activa para esta Cuenta de Apple.",
+    "failedTitle": "Error al restaurar",
+    "failed": "Revisa tu conexión e inténtalo de nuevo."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "kinds": {
+    "workout": {
+      "title": "Zeit für dein Gesichtstraining",
+      "body": "5 Minuten reichen, um deine Serie zu halten."
+    },
+    "mewing": {
+      "title": "Mewing-Check",
+      "body": "Ganze Zunge an den Gaumen, Lippen zu, durch die Nase atmen."
+    },
+    "posture": {
+      "title": "Haltungspause",
+      "body": "Kinn einziehen: Ohren über die Schultern, Kinn sanft nach hinten. 5 Sekunden halten."
+    },
+    "custom": {
+      "title": "Erinnerung",
+      "body": "Aus deinen {{app}}-Erinnerungen."
+    }
+  }
+}
