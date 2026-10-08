@@ -175,7 +175,7 @@ AI Coach answers are generated automatically and may be wrong.</p>
 
 <h2>Premium subscriptions and purchases</h2>
 <ul>
-  <li>Premium is offered as auto-renewing monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
+  <li>Premium is offered as auto-renewing weekly, monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
   <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and unlimited
   AI Coach answers (daily fair-use limits apply). The Premium part of the plan is loaded from our server, so the first time
   it needs an internet connection.</li>

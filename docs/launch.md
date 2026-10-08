@@ -40,7 +40,8 @@ Research done 2026-10-06 (App Store lookup/search APIs, USPTO, Apple guidelines 
 - **Other languages:** name, subtitle, keywords, promotional text and description for Spanish, Portuguese (Brazil),
   German, French and Italian are in [store-listing.md](store-listing.md).
 - **Category:** Health & Fitness (secondary: Lifestyle). **Age rating:** 13+.
-- **Subscriptions:** group "FaceRep Premium": "Premium Monthly" $3.99, "Premium Yearly" $29.99 with a 7-day free trial.
+- **Subscriptions:** group "FaceRep Premium": "Premium Weekly" $1.99 (no trial), "Premium Monthly" $3.99,
+  "Premium Yearly" $29.99 with a 7-day free trial (pre-selected). Reasons and paywall rules in docs/premium.md §6.
 - **Description:**
 
 ```
@@ -78,7 +79,7 @@ SAFETY
 Move gently and stop if anything hurts. If you have jaw pain or a jaw joint problem, ask a doctor or dentist before jaw exercises. FaceRep is a fitness and wellness app, not medical advice. Results vary.
 
 SUBSCRIPTION
-Premium is available monthly or yearly. Payment is charged to your Apple Account and renews automatically unless cancelled at least 24 hours before the period ends. Manage it in your App Store account settings.
+Premium is available weekly, monthly or yearly. Payment is charged to your Apple Account and renews automatically unless cancelled at least 24 hours before the period ends. Manage it in your App Store account settings.
 
 The exercise drawings and photos are AI-generated and show fictional people.
 

@@ -3,12 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 
 import { haptics } from '@/services/haptics';
-import {
-  FALLBACK_PRICES,
-  freeTrialDays,
-  yearlySavePercent,
-  type PlanId,
-} from '@/services/purchases/plans';
+import { FALLBACK_PRICES, freeTrialDays, visiblePlanIds, yearlySavePercent, type PlanId } from '@/services/purchases/plans';
 import { isUserCancelled, purchasePlan, restorePurchases } from '@/services/purchases/purchases';
 import { setPremium } from '@/state/premium/actions';
 
@@ -18,7 +13,7 @@ export interface PlanCard {
   id: PlanId;
   title: string;
   price: string;
-  /** e.g. "per month" or "$2.49 / month". */
+  /** e.g. "per week", "per month" or "$2.49 / month". */
   subtitle: string;
   badge: string | null;
   trialDays: number | null;
@@ -34,15 +29,18 @@ export function usePaywall(onSuccess: () => void) {
 
   const cards = useMemo<PlanCard[]>(() => {
     const save = yearlySavePercent(plans);
-    return (['monthly', 'yearly'] as PlanId[]).map((id) => {
+    return visiblePlanIds(plans, ready).map((id) => {
       const plan = plans[id];
       const trialDays = plan ? freeTrialDays(plan.intro) : null;
+      // Weekly shows only its billed price: a "per month" figure next to it would read as the price.
       const subtitle =
-        id === 'monthly'
-          ? t('perMonth')
-          : plan?.pricePerMonthString
-            ? t('perMonthPrice', { price: plan.pricePerMonthString })
-            : t('perYear');
+        id === 'weekly'
+          ? t('perWeek')
+          : id === 'monthly'
+            ? t('perMonth')
+            : plan?.pricePerMonthString
+              ? t('perMonthPrice', { price: plan.pricePerMonthString })
+              : t('perYear');
       return {
         id,
         title: t(`plans.${id}`),
@@ -54,7 +52,7 @@ export function usePaywall(onSuccess: () => void) {
         available: !!plan,
       };
     });
-  }, [plans, t]);
+  }, [plans, ready, t]);
 
   const succeed = () => {
     dispatch(setPremium(true));

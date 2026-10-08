@@ -7,7 +7,12 @@
     "coach": "Unbegrenzt Antworten vom KI-Coach zu Technik und Routine"
   },
   "aiNote": "Coach-Fragen beantwortet eine KI (Cloudflare Workers AI). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.",
-  "plans": { "monthly": "Monatlich", "yearly": "Jährlich" },
+  "plans": {
+    "weekly": "Wöchentlich",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich"
+  },
+  "perWeek": "pro Woche",
   "perMonth": "pro Monat",
   "perYear": "pro Jahr",
   "perMonthPrice": "{{price}} / Monat",
@@ -17,6 +22,7 @@
   "continue": "Weiter",
   "trialThen_one": "{{count}} Tag gratis, danach {{price}} pro {{period}}. Jederzeit kündbar.",
   "trialThen_other": "{{count}} Tage gratis, danach {{price}} pro {{period}}. Jederzeit kündbar.",
+  "week": "Woche",
   "month": "Monat",
   "year": "Jahr",
   "cancelAnytime": "Verlängert sich automatisch. Jederzeit in den Einstellungen kündbar.",

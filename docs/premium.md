@@ -34,7 +34,7 @@ iPhone app ── purchase/restore (react-native-purchases, public appl_ key) �
 | File | Role |
 |---|---|
 | `services/purchases/purchases.ts` | **The only file that imports `react-native-purchases`.** Public key `EXPO_PUBLIC_RC_IOS_KEY` (via `constants/config.ts`); entitlement `premium`. |
-| `services/purchases/plans.ts` | Store-neutral plans (`$rc_monthly`, `$rc_annual`), fallback prices, free-trial days, "Save X%". |
+| `services/purchases/plans.ts` | Store-neutral plans (`$rc_weekly`, `$rc_monthly`, `$rc_annual`), which ones to show, fallback prices, free-trial days, "Save X%" (yearly vs monthly). |
 | `state/premium/*` | Reducer: `ready`, `isPremium`, `plans`, `appUserId`, `aiUsage`. Tests in `__tests__/reducer.test.ts`. |
 | `state/premium/PremiumProvider.tsx` | Single-flight init. **Always ends with `ready`**, even offline; failures leave the user on Free. |
 | `hooks/usePremium.ts`, `hooks/usePaywall.ts` | What screens read; plan cards, buy, restore, double-tap guard. |
@@ -102,9 +102,27 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 ⚠️ The cloud environment these files were written in has Elowa's `EXPO_PUBLIC_AI_URL` and `EXPO_PUBLIC_RC_IOS_KEY` set. FaceRep needs its own values.
 
 ## 6. Store setup (outside the code)
-- App Store Connect: subscription group **Premium**: Monthly **$3.99** and Yearly **$29.99** (7-day free trial on yearly), attached to the first app version.
-- RevenueCat (**done 2026-10-07 via MCP**): project **FaceRep** (`proj88dfbdbb`), App Store app `com.p1kmr.facerep`, entitlement `premium` on products **`facerep_premium_monthly`** and **`facerep_premium_yearly`**, current offering `default` with `$rc_monthly` and `$rc_annual`. Still to do in the RevenueCat dashboard: the App Store Connect API key / In-App Purchase key, and a **v1 secret key** for the Worker.
-- The App Store Connect product IDs must be exactly `facerep_premium_monthly` and `facerep_premium_yearly`.
+- App Store Connect: subscription group **Premium** with three plans, attached to the first app version:
+
+  | Plan | Product ID | Price | Trial | Why |
+  |---|---|---|---|---|
+  | Weekly | `facerep_premium_weekly` | **$1.99** | none | A short try. About $8.60 a month if kept (52 weeks ÷ 12). |
+  | Monthly | `facerep_premium_monthly` | **$3.99** | none | Less than half the cost of paying weekly. |
+  | Yearly | `facerep_premium_yearly` | **$29.99** | 7 days free | About $2.50 a month, 37% under monthly. Pre-selected. |
+
+  Rank them in the group Yearly, Monthly, Weekly (Apple uses the order for upgrades and downgrades). Other
+  countries: Apple's price equalization from the US price, or set them by hand.
+- Paywall rules for the weekly plan: it shows only its billed price ("$1.99 per week", never a per-month figure
+  that could read as the price); it has no trial; "Save X%" on yearly is measured against **monthly**, never weekly
+  (vs weekly it would say 71%, which would be a misleading anchor). A plan the store doesn't return is hidden
+  (`visiblePlanIds`), so the app can ship before the weekly product exists in App Store Connect.
+- RevenueCat (**done via MCP**, monthly/yearly 2026-10-07, weekly 2026-10-08): project **FaceRep** (`proj88dfbdbb`),
+  App Store app `com.p1kmr.facerep`, entitlement `premium` on products **`facerep_premium_weekly`**,
+  **`facerep_premium_monthly`** and **`facerep_premium_yearly`**, current offering `default` with `$rc_weekly`,
+  `$rc_monthly` and `$rc_annual`. Still to do in the RevenueCat dashboard: the App Store Connect API key /
+  In-App Purchase key, and a **v1 secret key** for the Worker.
+- The App Store Connect product IDs must be exactly `facerep_premium_weekly`, `facerep_premium_monthly` and
+  `facerep_premium_yearly`.
 - Prices and "Save X%" come from the store; `FALLBACK_PRICES` only show while loading and never claim a trial.
 
 ## 7. Known limits

@@ -7,7 +7,12 @@
     "coach": "Risposte illimitate del Coach IA su tecnica e routine"
   },
   "aiNote": "Alle domande per il Coach risponde un'IA (Cloudflare Workers AI). Ti chiederemo il permesso prima della tua prima domanda.",
-  "plans": { "monthly": "Mensile", "yearly": "Annuale" },
+  "plans": {
+    "weekly": "Settimanale",
+    "monthly": "Mensile",
+    "yearly": "Annuale"
+  },
+  "perWeek": "a settimana",
   "perMonth": "al mese",
   "perYear": "all'anno",
   "perMonthPrice": "{{price}} / mese",
@@ -17,6 +22,7 @@
   "continue": "Continua",
   "trialThen_one": "{{count}} giorno gratis, poi {{price}} ogni {{period}}. Annulla quando vuoi.",
   "trialThen_other": "{{count}} giorni gratis, poi {{price}} ogni {{period}}. Annulla quando vuoi.",
+  "week": "settimana",
   "month": "mese",
   "year": "anno",
   "cancelAnytime": "Si rinnova automaticamente. Annulla quando vuoi in Impostazioni.",

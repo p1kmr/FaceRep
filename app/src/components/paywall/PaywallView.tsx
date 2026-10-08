@@ -9,7 +9,7 @@ import { LINKS } from '@/constants/links';
 import { useGuideImages } from '@/hooks/useGuide';
 import type { PlanCard } from '@/hooks/usePaywall';
 import { useTheme } from '@/hooks/useTheme';
-import type { PlanId } from '@/services/purchases/plans';
+import { PLAN_PERIOD, type PlanId } from '@/services/purchases/plans';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { AppText } from '../ui/AppText';
@@ -42,11 +42,12 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
   const styles = useStyles();
   const [selected, setSelected] = useState<PlanId>('yearly');
   const { hero } = useGuideImages();
-  const card = cards.find((c) => c.id === selected) ?? cards[0];
+  // Yearly is pre-selected; if the store doesn't sell it, the last plan shown.
+  const card = cards.find((c) => c.id === selected) ?? cards[cards.length - 1];
   const trial = card.trialDays;
 
   const footnote = trial
-    ? t('trialThen', { count: trial, price: card.price, period: t(card.id === 'monthly' ? 'month' : 'year') })
+    ? t('trialThen', { count: trial, price: card.price, period: t(PLAN_PERIOD[card.id]) })
     : t('cancelAnytime');
 
   return (
@@ -79,7 +80,7 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
           </View>
           <View style={[styles.plans, loading && styles.loading]} accessibilityRole="radiogroup">
             {cards.map((c) => (
-              <PlanCardView key={c.id} card={c} selected={c.id === selected} onPress={() => setSelected(c.id)} />
+              <PlanCardView key={c.id} card={c} selected={c.id === card.id} onPress={() => setSelected(c.id)} />
             ))}
           </View>
           <AppText variant="caption" muted center>
@@ -91,7 +92,7 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
         </View>
       </ScrollView>
       <View style={styles.footer}>
-        <Button title={trial ? t('startTrial') : t('continue')} onPress={() => onPurchase(selected)} loading={busy} fullWidth />
+        <Button title={trial ? t('startTrial') : t('continue')} onPress={() => onPurchase(card.id)} loading={busy} fullWidth />
         <AppText variant="caption" muted center>
           {footnote}
         </AppText>

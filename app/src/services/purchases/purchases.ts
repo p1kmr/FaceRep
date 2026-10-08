@@ -55,10 +55,11 @@ function toPlan(id: PlanId, pkg: PurchasesPackage | null): StorePlan | null {
   };
 }
 
-/** Standard package slots ($rc_monthly / $rc_annual): no product IDs in the app. */
+/** Standard package slots ($rc_weekly / $rc_monthly / $rc_annual): no product IDs in the app. */
 export function mapOffering(offering: PurchasesOffering | null): StorePlans {
   if (!offering) return EMPTY_PLANS;
   return {
+    weekly: toPlan('weekly', offering.weekly),
     monthly: toPlan('monthly', offering.monthly),
     yearly: toPlan('yearly', offering.annual),
   };

@@ -64,7 +64,7 @@ SAFETY
 Move gently and stop if anything hurts. If you have jaw pain or a jaw joint problem, ask a doctor or dentist before jaw exercises. FaceRep is a fitness and wellness app, not medical advice. Results vary.
 
 SUBSCRIPTION
-Premium is available monthly or yearly. Payment is charged to your Apple Account and renews automatically unless cancelled at least 24 hours before the period ends. Manage it in your App Store account settings.
+Premium is available weekly, monthly or yearly. Payment is charged to your Apple Account and renews automatically unless cancelled at least 24 hours before the period ends. Manage it in your App Store account settings.
 
 The exercise drawings and photos are AI-generated and show fictional people.
 
@@ -118,7 +118,7 @@ SEGURIDAD
 Muévete con suavidad y para si algo te duele. Si tienes dolor de mandíbula o un problema en la articulación de la mandíbula, consulta a un médico o dentista antes de hacer ejercicios de mandíbula. FaceRep es una app de fitness y bienestar y no ofrece consejo médico. Los resultados varían.
 
 SUSCRIPCIÓN
-Premium está disponible con pago mensual o anual. El pago se carga a tu Cuenta de Apple. La suscripción se renueva automáticamente a menos que se cancele al menos 24 horas antes de que termine el periodo. Puedes gestionarla en los ajustes de tu cuenta del App Store.
+Premium está disponible con pago semanal, mensual o anual. El pago se carga a tu Cuenta de Apple. La suscripción se renueva automáticamente a menos que se cancele al menos 24 horas antes de que termine el periodo. Puedes gestionarla en los ajustes de tu cuenta del App Store.
 
 Los dibujos y las fotos de los ejercicios están generados con IA y muestran personas ficticias.
 
@@ -172,7 +172,7 @@ SEGURANÇA
 Faça os movimentos com suavidade e pare se algo doer. Se você tem dor na mandíbula ou algum problema na articulação da mandíbula, consulte um médico ou dentista antes dos exercícios de mandíbula. O FaceRep é um app de fitness e bem-estar e não oferece aconselhamento médico. Os resultados variam.
 
 ASSINATURA
-O Premium está disponível nos planos mensal ou anual. O pagamento é cobrado na sua Conta Apple e a assinatura é renovada automaticamente, a menos que seja cancelada pelo menos 24 horas antes do fim do período. Gerencie a assinatura nos ajustes da sua conta da App Store.
+O Premium está disponível nos planos semanal, mensal ou anual. O pagamento é cobrado na sua Conta Apple e a assinatura é renovada automaticamente, a menos que seja cancelada pelo menos 24 horas antes do fim do período. Gerencie a assinatura nos ajustes da sua conta da App Store.
 
 Os desenhos e as fotos dos exercícios foram gerados por IA e mostram pessoas fictícias.
 
@@ -226,7 +226,7 @@ SICHERHEIT
 Beweg dich sanft und hör auf, wenn etwas wehtut. Wenn du Kieferschmerzen oder Probleme mit dem Kiefergelenk hast, lass dich vor Kieferübungen ärztlich oder zahnärztlich beraten. FaceRep ist eine Fitness- und Wellness-App und keine medizinische Beratung. Die Ergebnisse sind individuell verschieden.
 
 ABONNEMENT
-Premium gibt es monatlich oder jährlich. Die Zahlung wird über deinen Apple Account abgerechnet. Das Abo verlängert sich automatisch, wenn es nicht mindestens 24 Stunden vor Ende des Zeitraums gekündigt wird. Verwalten kannst du es in den Account-Einstellungen des App Store.
+Premium gibt es wöchentlich, monatlich oder jährlich. Die Zahlung wird über deinen Apple Account abgerechnet. Das Abo verlängert sich automatisch, wenn es nicht mindestens 24 Stunden vor Ende des Zeitraums gekündigt wird. Verwalten kannst du es in den Account-Einstellungen des App Store.
 
 Die Übungszeichnungen und Fotos sind KI-generiert und zeigen fiktive Personen.
 
@@ -280,7 +280,7 @@ SÉCURITÉ
 Vas-y en douceur et arrête si quelque chose fait mal. Si tu as mal à la mâchoire ou un problème d'articulation de la mâchoire, demande l'avis d'un médecin ou d'un dentiste avant les exercices de la mâchoire. FaceRep est une app de fitness et de bien-être, pas un avis médical. Les résultats varient.
 
 ABONNEMENT
-Premium est disponible en abonnement mensuel ou annuel. Le paiement est débité sur ton compte Apple, et l'abonnement se renouvelle automatiquement, sauf s'il est annulé au moins 24 heures avant la fin de la période en cours. Gère-le dans les réglages de ton compte App Store.
+Premium est disponible en abonnement hebdomadaire, mensuel ou annuel. Le paiement est débité sur ton compte Apple, et l'abonnement se renouvelle automatiquement, sauf s'il est annulé au moins 24 heures avant la fin de la période en cours. Gère-le dans les réglages de ton compte App Store.
 
 Les dessins et photos des exercices sont générés par IA et montrent des personnes fictives.
 
@@ -334,7 +334,7 @@ SICUREZZA
 Muoviti con delicatezza e fermati se senti dolore. Se hai dolore alla mascella o un problema all'articolazione temporo-mandibolare, chiedi a un medico o a un dentista prima di fare gli esercizi per la mascella. FaceRep è un'app di fitness e benessere e non fornisce consigli medici. I risultati variano.
 
 ABBONAMENTO
-Premium è disponibile con abbonamento mensile o annuale. Il pagamento viene addebitato sul tuo Account Apple e l'abbonamento si rinnova automaticamente a meno che non venga annullato almeno 24 ore prima della fine del periodo in corso. Puoi gestirlo nelle impostazioni del tuo account App Store.
+Premium è disponibile con abbonamento settimanale, mensile o annuale. Il pagamento viene addebitato sul tuo Account Apple e l'abbonamento si rinnova automaticamente a meno che non venga annullato almeno 24 ore prima della fine del periodo in corso. Puoi gestirlo nelle impostazioni del tuo account App Store.
 
 I disegni e le foto degli esercizi sono generati con l'IA e mostrano persone di fantasia.
 
