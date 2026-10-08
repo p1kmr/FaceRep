@@ -24,7 +24,7 @@ Research done 2026-10-06 (App Store lookup/search APIs, USPTO, Apple guidelines 
 - Worker: `facerep-api`; RevenueCat project: "FaceRep" (separate from Elowa).
 
 ## 3. App Store metadata draft (FaceRep)
-- **Name (28):** `FaceRep: Face Yoga & Jawline` (recommended, 2026-10-08). Was `FaceRep: Jawline Exercises`, which reads
+- **Name (28):** `FaceRep: Face Yoga & Jawline` (chosen by the owner, 2026-10-08). Was `FaceRep: Jawline Exercises`, which reads
   as men-only while women now see Lips first. The name is the strongest search field, so it now carries one term for each
   audience: "face yoga" (large, mostly women, crowded: Luvly, FaceYogi) and "jawline" (mostly men, where FaceRep started).
   Keeping the old name is also fine: then use the women-focused custom product page below for ads and search.

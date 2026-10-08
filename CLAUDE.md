@@ -1,6 +1,6 @@
 # FaceRep: rules for AI coding assistants
 
-Facial-fitness iOS app for men and women: **FaceRep** (App Store name draft "FaceRep: Face Yoga & Jawline", bundle ID `com.p1kmr.facerep`).
+Facial-fitness iOS app for men and women: **FaceRep** (App Store name "FaceRep: Face Yoga & Jawline", bundle ID `com.p1kmr.facerep`).
 Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as the owner's Elowa app.
 
 ## Behavior

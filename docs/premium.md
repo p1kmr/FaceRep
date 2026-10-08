@@ -112,6 +112,13 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 
   Rank them in the group Yearly, Monthly, Weekly (Apple uses the order for upgrades and downgrades). Other
   countries: Apple's price equalization from the US price, or set them by hand.
+- App Store Connect status (2026-10-08, written through the RevenueCat MCP): all three are **READY_TO_SUBMIT**.
+  Prices in all 175 territories (Apple's equalization from the US price, so not the same number everywhere:
+  Yearly is €34.99 in the eurozone and £29.99 in the UK; "Save X%" is computed from each storefront's prices).
+  The 1-week free trial is live in every territory. Names and descriptions, and the group name "FaceRep Premium",
+  in en-US, es-MX, es-ES, pt-BR, de-DE, fr-FR and it. Review notes and a review screenshot (the paywall rendered
+  from the web build at 1290×2796; replace it with an iPhone screenshot from a TestFlight build if you like).
+  The first subscriptions must be submitted together with app version 1.0.
 - Paywall rules for the weekly plan: it shows only its billed price ("$1.99 per week", never a per-month figure
   that could read as the price); it has no trial; "Save X%" on yearly is measured against **monthly**, never weekly
   (vs weekly it would say 71%, which would be a misleading anchor). A plan the store doesn't return is hidden
