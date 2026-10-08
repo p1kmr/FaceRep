@@ -19,7 +19,7 @@
     "SUPPORT_EMAIL": "support@example.com",
     // Your 10-character Apple Team ID (developer.apple.com → Membership details). Used with the
     // DEVICECHECK_KEY and DEVICECHECK_KEY_ID secrets; see README "D. Premium and free limits".
-    "APPLE_TEAM_ID": ""
+    "APPLE_TEAM_ID": "Z43K3DU9C9"
   },
   "d1_databases": [
     {

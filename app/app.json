@@ -140,7 +140,10 @@
       "reactCompiler": true
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "eas": {
+        "projectId": "b4548307-778f-43c8-bcaa-8ddb0df42673"
+      }
     },
     "owner": "p1kmr"
   }

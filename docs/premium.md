@@ -102,7 +102,7 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 ⚠️ The cloud environment these files were written in has Elowa's `EXPO_PUBLIC_AI_URL` and `EXPO_PUBLIC_RC_IOS_KEY` set. FaceRep needs its own values.
 
 ## 6. Store setup (outside the code)
-- App Store Connect: subscription group **Premium** with three plans, attached to the first app version:
+- App Store Connect: subscription group **FaceRep Premium** with three plans, attached to the first app version:
 
   | Plan | Product ID | Price | Trial | Why |
   |---|---|---|---|---|
@@ -119,8 +119,8 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 - RevenueCat (**done via MCP**, monthly/yearly 2026-10-07, weekly 2026-10-08): project **FaceRep** (`proj88dfbdbb`),
   App Store app `com.p1kmr.facerep`, entitlement `premium` on products **`facerep_premium_weekly`**,
   **`facerep_premium_monthly`** and **`facerep_premium_yearly`**, current offering `default` with `$rc_weekly`,
-  `$rc_monthly` and `$rc_annual`. Still to do in the RevenueCat dashboard: the App Store Connect API key /
-  In-App Purchase key, and a **v1 secret key** for the Worker.
+  `$rc_monthly` and `$rc_annual`. RevenueCat has the App Store Connect API key and the In-App Purchase key; the
+  Worker has the **v1 secret key** (`REVENUECAT_SECRET_KEY`).
 - The App Store Connect product IDs must be exactly `facerep_premium_weekly`, `facerep_premium_monthly` and
   `facerep_premium_yearly`.
 - Prices and "Save X%" come from the store; `FALLBACK_PRICES` only show while loading and never claim a trial.
