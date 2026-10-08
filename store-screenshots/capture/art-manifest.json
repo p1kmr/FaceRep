@@ -1,0 +1,154 @@
+{
+  "portrait-woman.png": {
+    "w": 720,
+    "h": 720
+  },
+  "portrait-man.png": {
+    "w": 720,
+    "h": 720
+  },
+  "en/streak.png": {
+    "w": 780,
+    "h": 205
+  },
+  "en/voice-start.png": {
+    "w": 1227,
+    "h": 205
+  },
+  "en/voice-hold.png": {
+    "w": 545,
+    "h": 205
+  },
+  "en/voice-relax.png": {
+    "w": 607,
+    "h": 205
+  },
+  "es/streak.png": {
+    "w": 780,
+    "h": 205
+  },
+  "es/voice-start.png": {
+    "w": 1227,
+    "h": 205
+  },
+  "es/voice-hold.png": {
+    "w": 545,
+    "h": 205
+  },
+  "es/voice-relax.png": {
+    "w": 607,
+    "h": 205
+  },
+  "pt-BR/streak.png": {
+    "w": 780,
+    "h": 205
+  },
+  "pt-BR/voice-start.png": {
+    "w": 1227,
+    "h": 205
+  },
+  "pt-BR/voice-hold.png": {
+    "w": 545,
+    "h": 205
+  },
+  "pt-BR/voice-relax.png": {
+    "w": 607,
+    "h": 205
+  },
+  "de/streak.png": {
+    "w": 780,
+    "h": 205
+  },
+  "de/voice-start.png": {
+    "w": 1227,
+    "h": 205
+  },
+  "de/voice-hold.png": {
+    "w": 545,
+    "h": 205
+  },
+  "de/voice-relax.png": {
+    "w": 607,
+    "h": 205
+  },
+  "fr/streak.png": {
+    "w": 780,
+    "h": 205
+  },
+  "fr/voice-start.png": {
+    "w": 1227,
+    "h": 205
+  },
+  "fr/voice-hold.png": {
+    "w": 545,
+    "h": 205
+  },
+  "fr/voice-relax.png": {
+    "w": 607,
+    "h": 205
+  },
+  "it/streak.png": {
+    "w": 780,
+    "h": 205
+  },
+  "it/voice-start.png": {
+    "w": 1227,
+    "h": 205
+  },
+  "it/voice-hold.png": {
+    "w": 545,
+    "h": 205
+  },
+  "it/voice-relax.png": {
+    "w": 607,
+    "h": 205
+  },
+  "en/pop-grid.png": {
+    "w": 1018,
+    "h": 365
+  },
+  "en/pop-card.png": {
+    "w": 1018,
+    "h": 485
+  },
+  "es/pop-grid.png": {
+    "w": 1018,
+    "h": 365
+  },
+  "es/pop-card.png": {
+    "w": 1018,
+    "h": 485
+  },
+  "pt-BR/pop-grid.png": {
+    "w": 1018,
+    "h": 365
+  },
+  "pt-BR/pop-card.png": {
+    "w": 1018,
+    "h": 485
+  },
+  "de/pop-grid.png": {
+    "w": 1018,
+    "h": 365
+  },
+  "de/pop-card.png": {
+    "w": 1018,
+    "h": 485
+  },
+  "fr/pop-grid.png": {
+    "w": 1018,
+    "h": 365
+  },
+  "fr/pop-card.png": {
+    "w": 1018,
+    "h": 485
+  },
+  "it/pop-grid.png": {
+    "w": 1018,
+    "h": 365
+  },
+  "it/pop-card.png": {
+    "w": 1018,
+    "h": 485
+  }
+}

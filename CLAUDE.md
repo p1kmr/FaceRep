@@ -29,6 +29,11 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
 - **SQLite schema:** never edit a shipped migration in `services/db/migrations.ts`; append a new one.
 - **Tests:** every change to a reducer or a pure service needs tests.
 
+## Store screenshots
+- `store-screenshots/` (README there): the App Store screenshots, captured from the real app with demo data and laid out in
+  the editor. Words in `capture/copy.js` follow the Text and Health rules; slides with Premium content say what is free.
+  After changing a screen they show (Today, workout player, exercise page, Progress, Coach, onboarding), re-run the capture.
+
 ## Commands
 ```bash
 cd app && npx expo start          # Expo Go / dev build; --tunnel on restrictive networks

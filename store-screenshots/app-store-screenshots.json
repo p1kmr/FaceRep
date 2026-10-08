@@ -1,0 +1,811 @@
+{
+  "schemaVersion": 2,
+  "appName": "FaceRep",
+  "themeId": "facerep",
+  "fontId": "self-hosted",
+  "connectedCanvas": true,
+  "locales": [
+    "en",
+    "es",
+    "pt-BR",
+    "de",
+    "fr",
+    "it"
+  ],
+  "locale": "en",
+  "device": "iphone",
+  "orientation": "portrait",
+  "appIcon": "",
+  "slidesByDevice": {
+    "iphone": [
+      {
+        "id": "facerep-1",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FACE YOGA & JAWLINE",
+          "es": "YOGA FACIAL Y MANDÍBULA",
+          "pt-BR": "YOGA FACIAL E MAXILAR",
+          "de": "GESICHTSYOGA & JAWLINE",
+          "fr": "YOGA DU VISAGE & MÂCHOIRE",
+          "it": "YOGA FACCIALE & MASCELLA"
+        },
+        "headline": {
+          "en": "Train your\n*face* like\nyour body",
+          "es": "Entrena tu\n*cara* como\ntu cuerpo",
+          "pt-BR": "Treine seu\n*rosto* como\no corpo",
+          "de": "Trainiere\ndein *Gesicht*",
+          "fr": "Entraîne\nton *visage*",
+          "it": "Allena il\n*viso* come\nil corpo"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/workout.png",
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 260,
+            "y": 900,
+            "width": 1000,
+            "height": 2037,
+            "rotation": 3,
+            "zIndex": 3
+          },
+          "callout": {
+            "x": 20,
+            "y": 1960,
+            "width": 580,
+            "height": 580,
+            "rotation": 0,
+            "zIndex": 7
+          }
+        },
+        "callout": {
+          "focusX": 0.525,
+          "focusY": 0.9,
+          "zoom": 2.2,
+          "shape": "circle"
+        }
+      },
+      {
+        "id": "facerep-2",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FACE EXERCISES",
+          "es": "EJERCICIOS FACIALES",
+          "pt-BR": "EXERCÍCIOS FACIAIS",
+          "de": "GESICHTSÜBUNGEN",
+          "fr": "EXERCICES DU VISAGE",
+          "it": "ESERCIZI PER IL VISO"
+        },
+        "headline": {
+          "en": "See the\n*muscle*\nyou train",
+          "es": "Mira el\n*músculo*\nque entrenas",
+          "pt-BR": "Veja o\n*músculo* que\nvocê treina",
+          "de": "Sieh deinen\n*Muskel*\narbeiten",
+          "fr": "Vois ton\n*muscle*\ntravailler",
+          "it": "Vedi il\n*muscolo*\nche alleni"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/exercise-man.png",
+        "inverted": true,
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 70,
+            "y": 900,
+            "width": 1000,
+            "height": 2037,
+            "rotation": -3,
+            "zIndex": 3
+          },
+          "callout": {
+            "x": 760,
+            "y": 1240,
+            "width": 540,
+            "height": 540,
+            "rotation": 0,
+            "zIndex": 7
+          }
+        },
+        "callout": {
+          "focusX": 0.645,
+          "focusY": 0.375,
+          "zoom": 2.3,
+          "shape": "circle"
+        }
+      },
+      {
+        "id": "facerep-3",
+        "layout": "device-bottom",
+        "label": {
+          "en": "28-DAY PLAN · WEEK 1 FREE",
+          "es": "PLAN DE 28 DÍAS · SEMANA 1 GRATIS",
+          "pt-BR": "PLANO DE 28 DIAS · SEMANA 1 GRÁTIS",
+          "de": "28-TAGE-PLAN · WOCHE 1 GRATIS",
+          "fr": "PLAN DE 28 JOURS · SEMAINE 1 GRATUITE",
+          "it": "PIANO DI 28 GIORNI · SETTIMANA 1 GRATIS"
+        },
+        "headline": {
+          "en": "A plan that\n*grows*\nwith you",
+          "es": "Un plan que\n*crece*\ncontigo",
+          "pt-BR": "Um plano\nque *evolui*\ncom você",
+          "de": "Ein Plan, der\nmit dir\n*wächst*",
+          "fr": "Un plan qui\n*progresse*\navec toi",
+          "it": "Un piano che\n*cresce*\ncon te"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/today.png",
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 250,
+            "y": 900,
+            "width": 1000,
+            "height": 2037,
+            "rotation": 3,
+            "zIndex": 3
+          }
+        },
+        "imageElements": [
+          {
+            "id": "grid",
+            "src": "/art/{locale}/pop-grid.png",
+            "transform": {
+              "x": -10,
+              "y": 2400,
+              "width": 1018,
+              "height": 365,
+              "rotation": -3,
+              "zIndex": 7
+            },
+            "fit": "contain"
+          }
+        ]
+      },
+      {
+        "id": "facerep-4",
+        "layout": "device-bottom",
+        "label": {
+          "en": "VOICE CUES",
+          "es": "GUÍA POR VOZ",
+          "pt-BR": "GUIADO POR VOZ",
+          "de": "SPRACHANSAGEN",
+          "fr": "GUIDAGE VOCAL",
+          "it": "GUIDA VOCALE"
+        },
+        "headline": {
+          "en": "Just\n*listen*\nand follow",
+          "es": "Solo\n*escucha*\ny sigue",
+          "pt-BR": "É só *ouvir*\ne seguir",
+          "de": "Einfach\n*zuhören* und\nmitmachen",
+          "fr": "Il suffit\nd’*écouter*",
+          "it": "Basta\n*ascoltare*"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/workout-man.png",
+        "inverted": true,
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 370,
+            "y": 1080,
+            "width": 930,
+            "height": 1895,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        },
+        "imageElements": [
+          {
+            "id": "voice-start",
+            "src": "/art/{locale}/voice-start.png",
+            "transform": {
+              "x": 30,
+              "y": 850,
+              "width": 1043,
+              "height": 174,
+              "rotation": 0,
+              "zIndex": 6
+            },
+            "fit": "contain"
+          },
+          {
+            "id": "voice-hold",
+            "src": "/art/{locale}/voice-hold.png",
+            "transform": {
+              "x": 10,
+              "y": 1600,
+              "width": 600,
+              "height": 226,
+              "rotation": -4,
+              "zIndex": 6
+            },
+            "fit": "contain"
+          },
+          {
+            "id": "voice-relax",
+            "src": "/art/{locale}/voice-relax.png",
+            "transform": {
+              "x": 50,
+              "y": 2040,
+              "width": 668,
+              "height": 226,
+              "rotation": 3,
+              "zIndex": 6
+            },
+            "fit": "contain"
+          }
+        ]
+      },
+      {
+        "id": "facerep-5",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FOR MEN & WOMEN",
+          "es": "HOMBRES Y MUJERES",
+          "pt-BR": "HOMENS E MULHERES",
+          "de": "FÜR MÄNNER & FRAUEN",
+          "fr": "HOMMES ET FEMMES",
+          "it": "UOMINI E DONNE"
+        },
+        "headline": {
+          "en": "For *him*.\nFor *her*.",
+          "es": "Para *él*.\nPara *ella*.",
+          "pt-BR": "Para *ele*.\nPara *ela*.",
+          "de": "Für *ihn*.\nFür *sie*.",
+          "fr": "Pour *lui*.\nPour *elle*.",
+          "it": "Per *lui*.\nPer *lei*."
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/guide.png",
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 185,
+            "y": 1060,
+            "width": 950,
+            "height": 1935,
+            "rotation": 0,
+            "zIndex": 3
+          }
+        },
+        "imageElements": [
+          {
+            "id": "man",
+            "src": "/art/portrait-man.png",
+            "transform": {
+              "x": 20,
+              "y": 820,
+              "width": 403,
+              "height": 403,
+              "rotation": -6,
+              "zIndex": 6
+            },
+            "fit": "contain"
+          },
+          {
+            "id": "woman",
+            "src": "/art/portrait-woman.png",
+            "transform": {
+              "x": 896,
+              "y": 820,
+              "width": 403,
+              "height": 403,
+              "rotation": 6,
+              "zIndex": 6
+            },
+            "fit": "contain"
+          }
+        ]
+      },
+      {
+        "id": "facerep-6",
+        "layout": "device-bottom",
+        "label": {
+          "en": "PROGRESS",
+          "es": "PROGRESO",
+          "pt-BR": "PROGRESSO",
+          "de": "FORTSCHRITT",
+          "fr": "PROGRÈS",
+          "it": "PROGRESSI"
+        },
+        "headline": {
+          "en": "Keep your\n*streak*\ngoing",
+          "es": "Mantén\ntu *racha*",
+          "pt-BR": "Mantenha\nsua\n*sequência*",
+          "de": "Bleib\n*dran*",
+          "fr": "Garde\nta *série*",
+          "it": "Non perdere\nla *serie*"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/progress.png",
+        "inverted": true,
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 70,
+            "y": 900,
+            "width": 1000,
+            "height": 2037,
+            "rotation": -3,
+            "zIndex": 3
+          }
+        },
+        "imageElements": [
+          {
+            "id": "streak",
+            "src": "/art/{locale}/streak.png",
+            "transform": {
+              "x": 540,
+              "y": 1160,
+              "width": 741,
+              "height": 195,
+              "rotation": 5,
+              "zIndex": 6
+            },
+            "fit": "contain"
+          }
+        ]
+      },
+      {
+        "id": "facerep-7",
+        "layout": "device-bottom",
+        "label": {
+          "en": "AI COACH · 3 FREE ANSWERS A MONTH",
+          "es": "COACH CON IA · 3 RESPUESTAS GRATIS AL MES",
+          "pt-BR": "COACH COM IA · 3 RESPOSTAS GRÁTIS POR MÊS",
+          "de": "KI-COACH · 3 ANTWORTEN IM MONAT GRATIS",
+          "fr": "COACH IA · 3 RÉPONSES GRATUITES PAR MOIS",
+          "it": "COACH IA · 3 RISPOSTE GRATIS AL MESE"
+        },
+        "headline": {
+          "en": "Questions?\nAsk the\n*Coach*",
+          "es": "¿Dudas?\nPregunta al\n*Coach*",
+          "pt-BR": "Dúvidas?\nPergunte ao\n*Coach*",
+          "de": "Fragen?\nFrag den\n*Coach*",
+          "fr": "Demande\nau *Coach*",
+          "it": "Dubbi?\nChiedi al\n*Coach*"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/coach.png",
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 250,
+            "y": 900,
+            "width": 1000,
+            "height": 2037,
+            "rotation": 3,
+            "zIndex": 3
+          }
+        },
+        "imageElements": [
+          {
+            "id": "card",
+            "src": "/art/{locale}/pop-card.png",
+            "transform": {
+              "x": -10,
+              "y": 1960,
+              "width": 1018,
+              "height": 485,
+              "rotation": -3,
+              "zIndex": 7
+            },
+            "fit": "contain"
+          }
+        ]
+      }
+    ],
+    "android": [
+      {
+        "id": "s_mv01nejo_5",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Sell one\nidea per slide."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_6",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Your headline\nlives here."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_7",
+        "layout": "two-devices",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Show two\nscreens at once."
+        },
+        "screenshot": "",
+        "screenshotSecondary": ""
+      },
+      {
+        "id": "s_mv01nejo_8",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 03"
+        },
+        "headline": {
+          "en": "Flip the contrast\nfor visual rhythm."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mv01nejo_9",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "ipad": [
+      {
+        "id": "s_mv01nejo_a",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nthe big screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_b",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Built for\nfocus."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_c",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Always within reach."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "tvos": [
+      {
+        "id": "s_mv01nejo_d",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nthe living room."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_e",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "One idea\nper screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_f",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Flip the contrast."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mv01nejo_g",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "watchos": [
+      {
+        "id": "s_mv01nejo_h",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "On your\nwrist."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_i",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "One glance.\nDone."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_j",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Always\nwith you."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "carplay": [
+      {
+        "id": "s_mv01nejo_k",
+        "layout": "split-landscape",
+        "label": {
+          "en": "CARPLAY"
+        },
+        "headline": {
+          "en": "Eyes on\nthe road."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_l",
+        "layout": "device-bottom",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Everything, one tap away."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_m",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "Made for every drive."
+        },
+        "screenshot": "",
+        "inverted": true
+      }
+    ],
+    "mac": [
+      {
+        "id": "s_mv01nejo_n",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nyour Mac."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_o",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Everything in\none window."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_p",
+        "layout": "device-top",
+        "label": {
+          "en": "FEATURE 02"
+        },
+        "headline": {
+          "en": "One shortcut away."
+        },
+        "screenshot": "",
+        "inverted": true
+      },
+      {
+        "id": "s_mv01nejo_q",
+        "layout": "two-devices",
+        "label": {
+          "en": "FEATURE 03"
+        },
+        "headline": {
+          "en": "Work across windows."
+        },
+        "screenshot": "",
+        "screenshotSecondary": ""
+      },
+      {
+        "id": "s_mv01nejo_r",
+        "layout": "no-device",
+        "label": {
+          "en": "MORE"
+        },
+        "headline": {
+          "en": "And so\nmuch more."
+        },
+        "screenshot": ""
+      }
+    ],
+    "android-7": [
+      {
+        "id": "s_mv01nejo_s",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Pocket-sized\npower."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_t",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Wide canvas,\nbigger ideas."
+        },
+        "screenshot": ""
+      }
+    ],
+    "android-10": [
+      {
+        "id": "s_mv01nejo_u",
+        "layout": "hero",
+        "label": {
+          "en": "MEET YOUR APP"
+        },
+        "headline": {
+          "en": "Made for\nthe big screen."
+        },
+        "screenshot": ""
+      },
+      {
+        "id": "s_mv01nejo_v",
+        "layout": "split-landscape",
+        "label": {
+          "en": "FEATURE 01"
+        },
+        "headline": {
+          "en": "Wide canvas,\nbigger ideas."
+        },
+        "screenshot": ""
+      }
+    ],
+    "feature-graphic": [
+      {
+        "id": "s_mv01nejo_w",
+        "layout": "feature-graphic",
+        "label": {},
+        "headline": {
+          "en": "Your tagline goes here."
+        },
+        "screenshot": ""
+      }
+    ]
+  },
+  "importedFont": {
+    "src": "/fonts/imported/anton.ttf",
+    "format": "truetype",
+    "name": "Anton"
+  },
+  "scene": {
+    "backdrop": "gradient",
+    "span": false,
+    "decoration": "none",
+    "shadow": 70,
+    "glow": 0,
+    "tilt": 0,
+    "headlineWeight": 400,
+    "headlineScale": 1.7,
+    "headlineCase": "upper",
+    "captionAlign": "left"
+  }
+}

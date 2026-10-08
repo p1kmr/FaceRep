@@ -1,0 +1,27 @@
+node_modules
+.next
+out
+.DS_Store
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+
+# Uploaded screenshots belong to the generated project: commit them alongside
+# app-store-screenshots.json so decks remain reproducible after cloning.
+
+# Fonts imported from the editor toolbar are user assets too (and font licences
+# often forbid redistributing them), so keep them out of the template as well.
+public/fonts/imported/*
+!public/fonts/imported/.gitkeep
+# FaceRep's headline font: Anton, SIL Open Font License (redistribution allowed with the licence file).
+!public/fonts/imported/anton.ttf
+!public/fonts/imported/anton-OFL.txt
+
+
+# FaceRep capture: tools and the raw captures (rebuilt by capture/capture.js)
+capture/node_modules/
+capture/raw/
+capture/.export-*/
+# Rebuilt by capture/capture.js + frame.js + art.js (the finished slides are in export/)
+public/screenshots/
+public/art/
