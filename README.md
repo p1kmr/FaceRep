@@ -37,7 +37,7 @@ Purchases, DeviceCheck, notifications, the camera mirror and voice cues need a *
 
 ## Checks
 ```bash
-cd app && npm run lint && npm run typecheck && npm test     # 106 tests (includes the picture and language checks)
+cd app && npm run lint && npm run typecheck && npm test     # 108 tests (includes the picture and language checks)
 cd ../worker && npm test                                     # 34 tests
 ```
 

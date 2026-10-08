@@ -69,7 +69,7 @@ Premium is available weekly, monthly or yearly. Payment is charged to your Apple
 The exercise drawings and photos are AI-generated and show fictional people.
 
 Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Privacy Policy: https://<your-worker-url>/privacy
+Privacy Policy: https://facerep-api.elowa-app.workers.dev/privacy
 ```
 
 ---
@@ -123,7 +123,7 @@ Premium está disponible con pago semanal, mensual o anual. El pago se carga a t
 Los dibujos y las fotos de los ejercicios están generados con IA y muestran personas ficticias.
 
 Términos de uso: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Política de privacidad: https://<your-worker-url>/privacy
+Política de privacidad: https://facerep-api.elowa-app.workers.dev/privacy
 ```
 
 ---
@@ -177,7 +177,7 @@ O Premium está disponível nos planos semanal, mensal ou anual. O pagamento é 
 Os desenhos e as fotos dos exercícios foram gerados por IA e mostram pessoas fictícias.
 
 Termos de Uso: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Política de Privacidade: https://<your-worker-url>/privacy
+Política de Privacidade: https://facerep-api.elowa-app.workers.dev/privacy
 ```
 
 ---
@@ -231,7 +231,7 @@ Premium gibt es wöchentlich, monatlich oder jährlich. Die Zahlung wird über d
 Die Übungszeichnungen und Fotos sind KI-generiert und zeigen fiktive Personen.
 
 Nutzungsbedingungen: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Datenschutzerklärung: https://<your-worker-url>/privacy
+Datenschutzerklärung: https://facerep-api.elowa-app.workers.dev/privacy
 ```
 
 ---
@@ -285,7 +285,7 @@ Premium est disponible en abonnement hebdomadaire, mensuel ou annuel. Le paiemen
 Les dessins et photos des exercices sont générés par IA et montrent des personnes fictives.
 
 Conditions d’utilisation : https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Politique de confidentialité : https://<your-worker-url>/privacy
+Politique de confidentialité : https://facerep-api.elowa-app.workers.dev/privacy
 ```
 
 ---
@@ -339,5 +339,5 @@ Premium è disponibile con abbonamento settimanale, mensile o annuale. Il pagame
 I disegni e le foto degli esercizi sono generati con l'IA e mostrano persone di fantasia.
 
 Termini d’uso: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Informativa sulla privacy: https://<your-worker-url>/privacy
+Informativa sulla privacy: https://facerep-api.elowa-app.workers.dev/privacy
 ```

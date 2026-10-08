@@ -84,7 +84,7 @@ Premium is available weekly, monthly or yearly. Payment is charged to your Apple
 The exercise drawings and photos are AI-generated and show fictional people.
 
 Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Privacy Policy: https://<your-worker-url>/privacy
+Privacy Policy: https://facerep-api.elowa-app.workers.dev/privacy
 ```
 
 - **What's New (1.0):** First release: a 28-day plan with five programs (jawline, cheekbones, lips, eyes and face massage), exercise drawings of a man or a woman, voice cues, a camera mirror, streaks and the AI Coach.
