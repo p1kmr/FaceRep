@@ -50,7 +50,7 @@ subscription renews every few minutes.
 ## 3. Checklist (about 20 minutes)
 Delete the app first so onboarding and permissions start fresh.
 
-- [ ] **Onboarding:** welcome shows both people; pick Woman → focus list starts with Lips; safety screen; reminder step.
+- [ ] **Onboarding:** welcome shows both people; safety line under Get started; pick Woman → focus list starts with Lips; Continue opens Today (no safety or reminder step). Start a workout with a jaw exercise (jaw clench, jaw jut or lion face): the jaw warning shows during Get ready / rest.
 - [ ] **Workout:** start Day 1. The screen stays on for the whole workout without touching it (Auto-Lock at 30 s:
       Settings → Display & Brightness → Auto-Lock). Haptics on every squeeze and release.
 - [ ] **Voice cues:** "Get ready…", "Squeeze", "Relax", "Last one", "Next up: …", "Workout complete". Play music in

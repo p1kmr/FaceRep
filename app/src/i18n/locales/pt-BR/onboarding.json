@@ -2,7 +2,8 @@
   "welcome": {
     "title": "Treine o rosto como você treina o corpo",
     "body": "Um plano guiado de 28 dias para mandíbula, maçãs do rosto, lábios e olhos. Poucos minutos por dia.",
-    "cta": "Começar"
+    "cta": "Começar",
+    "safety": "Vá com calma e pare se algo doer. Não é aconselhamento médico."
   },
   "guide": {
     "title": "Quem deve aparecer nos exercícios?",
@@ -21,21 +22,12 @@
     }
   },
   "safety": {
-    "title": "Antes de começar",
     "points": {
       "gentle": "Faça os movimentos devagar e com suavidade. Uma leve queimação no músculo é normal; dor, não.",
       "jaw": "Se você tem dor na mandíbula, estalos ou algum problema na articulação da mandíbula (ATM), pule a Contração da mandíbula, a Projeção da mandíbula e a Cara de leão, e consulte antes um médico ou dentista.",
       "treatments": "Fez Botox, preenchimento ou outro procedimento estético recentemente? Pergunte ao profissional que fez o procedimento quando você pode começar os exercícios faciais e, até lá, não pressione nem massageie a área tratada.",
       "stop": "Pare na hora se sentir dor, dormência ou tontura.",
       "results": "Os exercícios podem tonificar os músculos e melhorar a postura. Eles não mudam a estrutura óssea, e os resultados variam de pessoa para pessoa."
-    },
-    "accept": "Entendi"
-  },
-  "reminder": {
-    "title": "Um lembrete diário?",
-    "body": "A constância é o que faz a diferença. Escolha um horário e enviaremos um lembrete por dia.",
-    "allow": "Me lembre",
-    "skip": "Agora não",
-    "time": "Horário do lembrete"
+    }
   }
 }

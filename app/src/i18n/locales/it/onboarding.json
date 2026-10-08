@@ -2,7 +2,8 @@
   "welcome": {
     "title": "Allena il viso come alleni il corpo",
     "body": "Un piano guidato di 28 giorni per mascella, zigomi, labbra e occhi. Pochi minuti al giorno.",
-    "cta": "Inizia"
+    "cta": "Inizia",
+    "safety": "Procedi con delicatezza e fermati se qualcosa fa male. Non è un consiglio medico."
   },
   "guide": {
     "title": "Chi vuoi vedere negli esercizi?",
@@ -21,21 +22,12 @@
     }
   },
   "safety": {
-    "title": "Prima di iniziare",
     "points": {
       "gentle": "Muoviti piano e con delicatezza. Un leggero bruciore nel muscolo va bene, il dolore no.",
       "jaw": "Se hai dolore alla mascella, schiocchi o un problema all'articolazione temporo-mandibolare (ATM), salta gli esercizi Mascella serrata, Mascella in avanti e Faccia da leone, e chiedi prima a un medico o a un dentista.",
       "treatments": "Hai fatto di recente Botox, filler o un altro trattamento estetico? Chiedi a chi ti ha fatto il trattamento quando puoi iniziare gli esercizi per il viso, e fino ad allora non premere né massaggiare la zona trattata.",
       "stop": "Fermati subito se senti dolore, intorpidimento o giramenti di testa.",
       "results": "Gli esercizi possono tonificare i muscoli e migliorare la postura. Non possono cambiare la struttura ossea e i risultati variano da persona a persona."
-    },
-    "accept": "Ho capito"
-  },
-  "reminder": {
-    "title": "Un promemoria al giorno?",
-    "body": "È la costanza a fare la differenza. Scegli un orario e te lo ricorderemo una volta al giorno.",
-    "allow": "Ricordamelo",
-    "skip": "Non ora",
-    "time": "Orario del promemoria"
+    }
   }
 }

@@ -109,7 +109,7 @@ Done since: voice cues, keep-screen-on, camera mirror, five languages. Next idea
 ## 6. App Store rules: status
 | Rule | What it needs | Status |
 |---|---|---|
-| 1.4.1 health | no medical claims; "check with a doctor" | Safety screen in onboarding + Settings, jaw caution, Coach prompt refuses diagnosis ✅ |
+| 1.4.1 health | no medical claims; "check with a doctor" | Safety line on the welcome screen, full list in Settings → Exercise safety, jaw caution on the exercise page and in the workout player before jaw exercises, Coach prompt refuses diagnosis ✅ |
 | 2.3 / 2.3.7 metadata | honest claims, no trademarks or competitor names | Draft above ✅ |
 | 2.1 completeness | backend on during review | Deploy the Worker (with `REVENUECAT_SECRET_KEY`) before submitting: without it the reviewer can buy but Weeks 2–4 won't load |
 | 3.1.1 / 3.1.2 subscriptions | price, period, trial, auto-renew, Restore, Terms + Privacy links | PaywallView ✅ (+ links in the description) |

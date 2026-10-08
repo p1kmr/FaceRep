@@ -7,7 +7,7 @@ Same layout as Elowa: layer folders (`state`, `hooks`, `services`, `constants`, 
 app/src/
 ├── app/            Routes (Expo Router). Thin: read hooks, render components. No business logic.
 │   ├── _layout.tsx          providers, splash, Stack with onboarding guard
-│   ├── onboarding/          welcome → goal → safety → reminder
+│   ├── onboarding/          welcome → guide → goal
 │   ├── (tabs)/              Today · Exercises · Progress · Settings (native iOS tab bar)
 │   ├── coach.tsx            the AI Coach, a sheet opened by the floating button (or the Today card); ?q= starts a question
 │   ├── exercise/[id].tsx    exercise detail

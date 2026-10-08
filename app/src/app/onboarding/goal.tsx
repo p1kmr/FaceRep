@@ -1,4 +1,3 @@
-import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
@@ -7,9 +6,11 @@ import { OptionRow } from '@/components/ui/OptionRow';
 import { goalsFor } from '@/constants/exercises';
 import { useGuide } from '@/hooks/useGuide';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
-import { setGoal } from '@/state/settings/actions';
+import { completeOnboarding, setGoal } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
+import { todayISO } from '@/utils/dates';
 
+/** Last step. Continue flips `onboardingDone`, and the root layout swaps to the tabs. */
 export default function GoalScreen() {
   const { t } = useTranslation(['onboarding', 'common']);
   const { goal } = useSettings();
@@ -21,7 +22,7 @@ export default function GoalScreen() {
       step="goal"
       title={t('onboarding:goal.title')}
       subtitle={t('onboarding:goal.body')}
-      primary={{ title: t('common:continue'), onPress: () => router.push('/onboarding/safety') }}
+      primary={{ title: t('common:continue'), onPress: () => dispatch(completeOnboarding(todayISO())) }}
     >
       <View style={styles.options} accessibilityRole="radiogroup">
         {goalsFor(guide).map((g) => (

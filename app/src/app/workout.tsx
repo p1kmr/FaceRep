@@ -101,6 +101,8 @@ export default function WorkoutScreen() {
   const duration = phaseDuration(state);
   const phaseLabel = state.paused ? t('paused') : t(`phase.${state.phase}`, { context: e.program === 'massage' ? 'massage' : undefined });
   const squeeze = state.phase === 'hold';
+  // Before a jaw exercise starts, the jaw warning replaces the cue (onboarding has no safety step).
+  const caution = (state.phase === 'ready' || state.phase === 'rest') && !!e.jawCaution;
 
   return (
     <SafeAreaView style={styles.root}>
@@ -130,8 +132,8 @@ export default function WorkoutScreen() {
         <AppText variant="title" center>
           {name}
         </AppText>
-        <AppText muted center numberOfLines={2}>
-          {t(`exercises:items.${e.key}.cue`)}
+        <AppText muted={!caution} center numberOfLines={2} style={caution ? styles.caution : undefined}>
+          {caution ? t('exercises:detail.jawCaution') : t(`exercises:items.${e.key}.cue`)}
         </AppText>
       </View>
 
@@ -192,6 +194,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   frames: { flex: 1, marginHorizontal: tokens.space.lg },
   mirror: { position: 'absolute', right: tokens.space.md, bottom: tokens.space.md, width: '38%' },
   info: { paddingHorizontal: tokens.space.xl, paddingTop: tokens.space.lg, gap: tokens.space.xs },
+  caution: { fontWeight: tokens.font.weight.bold },
   controls: {
     flexDirection: 'row',
     alignItems: 'center',

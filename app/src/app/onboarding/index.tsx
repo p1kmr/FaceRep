@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/Button';
 import { WELCOME_IMAGE } from '@/constants/exerciseImages';
 import { makeStyles } from '@/theme/makeStyles';
 
-/** Full-bleed hero photo (dark in both themes), headline, one button. */
+/** Full-bleed hero photo (dark in both themes), headline, one button, one safety line (full list: Settings → Exercise safety). */
 export default function WelcomeScreen() {
   const { t } = useTranslation('onboarding');
   const styles = useStyles();
@@ -23,6 +23,9 @@ export default function WelcomeScreen() {
         </AppText>
         <AppText style={styles.body}>{t('welcome.body')}</AppText>
         <Button title={t('welcome.cta')} onPress={() => router.push(ONBOARDING_STEPS[0] === 'guide' ? '/onboarding/guide' : '/onboarding/goal')} fullWidth />
+        <AppText variant="caption" center style={styles.safety}>
+          {t('welcome.safety')}
+        </AppText>
       </SafeAreaView>
     </View>
   );
@@ -33,4 +36,5 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   bottom: { flex: 1, justifyContent: 'flex-end', padding: tokens.space.xl, gap: tokens.space.lg },
   title: { color: colors.onImage },
   body: { color: colors.onImage, opacity: 0.8 },
+  safety: { color: colors.onImage, opacity: 0.7 },
 }));

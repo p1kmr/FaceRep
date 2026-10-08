@@ -9,10 +9,10 @@ import { makeStyles } from '@/theme/makeStyles';
 
 import { ProgressDots } from './ProgressDots';
 
-export type OnboardingStepId = 'guide' | 'goal' | 'safety' | 'reminder';
+export type OnboardingStepId = 'guide' | 'goal';
 
 /** Steps after the welcome screen, in order (progress dots). "Who the pictures show" only when there's a choice. */
-export const ONBOARDING_STEPS: OnboardingStepId[] = [...(AVAILABLE_GUIDES.length > 1 ? (['guide'] as const) : []), 'goal', 'safety', 'reminder'];
+export const ONBOARDING_STEPS: OnboardingStepId[] = [...(AVAILABLE_GUIDES.length > 1 ? (['guide'] as const) : []), 'goal'];
 
 interface OnboardingStepProps {
   step: OnboardingStepId;
