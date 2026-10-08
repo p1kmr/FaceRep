@@ -16,7 +16,7 @@
     // Shown on the public /privacy, /terms and /support pages. LEGAL_NAME is optional.
     "APP_NAME": "FaceRep",
     "LEGAL_NAME": "",
-    "SUPPORT_EMAIL": "support@example.com",
+    "SUPPORT_EMAIL": "kindcodelabs@gmail.com",
     // Your 10-character Apple Team ID (developer.apple.com → Membership details). Used with the
     // DEVICECHECK_KEY and DEVICECHECK_KEY_ID secrets; see README "D. Premium and free limits".
     "APPLE_TEAM_ID": "Z43K3DU9C9"

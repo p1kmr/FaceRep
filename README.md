@@ -45,7 +45,7 @@ cd ../worker && npm test                                     # 34 tests
 - [ ] Trademark search for "FaceRep" in India (tmsearch.ipindia.gov.in) and the EU (TMview); then the App Store Connect app record with bundle ID `com.p1kmr.facerep` (reserves the name) and `npx eas-cli init` (adds `extra.eas.projectId`).
 - [ ] Real app icon (`app/assets/brand/icon.png` is a placeholder).
 - [ ] Decide the App Store name (draft `FaceRep: Face Yoga & Jawline`, docs/launch.md §3) and have a native speaker check the five translations and store texts (docs/store-listing.md).
-- [ ] Worker deployed (always before an app release that adds exercises or focus areas): `cd worker && npx wrangler login && npm run deploy` (URL already in `app/eas.json` and `links.ts`; D1 already created). Support email in `links.ts` and `wrangler.jsonc`.
+- [ ] Worker deployed (always before an app release that adds exercises or focus areas): `cd worker && npx wrangler login && npm run deploy` (URL already in `app/eas.json` and `links.ts`; D1 already created). Support email `kindcodelabs@gmail.com` in `links.ts` and `wrangler.jsonc`.
 - [x] RevenueCat project "FaceRep" (entitlement `premium`, products `facerep_premium_weekly` / `facerep_premium_monthly` / `facerep_premium_yearly`, offering with `$rc_weekly`, `$rc_monthly` and `$rc_annual`); public key in `app/eas.json`. App Store Connect keys are in RevenueCat, and the same three product IDs are in App Store Connect ($1.99 weekly, $3.99 monthly, $29.99 yearly with a 7-day trial; docs/premium.md §6).
 - [ ] Worker secrets: `REVENUECAT_SECRET_KEY` (without it Weeks 2–4 stay locked for everyone), `IP_HASH_SECRET`, then DeviceCheck.
 - [ ] App Privacy answers, age rating, review notes (docs/launch.md).

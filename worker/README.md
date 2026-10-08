@@ -45,7 +45,7 @@ Open `/privacy`, `/terms`, `/support` on that URL to check the pages.
 
 ### B. Point the app at it
 - Done: `app/eas.json` → `EXPO_PUBLIC_AI_URL` = `https://facerep-api.elowa-app.workers.dev/chat` (the app derives `/plan` from it) and FaceRep's own `EXPO_PUBLIC_RC_IOS_KEY`; `app/src/constants/links.ts` → `SITE`.
-- Still yours: `supportEmail` in `links.ts` and `SUPPORT_EMAIL` in `wrangler.jsonc`.
+- Done: support address `kindcodelabs@gmail.com` in `links.ts` (`supportEmail`) and `wrangler.jsonc` (`SUPPORT_EMAIL`).
 - Local dev: `app/.env` (copy `app/.env.example`).
 
 > ⚠️ This cloud environment has **Elowa's** `EXPO_PUBLIC_AI_URL` and `EXPO_PUBLIC_RC_IOS_KEY` set as environment variables. FaceRep must never use those: give FaceRep its own values (expo.dev → project → Environment variables, and `eas.json`).
@@ -90,7 +90,8 @@ Turn on step 2 only once the app build that sends DeviceCheck tokens is the one 
 | `AI_FALLBACK_MODEL` | `@cf/zai-org/glm-4.7-flash` | Tried once when the main model fails or is slower than 15 s |
 | `AI_MAX_OUTPUT_TOKENS` | `700` | Answer length cap |
 | `APP_NAME` | `FaceRep` | Shown in the Coach's persona and on the legal pages |
-| `SUPPORT_EMAIL` / `LEGAL_NAME` | | Shown on the legal pages |
+| `SUPPORT_EMAIL` | `kindcodelabs@gmail.com` | Support address, shown on the legal pages |
+| `LEGAL_NAME` | empty (optional) | Your name or business; empty shows "the developer of FaceRep" |
 
 The free allowance is `FREE_PER_MONTH` in `src/lib/access.js` and must match `FREE_LIMITS.aiPerMonth` in the app.
 

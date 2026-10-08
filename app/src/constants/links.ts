@@ -9,8 +9,8 @@ export const LINKS = {
   privacy: `${SITE}/privacy`,
   terms: `${SITE}/terms`,
   support: `${SITE}/support`,
-  /** Where "report this answer" and support mails go. TODO before release: your real support address. */
-  supportEmail: 'support@example.com',
+  /** Where "report this answer" and support mails go (same inbox as SUPPORT_EMAIL in worker/wrangler.jsonc). */
+  supportEmail: 'kindcodelabs@gmail.com',
   /** Apple's own page for cancelling or changing a subscription. */
   manageSubscriptions: 'https://apps.apple.com/account/subscriptions',
 } as const;
