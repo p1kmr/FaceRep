@@ -3,7 +3,7 @@
 State checked on 2026-10-09 (after commit `ca5b8f0`) with the asc CLI, the RevenueCat MCP, wrangler and the Expo MCP.
 Re-check before acting: from the repo root run
 `./.tools/asc validate --app 6820638812 --version-id 7edc84f2-a25e-4553-a918-45a254d06399`
-(2 blocking issues on 2026-10-09: App Review details and the build, both in §3).
+(0 blocking issues on 2026-10-09; what is left is in §3b and can only be done by hand).
 
 ## Rules for whoever works on this
 - **Never touch Elowa.** It is live and in App Review on the same Apple, Expo, RevenueCat and Cloudflare accounts.
@@ -76,7 +76,6 @@ Re-check before acting: from the repo root run
   commit `a9f8761`, so build 4 (§1, with the new icon) replaces it.
 
 ## 0. Owner decisions still open
-- **Release after approval:** manual (the owner presses Release) or automatic. Phased release is already on.
 - **DeviceCheck at launch** (recommended: yes, see §2).
 - **EU trader status (DSA): left undeclared on purpose for now.** Declaring as a trader shows the address, phone and email
   publicly on EU store pages. Until it is declared, App Store Connect marks the **27 EU countries "TRADER_STATUS_NOT_PROVIDED"**,
@@ -122,50 +121,29 @@ npm run deploy
 - [ ] If DeviceCheck is turned on, add a line to the review notes (§3): "Free Coach answers are tied to the device with
       Apple DeviceCheck."
 
-## 3. App Store Connect (still to do)
-- [ ] **App Review contact (owner, in the App Store Connect web page):** version 1.0 → App Review Information → first
-      name, last name, phone, email; "Sign-in required" off. Apple requires the phone and email, but only App Review
-      sees them (they are not shown on the store). The owner types them in directly, so they never go through an AI.
-- [ ] **Review notes (AI, after the contact exists):** `./.tools/asc review details-update --id <detail id> --notes
-      @file:<notes file>` with the text below, or the owner pastes it into the Notes box. It is about 2,100 characters
-      (the limit is 4,000). DeviceCheck is not mentioned because it is off.
+## 3. App Store Connect: done by CLI on 2026-10-09
+- App Review details: contact Pawan Kumar, phone set, email kindcodelabs@gmail.com, no sign-in needed, and review notes
+  (about 2,100 characters; they explain Premium and the 28-day grid, the Coach and its consent screen, the camera
+  mirror, the man/woman pictures, reminders, languages and safety. DeviceCheck is not mentioned because it is off).
+- App Privacy is published with three labels, all App Functionality, not linked to you, no tracking: User ID,
+  Purchase History and Other User Content.
+- Build 1.0.0 (3) is attached to version 1.0 for now (EAS build `6b736a53`, ASC build `b636cfaa`). It has the **old
+  icon**, so swap in build 4 when it is VALID: `./.tools/asc versions attach-build --version-id
+  7edc84f2-a25e-4553-a918-45a254d06399 --build-id <build 4 id>`.
+- Release type: **MANUAL** (after approval, nothing goes live until the owner presses Release).
+- `asc validate`: 0 blocking. The remaining warnings are subscription promotional images (optional) and the iPad
+  notice (the app is iPhone-only).
 
-```
-FaceRep is a facial-fitness app: guided face exercises with a hold/relax timer and a 28-day plan. There is no account or sign-in.
-
-PREMIUM AND THE 28-DAY PLAN
-Week 1 of the plan is free. Weeks 2–4 are Premium (auto-renewing subscription: weekly, monthly, or yearly with a 7-day free trial). You can't wait 7 days to reach Week 2, so: on Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account. The days load from our server right after the purchase; tap any day (for example Day 15) to see its exercises and start it. Settings → Restore purchases restores the purchase.
-
-AI COACH
-The floating button opens the Coach, which answers questions about the exercises. It runs on Cloudflare Workers AI through our own server. Before the first question, a consent screen explains what is sent and asks for permission; nothing is sent before that. Without Premium there are 3 free answers a month, then the paywall; with Premium it is unlimited. The Coach does not diagnose and does not rate looks. It can propose reminder changes, which only apply after the user taps Confirm.
-
-CAMERA MIRROR
-In the workout player, the person button (or Settings → Mirror in workouts) shows the front camera next to the exercise drawing so people can check their form. The camera permission is asked only then. The picture is only shown live: it is never recorded, saved or sent.
-
-OTHER
-• Onboarding asks whether the exercise pictures show a man or a woman (display only, stays on the device; Settings → Exercise pictures).
-• Reminders: Settings → Reminders. Local notifications the user sets up; notification permission is asked when one is turned on.
-• Languages: English, Spanish, Portuguese (Brazil), German, French and Italian. The app follows the iPhone's language; Settings → Language opens the app's language page in the Settings app.
-• Safety: a safety line on the welcome screen, Settings → Exercise safety, and a jaw caution before jaw exercises. FaceRep is a fitness and wellness app, not medical advice.
-• The exercise drawings and photos are AI-generated and show fictional people.
-```
-
-- [ ] **App Privacy** (empty and unpublished): the asc web session expired, so the owner logs in again first (Apple asks
-      for a two-factor code):
-      ```
-      ./.tools/asc web auth login
-      ```
-      Then use `./.tools/asc web privacy catalog`, `plan`, `apply` and `publish`.
-  - Declare per docs/launch.md §6: User ID (not linked to identity), Purchases, and Other User Content (Coach
-    questions, processed but not stored). All are for App Functionality, and none is used for tracking.
-  - Workout history, reminders and the camera picture stay on the device, so they are not collected.
-  - Publish. `asc validate` can't see this, so confirm it on the App Privacy page.
-- [ ] **Build:** attach build 4 to version 1.0.
-- [ ] **Subscriptions on the 1.0 page:** under "In-App Purchases and Subscriptions", select the three subscriptions.
-      The first subscriptions must be submitted with the first version; otherwise the reviewer can't buy Premium and
-      the app is rejected.
-- [ ] **Release option:** manual or automatic, per §0.
-- [ ] Re-run `asc validate` until it shows 0 blocking errors. The subscription "promotional image" warnings can stay.
+## 3b. Must be done by hand (the API can't do these)
+- [ ] **Medical device declaration** (required, status PENDING_COLLECTION): App Store Connect → FaceRep → App Information
+      → Regulations and Permits → "Is this app a regulated medical device?" → **No** (FaceRep is fitness and wellness,
+      not medical). The asc web session can also set it: `./.tools/asc web apps medical-device set --app 6820638812
+      --declared false`, but only with the owner's OK, because it is a legal declaration.
+- [ ] **Subscriptions on the 1.0 page:** version 1.0 → "In-App Purchases and Subscriptions" → select Premium Weekly,
+      Monthly and Yearly. First subscriptions can only be added to a review on the version page in the website, not
+      through the API. Without them the reviewer can't buy Premium and the app is rejected.
+- [ ] **Test build 3 on the iPhone** (TestFlight), including a sandbox purchase and Restore (§1).
+- [ ] **Submit:** only the owner presses "Add for Review" and then "Submit to App Review".
 
 ## 4. Account checks (owner, App Store Connect web)
 - [ ] **Paid Apps Agreement, tax and banking** are active in Business. They are needed for subscriptions, and are
@@ -174,12 +152,8 @@ OTHER
       it right away. Copy the URL from RevenueCat → FaceRep (App Store) app settings, and paste it into ASC → App
       Information → App Store Server Notifications, for both production and sandbox.
 
-## 5. Submit (owner presses Submit)
-- [ ] Create one review submission that holds version 1.0, the subscription group version `136d3d83-…`, and the
-      three subscription versions (weekly `04e85350-…`, monthly `1e936df0-…`, yearly `c17a8546-…`). Use
-      `asc review items add --item-type subscriptionGroupVersions` or `subscriptionVersions`. Selecting the subscriptions
-      on the 1.0 page (§3) does the same thing in the web page.
-- [ ] The owner checks the summary and submits. After approval: release (if manual), then watch RevenueCat and the
+## 5. Submit (owner only, never an AI)
+- [ ] After §3b: the owner checks the summary on the 1.0 page and submits. After approval: release (if manual), then watch RevenueCat and the
       Worker logs.
 
 ## Not needed for 1.0
