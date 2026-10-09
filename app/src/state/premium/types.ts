@@ -9,7 +9,7 @@ export interface AiUsage {
 export interface PremiumState {
   /** True once the first RevenueCat load finished, success OR failure (the app never hangs). */
   ready: boolean;
-  /** Only ever written from RevenueCat (and the __DEV__ simulator). */
+  /** Only ever written from RevenueCat's answer (purchase, restore, customer info updates). */
   isPremium: boolean;
   plans: StorePlans;
   appUserId: string | null;
