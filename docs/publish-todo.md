@@ -127,9 +127,8 @@ npm run deploy
   mirror, the man/woman pictures, reminders, languages and safety. DeviceCheck is not mentioned because it is off).
 - App Privacy is published with three labels, all App Functionality, not linked to you, no tracking: User ID,
   Purchase History and Other User Content.
-- Build 1.0.0 (3) is attached to version 1.0 for now (EAS build `6b736a53`, ASC build `b636cfaa`). It has the **old
-  icon**, so swap in build 4 when it is VALID: `./.tools/asc versions attach-build --version-id
-  7edc84f2-a25e-4553-a918-45a254d06399 --build-id <build 4 id>`.
+- Build 1.0.0 (4), with the new icon, is attached to version 1.0 (EAS build `a7f413e0`, ASC build `e44c1b04`,
+  VALID, also in internal TestFlight). Build 3 has the old icon and must not be used.
 - Release type: **MANUAL** (after approval, nothing goes live until the owner presses Release).
 - `asc validate`: 0 blocking. The remaining warnings are subscription promotional images (optional) and the iPad
   notice (the app is iPhone-only).
