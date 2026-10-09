@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Soy tu Coach de {{app}}. Pregúntame sobre ejercicios faciales, técnica, postura o una rutina sencilla de cuidado de la piel.",
-  "placeholder": "Pregunta sobre tus ejercicios o tu piel",
+  "intro": "Soy tu Coach de {{app}}. Pregúntame sobre ejercicios faciales, técnica, postura o una rutina sencilla de cuidado facial.",
+  "placeholder": "Pregunta sobre tus ejercicios o tu cuidado facial",
   "send": "Enviar",
   "clear": "Borrar chat",
   "clearConfirm": "¿Eliminar esta conversación de tu iPhone?",
@@ -33,7 +33,7 @@
   },
   "hint": {
     "title": "Pregunta al Coach",
-    "body": "Técnica, mewing, postura o cuidado de la piel: pregúntame lo que quieras. También puedo crear recordatorios por ti.",
+    "body": "Técnica, mewing, postura o cuidado facial: pregúntame lo que quieras. También puedo crear recordatorios por ti.",
     "technique": "Revisar mi técnica",
     "remind": "Crear un recordatorio",
     "ask": "Hacer una pregunta",
@@ -65,7 +65,7 @@
     "sent": "Se envía: tu pregunta, los últimos mensajes de este chat, tu área de enfoque, tu racha, cuántos entrenamientos hiciste esta semana y los nombres y horas de tus recordatorios (para que el Coach pueda sugerirte cambios que tú confirmas).",
     "notSent": "No se envía: tu nombre, fotos, contactos ni ubicación. No tienes ninguna cuenta con nosotros.",
     "storage": "Nuestro servidor no guarda tus preguntas. El historial del chat se queda en este iPhone y puedes borrarlo cuando quieras.",
-    "medical": "El Coach da consejos generales de fitness y cuidado de la piel, no consejo médico.",
+    "medical": "El Coach da consejos generales de fitness y cuidado facial, no consejo médico.",
     "allow": "Aceptar y continuar",
     "notNow": "Ahora no",
     "withdraw": "Puedes desactivarlo en Ajustes."

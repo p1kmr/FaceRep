@@ -13,6 +13,8 @@ Rules followed:
 - Keywords never repeat a word from the name or subtitle (Apple counts each word once), and stay within 100 **bytes**:
   accented letters count twice, so `ç`, `í`, `ü` use up the limit faster.
 - Same informal tone as the app (tú / você / du / tu / tu).
+- The app says "face care" (cuidado facial, cuidados com o rosto, Gesichtspflege, soins du visage, cura del viso). The
+  English keyword stays `skincare`, because that is what people search for; keywords are never shown.
 
 ⚠️ The translations were made with AI. Have a native speaker check each one before you submit it.
 

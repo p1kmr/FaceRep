@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Sono il tuo Coach di {{app}}. Chiedimi degli esercizi per il viso, della tecnica, della postura o di una semplice routine di skincare.",
-  "placeholder": "Chiedi del tuo allenamento o della skincare",
+  "intro": "Sono il tuo Coach di {{app}}. Chiedimi degli esercizi per il viso, della tecnica, della postura o di una semplice routine di cura del viso.",
+  "placeholder": "Chiedi del tuo allenamento o della cura del viso",
   "send": "Invia",
   "clear": "Cancella chat",
   "clearConfirm": "Eliminare questa conversazione dal tuo iPhone?",
@@ -33,7 +33,7 @@
   },
   "hint": {
     "title": "Chiedi al Coach",
-    "body": "Tecnica, mewing, postura o skincare: chiedimi quello che vuoi. Posso anche impostare dei promemoria per te.",
+    "body": "Tecnica, mewing, postura o cura del viso: chiedimi quello che vuoi. Posso anche impostare dei promemoria per te.",
     "technique": "Controlla la mia tecnica",
     "remind": "Imposta un promemoria",
     "ask": "Fai una domanda",
@@ -45,9 +45,9 @@
     "jawline": "Cosa possono cambiare gli esercizi per la mascella?",
     "mewing": "Sto facendo il mewing nel modo giusto?",
     "reminder": "Ricordami di controllare il mewing ogni 2 ore nei giorni feriali",
-    "skincare": "Una semplice routine di skincare?",
-    "skincare_man": "Una semplice routine di skincare per uomo?",
-    "skincare_woman": "Una semplice routine di skincare per donna?",
+    "skincare": "Una semplice routine di cura del viso?",
+    "skincare_man": "Una semplice routine di cura del viso per uomo?",
+    "skincare_woman": "Una semplice routine di cura del viso per donna?",
     "doubleChin": "Gli esercizi possono aiutare con il doppio mento?"
   },
   "errors": {
@@ -65,7 +65,7 @@
     "sent": "Cosa inviamo: la tua domanda, gli ultimi messaggi di questa chat, il tuo obiettivo, la tua serie, quanti allenamenti hai fatto questa settimana e i nomi e gli orari dei tuoi promemoria (così il Coach può proporti modifiche da confermare).",
     "notSent": "Cosa non inviamo: il tuo nome, foto, contatti o posizione. Non esiste un account a tuo nome.",
     "storage": "Il nostro server non conserva le tue domande. La cronologia della chat resta su questo iPhone e puoi eliminarla quando vuoi.",
-    "medical": "Il Coach dà consigli generali su fitness e skincare, non consigli medici.",
+    "medical": "Il Coach dà consigli generali su fitness e cura del viso, non consigli medici.",
     "allow": "Accetta e continua",
     "notNow": "Non ora",
     "withdraw": "Puoi disattivarlo in Impostazioni."

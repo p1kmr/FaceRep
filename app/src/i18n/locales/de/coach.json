@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Ich bin dein {{app}}-Coach. Frag mich zu Gesichtsübungen, Technik, Haltung oder einer einfachen Hautpflege-Routine.",
-  "placeholder": "Frag zu deinem Gesichtstraining oder zur Hautpflege",
+  "intro": "Ich bin dein {{app}}-Coach. Frag mich zu Gesichtsübungen, Technik, Haltung oder einer einfachen Gesichtspflege-Routine.",
+  "placeholder": "Frag zu deinem Gesichtstraining oder zur Gesichtspflege",
   "send": "Senden",
   "clear": "Chat löschen",
   "clearConfirm": "Diese Unterhaltung von deinem iPhone löschen?",
@@ -33,7 +33,7 @@
   },
   "hint": {
     "title": "Frag den Coach",
-    "body": "Technik, Mewing, Haltung oder Hautpflege: Frag mich alles. Ich kann auch Erinnerungen für dich einrichten.",
+    "body": "Technik, Mewing, Haltung oder Gesichtspflege: Frag mich alles. Ich kann auch Erinnerungen für dich einrichten.",
     "technique": "Meine Technik prüfen",
     "remind": "Erinnerung einrichten",
     "ask": "Frage stellen",
@@ -45,9 +45,9 @@
     "jawline": "Was können Kieferübungen verändern?",
     "mewing": "Mache ich Mewing richtig?",
     "reminder": "Erinnere mich wochentags alle 2 Stunden an meinen Mewing-Check",
-    "skincare": "Einfache Hautpflege-Routine?",
-    "skincare_man": "Einfache Hautpflege für Männer?",
-    "skincare_woman": "Einfache Hautpflege für Frauen?",
+    "skincare": "Einfache Gesichtspflege-Routine?",
+    "skincare_man": "Einfache Gesichtspflege für Männer?",
+    "skincare_woman": "Einfache Gesichtspflege für Frauen?",
     "doubleChin": "Können Übungen bei einem Doppelkinn helfen?"
   },
   "errors": {
@@ -65,7 +65,7 @@
     "sent": "Gesendet werden: deine Frage, die letzten Nachrichten dieses Chats, dein Fokus, deine Serie, wie viele Trainings du diese Woche gemacht hast, und die Namen und Uhrzeiten deiner Erinnerungen (damit der Coach Änderungen vorschlagen kann, die du bestätigst).",
     "notSent": "Nicht gesendet werden: dein Name, Fotos, Kontakte oder dein Standort. Bei uns gibt es kein Konto von dir.",
     "storage": "Unser Server speichert deine Fragen nicht. Der Chatverlauf bleibt auf diesem iPhone, und du kannst ihn jederzeit löschen.",
-    "medical": "Der Coach gibt allgemeine Fitness- und Hautpflegetipps, keine medizinische Beratung.",
+    "medical": "Der Coach gibt allgemeine Fitness- und Gesichtspflegetipps, keine medizinische Beratung.",
     "allow": "Zustimmen und weiter",
     "notNow": "Nicht jetzt",
     "withdraw": "Du kannst das in den Einstellungen ausschalten."

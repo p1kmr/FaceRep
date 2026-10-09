@@ -169,7 +169,8 @@ just to make a change pass. A new app language needs its own claim words: the te
 **Judgment calls (kept, low risk):**
 - The microphone purpose string exists only because the camera library can record sound. FaceRep never asks for the
   microphone (docs/architecture.md).
-- The keywords "glow" and "skincare": the Coach gives basic skincare tips. Drop them if a reviewer objects.
+- The keywords "glow" and "skincare": the app calls the topic "face care", but people search for "skincare", and the
+  Coach does give basic face care tips. Drop them if a reviewer objects.
 - The privacy and support URLs are on the `elowa-app.workers.dev` subdomain. They work; a FaceRep domain would look
   more professional later (5.6.2).
 - The EU trader status (DSA) is undeclared, so the app isn't sold in the EU. This is the owner's choice, not a

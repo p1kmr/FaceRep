@@ -135,7 +135,7 @@ day. `scripts/guide-images.js` (`npm run images`) converts new files, cuts thumb
 `constants/guideImages.generated.ts`; only complete guides are in it, and a test fails when it's stale (docs/images.md).
 `settings.guide` holds the choice; `useGuide()` falls back to the man when a set isn't in the build and
 `useGuideImages()` gives the pictures. The onboarding step and the Settings row only appear with two complete guides.
-The choice changes pictures and a few words (i18next `context`, e.g. the Coach's skincare suggestion), never the plan,
+The choice changes pictures and a few words (i18next `context`, e.g. the Coach's face care suggestion), never the plan,
 and it isn't sent to the Worker. `POST /plan` sends `CATALOG_VERSION` instead, so the Worker never plans an exercise
 the installed app doesn't have; the plan cache is dropped when the version changes.
 

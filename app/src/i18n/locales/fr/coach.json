@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Je suis ton Coach {{app}}. Pose-moi tes questions sur les exercices du visage, la technique, la posture ou une routine de soins simple.",
-  "placeholder": "Pose ta question sur ta séance ou tes soins",
+  "intro": "Je suis ton Coach {{app}}. Pose-moi tes questions sur les exercices du visage, la technique, la posture ou une routine simple de soins du visage.",
+  "placeholder": "Pose ta question sur ta séance ou tes soins du visage",
   "send": "Envoyer",
   "clear": "Effacer la discussion",
   "clearConfirm": "Supprimer cette conversation de ton iPhone ?",
@@ -33,7 +33,7 @@
   },
   "hint": {
     "title": "Demande au Coach",
-    "body": "Technique, mewing, posture ou soins : demande-moi ce que tu veux. Je peux aussi créer des rappels pour toi.",
+    "body": "Technique, mewing, posture ou soins du visage : demande-moi ce que tu veux. Je peux aussi créer des rappels pour toi.",
     "technique": "Vérifier ma technique",
     "remind": "Créer un rappel",
     "ask": "Poser une question",
@@ -45,9 +45,9 @@
     "jawline": "Que peuvent changer les exercices pour la mâchoire ?",
     "mewing": "Est-ce que je fais bien le mewing ?",
     "reminder": "Rappelle-moi de vérifier mon mewing toutes les 2 heures en semaine",
-    "skincare": "Une routine de soins simple ?",
-    "skincare_man": "Une routine de soins simple pour homme ?",
-    "skincare_woman": "Une routine de soins simple pour femme ?",
+    "skincare": "Une routine simple de soins du visage ?",
+    "skincare_man": "Une routine simple de soins du visage pour homme ?",
+    "skincare_woman": "Une routine simple de soins du visage pour femme ?",
     "doubleChin": "Les exercices peuvent-ils aider pour le double menton ?"
   },
   "errors": {
@@ -65,7 +65,7 @@
     "sent": "Envoyé : ta question, les derniers messages de cette discussion, ton objectif, ta série en cours, le nombre de séances faites cette semaine, ainsi que les noms et horaires de tes rappels (pour que le Coach puisse proposer des modifications que tu confirmes).",
     "notSent": "Non envoyé : ton nom, tes photos, tes contacts ou ta position. Tu n'as pas de compte chez nous.",
     "storage": "Notre serveur ne conserve pas tes questions. L'historique de la discussion reste sur cet iPhone, et tu peux le supprimer à tout moment.",
-    "medical": "Le Coach donne des conseils généraux de fitness et de soins de la peau, pas des avis médicaux.",
+    "medical": "Le Coach donne des conseils généraux de fitness et de soins du visage, pas des avis médicaux.",
     "allow": "Accepter et continuer",
     "notNow": "Plus tard",
     "withdraw": "Tu peux désactiver cette option dans Réglages."

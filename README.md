@@ -2,7 +2,7 @@
 
 Guided face workouts for jawline, cheekbones, lips, eyes and face massage, with an anatomy drawing (a man or a woman)
 whose working muscle lights up red, a hold/relax timer with voice cues, an optional camera mirror, streaks, and a paid
-**AI Coach** for face-training and basic skincare questions.
+**AI Coach** for face-training and basic face care questions.
 Built with **Expo (React Native)**, the same architecture as Elowa.
 
 App Store name: **FaceRep: Face Yoga & Jawline** · bundle ID `com.p1kmr.facerep` (working name was FaceKit, which is taken; see `docs/launch.md`).

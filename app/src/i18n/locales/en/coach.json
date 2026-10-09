@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "I'm your {{app}} Coach. Ask me about face exercises, technique, posture or a simple skincare routine.",
-  "placeholder": "Ask about your face workout or skincare",
+  "intro": "I'm your {{app}} Coach. Ask me about face exercises, technique, posture or a simple face care routine.",
+  "placeholder": "Ask about your workout or face care",
   "send": "Send",
   "clear": "Clear chat",
   "clearConfirm": "Delete this conversation from your iPhone?",
@@ -33,7 +33,7 @@
   },
   "hint": {
     "title": "Ask the Coach",
-    "body": "Technique, mewing, posture or skincare: ask me anything. I can also set reminders for you.",
+    "body": "Technique, mewing, posture or face care: ask me anything. I can also set reminders for you.",
     "technique": "Check my technique",
     "remind": "Set a reminder",
     "ask": "Ask a question",
@@ -45,9 +45,9 @@
     "jawline": "What can jaw exercises change?",
     "mewing": "Am I doing mewing correctly?",
     "reminder": "Remind me to check my mewing every 2 hours on weekdays",
-    "skincare": "Simple skincare routine?",
-    "skincare_man": "Simple skincare routine for men?",
-    "skincare_woman": "Simple skincare routine for women?",
+    "skincare": "Simple face care routine?",
+    "skincare_man": "Simple face care routine for men?",
+    "skincare_woman": "Simple face care routine for women?",
     "doubleChin": "Can exercises help a double chin?"
   },
   "errors": {
@@ -65,7 +65,7 @@
     "sent": "Sent: your question, the last few messages of this chat, your focus area, your streak, how many workouts you did this week, and the names and times of your reminders (so the Coach can suggest changes you confirm).",
     "notSent": "Not sent: your name, photos, contacts or location. We don't have an account for you.",
     "storage": "Our server doesn't keep your questions. The chat history stays on this iPhone, and you can delete it any time.",
-    "medical": "The Coach gives general fitness and skincare tips, not medical advice.",
+    "medical": "The Coach gives general fitness and face care tips, not medical advice.",
     "allow": "Agree and continue",
     "notNow": "Not now",
     "withdraw": "You can turn this off in Settings."

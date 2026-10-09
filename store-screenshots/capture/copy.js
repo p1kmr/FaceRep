@@ -98,7 +98,7 @@ export const COPY = {
       ['COACH IA · 3 RÉPONSES GRATUITES PAR MOIS', 'Demande\nau *Coach*'],
     ],
     chat: {
-      ask1: 'Comment bien faire la Mâchoire serrée ?',
+      ask1: 'Comment bien faire la Mâchoire serrée ?',
       reply1: 'Serre doucement les molaires et tiens pendant le décompte. Garde les lèvres détendues et les épaules basses. Tu dois sentir le muscle devant les oreilles se contracter, jamais de douleur. Si ta mâchoire craque ou fait mal, passe cet exercice et fais plutôt la Détente de la mâchoire.',
       ask2: 'Rappelle-moi de vérifier ma posture à 15 h en semaine',
       reply2: 'Bonne idée. Voici un rappel posture du lundi au vendredi à 15 h.',

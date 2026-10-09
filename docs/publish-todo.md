@@ -84,7 +84,8 @@ Re-check before acting: from the repo root run
 
 ## 1. Build 5 and device test (AI builds, owner tests)
 Build 4 (new icon) is attached to 1.0, but it was built before the App Review fixes of 2026-10-09 (docs/app-review.md
-§3: claim wording in six languages, Coach starter questions, Fitness in the privacy manifest). The App Store shows what is in the binary, so **build 5, from main after those fixes, is the one to test and
+§3: claim wording in six languages, Coach starter questions, "face care" instead of "skincare", Fitness in the
+privacy manifest). The App Store shows what is in the binary, so **build 5, from main after those fixes, is the one to test and
 submit**. Build 4 is fine for testing everything else meanwhile. Build 3 has the old icon: never use it.
 
 - [ ] From `app/`, run `npx eas-cli@latest build --profile production --platform ios --auto-submit --non-interactive`,
@@ -140,10 +141,14 @@ then shown to the owner):
 - [ ] **Deploy the Worker (AI):** from `worker/`, run `npm run deploy` (it deploys `facerep-api` only). The privacy
       policy (the providers' equal-protection sentence) and the terms (unlimited Coach for personal use, with fair use)
       changed, and the daily ceiling went from 40 to 100 per person (300 per IP), so Premium is really unlimited.
+      The Coach's instructions now call skincare "face care".
       Check that `/privacy` and `/terms` show "Last updated October 9, 2026".
 - [ ] **German store description (AI, de-DE only):** the Premium line is now "Unbegrenzte Antworten vom KI-Coach"
       (it said "Unbegrenzt Antworten", a grammar mistake). Upload the German description from docs/store-listing.md.
       The other languages and the review notes ("with Premium it is unlimited") stay as they are.
+- [ ] **Screenshot 8 (AI), all seven locales:** the Coach now says "face care" instead of "skincare", so slide 8
+      was rebuilt. Upload `store-screenshots/export/<lang>/08.jpg` in place of the current 08 for each locale (as for
+      slide 5: `--replace --confirm`). Slides 1–7 didn't change.
 - [ ] **App Privacy (AI, asc web session):** add a fourth label, **Fitness** (App Functionality, not linked, no
       tracking), then publish again. The streak and the number of workouts this week go with every Coach question,
       the same "to be safe" reason as Other User Content, and the build 5 privacy manifest declares it.
