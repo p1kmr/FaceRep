@@ -69,5 +69,8 @@ Delete the app first so onboarding and permissions start fresh.
 - [ ] **Dark mode and large text:** Control Center → Dark Mode; Settings → Accessibility → Larger Text at the largest
       size: nothing cut off on Today, the workout player and Settings.
 - [ ] **VoiceOver:** the timer reads phase and seconds; the voice and mirror buttons read as switches with on/off.
+- [ ] **iPad (if you have one):** install the TestFlight build on it. FaceRep is iPhone-only, but App Review often opens
+      iPhone apps on an iPad, where they run in an iPhone-sized window (guideline 2.4.1). Check onboarding, the paywall
+      (close, buy, Restore), a workout with the mirror, and the Coach.
 
 Write down anything odd with the iPhone model and iOS version.

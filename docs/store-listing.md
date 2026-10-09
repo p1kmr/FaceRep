@@ -8,7 +8,7 @@ Rules followed:
 - Only features in this version. Premium features are marked as Premium; the subscription terms and the Terms of Use and
   Privacy Policy links are included (Apple requires them for auto-renewing subscriptions).
 - No result or medical claims (no "fuller lips", "younger", "lose your double chin", "reshape"), no competitor names,
-  no "#1/best". The safety paragraph and "Results vary" are in every language.
+  no "#1/best", no "unlimited" (Premium has a fair-use cap of 40 Coach answers a day). See docs/app-review.md. The safety paragraph and "Results vary" are in every language.
 - Keywords never repeat a word from the name or subtitle (Apple counts each word once), and stay within 100 **bytes**:
   accented letters count twice, so `ç`, `í`, `ü` use up the limit faster.
 - Same informal tone as the app (tú / você / du / tu / tu).
@@ -58,7 +58,7 @@ Week 1 of the plan and every exercise on its own, any time. No account, no ads. 
 PREMIUM
 • Weeks 2 to 4 of the 28-day plan
 • Level 2 and 3 when you finish, and new rounds after that
-• Unlimited AI Coach answers (3 free answers a month without Premium). You're asked for permission before your first question.
+• Up to 40 AI Coach answers a day (3 free answers a month without Premium). You're asked for permission before your first question.
 
 SAFETY
 Move gently and stop if anything hurts. If you have jaw pain or a jaw joint problem, ask a doctor or dentist before jaw exercises. FaceRep is a fitness and wellness app, not medical advice. Results vary.
@@ -112,7 +112,7 @@ La semana 1 del plan y cada ejercicio por separado, cuando quieras. Sin cuenta y
 PREMIUM
 • Semanas 2 a 4 del plan de 28 días
 • Niveles 2 y 3 al terminar, y nuevas rondas después
-• Respuestas ilimitadas del Coach con IA (3 respuestas gratis al mes sin Premium). Te pediremos permiso antes de tu primera pregunta.
+• Hasta 40 respuestas al día del Coach con IA (3 respuestas gratis al mes sin Premium). Te pediremos permiso antes de tu primera pregunta.
 
 SEGURIDAD
 Muévete con suavidad y para si algo te duele. Si tienes dolor de mandíbula o un problema en la articulación de la mandíbula, consulta a un médico o dentista antes de hacer ejercicios de mandíbula. FaceRep es una app de fitness y bienestar y no ofrece consejo médico. Los resultados varían.
@@ -166,7 +166,7 @@ A semana 1 do plano e cada exercício avulso, quando quiser. Sem conta, sem anú
 PREMIUM
 • Semanas 2 a 4 do plano de 28 dias
 • Níveis 2 e 3 quando você terminar, e novas rodadas depois disso
-• Respostas ilimitadas do Coach de IA (3 respostas grátis por mês sem o Premium). Pedimos sua permissão antes da primeira pergunta.
+• Até 40 respostas por dia do Coach de IA (3 respostas grátis por mês sem o Premium). Pedimos sua permissão antes da primeira pergunta.
 
 SEGURANÇA
 Faça os movimentos com suavidade e pare se algo doer. Se você tem dor na mandíbula ou algum problema na articulação da mandíbula, consulte um médico ou dentista antes dos exercícios de mandíbula. O FaceRep é um app de fitness e bem-estar e não oferece aconselhamento médico. Os resultados variam.
@@ -220,7 +220,7 @@ Woche 1 des Plans und jede einzelne Übung, jederzeit. Kein Konto, keine Werbung
 PREMIUM
 • Wochen 2 bis 4 des 28-Tage-Plans
 • Level 2 und 3, wenn du fertig bist, und danach neue Runden
-• Unbegrenzt Antworten vom KI-Coach (ohne Premium 3 kostenlose Antworten pro Monat). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.
+• Bis zu 40 Antworten pro Tag vom KI-Coach (ohne Premium 3 kostenlose Antworten pro Monat). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.
 
 SICHERHEIT
 Beweg dich sanft und hör auf, wenn etwas wehtut. Wenn du Kieferschmerzen oder Probleme mit dem Kiefergelenk hast, lass dich vor Kieferübungen ärztlich oder zahnärztlich beraten. FaceRep ist eine Fitness- und Wellness-App und keine medizinische Beratung. Die Ergebnisse sind individuell verschieden.
@@ -274,7 +274,7 @@ La semaine 1 du plan et chaque exercice à l'unité, à tout moment. Pas de comp
 PREMIUM
 • Semaines 2 à 4 du plan de 28 jours
 • Niveaux 2 et 3 une fois le plan terminé, puis de nouveaux cycles
-• Réponses illimitées du Coach IA (3 réponses gratuites par mois sans Premium). Ton accord t'est demandé avant ta première question.
+• Jusqu'à 40 réponses par jour du Coach IA (3 réponses gratuites par mois sans Premium). Ton accord t'est demandé avant ta première question.
 
 SÉCURITÉ
 Vas-y en douceur et arrête si quelque chose fait mal. Si tu as mal à la mâchoire ou un problème d'articulation de la mâchoire, demande l'avis d'un médecin ou d'un dentiste avant les exercices de la mâchoire. FaceRep est une app de fitness et de bien-être, pas un avis médical. Les résultats varient.
@@ -328,7 +328,7 @@ La settimana 1 del piano e ogni singolo esercizio, quando vuoi. Nessun account, 
 PREMIUM
 • Settimane da 2 a 4 del piano di 28 giorni
 • Livelli 2 e 3 quando finisci, e poi nuovi cicli
-• Risposte illimitate del Coach IA (3 risposte gratuite al mese senza Premium). Ti chiediamo il permesso prima della tua prima domanda.
+• Fino a 40 risposte al giorno del Coach IA (3 risposte gratuite al mese senza Premium). Ti chiediamo il permesso prima della tua prima domanda.
 
 SICUREZZA
 Muoviti con delicatezza e fermati se senti dolore. Se hai dolore alla mascella o un problema all'articolazione temporo-mandibolare, chiedi a un medico o a un dentista prima di fare gli esercizi per la mascella. FaceRep è un'app di fitness e benessere e non fornisce consigli medici. I risultati variano.

@@ -4,7 +4,7 @@
   "benefits": {
     "plan": "Semaines 2 à 4 : plus d'exercices, de répétitions et de temps de maintien chaque semaine",
     "levels": "Niveaux 2 et 3 une fois le plan terminé, puis de nouveaux cycles",
-    "coach": "Réponses illimitées du Coach IA sur la technique et ta routine"
+    "coach": "Réponses du Coach IA sur la technique et ta routine, jusqu'à {{max}} par jour"
   },
   "aiNote": "Le Coach répond grâce à une IA (Cloudflare Workers AI). On te demandera ton accord avant ta première question.",
   "plans": {

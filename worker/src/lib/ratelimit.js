@@ -1,4 +1,7 @@
-/** Coach questions per day. The free plan allows a few per month in total; this caps Premium and abuse. */
+/**
+ * Coach questions per day. The free plan allows a few per month in total; this caps Premium and abuse.
+ * perUser is promised as "up to N a day" (app: PREMIUM_LIMITS.aiPerDay, Terms page, store description): change them together.
+ */
 export const LIMITS = { perUser: 40, perIp: 120 };
 
 const toHex = (buffer) => [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 32);

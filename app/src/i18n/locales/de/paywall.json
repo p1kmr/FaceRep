@@ -4,7 +4,7 @@
   "benefits": {
     "plan": "Wochen 2 bis 4: jede Woche mehr Übungen, Wiederholungen und Haltezeit",
     "levels": "Level 2 und 3, wenn du fertig bist, und danach neue Runden",
-    "coach": "Unbegrenzt Antworten vom KI-Coach zu Technik und Routine"
+    "coach": "Antworten vom KI-Coach zu Technik und Routine, bis zu {{max}} pro Tag"
   },
   "aiNote": "Coach-Fragen beantwortet eine KI (Cloudflare Workers AI). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.",
   "plans": {

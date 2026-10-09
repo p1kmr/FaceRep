@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Linking, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { PREMIUM_LIMITS } from '@/constants/limits';
 import { LINKS } from '@/constants/links';
 import { useGuideImages } from '@/hooks/useGuide';
 import type { PlanCard } from '@/hooks/usePaywall';
@@ -74,7 +75,7 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
             {BENEFITS.map((b) => (
               <View key={b.key} style={styles.benefit}>
                 <SymbolView name={b.icon} size={20} tintColor={colors.primary} />
-                <AppText style={styles.benefitText}>{t(`benefits.${b.key}`)}</AppText>
+                <AppText style={styles.benefitText}>{t(`benefits.${b.key}`, { max: PREMIUM_LIMITS.aiPerDay })}</AppText>
               </View>
             ))}
           </View>

@@ -10,7 +10,7 @@
   "freeLeft_other": "Restam {{count}} respostas grátis este mês",
   "freeLeft_zero": "Restam {{count}} respostas grátis este mês",
   "freeRefill": "Suas respostas grátis renovam em {{date}}",
-  "unlock": "Respostas ilimitadas com o Premium",
+  "unlock": "Até {{max}} respostas por dia com o Premium",
   "aiNote": "Respostas de IA podem conter erros. Não é aconselhamento médico. Mantenha uma resposta pressionada para reportá-la.",
   "reportHint": "Mantenha pressionado para reportar esta resposta",
   "reportSubject": "Reportar uma resposta do Coach de IA",
@@ -43,13 +43,13 @@
     "close": "Fechar dica"
   },
   "suggestions": {
-    "jawline": "Quanto tempo leva para ver resultados na mandíbula?",
+    "jawline": "O que os exercícios de mandíbula podem mudar?",
     "mewing": "Estou fazendo mewing do jeito certo?",
     "reminder": "Me lembre de checar meu mewing a cada 2 horas nos dias úteis",
     "skincare": "Rotina simples de skincare?",
     "skincare_man": "Rotina simples de skincare para homens?",
     "skincare_woman": "Rotina simples de skincare para mulheres?",
-    "doubleChin": "Quais exercícios ajudam na papada?"
+    "doubleChin": "Exercícios podem ajudar na papada?"
   },
   "errors": {
     "notConfigured": "O Coach ainda não está configurado nesta versão.",

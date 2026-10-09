@@ -29,6 +29,14 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
 - **SQLite schema:** never edit a shipped migration in `services/db/migrations.ts`; append a new one.
 - **Tests:** every change to a reducer or a pure service needs tests.
 
+## App Review (Apple's guidelines)
+- Every change must pass Apple's App Review Guidelines. Before adding or changing a feature, text, permission, purchase,
+  data sent off the iPhone, screenshot or store text, check the matching areas in **docs/app-review.md** (the
+  `app-review` skill is the procedure). If a request would be rejected, say so with the guideline number and propose the
+  allowed way.
+- `npm test` includes `npm run review:check`: claim words in all six languages, the paywall's required parts, text limits
+  that must match the Worker, no tracking SDKs. Never weaken it to make a change pass.
+
 ## Brand
 - The logo is the barbell smile. `brand/logo.mjs` makes every icon file (README there); never edit the PNGs in
   `app/assets/brand/` by hand. No text, Apple artwork or other apps' look in the icon. A new icon needs a new build.

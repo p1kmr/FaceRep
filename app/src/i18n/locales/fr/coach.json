@@ -9,7 +9,7 @@
   "freeLeft_one": "{{count}} réponse gratuite restante ce mois-ci",
   "freeLeft_other": "{{count}} réponses gratuites restantes ce mois-ci",
   "freeRefill": "Tes réponses gratuites reviennent le {{date}}",
-  "unlock": "Réponses illimitées avec Premium",
+  "unlock": "Jusqu'à {{max}} réponses par jour avec Premium",
   "aiNote": "Les réponses de l'IA peuvent être fausses. Pas un avis médical. Appuie longuement sur une réponse pour la signaler.",
   "reportHint": "Appuie longuement pour signaler cette réponse",
   "reportSubject": "Signaler une réponse du Coach IA",
@@ -42,13 +42,13 @@
     "close": "Fermer l'astuce"
   },
   "suggestions": {
-    "jawline": "Combien de temps avant de voir des résultats sur ma mâchoire ?",
+    "jawline": "Que peuvent changer les exercices pour la mâchoire ?",
     "mewing": "Est-ce que je fais bien le mewing ?",
     "reminder": "Rappelle-moi de vérifier mon mewing toutes les 2 heures en semaine",
     "skincare": "Une routine de soins simple ?",
     "skincare_man": "Une routine de soins simple pour homme ?",
     "skincare_woman": "Une routine de soins simple pour femme ?",
-    "doubleChin": "Quels exercices pour le double menton ?"
+    "doubleChin": "Les exercices peuvent-ils aider pour le double menton ?"
   },
   "errors": {
     "notConfigured": "Le Coach n'est pas encore configuré dans cette version.",

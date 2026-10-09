@@ -3,8 +3,10 @@
  * so no separate website is required. English only for v1.
  * Contact details come from Worker vars (`LEGAL_NAME`, `SUPPORT_EMAIL` in wrangler.jsonc).
  */
+import { FREE_PER_MONTH } from './lib/access.js';
+import { LIMITS } from './lib/ratelimit.js';
 
-const UPDATED = 'October 8, 2026';
+const UPDATED = 'October 9, 2026';
 
 const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -118,8 +120,9 @@ subscription.</p>
   <li><strong>Apple Inc.</strong>: App Store payments, DeviceCheck (the free-answers mark above), and optional crash reports
   and app analytics you choose to share with developers in iOS settings.</li>
 </ul>
-<p>These providers may process data in the United States and other countries. Where required, transfers rely on the
-providers' Standard Contractual Clauses or equivalent safeguards.</p>
+<p>We share data with these providers only to run ${c.app}, and each of them protects it at least as well as this
+policy describes (the same or equal protection). They may process data in the United States and other countries.
+Where required, transfers rely on the providers' Standard Contractual Clauses or equivalent safeguards.</p>
 
 <h2>Legal bases (EU/UK)</h2>
 <ul>
@@ -176,8 +179,8 @@ AI Coach answers are generated automatically and may be wrong.</p>
 <h2>Premium subscriptions and purchases</h2>
 <ul>
   <li>Premium is offered as auto-renewing weekly, monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
-  <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and unlimited
-  AI Coach answers (daily fair-use limits apply). The Premium part of the plan is loaded from our server, so the first time
+  <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and up to
+  ${LIMITS.perUser} AI Coach answers a day. The Premium part of the plan is loaded from our server, so the first time
   it needs an internet connection.</li>
   <li>Payment is charged to your Apple Account at confirmation of purchase.</li>
   <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the period.</li>
@@ -187,7 +190,8 @@ AI Coach answers are generated automatically and may be wrong.</p>
 </ul>
 
 <h2>Free Coach answers and fair use</h2>
-<p>Free users get a few AI Coach answers per month. To keep the service available, daily limits apply to everyone. We may
+<p>Without Premium you get ${FREE_PER_MONTH} AI Coach answers per month; with Premium, up to ${LIMITS.perUser} a day. These limits keep the
+service available for everyone. We may
 change or discontinue AI features, for example if a provider changes its service.</p>
 
 <h2>Your data</h2>

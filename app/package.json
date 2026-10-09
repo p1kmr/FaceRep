@@ -13,6 +13,7 @@
     "images": "node scripts/guide-images.js",
     "images:check": "node scripts/guide-images.js --check",
     "i18n:check": "node scripts/i18n-check.js",
+    "review:check": "node scripts/review-check.js",
     "test:worker": "npm --prefix ../worker test"
   },
   "dependencies": {

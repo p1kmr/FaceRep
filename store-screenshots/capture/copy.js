@@ -2,7 +2,7 @@
 // ../app-store-screenshots.json) and the Coach's canned chat for the capture.
 // Headlines: "\n" = new line, *word* = highlighted. Keep lines to about 12 letters: the headline font is big. Plain words, one idea per slide, no result or health claims,
 // no prices, no "#1". Slides showing Premium content say what is free (App Store 2.3.2): slide 3 (Weeks 2–4
-// are Premium) and slide 8 (the Coach is unlimited with Premium). Use the app's own words (app/src/i18n/locales/<lang>/*.json). The first three slides show
+// are Premium) and slide 8 (3 free Coach answers a month; Premium is up to 40 a day, never "unlimited"). Use the app's own words (app/src/i18n/locales/<lang>/*.json). The first three slides show
 // in App Store search, so their labels carry the search words of each language's name and keywords.
 // `asc`: the App Store Connect locales that get this language's screenshots.
 

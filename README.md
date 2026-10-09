@@ -10,7 +10,7 @@ The name lives in `CONFIG.appName` (`app/src/constants/config.ts`), `app/app.jso
 
 - **No login.** A random ID in the Keychain identifies the user (docs/premium.md).
 - **On-device data.** Workouts, chat history and settings live in SQLite on the iPhone (`expo-sqlite`).
-- **Free exercises, paid AI.** Premium (RevenueCat) unlocks unlimited Coach answers; free users get 3 a month.
+- **Free exercises, paid AI.** Premium (RevenueCat) unlocks up to 40 Coach answers a day; free users get 3 a month.
 - **AI on Cloudflare.** The Coach runs through our Worker on Workers AI; no AI key in the app.
 - **Six languages.** English, Spanish, Portuguese (Brazil), German, French and Italian (docs/i18n.md); App Store text per language in docs/store-listing.md.
 
@@ -25,7 +25,7 @@ facerep/
 ├── worker/    ← Cloudflare Worker: AI Coach API + privacy/terms/support pages
 ├── store-screenshots/ ← App Store screenshots: capture from the app + editor, finished files in export/
 ├── brand/     ← the logo: one script makes the app icon (light, dark, tinted), splash, favicon and SVGs
-└── docs/      ← architecture, premium, launch (name, ASO, App Store rules, trademarks)
+└── docs/      ← architecture, premium, launch (name, ASO, trademarks), app-review (Apple's rules for every change)
 ```
 
 ## Run it
@@ -39,7 +39,7 @@ Purchases, DeviceCheck, notifications, the camera mirror and voice cues need a *
 
 ## Checks
 ```bash
-cd app && npm run lint && npm run typecheck && npm test     # 108 tests (includes the picture and language checks)
+cd app && npm run lint && npm run typecheck && npm test     # includes the picture, language and App Review checks
 cd ../worker && npm test                                     # 34 tests
 ```
 
@@ -50,4 +50,4 @@ cd ../worker && npm test                                     # 34 tests
 - [ ] Worker deployed (always before an app release that adds exercises or focus areas): `cd worker && npx wrangler login && npm run deploy` (URL already in `app/eas.json` and `links.ts`; D1 already created). Support email `kindcodelabs@gmail.com` in `links.ts` and `wrangler.jsonc`.
 - [x] RevenueCat project "FaceRep" (entitlement `premium`, products `facerep_premium_weekly` / `facerep_premium_monthly` / `facerep_premium_yearly`, offering with `$rc_weekly`, `$rc_monthly` and `$rc_annual`); public key in `app/eas.json`. App Store Connect keys are in RevenueCat, and the same three product IDs are in App Store Connect ($1.99 weekly, $3.99 monthly, $29.99 yearly with a 7-day trial; docs/premium.md §6).
 - [ ] Worker secrets: `REVENUECAT_SECRET_KEY` (without it Weeks 2–4 stay locked for everyone), `IP_HASH_SECRET`, then DeviceCheck.
-- [ ] App Privacy answers, age rating, review notes (docs/launch.md).
+- [ ] App Privacy answers, review notes (docs/launch.md, docs/publish-todo.md). Every change follows docs/app-review.md.

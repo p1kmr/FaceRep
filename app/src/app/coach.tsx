@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/Button';
 import { IconButton } from '@/components/ui/IconButton';
 import { Chip } from '@/components/ui/Chip';
 import { COACH_SUGGESTIONS } from '@/constants/coach';
+import { PREMIUM_LIMITS } from '@/constants/limits';
 import { LINKS } from '@/constants/links';
 import { useChat } from '@/hooks/useChat';
 import { useFreeAiLabel } from '@/hooks/useFreeAiLabel';
@@ -36,6 +37,7 @@ export default function CoachScreen() {
   const guide = useGuide();
   const scroll = useRef<ScrollView>(null);
   const empty = !chat.messages.length && !chat.pending;
+  const unlock = t('unlock', { max: PREMIUM_LIMITS.aiPerDay });
 
   const confirmClear = () =>
     Alert.alert(t('clear'), t('clearConfirm'), [
@@ -102,7 +104,7 @@ export default function CoachScreen() {
             <View style={styles.error}>
               <AppText>{t(`errors.${chat.error}`)}</AppText>
               {chat.error === 'freeUsed' ? (
-                <Button title={t('unlock')} onPress={() => router.push('/paywall')} />
+                <Button title={unlock} onPress={() => router.push('/paywall')} />
               ) : chat.error !== 'notConfigured' ? (
                 <Button title={t('errors.retry')} variant="secondary" onPress={chat.retry} />
               ) : null}
@@ -113,7 +115,7 @@ export default function CoachScreen() {
           {!isPremium && freeLabel ? (
             <Pressable onPress={() => router.push('/paywall')} accessibilityRole="button">
               <AppText variant="caption" muted center>
-                {freeLabel} · <AppText variant="caption" style={styles.link}>{t('unlock')}</AppText>
+                {freeLabel} · <AppText variant="caption" style={styles.link}>{unlock}</AppText>
               </AppText>
             </Pressable>
           ) : null}

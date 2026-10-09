@@ -73,7 +73,7 @@ Week 1 of the plan and every exercise on its own, any time. No account, no ads. 
 PREMIUM
 • Weeks 2 to 4 of the 28-day plan
 • Level 2 and 3 when you finish, and new rounds after that
-• Unlimited AI Coach answers (3 free answers a month without Premium). You're asked for permission before your first question.
+• Up to 40 AI Coach answers a day (3 free answers a month without Premium). You're asked for permission before your first question.
 
 SAFETY
 Move gently and stop if anything hurts. If you have jaw pain or a jaw joint problem, ask a doctor or dentist before jaw exercises. FaceRep is a fitness and wellness app, not medical advice. Results vary.
@@ -113,25 +113,9 @@ FaceRep: free exercises, in-app pricing only, real anatomy visuals, no login, no
 Done since: voice cues, keep-screen-on, camera mirror, five languages. Next idea: a home-screen widget for the streak.
 
 ## 6. App Store rules: status
-| Rule | What it needs | Status |
-|---|---|---|
-| 1.4.1 health | no medical claims; "check with a doctor" | Safety line on the welcome screen, full list in Settings → Exercise safety, jaw caution on the exercise page and in the workout player before jaw exercises, Coach prompt refuses diagnosis ✅ |
-| 2.3 / 2.3.7 metadata | honest claims, no trademarks or competitor names | Draft above ✅ |
-| 2.1 completeness | backend on during review | Deploy the Worker (with `REVENUECAT_SECRET_KEY`) before submitting: without it the reviewer can buy but Weeks 2–4 won't load |
-| 3.1.1 / 3.1.2 subscriptions | price, period, trial, auto-renew, Restore, Terms + Privacy links | PaywallView ✅ (+ links in the description) |
-| 3.1.1 unlocking | paid content unlocked only by Apple IAP | Weeks 2–4 unlock only when RevenueCat (Apple receipts) says Premium; the Worker checks too ✅ |
-| 3.1.2(a) ongoing value | a subscription must keep giving value | Levels 2–3 and new rounds after Day 28, plus the unlimited Coach ✅ (a single 28-day plan alone would be weak) |
-| 2.3.2 in-app purchases in metadata | description and screenshots say what's paid | Description lists "What's free" and "Premium" ✅; label any screenshot of Weeks 2–4 as Premium |
-| 4.5.4 notifications | not required to use the app, no ads in them, ask at a sensible time | Only user-made reminders; permission asked when one is turned on; "Not now" works; no Time Sensitive/Critical alerts ✅ |
-| 2.5.2 self-contained | no downloaded code that changes features | `/plan` returns JSON data (days and exercise IDs), checked by the app; no code ✅ |
-| Free trial wording | "free trial" means the StoreKit trial | Week 1 is called "Week 1 is free", never a "trial" ✅ |
-| 4.3 spam | clearly different from existing apps | Anatomy drawings (man or woman) + voice-guided timer + mirror + AI Coach; keep updating |
-| 5.1.1 privacy | policy in app + ASC, deletion route | `/privacy` page, Settings → Delete all data ✅ |
-| 5.1.2(i) third-party AI | disclose + explicit permission before sending | AI consent screen names Cloudflare Workers AI ✅ |
-| 1.2 objectification | no "hot or not" | No ratings, Coach refuses to rate looks ✅ |
-| Age rating | answer the new questionnaire | Suggest **13+** (wellness + occasional skin/medical info via AI) |
+The rule-by-rule status, the checklist for every new feature and the automatic check are in [app-review.md](app-review.md) (audit of 2026-10-09 against the guidelines of June 8, 2026).
 
-**App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe). Workout history and reminders stay on device → not "collected". The mirror's camera picture is shown live and never stored or sent → not "collected". No tracking.
+**App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe), Fitness (the streak and workouts in the last 7 days sent with each Coach question; same reason). All Not linked, App Functionality. Workout history and reminders stay on device → not "collected". The mirror's camera picture is shown live and never stored or sent → not "collected". No tracking.
 
 **Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. The app is in English, Spanish, Portuguese (Brazil), German, French and Italian (it follows the iPhone's language; Settings → Language opens the per-app language page). Mention the mirror: the person button in the workout player (or Settings → Mirror in workouts) shows the front camera next to the drawing; the camera permission is asked only then, and nothing is recorded, saved or sent. Mention the picture choice: onboarding asks whether the exercise pictures show a man or a woman (display only, stays on the device; Settings → Exercise pictures). Mention reminders: Settings → Reminders (local notifications the user sets up; permission is asked when one is turned on), and the Coach can propose reminder changes that only apply after the user taps Confirm. Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 are Premium. On Today, tap any locked day in the 28-day grid to open the paywall and buy with the sandbox account; the days load from our server right after purchase, and tapping any day (e.g. Day 15) then shows its exercises and lets you start it. Settings → Restore restores the purchase." 
 

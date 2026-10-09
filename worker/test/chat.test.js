@@ -135,5 +135,10 @@ test('pages: privacy, terms and support render with the app name; unknown paths 
     assert.match(html, /FaceRep/);
     assert.match(html, /help@example\.com/);
   }
+  const privacy = await renderPage('/privacy', env).text();
+  assert.match(privacy, /same or equal protection/); // App Store 5.1.1(i)
+  const terms = await renderPage('/terms', env).text();
+  assert.match(terms, new RegExp(`up to\\s+${LIMITS.perUser} AI Coach answers a day`));
+  assert.doesNotMatch(terms, /unlimited/i);
   assert.equal(renderPage('/admin', env), null);
 });

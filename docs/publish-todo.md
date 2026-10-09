@@ -73,7 +73,7 @@ Re-check before acting: from the repo root run
   AI URL and FaceRep's RevenueCat key. The app code mentions Elowa only in comments.
 - **Tests:** typecheck, 108 app tests and 34 Worker tests pass at `ca5b8f0`.
 - **TestFlight:** build 1.0.0 (2) is VALID in the internal group, with no crashes or feedback. It was built from the old
-  commit `a9f8761`, so build 4 (§1, with the new icon) replaces it.
+  commit `a9f8761`, so build 5 (§1, new icon and App Review fixes) replaces it.
 
 ## 0. Owner decisions still open
 - **DeviceCheck at launch** (recommended: yes, see §2).
@@ -82,27 +82,30 @@ Re-check before acting: from the repo root run
   and the app is not sold there (Spain, Germany, France, Italy and the rest of the EU). It is an account-wide setting
   (Business → Compliance), shared with Elowa. Don't change it without the owner.
 
-## 1. Build 4 and device test (AI builds, owner tests)
-The app icon changed after build 3 (new logo, brand/README.md). The App Store takes the icon from the build, so
-**build 4 is the one to test and submit**. Build 3 has the old icon: fine for early tests, never attach it to 1.0.
+## 1. Build 5 and device test (AI builds, owner tests)
+Build 4 (new icon) is attached to 1.0, but it was built before the App Review fixes of 2026-10-09 (docs/app-review.md
+§3: claim wording in six languages, "up to 40 Coach answers a day" instead of "unlimited", Fitness in the privacy
+manifest). The App Store shows what is in the binary, so **build 5, from main after those fixes, is the one to test and
+submit**. Build 4 is fine for testing everything else meanwhile. Build 3 has the old icon: never use it.
 
 - [ ] From `app/`, run `npx eas-cli@latest build --profile production --platform ios --auto-submit --non-interactive`,
-      or use the Expo MCP `build_run`. Credentials are stored now, so it asks no questions. The build number becomes 4
+      or use the Expo MCP `build_run`. Credentials are stored now, so it asks no questions. The build number becomes 5
       (or the next free number).
-- [ ] Wait until App Store Connect shows build 4 as VALID and in the internal TestFlight group.
-- [ ] The owner tests build 4 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
+- [ ] Wait until App Store Connect shows build 5 as VALID and in the internal TestFlight group.
+- [ ] Attach build 5 to version 1.0 in place of build 4, then re-run `asc validate`.
+- [ ] The owner tests build 5 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
   - buy Weekly, Monthly, and Yearly with the trial;
-  - Weeks 2–4 load from the Worker's `/plan`, and the Coach is unlimited;
+  - Weeks 2–4 load from the Worker's `/plan`, and the Coach keeps answering after the 3 free answers;
   - delete the app, reinstall, then Restore works;
   - the purchase shows in RevenueCat → Customers (sandbox).
-- [ ] Compare each store screenshot with the same screen on build 4. The slides come from the web build made to look
+- [ ] Compare each store screenshot with the same screen on build 5. The slides come from the web build made to look
       like the iPhone, so icons or layout could differ slightly. If a screen differs, re-run the capture
       (store-screenshots/README.md).
 - [ ] Optional: replace the subscription review screenshot (a paywall rendered from the web build) with a real paywall
-      screenshot from build 4: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
+      screenshot from build 5: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
 - [ ] Optional: delete the local branch `backup/weekly-local-29d96e7` if the owner agrees.
 
-## 2. Worker: DeviceCheck (owner runs, after build 4 is on TestFlight)
+## 2. Worker: DeviceCheck (owner runs, after build 5 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real
 iPhone. Keys are per Apple team, so the existing team DeviceCheck key can be reused (FaceRep only validates tokens and
 never writes DeviceCheck bits; see worker/README.md §D). Keep the `.p8` outside `~/Downloads`, because Terminal can't
@@ -117,7 +120,7 @@ npx wrangler secret put DEVICECHECK_KEY < /path/to/AuthKey_XXXXXXXXXX.p8
 ```
 npm run deploy
 ```
-- [ ] Then, on build 4 without Premium: the Coach asks for consent, gives 3 answers, then shows the paywall.
+- [ ] Then, on build 5 without Premium: the Coach asks for consent, gives 3 answers, then shows the paywall.
 - [ ] If DeviceCheck is turned on, add a line to the review notes (§3): "Free Coach answers are tied to the device with
       Apple DeviceCheck."
 
@@ -128,10 +131,26 @@ npm run deploy
 - App Privacy is published with three labels, all App Functionality, not linked to you, no tracking: User ID,
   Purchase History and Other User Content.
 - Build 1.0.0 (4), with the new icon, is attached to version 1.0 (EAS build `a7f413e0`, ASC build `e44c1b04`,
-  VALID, also in internal TestFlight). Build 3 has the old icon and must not be used.
+  VALID, also in internal TestFlight). Build 3 has the old icon and must not be used. Build 5 replaces build 4 (§1).
 - Release type: **MANUAL** (after approval, nothing goes live until the owner presses Release).
 - `asc validate`: 0 blocking. The remaining warnings are subscription promotional images (optional) and the iPad
   notice (the app is iPhone-only).
+
+**To redo after the App Review fixes of 2026-10-09** (docs/app-review.md §3; text and labels can be written directly,
+then shown to the owner):
+- [ ] **Deploy the Worker (AI):** from `worker/`, run `npm run deploy` (it deploys `facerep-api` only). The privacy
+      policy (the providers' equal-protection sentence) and the terms ("up to 40 AI Coach answers a day") changed.
+      Check that `/privacy` and `/terms` show "Last updated October 9, 2026".
+- [ ] **Review notes (AI):** in the AI COACH paragraph, change "with Premium it is unlimited" to "with Premium, up to
+      40 answers a day".
+- [ ] **Store description (AI):** in all seven localizations, the Premium line changed from "Unlimited AI Coach
+      answers" to "Up to 40 AI Coach answers a day" (docs/store-listing.md). Upload the description again.
+- [ ] **Subscription descriptions (AI):** read the display name and description of the three subscriptions in all
+      seven locales. If one says "unlimited" (ilimitado/as, unbegrenzt, illimité/es, illimitate), replace it with
+      the cap or leave the cap out, e.g. "Full 28-day plan, levels and Coach" (at most 55 characters).
+- [ ] **App Privacy (AI, asc web session):** add a fourth label, **Fitness** (App Functionality, not linked, no
+      tracking), then publish again. The streak and the number of workouts this week go with every Coach question,
+      the same "to be safe" reason as Other User Content, and the build 5 privacy manifest declares it.
 
 ## 3b. Must be done by hand (the API can't do these)
 - [ ] **Medical device declaration** (required, status PENDING_COLLECTION): App Store Connect → FaceRep → App Information
@@ -141,7 +160,7 @@ npm run deploy
 - [ ] **Subscriptions on the 1.0 page:** version 1.0 → "In-App Purchases and Subscriptions" → select Premium Weekly,
       Monthly and Yearly. First subscriptions can only be added to a review on the version page in the website, not
       through the API. Without them the reviewer can't buy Premium and the app is rejected.
-- [ ] **Test build 3 on the iPhone** (TestFlight), including a sandbox purchase and Restore (§1).
+- [ ] **Test build 5 on the iPhone** (TestFlight), including a sandbox purchase and Restore (§1).
 - [ ] **Submit:** only the owner presses "Add for Review" and then "Submit to App Review".
 
 ## 4. Account checks (owner, App Store Connect web)

@@ -9,7 +9,7 @@
   "freeLeft_one": "Ti resta {{count}} risposta gratuita questo mese",
   "freeLeft_other": "Ti restano {{count}} risposte gratuite questo mese",
   "freeRefill": "Le risposte gratuite si ricaricano il {{date}}",
-  "unlock": "Risposte illimitate con Premium",
+  "unlock": "Fino a {{max}} risposte al giorno con Premium",
   "aiNote": "Le risposte dell'IA possono essere sbagliate. Non sono consigli medici. Tieni premuta una risposta per segnalarla.",
   "reportHint": "Tieni premuto per segnalare questa risposta",
   "reportSubject": "Segnalazione di una risposta del Coach IA",
@@ -42,13 +42,13 @@
     "close": "Chiudi suggerimento"
   },
   "suggestions": {
-    "jawline": "Quanto ci vuole per vedere risultati sulla mascella?",
+    "jawline": "Cosa possono cambiare gli esercizi per la mascella?",
     "mewing": "Sto facendo il mewing nel modo giusto?",
     "reminder": "Ricordami di controllare il mewing ogni 2 ore nei giorni feriali",
     "skincare": "Una semplice routine di skincare?",
     "skincare_man": "Una semplice routine di skincare per uomo?",
     "skincare_woman": "Una semplice routine di skincare per donna?",
-    "doubleChin": "Quali esercizi aiutano con il doppio mento?"
+    "doubleChin": "Gli esercizi possono aiutare con il doppio mento?"
   },
   "errors": {
     "notConfigured": "Il Coach non è ancora configurato in questa build.",
