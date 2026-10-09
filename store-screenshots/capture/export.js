@@ -1,7 +1,7 @@
 // Exports the deck from the running editor (npm run dev → http://localhost:3000) with its own "Export bundle"
 // button, then writes the App Store files: ../export/<lang>/0N.jpg (1320 × 2868, iPhone 6.9", JPEG without alpha;
 // copy.js `asc` says which App Store locales get each language) and ../export/strip-<lang>.jpg to look at.
-// Usage: node export.js
+// Usage: node export.js   (LANGS=en node export.js after LANGS=en node deck.js: one language)
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -31,11 +31,11 @@ await download.saveAs(zip);
 await browser.close();
 execFileSync('unzip', ['-q', '-o', zip, '-d', tmp]);
 
-fs.rmSync(OUT, { recursive: true, force: true });
 for (const lang of LANGS) {
+  fs.rmSync(path.join(OUT, lang), { recursive: true, force: true });
   const dir = path.join(tmp, 'ios', 'iphone', SIZE, lang);
   const files = fs.readdirSync(dir).filter((f) => f.endsWith('.png')).sort();
-  if (files.length !== 7) throw new Error(`${lang}: expected 7 slides, got ${files.length}`);
+  if (files.length !== COPY[lang].slides.length) throw new Error(`${lang}: expected ${COPY[lang].slides.length} slides, got ${files.length}`);
   fs.mkdirSync(path.join(OUT, lang), { recursive: true });
   files.forEach((f, i) => {
     // Flatten to RGB JPEG: App Store Connect rejects images with an alpha channel.

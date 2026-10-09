@@ -1,4 +1,4 @@
-// Writes ../app-store-screenshots.json: FaceRep's App Store deck (7 iPhone slides, six languages) for the editor.
+// Writes ../app-store-screenshots.json: FaceRep's App Store deck (8 iPhone slides, six languages) for the editor.
 // Run it once to (re)build the deck from copy.js; after that, fine-tune in the editor (npm run dev), which saves
 // to the same file. Running this again replaces those edits.
 // Coordinates are canvas pixels of one slide (1320 × 2868); x below 0 or above 1320 crosses into the next slide.
@@ -70,22 +70,27 @@ const slides = [
       art('voice-relax', '{locale}/voice-relax.png', 50, 2040, { scale: 1.1, rotation: 3 }),
     ],
   }),
-  // 5 Men and women: "Who should the exercises show?" between the two portraits.
+  // 5 The camera mirror: the workout player with the front camera on; the camera picture lifted out.
   slide(4, {
-    shot: 'guide', device: phone(185, 1060, 950, 0),
+    shot: 'workout-mirror', device: phone(370, 900, 940, 3),
+    images: [art('mirror', '{locale}/pop-mirror.png', -20, 1640, { scale: 0.95, rotation: -5, zIndex: 7 })],
+  }),
+  // 6 Men and women: "Who should the exercises show?" between the two portraits.
+  slide(5, {
+    inverted: true, shot: 'guide', device: phone(185, 1060, 950, 0),
     images: [
       art('man', 'portrait-man.png', 20, 820, { scale: 0.56, rotation: -6, zIndex: 6 }),
       art('woman', 'portrait-woman.png', 896, 820, { scale: 0.56, rotation: 6, zIndex: 6 }),
     ],
   }),
-  // 6 Progress: the streak (lifted out of its card) and the month calendar.
-  slide(5, {
-    inverted: true, shot: 'progress', device: phone(70, 900, 1000, -3),
+  // 7 Progress: the streak (lifted out of its card) and the month calendar.
+  slide(6, {
+    shot: 'progress', device: phone(70, 900, 1000, -3),
     images: [art('streak', '{locale}/streak.png', 540, 1160, { scale: 0.95, rotation: 5 })],
   }),
-  // 7 The Coach: a technique answer and the reminder card it prepared, lifted out (cut per language by art.js).
-  slide(6, {
-    shot: 'coach', device: phone(250, 900, 1000, 3),
+  // 8 The Coach: a technique answer and the reminder card it prepared, lifted out (cut per language by art.js).
+  slide(7, {
+    inverted: true, shot: 'coach', device: phone(250, 900, 1000, 3),
     images: [art('card', '{locale}/pop-card.png', -10, 1960, { scale: 1, rotation: -3, zIndex: 7 })],
   }),
 ];
@@ -110,4 +115,4 @@ const project = {
 };
 
 fs.writeFileSync(path.join(HERE, '../app-store-screenshots.json'), JSON.stringify(project, null, 2) + '\n');
-console.log('app-store-screenshots.json: 7 slides ×', LANGS.join(', '));
+console.log(`app-store-screenshots.json: ${slides.length} slides ×`, LANGS.join(', '));

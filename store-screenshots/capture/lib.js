@@ -47,9 +47,11 @@ const PATCHES = [
  * A browser page with the app. `seed`: options for seedSql (guide, goal, onboarded). `chat(body)`: the
  * Coach's canned reply for a question. The page is 440 × 894 points (iPhone 17 Pro Max below the status bar) @3x.
  */
-export async function openApp({ lang = 'en', seed = {}, premium = true, chat, width = 440, height = 894, scale = 3 } = {}) {
-  const browser = await chromium.launch({ executablePath });
-  const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: scale, locale: lang, timezoneId: 'UTC' });
+export async function openApp({ lang = 'en', seed = {}, premium = true, chat, camera, width = 440, height = 894, scale = 3 } = {}) {
+  // `camera`: a .y4m file Chromium plays as the front camera (the workout mirror), camera access already allowed.
+  const args = camera ? ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${camera}`] : [];
+  const browser = await chromium.launch({ executablePath, args });
+  const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: scale, locale: lang, timezoneId: 'UTC', ...(camera ? { permissions: ['camera'] } : {}) });
   await ctx.clock.install({ time: new Date(`${TODAY}T09:41:00Z`) });
   await ctx.addInitScript(({ sql, premium, fontCss, svgs }) => {
     globalThis.__seedSql = sql;

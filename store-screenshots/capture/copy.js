@@ -2,7 +2,7 @@
 // ../app-store-screenshots.json) and the Coach's canned chat for the capture.
 // Headlines: "\n" = new line, *word* = highlighted. Keep lines to about 12 letters: the headline font is big. Plain words, one idea per slide, no result or health claims,
 // no prices, no "#1". Slides showing Premium content say what is free (App Store 2.3.2): slide 3 (Weeks 2–4
-// are Premium) and slide 7 (the Coach is unlimited with Premium). Use the app's own words (app/src/i18n/locales/<lang>/*.json). The first three slides show
+// are Premium) and slide 8 (the Coach is unlimited with Premium). Use the app's own words (app/src/i18n/locales/<lang>/*.json). The first three slides show
 // in App Store search, so their labels carry the search words of each language's name and keywords.
 // `asc`: the App Store Connect locales that get this language's screenshots.
 
@@ -16,6 +16,7 @@ export const COPY = {
       ['FACE EXERCISES', 'See the\n*muscle*\nyou train'],
       ['28-DAY PLAN · WEEK 1 FREE', 'A plan that\n*grows*\nwith you'],
       ['VOICE CUES', 'Just\n*listen*\nand follow'],
+      ['CAMERA MIRROR · NOTHING RECORDED', 'Check your\nform in the\n*mirror*'],
       ['FOR MEN & WOMEN', 'For *him*.\nFor *her*.'],
       ['PROGRESS', 'Keep your\n*streak*\ngoing'],
       ['AI COACH · 3 FREE ANSWERS A MONTH', 'Questions?\nAsk the\n*Coach*'],
@@ -34,6 +35,7 @@ export const COPY = {
       ['EJERCICIOS FACIALES', 'Mira el\n*músculo*\nque entrenas'],
       ['PLAN DE 28 DÍAS · SEMANA 1 GRATIS', 'Un plan que\n*crece*\ncontigo'],
       ['GUÍA POR VOZ', 'Solo\n*escucha*\ny sigue'],
+      ['ESPEJO · NO SE GRABA NADA', 'Mírate\nen el *espejo*'],
       ['HOMBRES Y MUJERES', 'Para *él*.\nPara *ella*.'],
       ['PROGRESO', 'Mantén\ntu *racha*'],
       ['COACH CON IA · 3 RESPUESTAS GRATIS AL MES', '¿Dudas?\nPregunta al\n*Coach*'],
@@ -52,6 +54,7 @@ export const COPY = {
       ['EXERCÍCIOS FACIAIS', 'Veja o\n*músculo* que\nvocê treina'],
       ['PLANO DE 28 DIAS · SEMANA 1 GRÁTIS', 'Um plano\nque *evolui*\ncom você'],
       ['GUIADO POR VOZ', 'É só *ouvir*\ne seguir'],
+      ['ESPELHO · NADA É GRAVADO', 'Confira tudo\nno *espelho*'],
       ['HOMENS E MULHERES', 'Para *ele*.\nPara *ela*.'],
       ['PROGRESSO', 'Mantenha\nsua\n*sequência*'],
       ['COACH COM IA · 3 RESPOSTAS GRÁTIS POR MÊS', 'Dúvidas?\nPergunte ao\n*Coach*'],
@@ -70,6 +73,7 @@ export const COPY = {
       ['GESICHTSÜBUNGEN', 'Sieh deinen\n*Muskel*\narbeiten'],
       ['28-TAGE-PLAN · WOCHE 1 GRATIS', 'Ein Plan, der\nmit dir\n*wächst*'],
       ['SPRACHANSAGEN', 'Einfach\n*zuhören* und\nmitmachen'],
+      ['SPIEGEL · NICHTS WIRD AUFGENOMMEN', 'Sieh dich\nim *Spiegel*'],
       ['FÜR MÄNNER & FRAUEN', 'Für *ihn*.\nFür *sie*.'],
       ['FORTSCHRITT', 'Bleib\n*dran*'],
       ['KI-COACH · 3 ANTWORTEN IM MONAT GRATIS', 'Fragen?\nFrag den\n*Coach*'],
@@ -88,6 +92,7 @@ export const COPY = {
       ['EXERCICES DU VISAGE', 'Vois ton\n*muscle*\ntravailler'],
       ['PLAN DE 28 JOURS · SEMAINE 1 GRATUITE', 'Un plan qui\n*progresse*\navec toi'],
       ['GUIDAGE VOCAL', 'Il suffit\nd’*écouter*'],
+      ['MIROIR · RIEN N’EST ENREGISTRÉ', 'Vérifie-toi\ndans le\n*miroir*'],
       ['HOMMES ET FEMMES', 'Pour *lui*.\nPour *elle*.'],
       ['PROGRÈS', 'Garde\nta *série*'],
       ['COACH IA · 3 RÉPONSES GRATUITES PAR MOIS', 'Demande\nau *Coach*'],
@@ -106,6 +111,7 @@ export const COPY = {
       ['ESERCIZI PER IL VISO', 'Vedi il\n*muscolo*\nche alleni'],
       ['PIANO DI 28 GIORNI · SETTIMANA 1 GRATIS', 'Un piano che\n*cresce*\ncon te'],
       ['GUIDA VOCALE', 'Basta\n*ascoltare*'],
+      ['SPECCHIO · NIENTE VIENE REGISTRATO', 'Guardati\nallo *specchio*'],
       ['UOMINI E DONNE', 'Per *lui*.\nPer *lei*.'],
       ['PROGRESSI', 'Non perdere\nla *serie*'],
       ['COACH IA · 3 RISPOSTE GRATIS AL MESE', 'Dubbi?\nChiedi al\n*Coach*'],
@@ -119,5 +125,6 @@ export const COPY = {
   },
 };
 
-export const LANGS = Object.keys(COPY);
+// LANGS=en node … works on one language (a sample) without touching the others' files.
+export const LANGS = process.env.LANGS ? process.env.LANGS.split(',') : Object.keys(COPY);
 export const CHAT_ACTION = POSTURE;

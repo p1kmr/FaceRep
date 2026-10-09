@@ -150,5 +150,29 @@
   "it/pop-card.png": {
     "w": 1018,
     "h": 485
+  },
+  "en/pop-mirror.png": {
+    "w": 580,
+    "h": 767
+  },
+  "es/pop-mirror.png": {
+    "w": 580,
+    "h": 767
+  },
+  "pt-BR/pop-mirror.png": {
+    "w": 580,
+    "h": 767
+  },
+  "de/pop-mirror.png": {
+    "w": 580,
+    "h": 767
+  },
+  "fr/pop-mirror.png": {
+    "w": 580,
+    "h": 767
+  },
+  "it/pop-mirror.png": {
+    "w": 580,
+    "h": 767
   }
 }

@@ -97,12 +97,13 @@ Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Ch
 - **Never use:** competitor names (Luvly, FaceYogi, Umax…), "#1/best", "lose double chin in 7 days", "reshape bone", "anti-aging", "guaranteed", TMJ/therapy/treat, "rate my face", "PSL", "attractiveness score".
 
 ## 4. Screenshots and preview
-- **Done (2026-10-08):** 7 iPhone 6.9" screenshots (1320×2868) in all six languages, from the real app with demo data,
+- **Done (2026-10-09):** 8 iPhone 6.9" screenshots (1320×2868) in all six languages, from the real app with demo data,
   in `store-screenshots/export/<App Store locale>/` (how they are made and rebuilt: `store-screenshots/README.md`).
   Red and black slides, Anton headlines with one highlighted word, tilted iPhones, magnified details, voice bubbles.
   Order: (1) Train your face like your body (player, mid-squeeze) · (2) See the muscle you train (masseter) ·
-  (3) A plan that grows with you, "Week 1 free" · (4) Just listen and follow (voice cues) · (5) For him. For her. ·
-  (6) Keep your streak going · (7) Ask the Coach, "3 free answers a month".
+  (3) A plan that grows with you, "Week 1 free" · (4) Just listen and follow (voice cues) · (5) Check your form in
+  the mirror (camera mirror, "Nothing recorded") · (6) For him. For her. · (7) Keep your streak going ·
+  (8) Ask the Coach, "3 free answers a month".
 - App Store Connect needs only the 6.9" set (it scales it down); up to 10 screenshots, the first 3 show in search.
 - App Preview: 15–30 s, in-app footage only, muted autoplay. Open with the relaxed→squeeze glow in the first 2 seconds. No before/after faces.
 

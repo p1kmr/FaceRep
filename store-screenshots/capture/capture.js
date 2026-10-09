@@ -5,6 +5,7 @@
 // Usage: node capture.js [lang …]   (the web build must be running, see ../README.md)
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 import { COPY, LANGS, CHAT_ACTION } from './copy.js';
@@ -66,6 +67,31 @@ async function cardRegion(app, title) {
   }, [CARD_OF, title]);
 }
 
+/** The workout mirror's camera picture, in raw-capture points. */
+async function videoRegion(app) {
+  return app.page.evaluate(() => {
+    const v = [...document.querySelectorAll('video')].find((e) => e.getBoundingClientRect().width > 0);
+    if (!v) return null;
+    const r = v.getBoundingClientRect();
+    return [r.left, r.top, r.width, r.height].map((x) => Math.round(x));
+  });
+}
+
+/**
+ * The front camera for the mirror: the woman from the app's welcome photo (AI-generated, fictional), as a still
+ * 3:4 video Chromium plays instead of a camera (raw/camera.y4m, made with ImageMagick).
+ */
+function makeCamera() {
+  const file = path.join(RAW, 'camera.y4m');
+  if (fs.existsSync(file)) return file;
+  fs.mkdirSync(RAW, { recursive: true });
+  const yuv = execFileSync('convert', [path.join(HERE, '../../app/assets/brand/welcome.webp'), '-crop', '360x480+10+95', '+repage',
+    '-resize', '720x960!', '-sampling-factor', '4:2:0', '-depth', '8', '-colorspace', 'YCbCr', '-interlace', 'plane', 'yuv:-'], { maxBuffer: 1 << 24 });
+  const frame = Buffer.concat([Buffer.from('FRAME\n'), yuv]);
+  fs.writeFileSync(file, Buffer.concat([Buffer.from('YUV4MPEG2 W720 H960 F30:1 Ip A1:1 C420jpeg\n'), frame, frame]));
+  return file;
+}
+
 const saveRegions = (lang, add) => {
   const file = path.join(RAW, lang, 'regions.json');
   const old = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
@@ -73,8 +99,8 @@ const saveRegions = (lang, add) => {
 };
 
 /** The workout player 1.3 s into the 3rd squeeze of today's first exercise (Jaw Clench): muscle red, ring part-way. */
-async function workout(lang, guide, name) {
-  const app = await openApp({ lang, seed: { guide }, height: FULL });
+async function workout(lang, guide, name, { mirror = false } = {}) {
+  const app = await openApp({ lang, seed: { guide, mirror }, height: FULL, ...(mirror ? { camera: makeCamera() } : {}) });
   await go(app, '/', 5000);
   await app.page.getByText(t(lang, 'home', 'plan.start').replace('{{day}}', '12'), { exact: true }).first().click();
   const squeeze = t(lang, 'workout', 'phase.hold').toLowerCase();
@@ -88,6 +114,11 @@ async function workout(lang, guide, name) {
   await settle(app, 1300);
   await fitText(app, t(lang, 'workout', 'phase.hold'));
   await save(app, lang, name);
+  if (mirror) {
+    const region = await videoRegion(app);
+    if (!region) throw new Error(`${lang}: the camera mirror didn't show in the workout player`);
+    saveRegions(lang, { mirror: region });
+  }
   const missing = await missingIcons(app);
   await app.browser.close();
   return missing;
@@ -163,25 +194,29 @@ async function captureLang(lang) {
 
   note(await workout(lang, 'woman', 'workout'));
   note(await workout(lang, 'man', 'workout-man'));
+  note(await workout(lang, 'woman', 'workout-mirror', { mirror: true }));
 
   note(await coach(lang));
 
   if (missing.size) console.warn(`  ${lang}: no look-alike for SF Symbols ${[...missing].join(', ')} (add them to icons.js)`);
 }
 
-// node capture.js [lang …] [--workout] [--pops]   (only the workout screens / only Today and the Coach)
+// node capture.js [lang …] [--workout] [--pops] [--mirror]   (only the workout screens / Today and the Coach / the mirror)
 const args = process.argv.slice(2);
 const onlyWorkout = args.includes('--workout');
 const onlyPops = args.includes('--pops'); // only Today and the Coach (the screens with lifted-out cards)
+const onlyMirror = args.includes('--mirror'); // only the workout with the camera mirror
 const langs = args.filter((a) => !a.startsWith('--'));
 for (const lang of langs.length ? langs : LANGS) {
   if (!COPY[lang]) throw new Error(`unknown language ${lang}`);
-  if (onlyWorkout || onlyPops) {
+  if (onlyWorkout || onlyPops || onlyMirror) {
     console.log(lang);
     if (onlyWorkout) {
       await workout(lang, 'woman', 'workout');
       await workout(lang, 'man', 'workout-man');
+      await workout(lang, 'woman', 'workout-mirror', { mirror: true });
     }
+    if (onlyMirror) await workout(lang, 'woman', 'workout-mirror', { mirror: true });
     if (onlyPops) {
       const app = await openApp({ lang, seed: { guide: 'woman' } });
       await today(app, lang);

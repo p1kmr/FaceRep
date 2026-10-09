@@ -1,6 +1,6 @@
 # FaceRep App Store screenshots
 
-Seven iPhone 6.9" screenshots (1320 × 2868) in all six app languages, made from the **real app** (web build with demo
+Eight iPhone 6.9" screenshots (1320 × 2868) in all six app languages, made from the **real app** (web build with demo
 data, made to look like an iPhone capture) and laid out in the
 [app-store-screenshots](https://github.com/ParthJadhav/app-store-screenshots) editor by Parth Jadhav (MIT, see
 `LICENSE`). The finished files are in `export/<lang>/01–07.jpg`, ready to upload (`export/strip-<lang>.jpg` shows a
@@ -10,11 +10,12 @@ language's set side by side).
 |---|---|---|
 | 1 | Train your *face* like your body | Workout player, Jaw Clench mid-squeeze; timer ring magnified |
 | 2 | See the *muscle* you train | Jaw Clench page (man pictures); the masseter magnified |
-| 3 | A plan that *grows* with you · "Week 1 free" | Today, Week 2 · Day 12 of 28; weeks 1–2 of the grid magnified |
+| 3 | A plan that *grows* with you · "Week 1 free" | Today, Week 2 · Day 12 of 28; weeks 1–2 of the grid lifted out |
 | 4 | Just *listen* and follow | Workout player (man) with the voice cues as speech bubbles |
-| 5 | For *him*. For *her*. | "Who should the exercises show?" with both portraits |
-| 6 | Keep your *streak* going | Progress: 11-day streak, October calendar |
-| 7 | Questions? Ask the *Coach* · "3 free answers a month" | The Coach: a technique answer and the reminder it prepared |
+| 5 | Check your form in the *mirror* · "Nothing recorded" | Workout player with the camera mirror on; the camera picture lifted out |
+| 6 | For *him*. For *her*. | "Who should the exercises show?" with both portraits |
+| 7 | Keep your *streak* going | Progress: 11-day streak, October calendar |
+| 8 | Questions? Ask the *Coach* · "3 free answers a month" | The Coach: a technique answer and the reminder card it prepared |
 
 ## How it is made
 
@@ -24,12 +25,13 @@ capture/
   seed.js      demo data: Thu 15 Oct 2026 9:41, Days 1–11 of the plan done (11-day streak), Premium on
   lib.js       opens the web build like the iPhone app (font, SF Symbol look-alikes, demo database, Premium,
                the Coach and /plan answered locally: no Worker, no AI, no RevenueCat)
-  capture.js   films the screens → capture/raw/<lang>/
+  capture.js   films the screens → capture/raw/<lang>/ (the mirror's camera is a still of the woman from the
+               app's welcome photo, played by Chromium as a fake camera)
   frame.js     adds the iPhone parts (9:41 status bar, Dynamic Island, iOS 26 tab bar, back button, Coach sheet,
                home bar) → public/screenshots/apple/iphone/<lang>/
   art.js       portraits (the app's own hero photos) and the per-language chips and voice bubbles → public/art/
   mockup.js    the dark titanium iPhone frame → public/mockup.png
-  deck.js      writes app-store-screenshots.json (the 7 slides, positions, theme, font)
+  deck.js      writes app-store-screenshots.json (the 8 slides, positions, theme, font)
   export.js    clicks the editor's Export bundle and writes export/<lang>/0N.jpg + export/strip-<lang>.jpg
 ```
 
@@ -66,9 +68,10 @@ few full slides before uploading.
 ## Rules for these screenshots
 
 - Plain words, one idea per slide. No health or result claims, no before/after, no "#1", no prices, no other apps.
-- Slides with Premium content say what is free (App Store 2.3.2): slide 3 "Week 1 free", slide 7 "3 free answers a
+- Slides with Premium content say what is free (App Store 2.3.2): slide 3 "Week 1 free", slide 8 "3 free answers a
   month". Keep that if those slides change.
-- Demo data only. The people are the app's AI-generated pictures (fictional).
+- Demo data only. The people are the app's AI-generated pictures (fictional), also in the camera mirror.
+- `LANGS=en node …` runs any step for one language (a quick sample) without touching the others.
 - The first three slides show in search results: their labels carry each language's search words.
 
 ## Upload

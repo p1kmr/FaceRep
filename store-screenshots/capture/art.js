@@ -42,7 +42,8 @@ const CSS = `* { margin: 0; box-sizing: border-box; } html, body { background: t
 
 const browser = await chromium.launch({ executablePath });
 const page = await browser.newPage({ viewport: { width: 1600, height: 1200 }, deviceScaleFactor: 2 });
-const manifest = {};
+const MANIFEST = path.join(HERE, 'art-manifest.json');
+const manifest = fs.existsSync(MANIFEST) ? JSON.parse(fs.readFileSync(MANIFEST, 'utf8')) : {}; // keeps other languages
 
 /** Renders `inner` and saves the body box (transparent around it). Sizes are recorded in canvas pixels (1×). */
 async function draw(rel, inner) {
@@ -72,18 +73,21 @@ for (const lang of LANGS) {
   await draw(`${lang}/voice-relax.png`, `<div class="bubble">${speaker(RED)}<span>${t(lang, 'workout', 'voice.relax')}</span></div>`);
 }
 
-// Cards lifted out of the app: cut from the framed screen (3 px per point) where capture.js found them, shown
-// 2.3 canvas pixels per point (a bit larger than inside the phone).
+// Cards lifted out of the app: cut from the framed screen (3 px per point) where capture.js found them, shown a bit
+// larger than inside the phone (2.3 canvas pixels per point; the camera mirror 3.6).
 const SCREENS = path.join(HERE, '../public/screenshots/apple/iphone');
 for (const lang of LANGS) {
   const regions = JSON.parse(fs.readFileSync(path.join(HERE, 'raw', lang, 'regions.json'), 'utf8'));
-  for (const [name, screen, top, key] of [['pop-grid.png', 'today', 62, 'grid'], ['pop-card.png', 'coach', 72, 'card']]) {
-    const [x, y, w, h] = regions[key];
+  // [file, screen, raw top in the framed screen, region, canvas pixels per point, points cut off each side]
+  // (the mirror's box has a white rounded border: cut inside it, so only the camera picture is lifted out)
+  for (const [name, screen, top, key, scale, inset] of [['pop-grid.png', 'today', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6]]) {
+    if (!regions[key]) throw new Error(`${lang}: no "${key}" region (run capture.js ${lang})`);
+    const [x, y, w, h] = [regions[key][0] + inset, regions[key][1] + inset, regions[key][2] - 2 * inset, regions[key][3] - 2 * inset];
     const crop = path.join(OUT, lang, `.crop-${name}`);
     execFileSync('convert', [path.join(SCREENS, lang, `${screen}.png`), '-crop', `${w * 3}x${h * 3}+${x * 3}+${(y + top) * 3}`, '+repage', crop]);
     const src = `data:image/png;base64,${fs.readFileSync(crop).toString('base64')}`;
     fs.rmSync(crop);
-    await draw(`${lang}/${name}`, `<div class="pop" style="width:${Math.round(w * 2.3)}px"><img src="${src}"></div>`);
+    await draw(`${lang}/${name}`, `<div class="pop" style="width:${Math.round(w * scale)}px"><img src="${src}"></div>`);
   }
 }
 
@@ -91,7 +95,7 @@ await browser.close();
 
 // The deck gives each chip one box for every language: pad each language's picture to the widest one
 // (transparent on the right), so the words are the same size in every language and the chip stays left-aligned.
-for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'pop-grid.png', 'pop-card.png']) {
+for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'pop-grid.png', 'pop-card.png', 'pop-mirror.png']) {
   const w = Math.max(...LANGS.map((l) => manifest[`${l}/${name}`].w));
   const h = Math.max(...LANGS.map((l) => manifest[`${l}/${name}`].h));
   for (const l of LANGS) {
@@ -100,4 +104,4 @@ for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-re
     manifest[`${l}/${name}`] = { w, h };
   }
 }
-fs.writeFileSync(path.join(HERE, 'art-manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
+fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
