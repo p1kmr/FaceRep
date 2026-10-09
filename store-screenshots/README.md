@@ -91,3 +91,13 @@ App Store Connect needs only the 6.9" set; it scales it for smaller iPhones. iPh
 
 Upload with the project's asc CLI from the repo root, one locale at a time (check the exact flags first with
 `./.tools/asc screenshots upload --help`), or drag the files into App Store Connect → 1.0 → each language → iPhone.
+
+## Subscription promotional images
+
+`export/subscriptions/premium-weekly.png`, `premium-monthly.png` and `premium-yearly.png` (1024 × 1024 PNG) are the
+subscriptions' promotional images in App Store Connect (uploaded 2026-10-10; App Store Connect calls them
+"recommended"). They are crops of the paywall portraits in
+`app/assets/guides/<woman|man>/hero/paywall.webp` (weekly: the woman, monthly: the man, yearly: both, facing each
+other). Apple's rules: a different image for each subscription, no screenshot, nothing like the app icon, no text, and
+nothing important in the lower-left corner (Apple puts the app icon there). Upload:
+`./.tools/asc subscriptions versions images upload --version-id <subscription version ID> --file <png>`.

@@ -154,13 +154,16 @@ then shown to the owner):
       the same "to be safe" reason as Other User Content, and the build 5 privacy manifest declares it.
 
 ## 3b. Must be done by hand (the API can't do these)
-- [ ] **Medical device declaration** (required, status PENDING_COLLECTION): App Store Connect → FaceRep → App Information
+- [x] **Medical device declaration:** the owner declared "No" on 2026-10-10 (status COLLECTED). Was: App Store Connect → FaceRep → App Information
       → Regulations and Permits → "Is this app a regulated medical device?" → **No** (FaceRep is fitness and wellness,
       not medical). The asc web session can also set it: `./.tools/asc web apps medical-device set --app 6820638812
       --declared false`, but only with the owner's OK, because it is a legal declaration.
 - [ ] **Subscriptions on the 1.0 page:** version 1.0 → "In-App Purchases and Subscriptions" → select Premium Weekly,
-      Monthly and Yearly. First subscriptions can only be added to a review on the version page in the website, not
-      through the API. Without them the reviewer can't buy Premium and the app is rejected.
+      Monthly and Yearly. Without them the reviewer can't buy Premium and the app is rejected.
+      On 2026-10-10 `./.tools/asc web review subscriptions attach` refused all three: the website side reports them as
+      MISSING_METADATA, while the public API and RevenueCat say READY_TO_SUBMIT, with every field filled in (7 languages,
+      prices in 175 territories, review screenshot and notes, group names, and the promotional images uploaded the same day).
+      The owner opens Subscriptions → FaceRep Premium → each one on the website to see what it flags.
 - [ ] **Test build 5 on the iPhone** (TestFlight, attached to 1.0), including a sandbox purchase and Restore (§1).
 - [ ] **Submit:** only the owner presses "Add for Review" and then "Submit to App Review".
 

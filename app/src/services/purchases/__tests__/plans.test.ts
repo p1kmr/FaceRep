@@ -21,8 +21,10 @@ describe('plans', () => {
   });
 
   it('computes the yearly saving from live prices', () => {
-    // $29.99 / 12 = $2.50 a month vs $3.99 → 37%.
-    expect(yearlySavePercent(plans({ monthly: plan('monthly', 3.99), yearly: plan('yearly', 29.99, 2.49) }))).toBe(38);
+    // $29.99 / 12 = $2.4992 a month vs $3.99 → 37.4% → 37%. The store's truncated $2.49 a month must not make it 38%.
+    expect(yearlySavePercent(plans({ monthly: plan('monthly', 3.99), yearly: plan('yearly', 29.99, 2.49) }))).toBe(37);
+    // Rounded down, never up: 49.9% shows as 49%.
+    expect(yearlySavePercent(plans({ monthly: plan('monthly', 10), yearly: plan('yearly', 60.12) }))).toBe(49);
     expect(yearlySavePercent(plans({ monthly: plan('monthly', 3.99), yearly: plan('yearly', 29.99) }))).toBe(37);
     expect(yearlySavePercent(plans({ yearly: plan('yearly', 29.99) }))).toBeNull();
     // Never shows a "saving" when yearly isn't cheaper.

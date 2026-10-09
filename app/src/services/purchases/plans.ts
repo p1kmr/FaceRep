@@ -60,11 +60,14 @@ export function freeTrialDays(intro: IntroOffer | null): number | null {
 /**
  * "Save X%" for yearly vs. 12 months of monthly, from live prices so it's right in every currency. Deliberately
  * not vs. weekly: that would show a much bigger number for a plan few people would keep for a year.
+ * Uses the exact yearly price / 12, not the store's per-month price (StoreKit cuts $2.4992 to $2.49, which made
+ * 37.4% show as 38%), and rounds down so the saving is never overstated (2.3.1, 3.1.2).
  */
 export function yearlySavePercent(plans: StorePlans): number | null {
   const monthly = plans.monthly?.price;
-  const yearlyPerMonth = plans.yearly?.pricePerMonth ?? (plans.yearly ? plans.yearly.price / 12 : null);
-  if (!monthly || !yearlyPerMonth) return null;
-  const save = Math.round((1 - yearlyPerMonth / monthly) * 100);
+  const yearly = plans.yearly?.price;
+  if (!monthly || !yearly) return null;
+  // The tiny epsilon keeps an exact 50% from flooring to 49 through floating-point error.
+  const save = Math.floor((1 - yearly / 12 / monthly) * 100 + 1e-9);
   return save > 0 ? save : null;
 }
