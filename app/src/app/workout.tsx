@@ -2,7 +2,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ExerciseFrames } from '@/components/exercise/ExerciseFrames';
 import { MirrorView } from '@/components/exercise/MirrorView';
@@ -45,8 +45,17 @@ export default function WorkoutScreen() {
   });
   const { kind } = setup;
   const { t } = useTranslation(['workout', 'exercises']);
-  const { colors } = useTheme();
+  const { colors, tokens } = useTheme();
   const styles = useStyles();
+  // Insets from the app root, not SafeAreaView: inside this full-screen modal SafeAreaView gave no top inset on notch
+  // iPhones (11, 17e), so the top buttons sat under the status bar, where taps don't reach the app.
+  const insets = useSafeAreaInsets();
+  const safe = {
+    paddingTop: insets.top,
+    paddingBottom: insets.bottom + tokens.space.md,
+    paddingLeft: insets.left,
+    paddingRight: insets.right,
+  };
   const { state, pause, resume, skip } = useWorkout(setup.items);
   const { voiceCues } = useSettings();
   const settingsDispatch = useSettingsDispatch();
@@ -89,14 +98,14 @@ export default function WorkoutScreen() {
 
   if (finished) {
     return (
-      <SafeAreaView style={styles.root}>
+      <View style={[styles.root, safe]}>
         <WorkoutComplete result={finished} streak={streak} onDone={close} />
-      </SafeAreaView>
+      </View>
     );
   }
 
   const e = currentExercise(state);
-  if (!e) return <SafeAreaView style={styles.root} />;
+  if (!e) return <View style={[styles.root, safe]} />;
   const name = t(`exercises:items.${e.key}.name`);
   const duration = phaseDuration(state);
   const phaseLabel = state.paused ? t('paused') : t(`phase.${state.phase}`, { context: e.program === 'massage' ? 'massage' : undefined });
@@ -105,7 +114,7 @@ export default function WorkoutScreen() {
   const caution = (state.phase === 'ready' || state.phase === 'rest') && !!e.jawCaution;
 
   return (
-    <SafeAreaView style={styles.root}>
+    <View style={[styles.root, safe]}>
       <View style={styles.top}>
         <IconButton icon="xmark" onPress={confirmEnd} accessibilityLabel={t('end')} />
         <AppText variant="footnote" muted>
@@ -177,12 +186,12 @@ export default function WorkoutScreen() {
         </View>
       </View>
       <RepPips total={e.reps} done={state.completedReps[state.index]} current={state.rep} />
-    </SafeAreaView>
+    </View>
   );
 }
 
 const useStyles = makeStyles(({ colors, tokens }) => ({
-  root: { flex: 1, backgroundColor: colors.background, paddingBottom: tokens.space.md },
+  root: { flex: 1, backgroundColor: colors.background },
   top: {
     flexDirection: 'row',
     alignItems: 'center',
