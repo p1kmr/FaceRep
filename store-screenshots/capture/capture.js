@@ -78,15 +78,16 @@ async function videoRegion(app) {
 }
 
 /**
- * The front camera for the mirror: the woman from the app's welcome photo (AI-generated, fictional), as a still
- * 3:4 video Chromium plays instead of a camera (raw/camera.y4m, made with ImageMagick).
+ * The front camera for the mirror: camera/woman-jaw-clench.jpg (AI-generated with Figma AI, a fictional woman doing the
+ * Jaw Clench at home, framed like a phone's front camera), as a 3:4 still video Chromium plays instead of a camera
+ * (raw/camera.y4m, made with ImageMagick; delete it after changing the picture).
  */
 function makeCamera() {
   const file = path.join(RAW, 'camera.y4m');
   if (fs.existsSync(file)) return file;
   fs.mkdirSync(RAW, { recursive: true });
-  const yuv = execFileSync('convert', [path.join(HERE, '../../app/assets/brand/welcome.webp'), '-crop', '360x480+10+95', '+repage',
-    '-resize', '720x960!', '-sampling-factor', '4:2:0', '-depth', '8', '-colorspace', 'YCbCr', '-interlace', 'plane', 'yuv:-'], { maxBuffer: 1 << 24 });
+  const yuv = execFileSync('convert', [path.join(HERE, 'camera/woman-jaw-clench.jpg'), '-resize', '720x960^', '-gravity', 'center', '-extent', '720x960',
+    '-sampling-factor', '4:2:0', '-depth', '8', '-colorspace', 'YCbCr', '-interlace', 'plane', 'yuv:-'], { maxBuffer: 1 << 24 });
   const frame = Buffer.concat([Buffer.from('FRAME\n'), yuv]);
   fs.writeFileSync(file, Buffer.concat([Buffer.from('YUV4MPEG2 W720 H960 F30:1 Ip A1:1 C420jpeg\n'), frame, frame]));
   return file;
