@@ -126,8 +126,8 @@ npm run deploy
 - App Review details: contact Pawan Kumar, phone set, email kindcodelabs@gmail.com, no sign-in needed, and review notes
   (about 2,100 characters; they explain Premium and the 28-day grid, the Coach and its consent screen, the camera
   mirror, the man/woman pictures, reminders, languages and safety. DeviceCheck is not mentioned because it is off).
-- App Privacy is published with three labels, all App Functionality, not linked to you, no tracking: User ID,
-  Purchase History and Other User Content.
+- App Privacy is published with four labels, all App Functionality, not linked to you, no tracking: User ID,
+  Purchase History, Other User Content and Fitness.
 - Build 1.0.0 (5) is attached to version 1.0 (EAS build `41a22340`, ASC build `74b60e29`, VALID, also in internal
   TestFlight). Builds 3 and 4 must not be used (§1).
 - Release type: **MANUAL** (after approval, nothing goes live until the owner presses Release).
@@ -149,8 +149,7 @@ then shown to the owner):
       --confirm`; 01–07 are the same files as before). the Coach now says "face care" instead of "skincare", so slide 8
       was rebuilt. Upload `store-screenshots/export/<lang>/08.jpg` in place of the current 08 for each locale (as for
       slide 5: `--replace --confirm`). Slides 1–7 didn't change.
-- [ ] **App Privacy (AI, asc web session):** waiting for the owner to sign in again (`./.tools/asc web auth login`,
-      needs Apple 2FA). Add a fourth label, **Fitness** (App Functionality, not linked, no
+- [x] **App Privacy (AI, asc web session):** done 2026-10-10, published with four labels. Added a fourth label, **Fitness** (App Functionality, not linked, no
       tracking), then publish again. The streak and the number of workouts this week go with every Coach question,
       the same "to be safe" reason as Other User Content, and the build 5 privacy manifest declares it.
 
