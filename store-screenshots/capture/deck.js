@@ -11,7 +11,7 @@ import { COPY, LANGS } from './copy.js';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ART = JSON.parse(fs.readFileSync(path.join(HERE, 'art-manifest.json'), 'utf8'));
 const PHONE = 1022 / 2082; // mockup.png aspect
-const MIRROR = process.env.MIRROR || 'woman'; // who is in the camera mirror slide: woman, man or both
+const MIRROR = process.env.MIRROR || 'both'; // who is in the camera mirror slide: woman, man or both (the owner picked both)
 
 const text = (i, part) => Object.fromEntries(LANGS.map((l) => [l, COPY[l].slides[i][part]]));
 const phone = (x, y, width, rotation = 0) => ({ x, y, width, height: Math.round(width / PHONE), rotation, zIndex: 3 });

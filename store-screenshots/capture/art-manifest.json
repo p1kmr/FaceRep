@@ -174,5 +174,29 @@
   "it/pop-mirror.png": {
     "w": 580,
     "h": 767
+  },
+  "en/pop-mirror-man.png": {
+    "w": 580,
+    "h": 767
+  },
+  "es/pop-mirror-man.png": {
+    "w": 580,
+    "h": 767
+  },
+  "pt-BR/pop-mirror-man.png": {
+    "w": 580,
+    "h": 767
+  },
+  "de/pop-mirror-man.png": {
+    "w": 580,
+    "h": 767
+  },
+  "fr/pop-mirror-man.png": {
+    "w": 580,
+    "h": 767
+  },
+  "it/pop-mirror-man.png": {
+    "w": 580,
+    "h": 767
   }
 }
