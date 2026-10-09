@@ -73,7 +73,7 @@ Re-check before acting: from the repo root run
   AI URL and FaceRep's RevenueCat key. The app code mentions Elowa only in comments.
 - **Tests:** typecheck, 108 app tests and 34 Worker tests pass at `ca5b8f0`.
 - **TestFlight:** build 1.0.0 (2) is VALID in the internal group, with no crashes or feedback. It was built from the old
-  commit `a9f8761`, so build 5 (§1, new icon and App Review fixes) replaces it.
+  commit `a9f8761`, so build 7 (§1) replaces it.
 
 ## 0. Owner decisions still open
 - **DeviceCheck at launch** (recommended: yes, see §2).
@@ -82,28 +82,29 @@ Re-check before acting: from the repo root run
   and the app is not sold there (Spain, Germany, France, Italy and the rest of the EU). It is an account-wide setting
   (Business → Compliance), shared with Elowa. Don't change it without the owner.
 
-## 1. Build 5 and device test (AI builds, owner tests)
-Build 1.0.0 (5) is attached to version 1.0: built from `fed556d`, after the App Review fixes of 2026-10-09
-(docs/app-review.md §3: claim wording in six languages, Coach starter questions, "face care" instead of "skincare",
-Fitness in the privacy manifest). EAS build `41a22340`, ASC build `74b60e29`, VALID and in the internal TestFlight group.
-**Build 5 is the one to test and submit.** Builds 3 (old icon) and 4 (before the fixes) must not be used.
+## 1. Build 7 and device test (AI builds, owner tests)
+Build 1.0.0 (7) is attached to version 1.0: built from `63d80f7`. It has the App Review fixes of 2026-10-09
+(docs/app-review.md §3), the yearly "Save 37%" badge (was 38%: the store's rounded-down monthly price) and the workout
+player's top buttons below the status bar (on notch iPhones they sat under it and couldn't be tapped). EAS build
+`71b07554`, ASC build `e8f5b8d4`, VALID and in the internal TestFlight group. **Build 7 is the one to test and submit.**
+Builds 3–6 must not be used.
 
-- [x] Build 5 from `app/` with `npx eas-cli@latest build --profile production --platform ios --auto-submit
+- [x] Build 7 from `app/` with `npx eas-cli@latest build --profile production --platform ios --auto-submit
       --non-interactive` (credentials are stored, no questions).
-- [x] Build 5 VALID, attached to 1.0 in place of build 4; `asc validate`: 0 blocking.
-- [ ] The owner tests build 5 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
+- [x] Build 7 VALID, attached to 1.0 in place of build 6; `asc validate`: 0 blocking (2026-10-10).
+- [ ] The owner tests build 7 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
   - buy Weekly, Monthly, and Yearly with the trial;
   - Weeks 2–4 load from the Worker's `/plan`, and the Coach keeps answering after the 3 free answers;
   - delete the app, reinstall, then Restore works;
   - the purchase shows in RevenueCat → Customers (sandbox).
-- [ ] Compare each store screenshot with the same screen on build 5. The slides come from the web build made to look
+- [ ] Compare each store screenshot with the same screen on build 7. The slides come from the web build made to look
       like the iPhone, so icons or layout could differ slightly. If a screen differs, re-run the capture
       (store-screenshots/README.md).
 - [ ] Optional: replace the subscription review screenshot (a paywall rendered from the web build) with a real paywall
-      screenshot from build 5: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
+      screenshot from build 7: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
 - [ ] Optional: delete the local branch `backup/weekly-local-29d96e7` if the owner agrees.
 
-## 2. Worker: DeviceCheck (owner runs, after build 5 is on TestFlight)
+## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real
 iPhone. Keys are per Apple team, so the existing team DeviceCheck key can be reused (FaceRep only validates tokens and
 never writes DeviceCheck bits; see worker/README.md §D). Keep the `.p8` outside `~/Downloads`, because Terminal can't
@@ -118,7 +119,7 @@ npx wrangler secret put DEVICECHECK_KEY < /path/to/AuthKey_XXXXXXXXXX.p8
 ```
 npm run deploy
 ```
-- [ ] Then, on build 5 without Premium: the Coach asks for consent, gives 3 answers, then shows the paywall.
+- [ ] Then, on build 7 without Premium: the Coach asks for consent, gives 3 answers, then shows the paywall.
 - [ ] If DeviceCheck is turned on, add a line to the review notes (§3): "Free Coach answers are tied to the device with
       Apple DeviceCheck."
 
@@ -128,8 +129,8 @@ npm run deploy
   mirror, the man/woman pictures, reminders, languages and safety. DeviceCheck is not mentioned because it is off).
 - App Privacy is published with four labels, all App Functionality, not linked to you, no tracking: User ID,
   Purchase History, Other User Content and Fitness.
-- Build 1.0.0 (5) is attached to version 1.0 (EAS build `41a22340`, ASC build `74b60e29`, VALID, also in internal
-  TestFlight). Builds 3 and 4 must not be used (§1).
+- Build 1.0.0 (7) is attached to version 1.0 (EAS build `71b07554`, ASC build `e8f5b8d4`, VALID, also in internal
+  TestFlight). Builds 3–6 must not be used (§1).
 - Release type: **MANUAL** (after approval, nothing goes live until the owner presses Release).
 - `asc validate`: 0 blocking. The remaining warnings are subscription promotional images (optional) and the iPad
   notice (the app is iPhone-only).
@@ -151,7 +152,7 @@ then shown to the owner):
       slide 5: `--replace --confirm`). Slides 1–7 didn't change.
 - [x] **App Privacy (AI, asc web session):** done 2026-10-10, published with four labels. Added a fourth label, **Fitness** (App Functionality, not linked, no
       tracking), then publish again. The streak and the number of workouts this week go with every Coach question,
-      the same "to be safe" reason as Other User Content, and the build 5 privacy manifest declares it.
+      the same "to be safe" reason as Other User Content, and the privacy manifest (since build 5) declares it.
 
 ## 3b. Must be done by hand (the API can't do these)
 - [x] **Medical device declaration:** the owner declared "No" on 2026-10-10 (status COLLECTED). Was: App Store Connect → FaceRep → App Information
@@ -164,7 +165,7 @@ then shown to the owner):
       MISSING_METADATA, while the public API and RevenueCat say READY_TO_SUBMIT, with every field filled in (7 languages,
       prices in 175 territories, review screenshot and notes, group names, and the promotional images uploaded the same day).
       The owner opens Subscriptions → FaceRep Premium → each one on the website to see what it flags.
-- [ ] **Test build 5 on the iPhone** (TestFlight, attached to 1.0), including a sandbox purchase and Restore (§1).
+- [ ] **Test build 7 on the iPhone** (TestFlight, attached to 1.0), including a sandbox purchase and Restore (§1).
 - [ ] **Submit:** only the owner presses "Add for Review" and then "Submit to App Review".
 
 ## 4. Account checks (owner, App Store Connect web)
