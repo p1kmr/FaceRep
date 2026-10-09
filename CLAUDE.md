@@ -29,6 +29,10 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
 - **SQLite schema:** never edit a shipped migration in `services/db/migrations.ts`; append a new one.
 - **Tests:** every change to a reducer or a pure service needs tests.
 
+## Brand
+- The logo is the barbell smile. `brand/logo.mjs` makes every icon file (README there); never edit the PNGs in
+  `app/assets/brand/` by hand. No text, Apple artwork or other apps' look in the icon. A new icon needs a new build.
+
 ## Store screenshots
 - `store-screenshots/` (README there): the App Store screenshots, captured from the real app with demo data and laid out in
   the editor. Words in `capture/copy.js` follow the Text and Health rules; slides with Premium content say what is free.

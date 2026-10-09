@@ -73,7 +73,7 @@ Re-check before acting: from the repo root run
   AI URL and FaceRep's RevenueCat key. The app code mentions Elowa only in comments.
 - **Tests:** typecheck, 108 app tests and 34 Worker tests pass at `ca5b8f0`.
 - **TestFlight:** build 1.0.0 (2) is VALID in the internal group, with no crashes or feedback. It was built from the old
-  commit `a9f8761`, so build 3 (§1) replaces it.
+  commit `a9f8761`, so build 4 (§1, with the new icon) replaces it.
 
 ## 0. Owner decisions still open
 - **Release after approval:** manual (the owner presses Release) or automatic. Phased release is already on.
@@ -83,23 +83,27 @@ Re-check before acting: from the repo root run
   and the app is not sold there (Spain, Germany, France, Italy and the rest of the EU). It is an account-wide setting
   (Business → Compliance), shared with Elowa. Don't change it without the owner.
 
-## 1. Build 3 and device test (AI builds, owner tests)
+## 1. Build 4 and device test (AI builds, owner tests)
+The app icon changed after build 3 (new logo, brand/README.md). The App Store takes the icon from the build, so
+**build 4 is the one to test and submit**. Build 3 has the old icon: fine for early tests, never attach it to 1.0.
+
 - [ ] From `app/`, run `npx eas-cli@latest build --profile production --platform ios --auto-submit --non-interactive`,
-      or use the Expo MCP `build_run`. Credentials are stored now, so it asks no questions. The build number becomes 3.
-- [ ] Wait until App Store Connect shows build 3 as VALID and in the internal TestFlight group.
-- [ ] The owner tests build 3 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
+      or use the Expo MCP `build_run`. Credentials are stored now, so it asks no questions. The build number becomes 4
+      (or the next free number).
+- [ ] Wait until App Store Connect shows build 4 as VALID and in the internal TestFlight group.
+- [ ] The owner tests build 4 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
   - buy Weekly, Monthly, and Yearly with the trial;
   - Weeks 2–4 load from the Worker's `/plan`, and the Coach is unlimited;
   - delete the app, reinstall, then Restore works;
   - the purchase shows in RevenueCat → Customers (sandbox).
-- [ ] Compare each store screenshot with the same screen on build 3. The slides come from the web build made to look
+- [ ] Compare each store screenshot with the same screen on build 4. The slides come from the web build made to look
       like the iPhone, so icons or layout could differ slightly. If a screen differs, re-run the capture
       (store-screenshots/README.md).
 - [ ] Optional: replace the subscription review screenshot (a paywall rendered from the web build) with a real paywall
-      screenshot from build 3: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
+      screenshot from build 4: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
 - [ ] Optional: delete the local branch `backup/weekly-local-29d96e7` if the owner agrees.
 
-## 2. Worker: DeviceCheck (owner runs, after build 3 is on TestFlight)
+## 2. Worker: DeviceCheck (owner runs, after build 4 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real
 iPhone. Keys are per Apple team, so the existing team DeviceCheck key can be reused (FaceRep only validates tokens and
 never writes DeviceCheck bits; see worker/README.md §D). Keep the `.p8` outside `~/Downloads`, because Terminal can't
@@ -114,7 +118,7 @@ npx wrangler secret put DEVICECHECK_KEY < /path/to/AuthKey_XXXXXXXXXX.p8
 ```
 npm run deploy
 ```
-- [ ] Then, on build 3 without Premium: the Coach asks for consent, gives 3 answers, then shows the paywall.
+- [ ] Then, on build 4 without Premium: the Coach asks for consent, gives 3 answers, then shows the paywall.
 - [ ] If DeviceCheck is turned on, add a line to the review notes (§3): "Free Coach answers are tied to the device with
       Apple DeviceCheck."
 
@@ -156,7 +160,7 @@ OTHER
     questions, processed but not stored). All are for App Functionality, and none is used for tracking.
   - Workout history, reminders and the camera picture stay on the device, so they are not collected.
   - Publish. `asc validate` can't see this, so confirm it on the App Privacy page.
-- [ ] **Build:** attach build 3 to version 1.0.
+- [ ] **Build:** attach build 4 to version 1.0.
 - [ ] **Subscriptions on the 1.0 page:** under "In-App Purchases and Subscriptions", select the three subscriptions.
       The first subscriptions must be submitted with the first version; otherwise the reviewer can't buy Premium and
       the app is rejected.
@@ -183,4 +187,5 @@ OTHER
   In-App Events, promo codes, subscription promotional images (warnings only).
 - The external TestFlight group "FaceRep Testers" (it needs beta review details and a phone number). The internal
   group is enough.
-- Trademark searches (IP India, TMview, WIPO) and filing: recommended soon, but not a submission blocker.
+- Trademark searches (IP India, TMview, WIPO) and filing, for the name and the logo (image search in TMview and WIPO for
+  the logo): recommended soon, but not a submission blocker.

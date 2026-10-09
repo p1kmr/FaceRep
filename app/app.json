@@ -9,6 +9,11 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "bundleIdentifier": "com.p1kmr.facerep",
+      "icon": {
+        "light": "./assets/brand/icon.png",
+        "dark": "./assets/brand/icon-dark.png",
+        "tinted": "./assets/brand/icon-tinted.png"
+      },
       "supportsTablet": false,
       "infoPlist": {
         "CFBundleAllowMixedLocalizations": true

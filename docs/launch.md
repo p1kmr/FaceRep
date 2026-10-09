@@ -143,7 +143,7 @@ Do: ship exactly what was reviewed, describe every feature in review notes, make
 | Asset | Protection | Action |
 |---|---|---|
 | App name | Trademark | **Register** once the name is final |
-| Logo | Trademark + copyright | Register when the final logo exists |
+| Logo | Trademark + copyright | Final logo in `brand/` (the barbell smile). Image-search it first (Google Lens, TMview and WIPO search by image), then register it with the name |
 | Code | Copyright (automatic) | Private repo; registration optional |
 | AI images/videos | Little or none (no human author) | Keep the originals and prompts; protect the brand instead |
 | Exercise routines | Not protectable as a method | Your wording and edited media are |

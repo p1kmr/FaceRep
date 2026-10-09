@@ -6,7 +6,8 @@ Weeks 2–4 without an app update.
 
 ```
 app/assets/
-  brand/                         icon.png, splash-icon.png, favicon.png, welcome.webp (first screen, before the choice)
+  brand/                         icon.png, icon-dark.png, icon-tinted.png, splash-icon.png, favicon.png (all made by
+                                 brand/logo.mjs, see brand/README.md), welcome.webp (first screen, before the choice)
   guides/
     man/
       hero/                      home.webp (1200×675), paywall.webp (762×1024)
