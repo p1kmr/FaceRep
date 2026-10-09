@@ -80,8 +80,8 @@ for (const lang of LANGS) {
   const regions = JSON.parse(fs.readFileSync(path.join(HERE, 'raw', lang, 'regions.json'), 'utf8'));
   // [file, screen, raw top in the framed screen, region, canvas pixels per point, points cut off each side]
   // (the mirror's box has a white rounded border: cut inside it, so only the camera picture is lifted out)
-  for (const [name, screen, top, key, scale, inset] of [['pop-grid.png', 'today', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6]]) {
-    if (!regions[key]) throw new Error(`${lang}: no "${key}" region (run capture.js ${lang})`);
+  for (const [name, screen, top, key, scale, inset] of [['pop-grid.png', 'today', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
+    if (!regions[key]) { console.warn(`  ${lang}: no "${key}" region yet (run capture.js ${lang}): ${name} skipped`); continue; }
     const [x, y, w, h] = [regions[key][0] + inset, regions[key][1] + inset, regions[key][2] - 2 * inset, regions[key][3] - 2 * inset];
     const crop = path.join(OUT, lang, `.crop-${name}`);
     execFileSync('convert', [path.join(SCREENS, lang, `${screen}.png`), '-crop', `${w * 3}x${h * 3}+${x * 3}+${(y + top) * 3}`, '+repage', crop]);
@@ -95,10 +95,12 @@ await browser.close();
 
 // The deck gives each chip one box for every language: pad each language's picture to the widest one
 // (transparent on the right), so the words are the same size in every language and the chip stays left-aligned.
-for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'pop-grid.png', 'pop-card.png', 'pop-mirror.png']) {
-  const w = Math.max(...LANGS.map((l) => manifest[`${l}/${name}`].w));
-  const h = Math.max(...LANGS.map((l) => manifest[`${l}/${name}`].h));
-  for (const l of LANGS) {
+for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'pop-grid.png', 'pop-card.png', 'pop-mirror.png', 'pop-mirror-man.png']) {
+  const have = LANGS.filter((l) => manifest[`${l}/${name}`] && fs.existsSync(path.join(OUT, l, name)));
+  if (!have.length) continue;
+  const w = Math.max(...have.map((l) => manifest[`${l}/${name}`].w));
+  const h = Math.max(...have.map((l) => manifest[`${l}/${name}`].h));
+  for (const l of have) {
     const file = path.join(OUT, l, name);
     execFileSync('convert', [file, '-background', 'none', '-gravity', 'northwest', '-extent', `${w * 2}x${h * 2}`, file]);
     manifest[`${l}/${name}`] = { w, h };

@@ -32,6 +32,7 @@ export const SCREENS = {
   workout: { kind: 'full' },
   'workout-man': { kind: 'full' },
   'workout-mirror': { kind: 'full' },
+  'workout-mirror-man': { kind: 'full' },
   coach: { kind: 'sheet', behind: 'today' },
 };
 const TABS = [['today', 'flame', 'flame.fill'], ['exercises', 'square.grid.2x2', 'square.grid.2x2.fill'], ['progress', 'chart.bar.fill', 'chart.bar.fill'], ['settings', 'gearshape', 'gearshape.fill']];

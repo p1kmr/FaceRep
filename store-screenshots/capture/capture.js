@@ -78,15 +78,15 @@ async function videoRegion(app) {
 }
 
 /**
- * The front camera for the mirror: camera/woman-jaw-clench.jpg (AI-generated with Figma AI, a fictional woman doing the
- * Jaw Clench at home, framed like a phone's front camera), as a 3:4 still video Chromium plays instead of a camera
- * (raw/camera.y4m, made with ImageMagick; delete it after changing the picture).
+ * The front camera for the mirror: camera/<woman|man>-jaw-clench.jpg (AI-generated with Figma AI, fictional people
+ * doing the Jaw Clench at home, framed like a phone's front camera), as a 3:4 still video Chromium plays instead of a
+ * camera (raw/camera-<who>.y4m, made with ImageMagick; delete it after changing the picture).
  */
-function makeCamera() {
-  const file = path.join(RAW, 'camera.y4m');
+function makeCamera(who) {
+  const file = path.join(RAW, `camera-${who}.y4m`);
   if (fs.existsSync(file)) return file;
   fs.mkdirSync(RAW, { recursive: true });
-  const yuv = execFileSync('convert', [path.join(HERE, 'camera/woman-jaw-clench.jpg'), '-resize', '720x960^', '-gravity', 'center', '-extent', '720x960',
+  const yuv = execFileSync('convert', [path.join(HERE, `camera/${who}-jaw-clench.jpg`), '-resize', '720x960^', '-gravity', 'center', '-extent', '720x960',
     '-sampling-factor', '4:2:0', '-depth', '8', '-colorspace', 'YCbCr', '-interlace', 'plane', 'yuv:-'], { maxBuffer: 1 << 24 });
   const frame = Buffer.concat([Buffer.from('FRAME\n'), yuv]);
   fs.writeFileSync(file, Buffer.concat([Buffer.from('YUV4MPEG2 W720 H960 F30:1 Ip A1:1 C420jpeg\n'), frame, frame]));
@@ -101,7 +101,7 @@ const saveRegions = (lang, add) => {
 
 /** The workout player 1.3 s into the 3rd squeeze of today's first exercise (Jaw Clench): muscle red, ring part-way. */
 async function workout(lang, guide, name, { mirror = false } = {}) {
-  const app = await openApp({ lang, seed: { guide, mirror }, height: FULL, ...(mirror ? { camera: makeCamera() } : {}) });
+  const app = await openApp({ lang, seed: { guide, mirror }, height: FULL, ...(mirror ? { camera: makeCamera(guide) } : {}) });
   await go(app, '/', 5000);
   await app.page.getByText(t(lang, 'home', 'plan.start').replace('{{day}}', '12'), { exact: true }).first().click();
   const squeeze = t(lang, 'workout', 'phase.hold').toLowerCase();
@@ -118,7 +118,7 @@ async function workout(lang, guide, name, { mirror = false } = {}) {
   if (mirror) {
     const region = await videoRegion(app);
     if (!region) throw new Error(`${lang}: the camera mirror didn't show in the workout player`);
-    saveRegions(lang, { mirror: region });
+    saveRegions(lang, { [guide === 'man' ? 'mirror-man' : 'mirror']: region });
   }
   const missing = await missingIcons(app);
   await app.browser.close();
@@ -196,6 +196,7 @@ async function captureLang(lang) {
   note(await workout(lang, 'woman', 'workout'));
   note(await workout(lang, 'man', 'workout-man'));
   note(await workout(lang, 'woman', 'workout-mirror', { mirror: true }));
+  note(await workout(lang, 'man', 'workout-mirror-man', { mirror: true }));
 
   note(await coach(lang));
 
@@ -216,8 +217,12 @@ for (const lang of langs.length ? langs : LANGS) {
       await workout(lang, 'woman', 'workout');
       await workout(lang, 'man', 'workout-man');
       await workout(lang, 'woman', 'workout-mirror', { mirror: true });
+      await workout(lang, 'man', 'workout-mirror-man', { mirror: true });
     }
-    if (onlyMirror) await workout(lang, 'woman', 'workout-mirror', { mirror: true });
+    if (onlyMirror) {
+      await workout(lang, 'woman', 'workout-mirror', { mirror: true });
+      await workout(lang, 'man', 'workout-mirror-man', { mirror: true });
+    }
     if (onlyPops) {
       const app = await openApp({ lang, seed: { guide: 'woman' } });
       await today(app, lang);

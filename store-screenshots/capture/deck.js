@@ -11,6 +11,7 @@ import { COPY, LANGS } from './copy.js';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ART = JSON.parse(fs.readFileSync(path.join(HERE, 'art-manifest.json'), 'utf8'));
 const PHONE = 1022 / 2082; // mockup.png aspect
+const MIRROR = process.env.MIRROR || 'woman'; // who is in the camera mirror slide: woman, man or both
 
 const text = (i, part) => Object.fromEntries(LANGS.map((l) => [l, COPY[l].slides[i][part]]));
 const phone = (x, y, width, rotation = 0) => ({ x, y, width, height: Math.round(width / PHONE), rotation, zIndex: 3 });
@@ -70,11 +71,17 @@ const slides = [
       art('voice-relax', '{locale}/voice-relax.png', 50, 2040, { scale: 1.1, rotation: 3 }),
     ],
   }),
-  // 5 The camera mirror: the workout player with the front camera on; the camera picture lifted out.
-  slide(4, {
-    shot: 'workout-mirror', device: phone(370, 900, 940, 3),
-    images: [art('mirror', '{locale}/pop-mirror.png', -20, 1640, { scale: 0.95, rotation: -5, zIndex: 7 })],
-  }),
+  // 5 The camera mirror: the workout player with the front camera on (MIRROR=woman|man|both picks who).
+  MIRROR === 'both'
+    ? slide(4, {
+      layout: 'two-devices', shot: 'workout-mirror', shot2: 'workout-mirror-man',
+      // Her phone in front on the left, his behind on the right: both camera boxes (bottom right of each drawing) show.
+      device: phone(-40, 1060, 860, -5), device2: { ...phone(470, 940, 840, 6), zIndex: 2 },
+    })
+    : slide(4, {
+      shot: MIRROR === 'man' ? 'workout-mirror-man' : 'workout-mirror', device: phone(370, 900, 940, 3),
+      images: [art('mirror', `{locale}/pop-mirror${MIRROR === 'man' ? '-man' : ''}.png`, -20, 1640, { scale: 0.95, rotation: -5, zIndex: 7 })],
+    }),
   // 6 Men and women: "Who should the exercises show?" between the two portraits.
   slide(5, {
     inverted: true, shot: 'guide', device: phone(185, 1060, 950, 0),
