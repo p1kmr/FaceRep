@@ -43,7 +43,7 @@ iPhone app ── purchase/restore (react-native-purchases, public appl_ key) �
 Rules
 - `isPremium` is only written from RevenueCat results.
 - Without a RevenueCat key (web, Expo Go) everything works, as Free.
-- **(FaceRep)** Free: **Week 1 of the 28-day plan**, every single exercise in the library, streaks and progress. Premium: **Weeks 2–4**, **Levels 2 and 3** (and later rounds), **up to 40 AI Coach answers a day** (a fair-use cap, `PREMIUM_LIMITS.aiPerDay` = the Worker's `LIMITS.perUser`; never call it "unlimited").
+- **(FaceRep)** Free: **Week 1 of the 28-day plan**, every single exercise in the library, streaks and progress. Premium: **Weeks 2–4**, **Levels 2 and 3** (and later rounds), **unlimited AI Coach answers** (the Worker's `LIMITS` stop only abuse: 100 a day per app ID, far beyond normal use; the Terms mention fair use, the app never shows the number).
 - `FREE_LIMITS.aiPerMonth = 3` (`constants/limits.ts`), refilled on the 1st. The app's count is for display and to open the paywall early; the Worker is the authority. A 402 `freeUsed` syncs the app to "all used".
 - **(FaceRep)** AI consent (guideline 5.1.2(i)) comes before the first question, and the paywall also says the Coach uses Cloudflare Workers AI, so nobody pays before knowing where questions go.
 

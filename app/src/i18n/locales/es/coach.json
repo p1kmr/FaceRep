@@ -9,7 +9,7 @@
   "freeLeft_one": "Te queda {{count}} respuesta gratis este mes",
   "freeLeft_other": "Te quedan {{count}} respuestas gratis este mes",
   "freeRefill": "Las respuestas gratis se renuevan el {{date}}",
-  "unlock": "Hasta {{max}} respuestas al día con Premium",
+  "unlock": "Respuestas ilimitadas con Premium",
   "aiNote": "Las respuestas de la IA pueden ser incorrectas. No es consejo médico. Mantén presionada una respuesta para reportarla.",
   "reportHint": "Mantén presionado para reportar esta respuesta",
   "reportSubject": "Reportar una respuesta del Coach con IA",

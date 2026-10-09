@@ -84,8 +84,7 @@ Re-check before acting: from the repo root run
 
 ## 1. Build 5 and device test (AI builds, owner tests)
 Build 4 (new icon) is attached to 1.0, but it was built before the App Review fixes of 2026-10-09 (docs/app-review.md
-§3: claim wording in six languages, "up to 40 Coach answers a day" instead of "unlimited", Fitness in the privacy
-manifest). The App Store shows what is in the binary, so **build 5, from main after those fixes, is the one to test and
+§3: claim wording in six languages, Coach starter questions, Fitness in the privacy manifest). The App Store shows what is in the binary, so **build 5, from main after those fixes, is the one to test and
 submit**. Build 4 is fine for testing everything else meanwhile. Build 3 has the old icon: never use it.
 
 - [ ] From `app/`, run `npx eas-cli@latest build --profile production --platform ios --auto-submit --non-interactive`,
@@ -139,15 +138,12 @@ npm run deploy
 **To redo after the App Review fixes of 2026-10-09** (docs/app-review.md §3; text and labels can be written directly,
 then shown to the owner):
 - [ ] **Deploy the Worker (AI):** from `worker/`, run `npm run deploy` (it deploys `facerep-api` only). The privacy
-      policy (the providers' equal-protection sentence) and the terms ("up to 40 AI Coach answers a day") changed.
+      policy (the providers' equal-protection sentence) and the terms (unlimited Coach for personal use, with fair use)
+      changed, and the daily ceiling went from 40 to 100 per person (300 per IP), so Premium is really unlimited.
       Check that `/privacy` and `/terms` show "Last updated October 9, 2026".
-- [ ] **Review notes (AI):** in the AI COACH paragraph, change "with Premium it is unlimited" to "with Premium, up to
-      40 answers a day".
-- [ ] **Store description (AI):** in all seven localizations, the Premium line changed from "Unlimited AI Coach
-      answers" to "Up to 40 AI Coach answers a day" (docs/store-listing.md). Upload the description again.
-- [ ] **Subscription descriptions (AI):** read the display name and description of the three subscriptions in all
-      seven locales. If one says "unlimited" (ilimitado/as, unbegrenzt, illimité/es, illimitate), replace it with
-      the cap or leave the cap out, e.g. "Full 28-day plan, levels and Coach" (at most 55 characters).
+- [ ] **German store description (AI, de-DE only):** the Premium line is now "Unbegrenzte Antworten vom KI-Coach"
+      (it said "Unbegrenzt Antworten", a grammar mistake). Upload the German description from docs/store-listing.md.
+      The other languages and the review notes ("with Premium it is unlimited") stay as they are.
 - [ ] **App Privacy (AI, asc web session):** add a fourth label, **Fitness** (App Functionality, not linked, no
       tracking), then publish again. The streak and the number of workouts this week go with every Coach question,
       the same "to be safe" reason as Other User Content, and the build 5 privacy manifest declares it.

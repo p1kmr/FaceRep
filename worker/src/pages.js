@@ -4,7 +4,6 @@
  * Contact details come from Worker vars (`LEGAL_NAME`, `SUPPORT_EMAIL` in wrangler.jsonc).
  */
 import { FREE_PER_MONTH } from './lib/access.js';
-import { LIMITS } from './lib/ratelimit.js';
 
 const UPDATED = 'October 9, 2026';
 
@@ -179,8 +178,8 @@ AI Coach answers are generated automatically and may be wrong.</p>
 <h2>Premium subscriptions and purchases</h2>
 <ul>
   <li>Premium is offered as auto-renewing weekly, monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
-  <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and up to
-  ${LIMITS.perUser} AI Coach answers a day. The Premium part of the plan is loaded from our server, so the first time
+  <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and unlimited
+  AI Coach answers for personal use (see fair use below). The Premium part of the plan is loaded from our server, so the first time
   it needs an internet connection.</li>
   <li>Payment is charged to your Apple Account at confirmation of purchase.</li>
   <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the period.</li>
@@ -190,8 +189,9 @@ AI Coach answers are generated automatically and may be wrong.</p>
 </ul>
 
 <h2>Free Coach answers and fair use</h2>
-<p>Without Premium you get ${FREE_PER_MONTH} AI Coach answers per month; with Premium, up to ${LIMITS.perUser} a day. These limits keep the
-service available for everyone. We may
+<p>Without Premium you get ${FREE_PER_MONTH} AI Coach answers per month. With Premium, Coach answers are unlimited for personal
+use. To keep the service available for everyone, automated or abusive use (far more questions than one person asks in a
+day) may be paused until the next day. We may
 change or discontinue AI features, for example if a provider changes its service.</p>
 
 <h2>Your data</h2>

@@ -1,6 +1,6 @@
 const { check, findClaims, trackingPackages, CLAIMS } = require('../review-check');
 const { SUPPORTED_LANGUAGES } = require('../../src/constants/i18n');
-const { FREE_LIMITS, PREMIUM_LIMITS } = require('../../src/constants/limits');
+const { FREE_LIMITS } = require('../../src/constants/limits');
 
 describe('App Review check (docs/app-review.md)', () => {
   it('app text, store text, screenshot words, paywall, limits and packages pass', () => {
@@ -11,9 +11,8 @@ describe('App Review check (docs/app-review.md)', () => {
     expect(Object.keys(CLAIMS).sort()).toEqual([...SUPPORTED_LANGUAGES].sort());
   });
 
-  it('the limits it checks are the app constants', () => {
+  it('the free allowance it checks is the app constant', () => {
     expect(FREE_LIMITS.aiPerMonth).toBeGreaterThan(0);
-    expect(PREMIUM_LIMITS.aiPerDay).toBeGreaterThan(FREE_LIMITS.aiPerMonth);
   });
 
   it.each([
@@ -21,18 +20,17 @@ describe('App Review check (docs/app-review.md)', () => {
     ['en', 'How long until I see jawline results?'],
     ['en', 'Get rid of your double chin in 2 weeks'],
     ['en', 'Clinically proven face yoga'],
-    ['en', 'Unlimited answers with Premium'],
     ['en', 'Also on Android'],
     ['en', 'The #1 face app'],
     ['es', 'Una mandíbula de aspecto más definido.'],
     ['es', '¿Cuánto tardaré en ver resultados?'],
-    ['pt-BR', 'Respostas ilimitadas com o Premium'],
+    ['pt-BR', 'Uma mandíbula de aparência mais definida.'],
     ['de', 'Für eine markanter wirkende Kieferlinie.'],
     ['de', 'Wann sehe ich Ergebnisse?'],
     ['fr', 'Élimine ton double menton'],
     ['fr', 'Pour une mâchoire à l’allure plus nette.'],
     ['it', 'Quanto ci vuole per vedere risultati?'],
-    ['it', 'Risposte illimitate con Premium'],
+    ['it', 'Per una mascella dall’aspetto più definito.'],
   ])('catches %s: %s', (lang, text) => {
     expect(findClaims(lang, text)).not.toEqual([]);
   });
@@ -43,6 +41,8 @@ describe('App Review check (docs/app-review.md)', () => {
     ['en', 'Can exercises help a double chin?'],
     ['en', 'A light burn in the muscle is fine; pain is not.'],
     ['en', 'Best value'],
+    ['en', 'Unlimited AI Coach answers on technique and routine'],
+    ['de', 'Unbegrenzte Antworten mit Premium'],
     ['es', 'Los resultados varían.'],
     ['de', 'Können Übungen bei einem Doppelkinn helfen?'],
     ['fr', 'Les exercices peuvent-ils aider pour le double menton ?'],

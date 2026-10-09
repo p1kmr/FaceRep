@@ -4,7 +4,7 @@
   "benefits": {
     "plan": "Weeks 2 to 4: more exercises, reps and hold time each week",
     "levels": "Level 2 and 3 when you finish, and new rounds after that",
-    "coach": "AI Coach answers on technique and routine, up to {{max}} a day"
+    "coach": "Unlimited AI Coach answers on technique and routine"
   },
   "aiNote": "Coach questions are answered by an AI (Cloudflare Workers AI). You'll be asked for permission before your first question.",
   "plans": {

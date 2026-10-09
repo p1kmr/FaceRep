@@ -9,7 +9,7 @@
   "freeLeft_one": "{{count}} free answer left this month",
   "freeLeft_other": "{{count}} free answers left this month",
   "freeRefill": "Free answers refill on {{date}}",
-  "unlock": "Up to {{max}} answers a day with Premium",
+  "unlock": "Unlimited answers with Premium",
   "aiNote": "AI answers can be wrong. Not medical advice. Long-press an answer to report it.",
   "reportHint": "Long-press to report this answer",
   "reportSubject": "Report an AI Coach answer",

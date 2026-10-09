@@ -4,7 +4,7 @@
   "benefits": {
     "plan": "Semanas 2 a 4: más ejercicios, repeticiones y tiempo de contracción cada semana",
     "levels": "Niveles 2 y 3 al terminar, y nuevas rondas después",
-    "coach": "Respuestas del Coach con IA sobre técnica y rutina, hasta {{max}} al día"
+    "coach": "Respuestas ilimitadas del Coach con IA sobre técnica y rutina"
   },
   "aiNote": "Las preguntas al Coach las responde una IA (Cloudflare Workers AI). Te pediremos permiso antes de tu primera pregunta.",
   "plans": {

@@ -10,7 +10,7 @@ The name lives in `CONFIG.appName` (`app/src/constants/config.ts`), `app/app.jso
 
 - **No login.** A random ID in the Keychain identifies the user (docs/premium.md).
 - **On-device data.** Workouts, chat history and settings live in SQLite on the iPhone (`expo-sqlite`).
-- **Free exercises, paid AI.** Premium (RevenueCat) unlocks up to 40 Coach answers a day; free users get 3 a month.
+- **Free exercises, paid AI.** Premium (RevenueCat) unlocks unlimited Coach answers (fair use); free users get 3 a month.
 - **AI on Cloudflare.** The Coach runs through our Worker on Workers AI; no AI key in the app.
 - **Six languages.** English, Spanish, Portuguese (Brazil), German, French and Italian (docs/i18n.md); App Store text per language in docs/store-listing.md.
 

@@ -8,7 +8,7 @@ Three jobs:
 ```
 iPhone app ──(question + anonymous context)──► Cloudflare Worker ──► Workers AI (model runs on Cloudflare)
                                                  • strict input check (validate.js)
-                                                 • 40/day per app ID, 120/day per IP (D1)
+                                                 • fair-use ceiling: 100/day per app ID, 300/day per IP (D1)
                                                  • Premium? RevenueCat REST (secret key)
                                                  • free: 3 answers/month per app ID; DeviceCheck token must be valid
 ```

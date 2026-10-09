@@ -7,13 +7,8 @@ export const FREE_LIMITS = {
   aiPerMonth: 3,
 } as const;
 
-/**
- * Premium's daily fair-use cap on AI Coach answers. The paywall and the Coach say "up to N a day", never
- * "unlimited" (App Store 3.1.2(c): say what the price buys). Must match LIMITS.perUser in worker/src/lib/ratelimit.js.
- */
-export const PREMIUM_LIMITS = {
-  aiPerDay: 40,
-} as const;
+// Premium Coach answers are unlimited. The Worker's daily ceiling (LIMITS in worker/src/lib/ratelimit.js) only stops
+// abuse and is never shown in the app (docs/app-review.md).
 
 /** Chat sizes, matching the Worker's limits (worker/src/lib/validate.js). */
 export const CHAT_LIMITS = {

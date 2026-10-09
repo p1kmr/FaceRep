@@ -34,8 +34,8 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
   data sent off the iPhone, screenshot or store text, check the matching areas in **docs/app-review.md** (the
   `app-review` skill is the procedure). If a request would be rejected, say so with the guideline number and propose the
   allowed way.
-- `npm test` includes `npm run review:check`: claim words in all six languages, the paywall's required parts, text limits
-  that must match the Worker, no tracking SDKs. Never weaken it to make a change pass.
+- `npm test` includes `npm run review:check`: claim words in all six languages, the paywall's required parts, the free limit
+  matching the Worker, the "unlimited" Coach staying true (a hidden fair-use ceiling of 100+ a day), no tracking SDKs. Never weaken it to make a change pass.
 
 ## Brand
 - The logo is the barbell smile. `brand/logo.mjs` makes every icon file (README there); never edit the PNGs in

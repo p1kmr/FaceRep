@@ -1,8 +1,10 @@
 /**
- * Coach questions per day. The free plan allows a few per month in total; this caps Premium and abuse.
- * perUser is promised as "up to N a day" (app: PREMIUM_LIMITS.aiPerDay, Terms page, store description): change them together.
+ * Coach questions per day: a fair-use ceiling against abuse, not a quota. The app and the App Store sell Premium Coach
+ * answers as unlimited, so no real person may ever reach it (App Store 2.3.1, 3.1.2(c); docs/app-review.md): keep
+ * perUser at 100 or more, and perIp above perUser (several people can share one mobile network IP). The Terms mention
+ * fair use; never show these numbers in the app. Free answers are limited separately (FREE_PER_MONTH in access.js).
  */
-export const LIMITS = { perUser: 40, perIp: 120 };
+export const LIMITS = { perUser: 100, perIp: 300 };
 
 const toHex = (buffer) => [...new Uint8Array(buffer)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 32);
 

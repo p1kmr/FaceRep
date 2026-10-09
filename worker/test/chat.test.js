@@ -115,6 +115,11 @@ function fakeD1() {
   };
 }
 
+test('rate limit: Premium is sold as unlimited, so the daily caps stay ceilings nobody reaches', () => {
+  assert.ok(LIMITS.perUser >= 100);
+  assert.ok(LIMITS.perIp > LIMITS.perUser);
+});
+
 test('rate limit: per app ID per day; storage down fails closed', async () => {
   const check = createD1RateLimiter(fakeD1(), { ipSecret: 's' });
   const now = new Date('2026-10-06T10:00:00Z');
@@ -138,7 +143,9 @@ test('pages: privacy, terms and support render with the app name; unknown paths 
   const privacy = await renderPage('/privacy', env).text();
   assert.match(privacy, /same or equal protection/); // App Store 5.1.1(i)
   const terms = await renderPage('/terms', env).text();
-  assert.match(terms, new RegExp(`up to\\s+${LIMITS.perUser} AI Coach answers a day`));
-  assert.doesNotMatch(terms, /unlimited/i);
+  assert.match(terms, /unlimited\s+AI Coach answers for personal use/);
+  assert.match(terms, /automated or abusive use/);
+  // The fair-use ceiling is never advertised.
+  assert.doesNotMatch(terms, new RegExp(`${LIMITS.perUser}\\s+(AI Coach\\s+)?(answers|questions)|${LIMITS.perUser}\\s+(a|per)\\s+day`, 'i'));
   assert.equal(renderPage('/admin', env), null);
 });

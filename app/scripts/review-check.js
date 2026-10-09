@@ -16,7 +16,6 @@ const rule = (re, why) => ({ re: new RegExp(re.source.replaceAll('\\b', B), 'iu'
 const RESULT = 'result or look claim (2.3.1, 1.4.1)';
 const MEDICAL = 'medical claim (1.4.1)';
 const PROOF = 'proof claim nobody can back up (2.3.1)';
-const CAP = 'Premium has a daily cap: say "up to N a day" (3.1.2(c))';
 const RESULTS = 'question or promise about seeing results (2.3.1)';
 const KIDS = '"for kids" is reserved for the Kids Category (2.3.8)';
 
@@ -35,7 +34,6 @@ const CLAIMS = {
     rule(/\b(cures?|cured|heals?|healing|relieves?)\b/, MEDICAL),
     rule(/\b(guaranteed?|clinically|scientifically|proven|dermatologist[- ]approved|doctor[- ]approved)\b/, PROOF),
     rule(/\b(best (app|face|jawline|workout))\b/, PROOF),
-    rule(/\bunlimited\b/, CAP),
     rule(/\bsee\b[^.?!]{0,20}\bresults?\b|\b(results?|difference) (in|within) (just )?\d+ (days?|weeks?)\b/, RESULTS),
     rule(/\bfor (kids|children)\b/, KIDS),
   ],
@@ -44,7 +42,6 @@ const CLAIMS = {
     rule(/\b(elimin\w*|quitar|perder|reduc\w*|adiós a)\b[^.?!]{0,25}\b(papada|arrugas|grasa facial|flacidez)\b/, RESULT),
     rule(/\b(curar|cura (el|la|los|las)|alivia\w*)\b/, MEDICAL),
     rule(/\b(garantiz\w*|clínicamente|científicamente|probad[oa] científicamente)\b/, PROOF),
-    rule(/\bilimitad[oa]s?\b/, CAP),
     rule(/\bver resultados\b/, RESULTS),
     rule(/\bpara niños\b/, KIDS),
   ],
@@ -53,7 +50,6 @@ const CLAIMS = {
     rule(/\b(elimin\w*|perder|reduz\w*|acabar com|adeus)\b[^.?!]{0,25}\b(papada|rugas|gordura facial|flacidez)\b/, RESULT),
     rule(/\b(curar?|alivia\w*)\b/, MEDICAL),
     rule(/\b(garant\w*|clinicamente|cientificamente|comprovad[oa]s?)\b/, PROOF),
-    rule(/\bilimitad[oa]s?\b/, CAP),
     rule(/\bver resultados\b/, RESULTS),
     rule(/\bpara crianças\b/, KIDS),
   ],
@@ -62,7 +58,6 @@ const CLAIMS = {
     rule(/\b(reduzier\w*|beseitig\w*|entfern\w*|loswerden|los werden)\b[^.?!]{0,25}\b(doppelkinn|falten)\b|\b(doppelkinn|falten)\b[^.?!]{0,25}\b(weg|loswerden|reduzieren|beseitigen|entfernen)\b/, RESULT),
     rule(/\b(heilt|heilen|lindert|lindern)\b/, MEDICAL),
     rule(/\b(garantiert|klinisch|wissenschaftlich (bewiesen|belegt)|nachweislich)\b/, PROOF),
-    rule(/\bunbegrenzt\w*\b/, CAP),
     rule(/\bseh\w*\b[^.?!]{0,15}\bergebnisse?\b/, RESULTS),
     rule(/\bfür kinder\b/, KIDS),
   ],
@@ -71,7 +66,6 @@ const CLAIMS = {
     rule(/\b(élimin\w*|perdre|réduire|supprimer|adieu)\b[^.?!]{0,25}\b(double menton|rides|gras du visage)\b/, RESULT),
     rule(/\b(guéri\w*|soulage\w*)\b/, MEDICAL),
     rule(/\b(garanti\w*|cliniquement|scientifiquement|prouvé\w*)\b/, PROOF),
-    rule(/\billimité\w*\b/, CAP),
     rule(/\bvoir des résultats\b/, RESULTS),
     rule(/\bpour (les )?enfants\b/, KIDS),
   ],
@@ -80,7 +74,6 @@ const CLAIMS = {
     rule(/\b(elimin\w*|perdere|ridurre|addio)\b[^.?!]{0,25}\b(doppio mento|rughe|grasso del viso)\b/, RESULT),
     rule(/\b(guarisc\w*|curare|allevia\w*)\b/, MEDICAL),
     rule(/\b(garantit\w*|clinicamente|scientificamente|dimostrat\w*)\b/, PROOF),
-    rule(/\billimitat[eio]\b/, CAP),
     rule(/\bvedere (i )?risultati\b/, RESULTS),
     rule(/\bper bambini\b/, KIDS),
   ],
@@ -150,6 +143,12 @@ function screenshotBlocks() {
 
 const number = (file, re) => Number(read(file).match(re)?.[1]);
 
+/**
+ * Premium Coach answers are sold as "unlimited". That stays true only while the Worker's daily ceiling is far above
+ * what one person asks (fair use against abuse), so it may never go below this, and no text may name it.
+ */
+const FAIR_USE_FLOOR = 100;
+
 /** Ad, analytics and tracking SDKs (CLAUDE.md: never; they would also change the App Privacy labels). */
 const TRACKING = /(^|[@/-])(analytics|admob|google-mobile-ads|tracking-transparency|fbsdk|facebook|appsflyer|adjust|branch|amplitude|mixpanel|segment|posthog|sentry|onesignal|clevertap|braze|firebase)([/-]|$)/;
 const trackingPackages = (deps) => Object.keys(deps).filter((name) => TRACKING.test(name));
@@ -188,18 +187,19 @@ function check() {
 
   // Numbers the app promises match what the Worker enforces (2.3.1, 3.1.2(c)).
   const free = number('app/src/constants/limits.ts', /aiPerMonth:\s*(\d+)/);
-  const perDay = number('app/src/constants/limits.ts', /aiPerDay:\s*(\d+)/);
   if (free !== number('worker/src/lib/access.js', /FREE_PER_MONTH\s*=\s*(\d+)/)) {
     problems.push('FREE_LIMITS.aiPerMonth (app) differs from FREE_PER_MONTH (worker/src/lib/access.js)');
   }
-  if (perDay !== number('worker/src/lib/ratelimit.js', /perUser:\s*(\d+)/)) {
-    problems.push('PREMIUM_LIMITS.aiPerDay (app) differs from LIMITS.perUser (worker/src/lib/ratelimit.js)');
-  }
   const english = storeSections().find((s) => s.lang === 'en')?.text ?? '';
   if (!english.includes(`${free} free answers a month`)) problems.push(`docs/store-listing.md (English) must say "${free} free answers a month"`);
-  if (!english.includes(`Up to ${perDay} AI Coach answers a day`)) problems.push(`docs/store-listing.md (English) must say "Up to ${perDay} AI Coach answers a day"`);
-  for (const s of storeSections()) {
-    if (!new RegExp(`(?<!\\d)${perDay}(?!\\d)`).test(s.text)) problems.push(`docs/store-listing.md (${s.heading}) doesn't mention the ${perDay}-a-day Coach cap`);
+  const perUser = number('worker/src/lib/ratelimit.js', /perUser:\s*(\d+)/);
+  const perIp = number('worker/src/lib/ratelimit.js', /perIp:\s*(\d+)/);
+  if (!(perUser >= FAIR_USE_FLOOR && perIp > perUser)) {
+    problems.push(`worker LIMITS (perUser ${perUser}, perIp ${perIp}): Premium Coach answers are sold as unlimited, so keep perUser at ${FAIR_USE_FLOOR} or more and perIp above it (2.3.1, 3.1.2(c))`);
+  }
+  const ceiling = new RegExp(`(?<!\\d)${perUser}\\s+(AI Coach\\s+|KI-Coach\\s+)?(answers|questions|respuestas|respostas|antworten|réponses|risposte)|(?<!\\d)${perUser}\\s*(a|per|al|por|pro|par)\\s+(day|día|dia|tag|jour|giorno)`, 'iu');
+  for (const { where, text } of texts()) {
+    if (ceiling.test(text)) problems.push(`${where}: names the fair-use ceiling (${perUser} a day); the Coach is sold as unlimited, never show the number`);
   }
   if (!screenshotBlocks().en?.includes(`${free} FREE ANSWERS A MONTH`)) problems.push(`copy.js (en) slide 8 must say "${free} FREE ANSWERS A MONTH"`);
 

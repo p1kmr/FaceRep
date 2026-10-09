@@ -19,8 +19,11 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
 - No medical claims: nothing cures, heals, relieves or treats a condition (TMJ, headaches, sleep apnea, eye strain).
   Keep the jaw caution and "ask a doctor or dentist".
 - Starter questions and examples are app text too: no question that assumes a result ("How long until I see results?").
-- Numbers must be true. Limits come from `constants/limits.ts` and match the Worker. Never "unlimited", "#1", "best",
-  "clinically proven", "guaranteed".
+- Numbers must be true. Limits come from `constants/limits.ts` and match the Worker. Never "#1", "best", "clinically
+  proven", "guaranteed".
+- "Unlimited" only when no normal use can reach a limit. Premium Coach answers are unlimited: the Worker's daily
+  ceiling (`LIMITS`, 100 a day per person) only stops abuse, the Terms explain fair use, and the number never appears
+  in the app or store text. Don't lower it below 100 while the app says "unlimited".
 - No other platforms (Android, Google Play) and no other app names, in the app or metadata (2.3.10, 4.1).
 - No "for kids" / "for children" (2.3.8; FaceRep is rated 13+).
 - A translation is never stronger than the English.
@@ -31,7 +34,8 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
 - Before the buy button the paywall shows: plan name, length, billed price (the biggest price on the screen), trial
   length and what is charged after it, the auto-renew sentence, Restore, Terms (Apple's EULA), Privacy and a close
   button. `PaywallView` has all of them. Never remove one.
-- Say exactly what Premium gives. If something is capped, say the cap ("up to 40 a day").
+- Say exactly what Premium gives. A limit people can really reach must be stated; a fair-use ceiling nobody reaches
+  goes in the Terms only.
 - Weekly shows only its billed price. "Save X%" compares yearly with monthly, never with weekly.
 - "Free trial" means only the App Store's subscription trial. Week 1 is "free", never a "trial".
 - A new paid feature means:
@@ -116,7 +120,8 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
   app strings, the iOS permission texts, docs/store-listing.md, the screenshot words and the web pages;
 - prices in the screenshot words;
 - a paywall that lost the price, renewal text, Restore, Terms, Privacy or close button;
-- limits in the text that differ from the Worker (3 free answers a month, up to 40 a day);
+- a free limit in the text that differs from the Worker (3 answers a month), a Worker ceiling below 100 a day while
+  the Coach is sold as unlimited, or any text that names that ceiling;
 - ad, analytics or tracking packages, or a privacy manifest that allows tracking.
 
 A word list can't judge meaning, so §1 still applies. If the check flags an honest sentence, reword it first. If it
@@ -130,8 +135,10 @@ just to make a change pass. A new app language needs its own claim words: the te
   plus tongue and neck posture". "Lift and tone" (cheeks) → "Work and tone".
 - Coach starter questions "How long until I see jawline results?" and "Which exercises help a double chin?" assumed
   results. They are now "What can jaw exercises change?" and "Can exercises help a double chin?".
-- "Unlimited AI Coach answers" (paywall, Coach, store description, Terms), while the Worker allows 40 a day. It now says
-  "up to 40 a day" everywhere, and the number comes from `PREMIUM_LIMITS` / `LIMITS.perUser` (3.1.2(c), 2.3.1).
+- "Unlimited AI Coach answers" (paywall, Coach, store description), while the Worker stopped Premium at 40 a day,
+  which a keen user could reach. The ceiling is now 100 a day per person (300 per network IP), far beyond normal use,
+  and the Terms say Premium is unlimited for personal use with fair use against abuse. So "unlimited" is true and
+  stays in the app, without a number (3.1.2(c), 2.3.1). German: "Unbegrenzt Antworten" → "Unbegrenzte Antworten".
 - The privacy policy now confirms that service providers give the same or equal protection (5.1.1(i)).
 - Privacy manifest: added Fitness (the streak and workouts-this-week sent with Coach questions). Other User Content is
   already declared on the same "to be safe" basis.
@@ -150,7 +157,7 @@ just to make a change pass. A new app language needs its own claim words: the te
 | 2.5.14 recording | consent + indicator | The mirror is preview only; iOS asks first and shows the camera dot ✅ |
 | 3.1.1, 3.1.2 subscriptions | IAP only; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`, the Worker re-checks RevenueCat ✅ |
 | 3.1.2(a) ongoing value | keeps giving value | Levels 2–3, new rounds, and the Coach ✅ |
-| 3.1.2(c) what you get | describe it exactly | "up to 40 Coach answers a day" ✅ (was "unlimited") |
+| 3.1.2(c) what you get | describe it exactly | "Unlimited" Coach answers; the hidden ceiling (100 a day) only stops abuse, fair use in the Terms ✅ |
 | 4.3 spam | clearly different | Anatomy drawings (man or woman), voice-guided timer, mirror, AI Coach ✅ |
 | 4.5.4 notifications | not required, no marketing | Only the person's reminders; asked when one is turned on ✅ |
 | 5.1.1(i) privacy policy | in the app and in ASC; data, retention, deletion, third parties | `/privacy`, linked from Settings and the paywall ✅ (equal-protection sentence added) |
@@ -171,7 +178,6 @@ just to make a change pass. A new app language needs its own claim words: the te
 **Still to do for 1.0** (docs/publish-todo.md §1 and §3):
 - build 5 with these fixes, attached in place of build 4;
 - deploy the Worker;
-- in App Store Connect: the store description and the review notes ("up to 40 a day"), the subscription descriptions
-  if they say "unlimited", and App Privacy with Fitness;
+- in App Store Connect: App Privacy with Fitness, and the German store description ("Unbegrenzte Antworten");
 - the iPad check;
 - the medical device declaration ("No": FaceRep is fitness and wellness, not a medical device).

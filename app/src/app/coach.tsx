@@ -13,7 +13,6 @@ import { Button } from '@/components/ui/Button';
 import { IconButton } from '@/components/ui/IconButton';
 import { Chip } from '@/components/ui/Chip';
 import { COACH_SUGGESTIONS } from '@/constants/coach';
-import { PREMIUM_LIMITS } from '@/constants/limits';
 import { LINKS } from '@/constants/links';
 import { useChat } from '@/hooks/useChat';
 import { useFreeAiLabel } from '@/hooks/useFreeAiLabel';
@@ -37,7 +36,7 @@ export default function CoachScreen() {
   const guide = useGuide();
   const scroll = useRef<ScrollView>(null);
   const empty = !chat.messages.length && !chat.pending;
-  const unlock = t('unlock', { max: PREMIUM_LIMITS.aiPerDay });
+  const unlock = t('unlock');
 
   const confirmClear = () =>
     Alert.alert(t('clear'), t('clearConfirm'), [

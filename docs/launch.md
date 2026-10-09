@@ -73,7 +73,7 @@ Week 1 of the plan and every exercise on its own, any time. No account, no ads. 
 PREMIUM
 • Weeks 2 to 4 of the 28-day plan
 • Level 2 and 3 when you finish, and new rounds after that
-• Up to 40 AI Coach answers a day (3 free answers a month without Premium). You're asked for permission before your first question.
+• Unlimited AI Coach answers (3 free answers a month without Premium). You're asked for permission before your first question.
 
 SAFETY
 Move gently and stop if anything hurts. If you have jaw pain or a jaw joint problem, ask a doctor or dentist before jaw exercises. FaceRep is a fitness and wellness app, not medical advice. Results vary.

@@ -9,7 +9,7 @@
   "freeLeft_one": "Noch {{count}} kostenlose Antwort in diesem Monat",
   "freeLeft_other": "Noch {{count}} kostenlose Antworten in diesem Monat",
   "freeRefill": "Neue kostenlose Antworten am {{date}}",
-  "unlock": "Bis zu {{max}} Antworten pro Tag mit Premium",
+  "unlock": "Unbegrenzte Antworten mit Premium",
   "aiNote": "KI-Antworten können falsch sein. Keine medizinische Beratung. Halte eine Antwort gedrückt, um sie zu melden.",
   "reportHint": "Gedrückt halten, um diese Antwort zu melden",
   "reportSubject": "Antwort des KI-Coachs melden",
