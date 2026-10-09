@@ -83,16 +83,14 @@ Re-check before acting: from the repo root run
   (Business → Compliance), shared with Elowa. Don't change it without the owner.
 
 ## 1. Build 5 and device test (AI builds, owner tests)
-Build 4 (new icon) is attached to 1.0, but it was built before the App Review fixes of 2026-10-09 (docs/app-review.md
-§3: claim wording in six languages, Coach starter questions, "face care" instead of "skincare", Fitness in the
-privacy manifest). The App Store shows what is in the binary, so **build 5, from main after those fixes, is the one to test and
-submit**. Build 4 is fine for testing everything else meanwhile. Build 3 has the old icon: never use it.
+Build 1.0.0 (5) is attached to version 1.0: built from `fed556d`, after the App Review fixes of 2026-10-09
+(docs/app-review.md §3: claim wording in six languages, Coach starter questions, "face care" instead of "skincare",
+Fitness in the privacy manifest). EAS build `41a22340`, ASC build `74b60e29`, VALID and in the internal TestFlight group.
+**Build 5 is the one to test and submit.** Builds 3 (old icon) and 4 (before the fixes) must not be used.
 
-- [ ] From `app/`, run `npx eas-cli@latest build --profile production --platform ios --auto-submit --non-interactive`,
-      or use the Expo MCP `build_run`. Credentials are stored now, so it asks no questions. The build number becomes 5
-      (or the next free number).
-- [ ] Wait until App Store Connect shows build 5 as VALID and in the internal TestFlight group.
-- [ ] Attach build 5 to version 1.0 in place of build 4, then re-run `asc validate`.
+- [x] Build 5 from `app/` with `npx eas-cli@latest build --profile production --platform ios --auto-submit
+      --non-interactive` (credentials are stored, no questions).
+- [x] Build 5 VALID, attached to 1.0 in place of build 4; `asc validate`: 0 blocking.
 - [ ] The owner tests build 5 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
   - buy Weekly, Monthly, and Yearly with the trial;
   - Weeks 2–4 load from the Worker's `/plan`, and the Coach keeps answering after the 3 free answers;
@@ -130,26 +128,29 @@ npm run deploy
   mirror, the man/woman pictures, reminders, languages and safety. DeviceCheck is not mentioned because it is off).
 - App Privacy is published with three labels, all App Functionality, not linked to you, no tracking: User ID,
   Purchase History and Other User Content.
-- Build 1.0.0 (4), with the new icon, is attached to version 1.0 (EAS build `a7f413e0`, ASC build `e44c1b04`,
-  VALID, also in internal TestFlight). Build 3 has the old icon and must not be used. Build 5 replaces build 4 (§1).
+- Build 1.0.0 (5) is attached to version 1.0 (EAS build `41a22340`, ASC build `74b60e29`, VALID, also in internal
+  TestFlight). Builds 3 and 4 must not be used (§1).
 - Release type: **MANUAL** (after approval, nothing goes live until the owner presses Release).
 - `asc validate`: 0 blocking. The remaining warnings are subscription promotional images (optional) and the iPad
   notice (the app is iPhone-only).
 
 **To redo after the App Review fixes of 2026-10-09** (docs/app-review.md §3; text and labels can be written directly,
 then shown to the owner):
-- [ ] **Deploy the Worker (AI):** from `worker/`, run `npm run deploy` (it deploys `facerep-api` only). The privacy
+- [x] **Deploy the Worker (AI):** done 2026-10-09 (version `810fd0ee`); `/privacy` and `/terms` show "Last updated
+      October 9, 2026". From `worker/`, `npm run deploy` (it deploys `facerep-api` only). The privacy
       policy (the providers' equal-protection sentence) and the terms (unlimited Coach for personal use, with fair use)
       changed, and the daily ceiling went from 40 to 100 per person (300 per IP), so Premium is really unlimited.
       The Coach's instructions now call skincare "face care".
       Check that `/privacy` and `/terms` show "Last updated October 9, 2026".
-- [ ] **German store description (AI, de-DE only):** the Premium line is now "Unbegrenzte Antworten vom KI-Coach"
+- [x] **German store description (AI, de-DE only):** uploaded 2026-10-09. the Premium line is now "Unbegrenzte Antworten vom KI-Coach"
       (it said "Unbegrenzt Antworten", a grammar mistake). Upload the German description from docs/store-listing.md.
       The other languages and the review notes ("with Premium it is unlimited") stay as they are.
-- [ ] **Screenshot 8 (AI), all seven locales:** the Coach now says "face care" instead of "skincare", so slide 8
+- [x] **Screenshot 8 (AI), all seven locales:** done 2026-10-09 (each set re-uploaded 01→08 with `--replace
+      --confirm`; 01–07 are the same files as before). the Coach now says "face care" instead of "skincare", so slide 8
       was rebuilt. Upload `store-screenshots/export/<lang>/08.jpg` in place of the current 08 for each locale (as for
       slide 5: `--replace --confirm`). Slides 1–7 didn't change.
-- [ ] **App Privacy (AI, asc web session):** add a fourth label, **Fitness** (App Functionality, not linked, no
+- [ ] **App Privacy (AI, asc web session):** waiting for the owner to sign in again (`./.tools/asc web auth login`,
+      needs Apple 2FA). Add a fourth label, **Fitness** (App Functionality, not linked, no
       tracking), then publish again. The streak and the number of workouts this week go with every Coach question,
       the same "to be safe" reason as Other User Content, and the build 5 privacy manifest declares it.
 
@@ -161,7 +162,7 @@ then shown to the owner):
 - [ ] **Subscriptions on the 1.0 page:** version 1.0 → "In-App Purchases and Subscriptions" → select Premium Weekly,
       Monthly and Yearly. First subscriptions can only be added to a review on the version page in the website, not
       through the API. Without them the reviewer can't buy Premium and the app is rejected.
-- [ ] **Test build 5 on the iPhone** (TestFlight), including a sandbox purchase and Restore (§1).
+- [ ] **Test build 5 on the iPhone** (TestFlight, attached to 1.0), including a sandbox purchase and Restore (§1).
 - [ ] **Submit:** only the owner presses "Add for Review" and then "Submit to App Review".
 
 ## 4. Account checks (owner, App Store Connect web)
