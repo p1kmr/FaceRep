@@ -23,7 +23,7 @@ facerep/
 │   ├── src/constants/    config, theme tokens, exercises ├── src/services/   SQLite, purchases, AI, notifications, pure engines
 │   ├── assets/           exercise drawings, hero photos  └── modules/device-check   local Swift module (Apple DeviceCheck)
 ├── worker/    ← Cloudflare Worker: AI Coach API + privacy/terms/support pages
-├── store-screenshots/ ← App Store screenshots: capture from the app + editor, finished files in export/
+├── store-screenshots/ ← App Store screenshots: capture from the app + editor, finished files in export/ (docs/screenshots.md)
 ├── brand/     ← the logo: one script makes the app icon (light, dark, tinted), splash, favicon and SVGs
 └── docs/      ← architecture, premium, launch (name, ASO, trademarks), app-review (Apple's rules for every change)
 ```

@@ -3,8 +3,9 @@
 Eight iPhone 6.9" screenshots (1320 × 2868) in all six app languages, made from the **real app** (web build with demo
 data, made to look like an iPhone capture) and laid out in the
 [app-store-screenshots](https://github.com/ParthJadhav/app-store-screenshots) editor by Parth Jadhav (MIT, see
-`LICENSE`). The finished files are in `export/<lang>/01–07.jpg`, ready to upload (`export/strip-<lang>.jpg` shows a
-language's set side by side).
+`LICENSE`). The method, the rules and the checklist before uploading are in
+[docs/screenshots.md](../docs/screenshots.md). The finished files are in `export/<lang>/01–08.jpg`, ready to upload
+(`export/strip-<lang>.jpg` shows a language's set side by side).
 
 | # | Headline (English) | Screen |
 |---|---|---|
