@@ -2,14 +2,17 @@
 // the iOS 26 glass tab bar on tab screens, the round back button on pushed screens, the Coach as a sheet over
 // Today, and the home bar. Output: ../public/screenshots/apple/iphone/<lang>/<screen>.png (what the editor shows
 // inside its phone frames).
-// Usage: node frame.js [lang …]
+// With --sim, a Simulator screenshot in sim/<lang>/<screen>.png (iPhone 17 Pro Max, 1320 × 2868) is used instead of
+// the web capture: it already has the real status bar, tab bar, sheet and home bar, so only the Dynamic Island is
+// added (Simulator screenshots leave it out). Screens without a Simulator file still come from raw/.
+// Usage: node frame.js [lang …] [--sim]
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 import { LANGS } from './copy.js';
-import { FONT_CSS, ICON_SVGS } from './lib.js';
+import { FONT_CSS, ICON_SVGS, simShot } from './lib.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const RAW = path.join(HERE, 'raw');
@@ -53,6 +56,7 @@ const CSS = `
   .status .time { position: absolute; left: 30px; width: 110px; top: 20px; text-align: center; font-size: 17px; font-weight: 600; letter-spacing: -0.2px; }
   .status svg { position: absolute; top: 25px; fill: currentColor; }
   .island { position: absolute; left: 157px; top: 11px; width: 126px; height: 37px; border-radius: 19px; background: #000; z-index: 9; }
+  .full { position: absolute; left: 0; top: 0; width: 440px; height: 956px; }
   .homebar { position: absolute; left: 145px; bottom: 8px; width: 150px; height: 5px; border-radius: 3px; background: #111; z-index: 9; }
   .tabbar { position: absolute; left: 21px; right: 21px; top: 873px; height: 62px; border-radius: 31px; z-index: 4;
             background: rgba(255, 255, 255, .74); backdrop-filter: blur(14px) saturate(180%);
@@ -72,6 +76,10 @@ const CSS = `
   .sheet img { position: absolute; left: 0; top: 0; width: 440px; }
   .sheet .grabber { position: absolute; left: 202px; top: 6px; width: 36px; height: 5px; border-radius: 3px; background: rgba(60,60,67,.3); z-index: 2; }
 `;
+
+function simHtml(file) {
+  return `<!doctype html><html><head><meta charset="utf-8"><style>${CSS}</style></head><body><img class="full" src="${dataUrl(file)}"><div class="island"></div></body></html>`;
+}
 
 function html(lang, name, conf, fontCss) {
   const raw = (n) => dataUrl(path.join(RAW, lang, `${n}.png`));
@@ -97,19 +105,22 @@ function html(lang, name, conf, fontCss) {
   return `<!doctype html><html><head><meta charset="utf-8"><style>${fontCss}${CSS}</style></head><body>${body}</body></html>`;
 }
 
-const langs = process.argv.slice(2).length ? process.argv.slice(2) : LANGS;
+const args = process.argv.slice(2);
+const useSim = args.includes('--sim');
+const langs = args.filter((a) => !a.startsWith('--')).length ? args.filter((a) => !a.startsWith('--')) : LANGS;
 
 const browser = await chromium.launch({ executablePath });
 const page = await browser.newPage({ viewport: { width: 440, height: 956 }, deviceScaleFactor: 3 });
 for (const lang of langs) {
   fs.mkdirSync(path.join(OUT, lang), { recursive: true });
   for (const [name, conf] of Object.entries(SCREENS)) {
-    if (!fs.existsSync(path.join(RAW, lang, `${name}.png`))) { console.warn(`  missing raw/${lang}/${name}.png (run capture.js ${lang})`); continue; }
-    await page.setContent(html(lang, name, conf, FONT_CSS), { waitUntil: 'load' });
+    const sim = useSim ? simShot(lang, name) : null;
+    if (!sim && !fs.existsSync(path.join(RAW, lang, `${name}.png`))) { console.warn(`  missing raw/${lang}/${name}.png (run capture.js ${lang})`); continue; }
+    await page.setContent(sim ? simHtml(sim) : html(lang, name, conf, FONT_CSS), { waitUntil: 'load' });
     await page.evaluate(() => document.fonts.ready);
     const file = path.join(OUT, lang, `${name}.png`);
     await page.screenshot({ path: file, omitBackground: false });
-    console.log(`  ${path.relative(path.join(HERE, '..'), file)}`);
+    console.log(`  ${path.relative(path.join(HERE, '..'), file)}${sim ? ' (Simulator)' : ''}`);
   }
 }
 await browser.close();

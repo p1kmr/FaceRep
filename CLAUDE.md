@@ -42,8 +42,9 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
   `app/assets/brand/` by hand. No text, Apple artwork or other apps' look in the icon. A new icon needs a new build.
 
 ## Store screenshots
-- `store-screenshots/` (README there; the method, rules and checklist in **docs/screenshots.md**): the App Store
-  screenshots, captured from the real app with demo data and laid out in the editor. Words in `capture/copy.js` follow the Text and Health rules; slides with Premium content say what is free.
+- `store-screenshots/` (README there; the method, design recipe and checklist in **docs/screenshots.md**, the
+  `facerep-screenshots` skill is the procedure): the App Store screenshots, captured from the real app (web capture or
+  iOS Simulator) with demo data and laid out in the editor. Words in `capture/copy.js` follow the Text and Health rules; slides with Premium content say what is free.
   After changing a screen they show (Today, workout player, exercise page, Progress, Coach, onboarding), re-run the capture.
 
 ## Commands

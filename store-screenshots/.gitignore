@@ -21,6 +21,8 @@ public/fonts/imported/*
 # FaceRep capture: tools and the raw captures (rebuilt by capture/capture.js)
 capture/node_modules/
 capture/raw/
+# Simulator screenshots (docs/screenshots.md §4); the measured card boxes, sim/<lang>/regions.json, are kept
+capture/sim/**/*.png
 capture/.export-*/
 # Rebuilt by capture/capture.js + frame.js + art.js (the finished slides are in export/)
 public/screenshots/

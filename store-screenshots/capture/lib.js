@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 import ICONS from './icons.js';
@@ -17,6 +18,23 @@ export const FONT_CSS = `@font-face{font-family:SFLike;src:url(data:font/woff2;b
 export const APP_URL = process.env.APP_URL || 'http://localhost:8081';
 /** The web build must be started with EXPO_PUBLIC_AI_URL set to this (README.md); requests to it never leave the browser. */
 export const DEMO_HOST = 'https://demo.facerep.invalid';
+
+/** Simulator screenshots (docs/screenshots.md §4): capture/sim/<lang>/<screen>.png, used by frame.js and art.js with --sim. */
+const SIM = path.join(path.dirname(fileURLToPath(import.meta.url)), 'sim');
+/** The Simulator screenshot for a screen, or null. Throws if it isn't a full iPhone 6.9" screen (1320 × 2868). */
+export function simShot(lang, name) {
+  const file = path.join(SIM, lang, `${name}.png`);
+  if (!fs.existsSync(file)) return null;
+  const head = fs.readFileSync(file).subarray(16, 24);
+  const [w, h] = [head.readUInt32BE(0), head.readUInt32BE(4)];
+  if (w !== 1320 || h !== 2868) throw new Error(`sim/${lang}/${name}.png is ${w} × ${h}: use an iPhone 17 Pro Max (or 16 Pro Max) Simulator, 1320 × 2868`);
+  return file;
+}
+/** Boxes of the cards lifted out of Simulator screens, in points of the full 440 × 956 screen (pixels ÷ 3). */
+export const simRegions = (lang) => {
+  const file = path.join(SIM, lang, 'regions.json');
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
+};
 
 const LOCAL_CHROMIUM = '/opt/pw-browsers/chromium';
 const executablePath = process.env.CHROMIUM_PATH || (fs.existsSync(LOCAL_CHROMIUM) ? LOCAL_CHROMIUM : undefined);

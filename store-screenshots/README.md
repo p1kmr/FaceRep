@@ -28,9 +28,12 @@ capture/
                the Coach and /plan answered locally: no Worker, no AI, no RevenueCat)
   capture.js   films the screens → capture/raw/<lang>/ (the mirror's camera: camera/<woman|man>-jaw-clench.jpg,
                AI-generated front-camera pictures, played by Chromium as a fake camera)
+  sim-seed.js  the same demo person as SQL for the iOS Simulator's app database (docs/screenshots.md §4)
+  sim/         Simulator screenshots, sim/<lang>/<screen>.png, and the card boxes in sim/<lang>/regions.json
   frame.js     adds the iPhone parts (9:41 status bar, Dynamic Island, iOS 26 tab bar, back button, Coach sheet,
-               home bar) → public/screenshots/apple/iphone/<lang>/
+               home bar) → public/screenshots/apple/iphone/<lang>/; with --sim, Simulator shots get only the island
   art.js       portraits (the app's own hero photos) and the per-language chips and voice bubbles → public/art/
+               (--sim: cards are cut from Simulator shots where sim/<lang>/regions.json says)
   mockup.js    the dark titanium iPhone frame → public/mockup.png
   deck.js      writes app-store-screenshots.json (the 8 slides, positions, theme, font)
   export.js    clicks the editor's Export bundle and writes export/<lang>/0N.jpg + export/strip-<lang>.jpg

@@ -1,7 +1,8 @@
 // Draws the pieces around the phones: round portraits (the app's own AI-generated hero photos), per-language
 // chips and voice-cue bubbles whose words come from the app's translations, and cards lifted out of the framed
 // screens (the plan grid and the Coach's reminder card, where capture.js measured them). Output: ../public/art/…
-// plus art-manifest.json (sizes in canvas pixels, read by deck.js). Usage: node art.js (after capture + frame)
+// plus art-manifest.json (sizes in canvas pixels, read by deck.js). Usage: node art.js [--sim] (after capture + frame)
+// With --sim, a card on a Simulator screen is cut where sim/<lang>/regions.json says (docs/screenshots.md §4).
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -9,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 import { LANGS } from './copy.js';
-import { FONT_CSS, ICON_SVGS } from './lib.js';
+import { FONT_CSS, ICON_SVGS, simRegions, simShot } from './lib.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.join(HERE, '../public/art');
@@ -18,6 +19,7 @@ const LOCAL_CHROMIUM = '/opt/pw-browsers/chromium';
 const executablePath = process.env.CHROMIUM_PATH || (fs.existsSync(LOCAL_CHROMIUM) ? LOCAL_CHROMIUM : undefined);
 const RED = '#E5322D', INK = '#111418';
 
+const useSim = process.argv.includes('--sim');
 const t = (lang, ns, key) => key.split('.').reduce((o, k) => o[k], JSON.parse(fs.readFileSync(`${APP}/src/i18n/locales/${lang}/${ns}.json`, 'utf8')));
 const icon = (name, color) => ICON_SVGS[name].replaceAll('COLOR', color);
 const webp = (file) => `data:image/webp;base64,${fs.readFileSync(file).toString('base64')}`;
@@ -77,12 +79,19 @@ for (const lang of LANGS) {
 // larger than inside the phone (2.3 canvas pixels per point; the camera mirror 3.6).
 const SCREENS = path.join(HERE, '../public/screenshots/apple/iphone');
 for (const lang of LANGS) {
-  const regions = JSON.parse(fs.readFileSync(path.join(HERE, 'raw', lang, 'regions.json'), 'utf8'));
+  const rawFile = path.join(HERE, 'raw', lang, 'regions.json');
+  const regions = fs.existsSync(rawFile) ? JSON.parse(fs.readFileSync(rawFile, 'utf8')) : {};
+  const sim = useSim ? simRegions(lang) : {};
   // [file, screen, raw top in the framed screen, region, canvas pixels per point, points cut off each side]
   // (the mirror's box has a white rounded border: cut inside it, so only the camera picture is lifted out)
-  for (const [name, screen, top, key, scale, inset] of [['pop-grid.png', 'today', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
-    if (!regions[key]) { console.warn(`  ${lang}: no "${key}" region yet (run capture.js ${lang}): ${name} skipped`); continue; }
-    const [x, y, w, h] = [regions[key][0] + inset, regions[key][1] + inset, regions[key][2] - 2 * inset, regions[key][3] - 2 * inset];
+  for (const [name, screen, rawTop, key, scale, inset] of [['pop-grid.png', 'today', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
+    // A Simulator screen is the whole screen, so its boxes are measured from the top (no offset).
+    const fromSim = useSim && simShot(lang, screen);
+    if (fromSim && !sim[key]) { console.warn(`  ${lang}: ${screen} is a Simulator shot but sim/${lang}/regions.json has no "${key}" box: ${name} skipped`); continue; }
+    const box = fromSim ? sim[key] : regions[key];
+    const top = fromSim ? 0 : rawTop;
+    if (!box) { console.warn(`  ${lang}: no "${key}" region yet (run capture.js ${lang}): ${name} skipped`); continue; }
+    const [x, y, w, h] = [box[0] + inset, box[1] + inset, box[2] - 2 * inset, box[3] - 2 * inset];
     const crop = path.join(OUT, lang, `.crop-${name}`);
     execFileSync('convert', [path.join(SCREENS, lang, `${screen}.png`), '-crop', `${w * 3}x${h * 3}+${x * 3}+${(y + top) * 3}`, '+repage', crop]);
     const src = `data:image/png;base64,${fs.readFileSync(crop).toString('base64')}`;
