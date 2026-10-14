@@ -1,7 +1,9 @@
 # Exercise videos (Google Flow)
 
 Short, silent clips that show one rep of each exercise. They are made by hand in **Google Flow** (labs.google/flow)
-with the owner's Google AI Pro plan, so nothing is paid per video and no API key is needed. Not in the app yet:
+with the owner's Google AI Pro plan, so nothing is paid per video and no API key is needed. The working copy is the
+**FaceRep Flow Prompt Pack** artifact (https://claude.ai/artifact/Nbert5f5PApgezCxiMwWP2): both frames and the prompt
+per exercise and guide, with a live sent/done status (db collection `videos`, doc `<guide>-<id>`). Not in the app yet:
 playing them needs `expo-video`, a video list like `guideImages.generated.ts`, and a new build (see "Into the app").
 
 ## The method: start and end frame from the guide pictures
