@@ -96,6 +96,10 @@ def outline(img):
     return rows
 
 
+# MediaPipe's inner lip outline: the mouth opening.
+INNER = [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308, 324, 318, 402, 317, 14, 87, 178, 88, 95]
+
+
 def morpher(A, B, pa, pb, sharp, layer=None):
     # layer: optional (image, alpha, show) in B's shape, drawn on top and slid out from its top edge as show(t) goes
     # 0 -> 1 (the tongue in Lion Face, which only the exercise drawing has).
@@ -155,6 +159,9 @@ def morpher(A, B, pa, pb, sharp, layer=None):
             region[:] = region * (1 - mask[:mh, :mw]) + warped[:mh, :mw] * mask[:mh, :mw]
         return out
 
+    # When one drawing has the mouth open and the other closed, the opening is taken from the open one only: blending
+    # the closed lips there stretches their line into streaks.
+    opens = cv2.contourArea(pb[INNER]) - cv2.contourArea(pa[INNER])
     dis = cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
     grid = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
     gray = lambda img: cv2.cvtColor(np.clip(img, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
@@ -176,20 +183,42 @@ def morpher(A, B, pa, pb, sharp, layer=None):
             wa = cv2.remap(wa, grid[0] - a * f[..., 0], grid[1] - a * f[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
             wb = cv2.remap(wb, grid[0] - (1 - a) * g[..., 0], grid[1] - (1 - a) * g[..., 1], cv2.INTER_LINEAR,
                            borderMode=cv2.BORDER_REPLICATE)
-        out = (1 - a) * wa + a * wb
+        a_map = np.float32(a)
+        if abs(opens) > 400 and 0 < a < 1:
+            m = np.zeros((H, W), np.float32)
+            cv2.fillPoly(m, [np.int32(pts[INNER])], 1.0)
+            m = cv2.GaussianBlur(m, (0, 0), 2)
+            a_map = a + (1 - a) * m if opens > 0 else a * (1 - m)
+            a_map = a_map[..., None]
+        out = (1 - a_map) * wa + a_map * wb
         if layer is not None:
             img, alpha, show = layer
             s = show(t)
             if s > 0:
                 li, la = warp(img, pb, pts), warp(np.dstack([alpha] * 3), pb, pts)[..., 0]
-                rows = np.nonzero(la.max(1) > 0.5)[0]
-                top, length = rows[0], rows[-1] - rows[0]
-                shift = (1 - s) * length
-                sy = grid[1] + np.float32(shift)
-                li = cv2.remap(li, grid[0], sy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
-                la = cv2.remap(la, grid[0], sy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
-                la[:top] = 0
-                out = out * (1 - la[..., None]) + li * la[..., None]
+                inside = la > 0.5
+                rows, cols = np.nonzero(inside.any(1))[0], np.nonzero(inside.any(0))[0]
+                length, mid = float(rows[-1] - rows[0]), (cols[0] + cols[-1]) / 2
+                # The mouth line the tongue comes out of: its own top edge, column by column, smoothed.
+                edge = np.where(inside.any(0), inside.argmax(0), H).astype(np.float32)
+                edge = np.minimum(edge, cv2.blur(edge[None], (15, 1))[0])
+                # Slide out from behind the teeth, a little narrower at first (a tongue flattens as it comes out).
+                width = 0.85 + 0.15 * s
+                mx = (mid + (grid[0] - mid) / width).astype(np.float32)
+                my = grid[1] + np.float32((1 - s) * length)
+                li = cv2.remap(li, mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+                la = cv2.remap(la, mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+                # Soft exit line instead of a straight cut, shadow where it leaves the dark mouth, gentle fade-in.
+                below = grid[1] - edge[None, :]
+                la = la * smooth(below / 10) * smooth(s / 0.25)
+                li = li * (1 - 0.5 * np.exp(-np.clip(below, 0, None) / 18))[..., None]
+                # A little motion blur while it moves (most in the middle of the slide).
+                k = int(0.06 * length * np.sin(np.pi * s))
+                pre = li * la[..., None]
+                if k > 1:
+                    kernel = np.ones((k, 1), np.float32) / k
+                    pre, la = cv2.filter2D(pre, -1, kernel), cv2.filter2D(la, -1, kernel)
+                out = out * (1 - la[..., None]) + pre
         return np.clip(out, 0, 255).astype(np.uint8)
     frame.to_b = lambda img: warp(img, pa, pb)
     return frame
@@ -209,7 +238,15 @@ def tongue(A, B, pa, spec, find, label):
     pb[low, 1] = lip + (pb[low, 1] - lip) * (spec["chin"] - lip) / (pb[152, 1] - lip)
     soft = cv2.GaussianBlur(cv2.dilate(mask, np.ones((5, 5), np.uint8)).astype(np.float32) / 255, (0, 0), 2)[..., None]
     under = morpher(A, A, pa, pb, 1.0).to_b(A)
-    Bn = (B * (1 - soft) + under * soft).astype(np.uint8)
+    Bn = B * (1 - soft) + under * soft
+    # Behind the tongue, inside the open mouth, is the dark of the mouth (not stretched lips).
+    mouth = np.zeros((H, W), np.uint8)
+    cv2.fillPoly(mouth, [np.int32(pb[INNER])], 255)
+    gray = cv2.cvtColor(B, cv2.COLOR_BGR2GRAY)
+    dark_px = B[(mouth > 0) & (gray < 90)]
+    dark = np.median(dark_px, 0) if len(dark_px) > 20 else np.float32([35, 30, 40])
+    inner = cv2.GaussianBlur(((mouth > 0) & (mask > 0)).astype(np.float32), (0, 0), 2)[..., None]
+    Bn = (Bn * (1 - inner) + dark * inner).astype(np.uint8)
     alpha = cv2.GaussianBlur(mask.astype(np.float32) / 255, (0, 0), 1.2)
     show = lambda t: float(smooth((t - 0.3) / 0.7))
     return morpher(A, Bn, pa, pb, 1.0, layer=(B, alpha, show))
