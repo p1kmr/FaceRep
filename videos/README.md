@@ -25,6 +25,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 06-cheek-lift | ✓ | ✓ | |
 | 07-fish-face | ✓ | ✓ | |
 | 13-smiling-fish | ✓ | ✓ | |
+| 08-cheek-puff | ✓ | ✓ | |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
