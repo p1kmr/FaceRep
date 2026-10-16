@@ -33,10 +33,11 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # move, for big pose changes (head tilts) where a long blend shows two faces at once.
 # glide / tilt: no morph; the relaxed drawing's head moves as one piece (shoulders still, neck follows) while its pale
 # muscle deepens to the exercise drawing's red. For moves of the whole head (see glider() and tilter()).
+# both: one rep to each side (the exercise switches sides every rep); the clip is twice as long.
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
     "11-chin-tuck": {"glide": 0.13},
-    "05-neck-stretch": {"tilt": 0.85},
+    "05-neck-stretch": {"tilt": 0.85, "both": True},
 }
 
 
@@ -181,7 +182,8 @@ def tilter(A, B, pa, pb, share):
     # spine), by `share` of its angle, so the face tilts nearly in place instead of sliding. The neck doesn't lean or
     # slide: each point follows the jawline right above it, less and less down to the base of the neck, so the side
     # away from the tilt gets longer (the stretch) and the other side shorter. Only the neck column moves, so the
-    # shoulders stay; the stretched side of the neck turns red.
+    # shoulders stay; the stretched side of the neck turns red. frame(-t) tilts the same drawing to the other side
+    # (pivot and red side mirrored; the face itself is never flipped).
     fh = pa[152, 1] - pa[10, 1]
     nx, ny = pa[152, 0], pa[152, 1] + 0.45 * fh
     M, _ = cv2.estimateAffinePartial2D(pa, pb)
@@ -191,29 +193,31 @@ def tilter(A, B, pa, pb, share):
     jaw = pa[JAW][np.argsort(pa[JAW][:, 0])]
     xs, ys = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
     yj = np.interp(xs[0], jaw[:, 0], jaw[:, 1]).astype(np.float32)[None, :].repeat(H, 0)
-    side = np.clip((nx - xs) / 40 + 0.5, 0, 1) if theta > 0 else np.clip((xs - nx) / 40 + 0.5, 0, 1)
-    colour = muscle(A, B, pa, side)
+    left, right = np.clip((nx - xs) / 40 + 0.5, 0, 1), np.clip((xs - nx) / 40 + 0.5, 0, 1)
+    colours = (muscle(A, B, pa, left if theta > 0 else right), muscle(A, B, pa, right if theta > 0 else left))
+    pivots = ((cx, cy), (2 * nx - cx, cy))
 
-    def move(x, y, th):
-        # Displacement of the head's rigid turn at (x, y).
+    def move(x, y, th, px, py):
+        # Displacement of the head's rigid turn around (px, py) at (x, y).
         c, s_ = np.cos(th), np.sin(th)
-        return (c - 1) * (x - cx) - s_ * (y - cy), s_ * (x - cx) + (c - 1) * (y - cy)
+        return (c - 1) * (x - px) - s_ * (y - py), s_ * (x - px) + (c - 1) * (y - py)
 
-    def forward(x, y, th):
+    def forward(x, y, th, pivot):
         jy = np.interp(x, xs[0], yj[0])
         below = y - jy
         g = smooth(1 - (np.abs(x - nx) - 0.4 * fh) / (0.25 * fh))
         w = g * (1 - smooth(below / (ny - jy))) + (1 - g) * (1 - smooth(below / (0.25 * fh)))
         w = np.where(below <= 0, 1, w)
-        hx, hy = move(x, np.minimum(y, jy), th)
+        hx, hy = move(x, np.minimum(y, jy), th, *pivot)
         return x + w * hx, y + w * hy
 
     def frame(t):
+        k = 0 if t >= 0 else 1
         sx, sy = xs, ys
         for _ in range(12):
-            fx, fy = forward(sx, sy, theta * t)
+            fx, fy = forward(sx, sy, theta * t, pivots[k])
             sx, sy = sx + 0.8 * (xs - fx), sy + 0.8 * (ys - fy)
-        return cv2.remap(colour(t), sx.astype(np.float32), sy.astype(np.float32), cv2.INTER_CUBIC,
+        return cv2.remap(colours[k](abs(t)), sx.astype(np.float32), sy.astype(np.float32), cv2.INTER_CUBIC,
                          borderMode=cv2.BORDER_REPLICATE)
     return frame
 
@@ -265,7 +269,7 @@ def main():
             continue
         cache = {}
         frames = []
-        for t in timeline():
+        for t in timeline() + ([-v for v in timeline()] if settings.get("both") else []):
             key = round(t, 4)
             if key not in cache:
                 cache[key] = frame(t)

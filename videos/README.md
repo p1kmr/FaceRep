@@ -19,7 +19,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
 | 04-mewing | — | — | see-through side view: no face found; keeps the app's crossfade |
 | 12-tongue-press | — | — | see-through window shows the tongue: the morph bends the inside of the window; keeps the app's crossfade |
-| 05-neck-stretch | ✓ | ✓ | `tilt` 0.85: the head turns around the exercise drawing's own pivot (near the chin), so the face tilts in place; the neck stays upright and follows the jaw above it, so the far side gets longer (the stretch, in red) and the near side shorter; shoulders still. Tilting from the base of the neck slid the head sideways, and bending the neck made it stretch like rubber |
+| 05-neck-stretch | ✓ | ✓ | `tilt` 0.85, `both`: one rep to each side (8 s; the exercise switches sides every rep, the face is never flipped). The head turns around the exercise drawing's own pivot (near the chin), so the face tilts in place; the neck stays upright and follows the jaw above it, so the far side gets longer (the stretch, in red) and the near side shorter; shoulders still. Tilting from the base of the neck slid the head sideways, and bending the neck made it stretch like rubber |
 | 11-chin-tuck | ✓ | ✓ | `glide`: the morph wobbled (the two drawings don't line up), so one drawing's head slides straight back, eyes level, shoulders still, and the neck muscle turns red |
 | 06-cheek-lift | ✓ | ✓ | |
 | 07-fish-face | ✓ | ✓ | |
@@ -43,7 +43,7 @@ python3 -m venv .venv
 - The face model downloads once into `tools/.cache/` (ignored by git).
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
 - Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` / `tilt` for a
-  head that slides or tilts).
+  head that slides or tilts, `both` for one rep to each side).
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
 
 ## Check every clip
