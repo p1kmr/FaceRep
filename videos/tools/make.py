@@ -33,6 +33,7 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # move, for big pose changes (head tilts) where a long blend shows two faces at once.
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
+    "11-chin-tuck": {"sharp": 0.08},
 }
 
 
