@@ -36,6 +36,8 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # both: one rep to each side (the exercise switches sides every rep); the clip is twice as long.
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
+    # gaze: the eyes look up in the exercise drawing; one iris slides there instead of two blending.
+    "17-lower-lid-lift": {"gaze": True},
     "11-chin-tuck": {"glide": 0.13},
     "05-neck-stretch": {"tilt": 0.85, "both": True},
     # tongue: on each exercise drawing, in page pixels (720x1280), the tongue's outline and the bottom of the chin
@@ -104,7 +106,7 @@ EYES = ([33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144, 16
         [263, 466, 388, 387, 386, 385, 384, 398, 362, 382, 381, 380, 374, 373, 390, 249])
 
 
-def morpher(A, B, pa, pb, sharp, layer=None):
+def morpher(A, B, pa, pb, sharp, layer=None, gaze=False):
     # layer: optional (image, alpha, show) in B's shape, drawn on top and slid out from its top edge as show(t) goes
     # 0 -> 1 (the tongue in Lion Face, which only the exercise drawing has).
     # Below the chin the face points stop, so the outline of the neck and shoulders is paired row by row in both
@@ -119,7 +121,49 @@ def morpher(A, B, pa, pb, sharp, layer=None):
         ea, eb = cv2.contourArea(pa[eye]), cv2.contourArea(pb[eye])
         if min(ea, eb) < 0.8 * max(ea, eb):
             blinks.append((eye, ea > eb))
-    if blinks:
+    # gaze: the eyes look elsewhere in the exercise drawing (Lower Lid Lift, V Eyes: up). Blended, each eye showed two
+    # irises; instead one iris slides from the relaxed to the exercise position. The shift is measured by finding the
+    # relaxed drawing's pupil and lower iris in the exercise drawing (the face finder's iris points are rough there).
+    gazes = []
+    for eye in EYES if gaze else []:
+        if any(eye is e for e, _ in blinks):
+            continue
+        mid = pa[eye].mean(0)
+        iris = min((468, 473), key=lambda i: np.linalg.norm(pa[i] - mid))
+        r = float(np.ptp(pa[iris + 1:iris + 5, 0])) / 2
+        cx, cy = int(round(pa[iris, 0])), int(round(pa[iris, 1]))
+        shift = pb[[eye[0], eye[8]]].mean(0) - pa[[eye[0], eye[8]]].mean(0)
+        R, reach = int(np.ceil(1.2 * r)), int(np.ceil(0.8 * r))
+        tpl = cv2.cvtColor(A, cv2.COLOR_BGR2GRAY)[cy - R:cy + R + 1, cx - R:cx + R + 1]
+        mask = np.zeros(A.shape[:2], np.uint8)
+        cv2.fillPoly(mask, [np.int32(np.round(pa[eye]))], 255)
+        mask = mask[cy - R:cy + R + 1, cx - R:cx + R + 1]
+        disk = np.zeros_like(mask)
+        cv2.circle(disk, (R, R), int(r), 255, -1)
+        mask = cv2.bitwise_and(mask, disk)
+        mask[:R - int(0.4 * r)] = 0
+        bx, by = int(round(cx + shift[0])), int(round(cy + shift[1]))
+        area = cv2.cvtColor(B, cv2.COLOR_BGR2GRAY)[by - R - reach:by + R + reach + 1, bx - R - reach:bx + R + reach + 1]
+        _, _, (mx, my), _ = cv2.minMaxLoc(cv2.matchTemplate(area, tpl, cv2.TM_SQDIFF, mask=mask))
+        d = np.float32([bx - reach + mx, by - reach + my]) - (np.float32([cx, cy]) + shift)
+        gazes.append((eye, np.float32([cx, cy]), r, d, shift))
+    if gazes:
+        # The white catch light sits above the pupil in one drawing and below it in the other, so blended there were
+        # two. It is lifted off both irises and one catch light glides from the one place to the other.
+        clean = [A.copy(), B.copy()]
+        for k, (eye, c, r, d, shift) in enumerate(gazes):
+            spots = []
+            for img, centre in ((clean[0], c), (clean[1], c + shift + d)):
+                disk = np.zeros(img.shape[:2], np.uint8)
+                cv2.circle(disk, (int(round(centre[0])), int(round(centre[1]))), int(0.8 * r), 255, -1)
+                spot = ((cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) > 190) & (disk > 0)).astype(np.uint8) * 255
+                spot = cv2.dilate(spot, np.ones((3, 3), np.uint8))
+                ys, xs = np.nonzero(spot)
+                alpha = cv2.GaussianBlur(spot.astype(np.float32) / 255, (0, 0), 0.8)[..., None]
+                spots.append((img.astype(np.float32) * alpha, alpha, np.float32([xs.mean(), ys.mean()]) - centre))
+                img[:] = cv2.inpaint(img, spot, 3, cv2.INPAINT_TELEA)
+            gazes[k] = (eye, c, r, d, shift, spots)
+    if blinks or gazes:
         pa, pb = pa[:468], pb[:468]
     sa, sb = outline(A), outline(B)
     extra_a, extra_b = [], []
@@ -182,6 +226,15 @@ def morpher(A, B, pa, pb, sharp, layer=None):
     grid = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
     gray = lambda img: cv2.cvtColor(np.clip(img, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
 
+    def opening(pts, eye):
+        m = np.zeros((H, W), np.uint8)
+        cv2.fillPoly(m, [np.int32(np.round(pts[eye] * 16))], 255, cv2.LINE_AA, 4)
+        return m
+
+    def soft(m):
+        # A pixel inside the lid line, so the lid's own dark edge stays on top of the eye.
+        return cv2.GaussianBlur(cv2.erode(m, np.ones((3, 3), np.uint8)).astype(np.float32) / 255, (0, 0), 1.0)[..., None]
+
     def frame(t):
         pts = (1 - t) * pa + t * pb
         a = t if sharp >= 1 else min(1.0, max(0.0, (t - 0.5) / sharp + 0.5))
@@ -198,9 +251,9 @@ def morpher(A, B, pa, pb, sharp, layer=None):
             g[~ink] = 0
             # Around an eye that opens or closes, the face points already line the lids up; matching pixels there
             # tore the lid line (one drawing's lid covers the iris where the other's doesn't).
-            if blinks:
+            if blinks or gazes:
                 calm = np.zeros((H, W), np.uint8)
-                for eye, _ in blinks:
+                for eye in [e for e, _ in blinks] + [e for e, *_ in gazes]:
                     cv2.fillPoly(calm, [np.int32(np.round(pts[eye]))], 255)
                 calm = cv2.dilate(calm, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (41, 41)))
                 keep = 1 - cv2.GaussianBlur(calm.astype(np.float32) / 255, (0, 0), 6)[..., None]
@@ -222,8 +275,7 @@ def morpher(A, B, pa, pb, sharp, layer=None):
             dx, dy = pts[corners].mean(0) - src[corners].mean(0)
             ball = cv2.warpAffine(img.astype(np.float32), np.float32([[1, 0, dx], [0, 1, dy]]), (W, H),
                                   flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
-            m = np.zeros((H, W), np.uint8)
-            cv2.fillPoly(m, [np.int32(np.round(pts[eye] * 16))], 255, cv2.LINE_AA, 4)
+            m = opening(pts, eye)
             shut = float(smooth(((a if closing else 1 - a) - 0.7) / 0.3))
             if closing:
                 # Above the opening, the open eye's lashes and lid line stay dark until the eye shuts (blended, they
@@ -234,9 +286,29 @@ def morpher(A, B, pa, pb, sharp, layer=None):
                 dark = np.clip((gray(out).astype(np.float32) - gray(wa)) / 40, 0, 1)
                 k = (band * dark * (1 - shut))[..., None]
                 out = out * (1 - k) + wa * k
-            # A pixel inside the lid line, so the lid's own dark edge stays on top of the eye.
-            m = cv2.GaussianBlur(cv2.erode(m, np.ones((3, 3), np.uint8)).astype(np.float32) / 255, (0, 0), 1.0)[..., None]
+            m = soft(m)
             inside = (1 - shut) * ball + shut * (wb if closing else wa)
+            out = out * (1 - m) + inside * m
+        for eye, c, r, d, shift, spots in gazes if 0 < a < 1 else []:
+            # Both drawings' irises are moved to the same place (the sclera around them gives way), then blended.
+            corners = [eye[0], eye[8]]
+            here = pts[corners].mean(0)
+            ca, cb = here - pa[corners].mean(0), here - pb[corners].mean(0)
+            centre = c + ca + t * d
+            w = smooth((2.0 * r - np.hypot(grid[0] - centre[0], grid[1] - centre[1])) / (0.9 * r))
+            ball_a = cv2.remap(clean[0].astype(np.float32), grid[0] - ca[0] - t * d[0] * w, grid[1] - ca[1] - t * d[1] * w,
+                               cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+            ball_b = cv2.remap(clean[1].astype(np.float32), grid[0] - cb[0] + (1 - t) * d[0] * w,
+                               grid[1] - cb[1] + (1 - t) * d[1] * w, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+            inside = (1 - a) * ball_a + a * ball_b
+            spot = centre + (1 - t) * spots[0][2] + t * spots[1][2]
+            light, alpha = 0, 0
+            for (pre, al, rel), share, home in ((spots[0], 1 - a, c), (spots[1], a, c + shift + d)):
+                move = np.float32([[1, 0, spot[0] - home[0] - rel[0]], [0, 1, spot[1] - home[1] - rel[1]]])
+                light = light + share * cv2.warpAffine(pre, move, (W, H), flags=cv2.INTER_LINEAR)
+                alpha = alpha + share * cv2.warpAffine(al, move, (W, H), flags=cv2.INTER_LINEAR)[..., None]
+            inside = inside * (1 - alpha) + light
+            m = soft(opening(pts, eye))
             out = out * (1 - m) + inside * m
         if layer is not None:
             img, alpha, show = layer
@@ -434,7 +506,8 @@ def main():
             elif "tilt" in settings:
                 frame = tilter(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings["tilt"])
             else:
-                frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings.get("sharp", 1.0))
+                frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings.get("sharp", 1.0),
+                                gaze=settings.get("gaze", False))
         except NoFace as e:
             print(e)
             stale = os.path.join(VIDEOS, guide, f"{args.id}.mp4")

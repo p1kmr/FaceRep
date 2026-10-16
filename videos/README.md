@@ -36,6 +36,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 09-brow-lift | ✓ | ✓ | |
 | 10-eye-squeeze | ✓ | ✓ | the lid comes down over a still eye (the eye rule above: eyes that open or close by a fifth or more; also in 06 man, 09, 15) |
 | 16-wide-eyes | ✓ | ✓ | the lid rises off a still eye (eye rule) |
+| 17-lower-lid-lift | ✓ | ✓ | `gaze`: the eyes look up, so one iris slides up (both drawings' irises moved to the same place before the blend) with one catch light gliding from above the pupil to below it; blended, each eye showed two irises and two catch lights |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
@@ -56,7 +57,8 @@ python3 -m venv .venv
 - The face model downloads once into `tools/.cache/` (ignored by git).
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
 - Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` / `tilt` for a
-  head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out).
+  head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out, `gaze` for eyes that
+  look somewhere else).
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
 
 ## Check every clip

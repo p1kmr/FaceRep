@@ -11,7 +11,8 @@ the two drawings on the way. Lines the face points miss (face edge, ears, chin) 
 before the blend, so nothing shows twice; the neck and shoulder outline is paired row by row. Something only one
 drawing has can't be blended without looking see-through: Lion Face's tongue is cut out (outline measured by hand)
 and slides out of the mouth solid, and when the eyes close or open wider (Eye Squeeze, Wide Eyes) the more open eye stays still and the lid
-moves over it instead of the other drawing's lid and lashes fading in over the iris. Because every frame is made of the approved drawings, the face, the pencil style and the
+moves over it instead of the other drawing's lid and lashes fading in over the iris; when the eyes look up (Lower Lid Lift) one
+iris slides up instead of two irises blending. Because every frame is made of the approved drawings, the face, the pencil style and the
 red muscle highlight stay exactly as in the app, and the face can't get slimmer or smoother (App Review 1.4.1 /
 2.3.1, the Health rule in CLAUDE.md). It is free, runs offline and gives the same result every time.
 
