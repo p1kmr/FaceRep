@@ -14,8 +14,9 @@ red muscle highlight stay exactly as in the app, and the face can't get slimmer 
 It works best for front views where the expression changes. Side views use a short swap of the two drawings
 (`sharp` in `SETTINGS`). When the whole head moves, the tool doesn't morph: it moves one drawing's head as one piece
 while its muscle turns red, because morphing two drawings that don't line up made the head, ear and neck wobble.
-`glide` slides the head straight back (Chin Tuck: eyes level, shoulders still); `tilt` tilts it from the base of the neck,
-ear toward shoulder, by a share of the exercise drawing's angle, and bends only the neck (Neck Side Stretch). Chin Lift still keeps the
+`glide` slides the head straight back (Chin Tuck: eyes level, shoulders still); `tilt` turns it around the exercise
+drawing's own pivot (near the chin) by a share of its angle, so the face tilts in place, and the neck follows the jaw
+without leaning or sliding: one side gets longer, the other shorter (Neck Side Stretch). Chin Lift still keeps the
 app's crossfade, and so may hands-on exercises.
 
 ## Tried and dropped: AI video (Google Flow / Veo, Omni Flash)

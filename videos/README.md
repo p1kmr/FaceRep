@@ -19,7 +19,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
 | 04-mewing | — | — | see-through side view: no face found; keeps the app's crossfade |
 | 12-tongue-press | — | — | see-through window shows the tongue: the morph bends the inside of the window; keeps the app's crossfade |
-| 05-neck-stretch | ✓ | ✓ | `tilt` 0.7: one drawing's head tilts from the base of the neck (ear toward shoulder) by 70% of the exercise drawing's angle; only the neck bends, the stretched side turns red. Tilting around the chin (the drawing's own pivot) left the head floating off the neck |
+| 05-neck-stretch | ✓ | ✓ | `tilt` 0.85: the head turns around the exercise drawing's own pivot (near the chin), so the face tilts in place; the neck stays upright and follows the jaw above it, so the far side gets longer (the stretch, in red) and the near side shorter; shoulders still. Tilting from the base of the neck slid the head sideways, and bending the neck made it stretch like rubber |
 | 11-chin-tuck | ✓ | ✓ | `glide`: the morph wobbled (the two drawings don't line up), so one drawing's head slides straight back, eyes level, shoulders still, and the neck muscle turns red |
 | 06-cheek-lift | ✓ | ✓ | |
 | 07-fish-face | ✓ | ✓ | |

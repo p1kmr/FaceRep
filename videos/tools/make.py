@@ -32,11 +32,11 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # Per exercise. sharp < 1: the two drawings are blended only in a window of that width around the middle of the
 # move, for big pose changes (head tilts) where a long blend shows two faces at once.
 # glide / tilt: no morph; the relaxed drawing's head moves as one piece (shoulders still, neck follows) while its pale
-# muscle deepens to the exercise drawing's red. For moves of the whole head (see mover()).
+# muscle deepens to the exercise drawing's red. For moves of the whole head (see glider() and tilter()).
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
     "11-chin-tuck": {"glide": 0.13},
-    "05-neck-stretch": {"tilt": 0.7},
+    "05-neck-stretch": {"tilt": 0.85},
 }
 
 
@@ -125,34 +125,14 @@ def morpher(A, B, pa, pb, sharp):
     return frame
 
 
-def mover(A, B, pa, pb, glide=0.0, tilt=0.0):
-    # One drawing, so nothing can wobble: the head (down to the chin) moves as one piece and the neck bends smoothly
-    # down to its base, which stays put with the shoulders.
-    # glide: the head slides straight back by this share of the face height, eyes level (no tilt).
-    # tilt: the head tilts sideways from the base of the neck (ear toward shoulder) by this share of the exercise
-    # drawing's angle (from the face points); only the neck column bends, so the shoulders stay.
-    fh = pa[152, 1] - pa[10, 1]
-    chin = pa[152]
-    nx, ny = chin[0], chin[1] + (0.45 if tilt else 0.75) * fh
-    if glide:
-        theta, T = 0.0, np.float32([(-1 if pa[1, 0] > pa[:, 0].mean() else 1) * glide * fh, 0])
-    else:
-        M, _ = cv2.estimateAffinePartial2D(pa, pb)
-        theta, T = float(np.arctan2(M[1, 0], M[0, 0])) * tilt, np.float32([0, 0])
-    y1 = chin[1] - 0.1 * fh
-    smooth = lambda v: (lambda c: c * c * (3 - 2 * c))(np.clip(v, 0, 1))
+def smooth(v):
+    v = np.clip(v, 0, 1)
+    return v * v * (3 - 2 * v)
 
-    def weight(x, y):
-        wy = 1 - smooth((y - y1) / (ny - y1))
-        if glide:
-            return wy
-        g = smooth(1 - (np.abs(x - nx) - 0.4 * fh) / (0.25 * fh))
-        return g * wy + (1 - g) * (1 - smooth((y - y1) / (0.25 * fh)))
-    xs, ys = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
-    px, py = nx, ny
 
-    # The muscle is the coloured strip below the mouth; it deepens to the exercise drawing's red. In a tilt only the
-    # stretched side (away from the tilt) deepens; the other side fades.
+def muscle(A, B, pa, side=None):
+    # The muscle is the coloured strip below the mouth of the relaxed drawing; colour(t) deepens it to the exercise
+    # drawing's red, only inside `side` when given (the stretched side of a tilt).
     la = cv2.cvtColor(A, cv2.COLOR_BGR2LAB).astype(np.float32)
     lb = cv2.cvtColor(B, cv2.COLOR_BGR2LAB).astype(np.float32)
     ca, ha = np.hypot(la[..., 1] - 128, la[..., 2] - 128), np.arctan2(la[..., 2] - 128, la[..., 1] - 128)
@@ -161,31 +141,80 @@ def mover(A, B, pa, pb, glide=0.0, tilt=0.0):
     hb = np.arctan2(lb[..., 2][red].mean() - 128, lb[..., 1][red].mean() - 128)
     mask = np.clip((ca - 3) / 6, 0, 1)
     mask[:int(pa[14, 1])] = 0
-    mask = cv2.GaussianBlur(mask, (0, 0), 3)
-    side = np.ones_like(mask)
-    if theta:
-        side = np.clip((px - xs) / 40 + 0.5, 0, 1) if theta > 0 else np.clip((xs - px) / 40 + 0.5, 0, 1)
-    up, down = mask * side, mask * (1 - side)
+    up = cv2.GaussianBlur(mask, (0, 0), 3) * (1 if side is None else side)
     gain = max(0.0, np.percentile(cb[cb > 6], 98) / max(np.percentile(ca[up > 0.5], 98), 1.0) - 1)
     turn = np.angle(np.exp(1j * (hb - ha)))
 
-    def frame(t):
+    def colour(t):
         lab = la.copy()
-        c = ca * (1 + gain * t * up) * (1 - 0.6 * t * down)
+        c = ca * (1 + gain * t * up)
         h = ha + turn * t * up
         lab[..., 1] = 128 + c * np.cos(h)
         lab[..., 2] = 128 + c * np.sin(h)
-        img = cv2.cvtColor(lab.clip(0, 255).astype(np.uint8), cv2.COLOR_LAB2BGR)
-        # Backward map: find where each output pixel comes from (the weight depends on the source row, so the head
-        # stays rigid); a few fixed-point steps converge.
+        return cv2.cvtColor(lab.clip(0, 255).astype(np.uint8), cv2.COLOR_LAB2BGR)
+    return colour
+
+
+def glider(A, B, pa, glide):
+    # Chin tuck, one drawing so nothing can wobble: the head (down to the chin) slides straight back by `glide` of the
+    # face height, eyes level; the neck shears smoothly down to the shoulders, which stay put.
+    fh = pa[152, 1] - pa[10, 1]
+    dx = (-1 if pa[1, 0] > pa[:, 0].mean() else 1) * glide * fh
+    y1, y2 = pa[152, 1] - 0.1 * fh, pa[152, 1] + 0.75 * fh
+    w = 1 - smooth((np.arange(H, dtype=np.float32) - y1) / (y2 - y1))
+    xs, ys = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
+    colour = muscle(A, B, pa)
+
+    def frame(t):
+        return cv2.remap(colour(t), xs - dx * t * w[:, None], ys, cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+    return frame
+
+
+# MediaPipe's face outline from one angle of the jaw to the other, through the chin: the jawline. Beside it (ears,
+# earlobes, hair) the head reaches down to the level of the jaw angles.
+JAW = [172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397]
+
+
+def tilter(A, B, pa, pb, share):
+    # Side tilt (ear toward shoulder) of one drawing. The head turns as one piece around the same point as in the
+    # exercise drawing (found from the face points; it sits near the chin, where the head turns on the top of the
+    # spine), by `share` of its angle, so the face tilts nearly in place instead of sliding. The neck doesn't lean or
+    # slide: each point follows the jawline right above it, less and less down to the base of the neck, so the side
+    # away from the tilt gets longer (the stretch) and the other side shorter. Only the neck column moves, so the
+    # shoulders stay; the stretched side of the neck turns red.
+    fh = pa[152, 1] - pa[10, 1]
+    nx, ny = pa[152, 0], pa[152, 1] + 0.45 * fh
+    M, _ = cv2.estimateAffinePartial2D(pa, pb)
+    theta = float(np.arctan2(M[1, 0], M[0, 0])) * share
+    R = M[:, :2] / np.hypot(M[0, 0], M[1, 0])
+    cx, cy = np.linalg.solve(np.eye(2) - R, M[:, 2])
+    jaw = pa[JAW][np.argsort(pa[JAW][:, 0])]
+    xs, ys = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
+    yj = np.interp(xs[0], jaw[:, 0], jaw[:, 1]).astype(np.float32)[None, :].repeat(H, 0)
+    side = np.clip((nx - xs) / 40 + 0.5, 0, 1) if theta > 0 else np.clip((xs - nx) / 40 + 0.5, 0, 1)
+    colour = muscle(A, B, pa, side)
+
+    def move(x, y, th):
+        # Displacement of the head's rigid turn at (x, y).
+        c, s_ = np.cos(th), np.sin(th)
+        return (c - 1) * (x - cx) - s_ * (y - cy), s_ * (x - cx) + (c - 1) * (y - cy)
+
+    def forward(x, y, th):
+        jy = np.interp(x, xs[0], yj[0])
+        below = y - jy
+        g = smooth(1 - (np.abs(x - nx) - 0.4 * fh) / (0.25 * fh))
+        w = g * (1 - smooth(below / (ny - jy))) + (1 - g) * (1 - smooth(below / (0.25 * fh)))
+        w = np.where(below <= 0, 1, w)
+        hx, hy = move(x, np.minimum(y, jy), th)
+        return x + w * hx, y + w * hy
+
+    def frame(t):
         sx, sy = xs, ys
-        for _ in range(6):
-            wv = weight(sx, sy)
-            phi = theta * t * wv
-            cos, sin = np.cos(phi), np.sin(phi)
-            qx, qy = xs - T[0] * t * wv - px, ys - T[1] * t * wv - py
-            sx, sy = px + cos * qx + sin * qy, py - sin * qx + cos * qy
-        return cv2.remap(img, sx.astype(np.float32), sy.astype(np.float32), cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+        for _ in range(12):
+            fx, fy = forward(sx, sy, theta * t)
+            sx, sy = sx + 0.8 * (xs - fx), sy + 0.8 * (ys - fy)
+        return cv2.remap(colour(t), sx.astype(np.float32), sy.astype(np.float32), cv2.INTER_CUBIC,
+                         borderMode=cv2.BORDER_REPLICATE)
     return frame
 
 
@@ -221,9 +250,10 @@ def main():
         A = page(os.path.join(folder, "relaxed.webp"))
         B = page(os.path.join(folder, "exercise.webp"))
         try:
-            if "glide" in settings or "tilt" in settings:
-                frame = mover(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"),
-                              settings.get("glide", 0.0), settings.get("tilt", 0.0))
+            if "glide" in settings:
+                frame = glider(A, B, find(A, f"{guide} relaxed"), settings["glide"])
+            elif "tilt" in settings:
+                frame = tilter(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings["tilt"])
             else:
                 frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings.get("sharp", 1.0))
         except NoFace as e:
