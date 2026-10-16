@@ -42,6 +42,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 19-pout | ✓ | ✓ | |
 | 20-lip-corner-lift | ✓ | ✓ | |
 | 23-v-eyes | ✓ | ✓ | `gaze` (looks up, as in 17); the hands are in both drawings in nearly the same place, so the morph keeps them solid |
+| 26-frown-release | — | — | the hands move from between the brows to the temples: the morph showed both pairs of hands at once (see-through, smeared fingers) and a quick swap still flashes two pairs; keeps the app's crossfade |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not (23 does: its hands hardly move), and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
