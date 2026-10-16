@@ -98,6 +98,10 @@ def outline(img):
 
 # MediaPipe's inner lip outline: the mouth opening.
 INNER = [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308, 324, 318, 402, 317, 14, 87, 178, 88, 95]
+# MediaPipe's eye outlines (the opening between the lids), the person's right eye then left; points 0 and 8 are the
+# corners.
+EYES = ([33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144, 163, 7],
+        [263, 466, 388, 387, 386, 385, 384, 398, 362, 382, 381, 380, 374, 373, 390, 249])
 
 
 def morpher(A, B, pa, pb, sharp, layer=None):
@@ -162,7 +166,16 @@ def morpher(A, B, pa, pb, sharp, layer=None):
     # When one drawing has the mouth open and the other closed, the opening is taken from the open one only: blending
     # the closed lips there stretches their line into streaks.
     opens = cv2.contourArea(pb[INNER]) - cv2.contourArea(pa[INNER])
-    dis = cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
+    # When an eye closes (or opens), the lid has to cover a still eyeball: the warp would squash the iris into the
+    # narrowing opening and blend the closed eye's lashes over it, so the iris shows through them. Inside the opening
+    # the open drawing's eye stays where it is and the lid edge comes down over it; the closed drawing takes over only
+    # when the eye is nearly shut. Only for eyes that (nearly) close, not for eyes that just open wider.
+    blinks = []
+    for eye in EYES:
+        ea, eb = cv2.contourArea(pa[eye]), cv2.contourArea(pb[eye])
+        if min(ea, eb) < 0.55 * max(ea, eb):
+            blinks.append((eye, ea > eb))
+    dis =cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
     grid = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
     gray = lambda img: cv2.cvtColor(np.clip(img, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
 
@@ -191,6 +204,28 @@ def morpher(A, B, pa, pb, sharp, layer=None):
             a_map = a + (1 - a) * m if opens > 0 else a * (1 - m)
             a_map = a_map[..., None]
         out = (1 - a_map) * wa + a_map * wb
+        for eye, closing in blinks if 0 < a < 1 else []:
+            src, img = (pa, A) if closing else (pb, B)
+            corners = [eye[0], eye[8]]
+            dx, dy = pts[corners].mean(0) - src[corners].mean(0)
+            ball = cv2.warpAffine(img.astype(np.float32), np.float32([[1, 0, dx], [0, 1, dy]]), (W, H),
+                                  flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+            m = np.zeros((H, W), np.uint8)
+            cv2.fillPoly(m, [np.int32(np.round(pts[eye] * 16))], 255, cv2.LINE_AA, 4)
+            shut = float(smooth(((a if closing else 1 - a) - 0.7) / 0.3))
+            # Above the opening, the open eye's lashes and lid line stay dark until the eye shuts (blended, they
+            # faded to nothing halfway and the lid edge went pale).
+            opened = wa if closing else wb
+            reach = round(0.012 * H)
+            band = cv2.dilate(m, np.ones((reach + 1, 5), np.uint8), anchor=(2, 0)).astype(np.float32) / 255
+            band = cv2.GaussianBlur(band * (1 - m / 255), (0, 0), 2.0)
+            dark = np.clip((gray(out).astype(np.float32) - gray(opened)) / 40, 0, 1)
+            k = (band * dark * (1 - shut))[..., None]
+            out = out * (1 - k) + opened * k
+            # A pixel inside the lid line, so the lid's own dark edge stays on top of the eye.
+            m = cv2.GaussianBlur(cv2.erode(m, np.ones((3, 3), np.uint8)).astype(np.float32) / 255, (0, 0), 1.0)[..., None]
+            inside = (1 - shut) * ball + shut * (wb if closing else wa)
+            out = out * (1 - m) + inside * m
         if layer is not None:
             img, alpha, show = layer
             s = show(t)
