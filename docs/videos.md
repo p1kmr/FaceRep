@@ -11,8 +11,9 @@ the two drawings on the way. Because every frame is made of the approved drawing
 red muscle highlight stay exactly as in the app, and the face can't get slimmer or smoother (App Review 1.4.1 /
 2.3.1, the Health rule in CLAUDE.md). It is free, runs offline and gives the same result every time.
 
-It works best for front views where the expression changes. Big pose changes (head tilts) use a short blend
-(`sharp` in `SETTINGS`); side views and hands-on exercises may not morph cleanly and then keep the app's crossfade.
+It works best for front views where the expression changes. Side views use a short swap of the two drawings
+(`sharp` in `SETTINGS`). Head tilts (Chin Lift) can't be morphed from two flat drawings: mid-move shows two faces, so
+they keep the app's crossfade, and so may hands-on exercises.
 
 ## Tried and dropped: AI video (Google Flow / Veo, Omni Flash)
 

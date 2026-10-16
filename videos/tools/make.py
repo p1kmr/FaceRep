@@ -32,7 +32,7 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # Per exercise. sharp < 1: the two drawings are blended only in a window of that width around the middle of the
 # move, for big pose changes (head tilts) where a long blend shows two faces at once.
 SETTINGS = {
-    "02-chin-lift": {"sharp": 0.25},
+    "03-jaw-jut": {"sharp": 0.08},
 }
 
 

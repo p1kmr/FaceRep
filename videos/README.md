@@ -15,11 +15,12 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | Exercise | Man | Woman | Note |
 |---|---|---|---|
 | 01-jaw-clench | ✓ | ✓ | small move by nature: the muscle builds up |
-| 02-chin-lift | review | review | head tilt; `sharp` 0.25 keeps the blend short |
+| 02-chin-lift | — | — | head tilt: the morph shows two faces mid-move; keeps the app's crossfade |
+| 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
 | 06-cheek-lift | ✓ | ✓ | |
 
-Front-view exercises with an expression change morph well. Side views (03, 04, 11, 12), head tilts and hands-on
-exercises (21–27) may not: if a clip shows two faces at once or the face can't be found, keep the app's crossfade
+Front-view exercises with an expression change morph well. Head tilts (02, 05) and hands-on exercises (21–27) may not, and
+side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
 for that exercise.
 
 ## Make one
