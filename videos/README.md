@@ -18,10 +18,10 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 02-chin-lift | — | — | head tilt: the morph shows two faces mid-move; keeps the app's crossfade |
 | 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
 | 04-mewing | — | — | see-through side view: no face found; keeps the app's crossfade |
-| 12-tongue-press | ✓ | ✓ | side view; `sharp` 0.08 |
+| 12-tongue-press | — | — | see-through window shows the tongue: the morph bends the inside of the window; keeps the app's crossfade |
 | 06-cheek-lift | ✓ | ✓ | |
 
-Front-view exercises with an expression change morph well. Head tilts (02, 05) and hands-on exercises (21–27) may not, and
+Front-view exercises with an expression change morph well. Head tilts (02, 05), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
 for that exercise.
 

@@ -33,7 +33,6 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # move, for big pose changes (head tilts) where a long blend shows two faces at once.
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
-    "12-tongue-press": {"sharp": 0.08},
 }
 
 
@@ -157,6 +156,10 @@ def main():
             frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), sharp)
         except NoFace as e:
             print(e)
+            stale = os.path.join(VIDEOS, guide, f"{args.id}.mp4")
+            if os.path.exists(stale):
+                os.remove(stale)
+                print(f"removed the old {os.path.relpath(stale, VIDEOS)}")
             continue
         cache = {}
         frames = []

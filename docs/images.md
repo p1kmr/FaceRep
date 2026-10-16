@@ -90,7 +90,7 @@ near the horizontal center of the panel"). When the head moves on purpose (chin 
 | 09 Brow Lift | front | frontalis (forehead) | eyebrows raised high, eyes wide, soft forehead lines |
 | 10 Eye Squeeze | front | ring muscle around each eye | eyes squeezed shut; "nothing connects the two eyes, the bridge of the nose is clean" |
 | 11 Chin Tuck | profile | deep front-of-neck muscles | head glided back, eyes level, small soft double chin |
-| 12 Tongue Press | profile | small muscles under the chin | tongue pressed up, humming, under-chin firms |
+| 12 Tongue Press | profile + see-through window on the cheek and jaw (see below) | tongue lying low, floor-of-mouth muscle pale pink, under-chin pale | front of the tongue pressed up behind the upper front teeth with a small warm glow there; floor-of-mouth muscle and under-chin red |
 | 13 Smiling Fish | front | cheekbone-to-mouth muscles | fish face plus smiling mouth corners |
 | 14 O Stretch | front | ring muscle around the lips | long vertical O, lips over the teeth |
 | 15 Lion Face | front | cheeks and front of the neck | mouth wide, tongue out and down, eyes wide |
@@ -115,6 +115,13 @@ muscle-fiber striations lightly visible on the face, the muscular neck, the shou
 athletic, symmetrical face; short thick dark-brown hair, textured and swept up and back at the front; strong straight
 eyebrows; light eyes; straight nose; high cheekbones; strong square jaw; clean-shaven; muscular neck. No clothing;
 head, neck, shoulders and the top of the chest, cropped across the upper chest."
+
+**Tongue Press window (Oct 2026).** To show what the tongue does, the original Tongue Press drawings got a
+see-through window: the window was generated separately (same template, side profile, one image with both frames),
+then cut out as an ellipse and fitted onto the original drawing with face points (a similarity transform from nose,
+chin, lips and eyes; soft 9 px edge), so the man and woman stay the same as in every other exercise. Generating a whole
+new drawing changed the person, so don't. The window's originals and the generated images are in the Figma file
+"FaceRep exercise drawings" (owner's drafts).
 
 **Heroes** (photorealistic, same features, plain black crew-neck t-shirt, near-black low-key studio background):
 home 1536×1024, three-quarter view facing left, in the right third with the left two thirds empty for text (then cut to
