@@ -15,13 +15,14 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | Exercise | Man | Woman | Note |
 |---|---|---|---|
 | 01-jaw-clench | ✓ | ✓ | small move by nature: the muscle builds up |
-| 02-chin-lift | — | — | head tilt: the morph shows two faces mid-move; keeps the app's crossfade |
+| 02-chin-lift | — | — | front view, head tips back (a 3D turn): the morph shows two faces and `tilt` can't turn a flat drawing that way; keeps the app's crossfade |
 | 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
 | 04-mewing | — | — | see-through side view: no face found; keeps the app's crossfade |
 | 12-tongue-press | — | — | see-through window shows the tongue: the morph bends the inside of the window; keeps the app's crossfade |
 | 05-neck-stretch | ✓ | ✓ | `tilt` 0.7: one drawing's head tilts from the base of the neck (ear toward shoulder) by 70% of the exercise drawing's angle; only the neck bends, the stretched side turns red. Tilting around the chin (the drawing's own pivot) left the head floating off the neck |
 | 11-chin-tuck | ✓ | ✓ | `glide`: the morph wobbled (the two drawings don't line up), so one drawing's head slides straight back, eyes level, shoulders still, and the neck muscle turns red |
 | 06-cheek-lift | ✓ | ✓ | |
+| 07-fish-face | ✓ | ✓ | |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
