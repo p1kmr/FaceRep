@@ -36,7 +36,7 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
     "11-chin-tuck": {"glide": 0.13},
-    "05-neck-stretch": {"tilt": 0.45},
+    "05-neck-stretch": {"tilt": 0.7},
 }
 
 
@@ -129,19 +129,16 @@ def mover(A, B, pa, pb, glide=0.0, tilt=0.0):
     # One drawing, so nothing can wobble: the head (down to the chin) moves as one piece and the neck bends smoothly
     # down to its base, which stays put with the shoulders.
     # glide: the head slides straight back by this share of the face height, eyes level (no tilt).
-    # tilt: the head takes the exercise drawing's tilt (angle and position from the face points); the neck bends
-    # down to this share of the face height below the chin, and only the neck column moves (shoulders stay).
+    # tilt: the head tilts sideways from the base of the neck (ear toward shoulder) by this share of the exercise
+    # drawing's angle (from the face points); only the neck column bends, so the shoulders stay.
     fh = pa[152, 1] - pa[10, 1]
     chin = pa[152]
-    nx, ny = chin[0], chin[1] + (tilt or 0.75) * fh
+    nx, ny = chin[0], chin[1] + (0.45 if tilt else 0.75) * fh
     if glide:
         theta, T = 0.0, np.float32([(-1 if pa[1, 0] > pa[:, 0].mean() else 1) * glide * fh, 0])
     else:
         M, _ = cv2.estimateAffinePartial2D(pa, pb)
-        theta = float(np.arctan2(M[1, 0], M[0, 0]))
-        R = np.float32([[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]])
-        pivot = np.linalg.solve(np.eye(2) - R, M[:, 2])
-        T = ((np.eye(2) - R) @ (pivot - np.float32([nx, ny]))).astype(np.float32)
+        theta, T = float(np.arctan2(M[1, 0], M[0, 0])) * tilt, np.float32([0, 0])
     y1 = chin[1] - 0.1 * fh
     smooth = lambda v: (lambda c: c * c * (3 - 2 * c))(np.clip(v, 0, 1))
 
