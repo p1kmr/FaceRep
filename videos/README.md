@@ -6,7 +6,8 @@ Made by `tools/make.py` from the app's own two drawings in `app/assets/guides/<m
 smoothly from one to the other while the drawings blend. What the face points miss (face edge, ears, chin) is matched pixel by
 pixel (optical flow) before the blend, so every line shows once and there is no ghost outline; below the chin the
 outline of the neck and shoulders is paired row by row, and the blank page is never matched (no grey smudges). When the mouth
-opens or closes, the opening comes from the open-mouth drawing only (blending the closed lips there makes streaks). When an
+opens or closes, the opening comes from the open-mouth drawing only (blending the closed lips there makes streaks); a
+mouth counts as open only when it is dark inside (the face finder sometimes sees an opening in closed lips). When an
 eye closes or opens wider, the more open eye stays still and the lid moves over it (a closing lid keeps its lashes), and the
 other drawing takes over only at the narrow end (blended, the iris showed through the closing lashes). The face finder's iris
 points are left out there: where a lid covers the top of the iris it puts that point on the lid, which tore a notch into it. Every frame is made of the approved drawings, so the face
@@ -31,12 +32,13 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 07-fish-face | ✓ | ✓ | |
 | 13-smiling-fish | ✓ | ✓ | |
 | 08-cheek-puff | ✓ | ✓ | |
-| 14-o-stretch | ✓ | ✓ | the opening is taken from the open-mouth drawing (dark), not from stretched closed lips |
+| 14-o-stretch | ✓ | ✓ | the opening is taken from the open-mouth drawing (dark), not from stretched closed lips, and grows from the lip line |
 | 15-lion-face | ✓ | ✓ | `tongue`: only the exercise drawing has the tongue, so a plain morph faded it in like a ghost and the face finder took it for the chin. The tongue's outline and the chin are measured by hand in `SETTINGS`; the face morphs to the drawing without the tongue and the solid tongue slides out of the mouth, from behind the teeth with a soft edge, a shadow, a slight motion blur and a fade-in |
 | 09-brow-lift | ✓ | ✓ | |
 | 10-eye-squeeze | ✓ | ✓ | the lid comes down over a still eye (the eye rule above: eyes that open or close by a fifth or more; also in 06 man, 09, 15) |
 | 16-wide-eyes | ✓ | ✓ | the lid rises off a still eye (eye rule) |
 | 17-lower-lid-lift | ✓ | ✓ | `gaze`: the eyes look up, so one iris slides up (both drawings' irises moved to the same place before the blend) with one catch light gliding from above the pupil to below it; blended, each eye showed two irises and two catch lights |
+| 18-lip-press | ✓ | ✓ | the face finder saw an opening in her pressed lips (lower inner lip on the middle of the lower lip), which tore the lip line; closed lips now keep one lip line |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade

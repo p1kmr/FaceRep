@@ -100,10 +100,28 @@ def outline(img):
 
 # MediaPipe's inner lip outline: the mouth opening.
 INNER = [78, 191, 80, 81, 82, 13, 312, 311, 310, 415, 308, 324, 318, 402, 317, 14, 87, 178, 88, 95]
+# Inner lip points, upper and lower, in pairs.
+LIPS = ((191, 95), (80, 88), (81, 178), (82, 87), (13, 14), (312, 317), (311, 402), (310, 318), (415, 324))
 # MediaPipe's eye outlines (the opening between the lids), the person's right eye then left; points 0 and 8 are the
 # corners.
 EYES = ([33, 246, 161, 160, 159, 158, 157, 173, 133, 155, 154, 153, 145, 144, 163, 7],
         [263, 466, 388, 387, 386, 385, 384, 398, 362, 382, 381, 380, 374, 373, 390, 249])
+
+
+def closed(img, p):
+    # The face finder sometimes sees an opening in closed lips and puts the lower inner lip on the middle of the lower
+    # lip (the woman's Lip Press, her relaxed O Stretch); the mouth-opening rule then tore the lip line. A real opening is
+    # dark inside, so without one the lower inner lip points go back onto the lip line.
+    if cv2.contourArea(p[INNER].astype(np.float32)) <= 400:
+        return p
+    m = np.zeros(img.shape[:2], np.uint8)
+    cv2.fillPoly(m, [np.int32(np.round(p[INNER]))], 255)
+    if (cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)[m > 0] < 90).mean() >= 0.15:
+        return p
+    p = p.copy()
+    for up, low in LIPS:
+        p[low] = p[up] + [0, 1]
+    return p
 
 
 def morpher(A, B, pa, pb, sharp, layer=None, gaze=False):
@@ -165,6 +183,7 @@ def morpher(A, B, pa, pb, sharp, layer=None, gaze=False):
             gazes[k] = (eye, c, r, d, shift, spots)
     if blinks or gazes:
         pa, pb = pa[:468], pb[:468]
+    pa, pb = closed(A, pa), closed(B, pb)
     sa, sb = outline(A), outline(B)
     extra_a, extra_b = [], []
     for y in range(int(max(pa[152, 1], pb[152, 1])) + 20, H - 20, 24):
