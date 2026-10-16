@@ -121,7 +121,9 @@ see-through window: the window was generated separately (same template, side pro
 then cut out as an ellipse and fitted onto the original drawing with face points (a similarity transform from nose,
 chin, lips and eyes; soft 9 px edge), so the man and woman stay the same as in every other exercise. Generating a whole
 new drawing changed the person, so don't. The window's originals and the generated images are in the Figma file
-"FaceRep exercise drawings" (owner's drafts).
+"FaceRep exercise drawings" (owner's drafts). The woman's generated pressed tongue came out as an egg-shaped blob, so
+her `exercise.webp` window has the man's pressed tongue in it (scaled 0.95, tip behind her upper front teeth, colours
+matched, her rim and teeth kept). A tongue must taper to a tip that touches the palate behind the upper front teeth.
 
 **Heroes** (photorealistic, same features, plain black crew-neck t-shirt, near-black low-key studio background):
 home 1536×1024, three-quarter view facing left, in the right third with the left two thirds empty for text (then cut to
