@@ -40,6 +40,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 17-lower-lid-lift | ✓ | ✓ | `gaze`: the eyes look up, so one iris slides up (both drawings' irises moved to the same place before the blend) with one catch light gliding from above the pupil to below it; blended, each eye showed two irises and two catch lights |
 | 18-lip-press | ✓ | ✓ | the face finder saw an opening in her pressed lips (lower inner lip on the middle of the lower lip), which tore the lip line; closed lips now keep one lip line |
 | 19-pout | ✓ | ✓ | |
+| 20-lip-corner-lift | ✓ | ✓ | |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
