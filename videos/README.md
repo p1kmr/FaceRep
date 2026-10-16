@@ -3,7 +3,8 @@
 One short loop per exercise and guide: relaxed, the move, hold, release (4 s, 720×1280, 30 fps, H.264, no sound).
 Made by `tools/make.py` from the app's own two drawings in `app/assets/guides/<man|woman>/exercises/<id>/`
 (`relaxed.webp` and `exercise.webp`) with a **face morph**: about 470 face points are found in both drawings and moved
-smoothly from one to the other while the drawings blend. Every frame is made of the approved drawings, so the face
+smoothly from one to the other while the drawings blend. What the face points miss (face edge, ears, chin) is matched pixel by
+pixel (optical flow) before the blend, so every line shows once and there is no ghost outline. Every frame is made of the approved drawings, so the face
 never changes and there is no before/after look (App Review 1.4.1 / 2.3.1). No AI video: Flow/Veo was tried and
 changed the face, so it is not used (docs/videos.md).
 
@@ -23,6 +24,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 11-chin-tuck | ✓ | ✓ | `glide`: the morph wobbled (the two drawings don't line up), so one drawing's head slides straight back, eyes level, shoulders still, and the neck muscle turns red |
 | 06-cheek-lift | ✓ | ✓ | |
 | 07-fish-face | ✓ | ✓ | |
+| 13-smiling-fish | ✓ | ✓ | |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade

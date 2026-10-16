@@ -7,7 +7,8 @@ Short silent loops that show one rep of each exercise. They live in **`videos/<m
 
 Every exercise already has two aligned drawings per guide (docs/images.md): `relaxed.webp` and `exercise.webp`. The
 tool finds about 470 face points in both, moves them smoothly from the relaxed to the exercise position and blends
-the two drawings on the way. Because every frame is made of the approved drawings, the face, the pencil style and the
+the two drawings on the way. Lines the face points miss (face edge, ears, chin) are matched pixel by pixel (optical flow)
+before the blend, so nothing shows twice. Because every frame is made of the approved drawings, the face, the pencil style and the
 red muscle highlight stay exactly as in the app, and the face can't get slimmer or smoother (App Review 1.4.1 /
 2.3.1, the Health rule in CLAUDE.md). It is free, runs offline and gives the same result every time.
 

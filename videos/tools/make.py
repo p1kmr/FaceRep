@@ -119,10 +119,23 @@ def morpher(A, B, pa, pb, sharp):
             region[:] = region * (1 - mask[:mh, :mw]) + warped[:mh, :mw] * mask[:mh, :mw]
         return out
 
+    dis = cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
+    grid = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
+    gray = lambda img: cv2.cvtColor(np.clip(img, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY)
+
     def frame(t):
         pts = (1 - t) * pa + t * pb
         a = t if sharp >= 1 else min(1.0, max(0.0, (t - 0.5) / sharp + 0.5))
-        return np.clip((1 - a) * warp(A, pa, pts) + a * warp(B, pb, pts), 0, 255).astype(np.uint8)
+        wa, wb = warp(A, pa, pts), warp(B, pb, pts)
+        if 0 < a < 1:
+            # The face points don't cover every line (face edge, ears, chin), so what is left over would show twice.
+            # Match it pixel by pixel and move both drawings to meet, so each line shows once.
+            f = dis.calc(gray(wa), gray(wb), None)
+            g = dis.calc(gray(wb), gray(wa), None)
+            wa = cv2.remap(wa, grid[0] - a * f[..., 0], grid[1] - a * f[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+            wb = cv2.remap(wb, grid[0] - (1 - a) * g[..., 0], grid[1] - (1 - a) * g[..., 1], cv2.INTER_LINEAR,
+                           borderMode=cv2.BORDER_REPLICATE)
+        return np.clip((1 - a) * wa + a * wb, 0, 255).astype(np.uint8)
     return frame
 
 
