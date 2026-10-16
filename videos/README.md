@@ -30,6 +30,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 08-cheek-puff | ✓ | ✓ | |
 | 14-o-stretch | ✓ | ✓ | the opening is taken from the open-mouth drawing (dark), not from stretched closed lips |
 | 15-lion-face | ✓ | ✓ | `tongue`: only the exercise drawing has the tongue, so a plain morph faded it in like a ghost and the face finder took it for the chin. The tongue's outline and the chin are measured by hand in `SETTINGS`; the face morphs to the drawing without the tongue and the solid tongue slides out of the mouth, from behind the teeth with a soft edge, a shadow, a slight motion blur and a fade-in |
+| 09-brow-lift | ✓ | ✓ | |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
