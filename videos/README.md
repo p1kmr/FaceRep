@@ -41,8 +41,9 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 18-lip-press | ✓ | ✓ | the face finder saw an opening in her pressed lips (lower inner lip on the middle of the lower lip), which tore the lip line; closed lips now keep one lip line |
 | 19-pout | ✓ | ✓ | |
 | 20-lip-corner-lift | ✓ | ✓ | |
+| 23-v-eyes | ✓ | ✓ | `gaze` (looks up, as in 17); the hands are in both drawings in nearly the same place, so the morph keeps them solid |
 
-Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
+Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not (23 does: its hands hardly move), and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
 for that exercise. When the whole head moves, use `glide` (slides, Chin Tuck) or `tilt` (tilts, Neck Stretch) instead of the
 morph: one drawing, so nothing wobbles.

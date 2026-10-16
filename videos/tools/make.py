@@ -38,6 +38,7 @@ SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
     # gaze: the eyes look up in the exercise drawing; one iris slides there instead of two blending.
     "17-lower-lid-lift": {"gaze": True},
+    "23-v-eyes": {"gaze": True},
     "11-chin-tuck": {"glide": 0.13},
     "05-neck-stretch": {"tilt": 0.85, "both": True},
     # tongue: on each exercise drawing, in page pixels (720x1280), the tongue's outline and the bottom of the chin
