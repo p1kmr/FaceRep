@@ -1,5 +1,6 @@
 """
-Hands that move (Frown Release: from between the brows to the temples). The face morph can't move a hand: it only
+Hands that move (Frown Release: from between the brows to the temples; Jawline Sweep: from under the chin up to the
+ears). The face morph can't move a hand: it only
 blends the two drawings, so both pairs of hands showed at once, see-through. Here the hands are cut out of both
 drawings along outlines traced by hand (hands.json), the face is morphed without them, and each hand moves on top as
 one solid piece: the relaxed drawing's hand turns and slides (fingertip first) to where the exercise drawing's hand
@@ -18,10 +19,12 @@ PAD = 300
 REACH = 260
 # The relaxed drawing's hand turns into the exercise drawing's: start and length, as shares of the move.
 SWAP = (0.55, 0.4)
-# Behind a hand the face is filled this much wider than the hand (px): the drawings shade the skin right beside the
-# fingers, and that shade outlined where the fingers had been. It fades as the hand leaves and comes back as the
-# other hand arrives (FADE: share of the move), so the first and last frames are the drawings as they are.
-RIM, FADE = 6, 0.12
+# Behind a hand the face is filled this much wider than the hand (px), and wider where the hand casts a shadow (see
+# shaded()): the drawings shade the skin beside the hand, and that shade outlined where the hand had been. Under and
+# around the hand the drawing itself fades out as the hand starts to move and back in as the other hand arrives
+# (FADE: share of the move), so the first and last frames are the drawings as they are and the first strip a hand
+# uncovers isn't a bright line next to the old shade.
+RIM, FADE = 6, 0.05
 
 
 def smooth(v):
@@ -122,21 +125,36 @@ def fit(ma, mb, tip_a, tip_b):
     return best[1], best[2]
 
 
-def plate(img, hole, fill, others, face):
+def shaded(img, fill, m, others):
+    # The hand's hole in img: the hand, RIM px around it, and the shadow it casts there: skin next to the hand that is
+    # clearly darker than in the other drawing (Jawline Sweep: the forearms shade the chest some 20 px wide).
+    g = lambda im: cv2.GaussianBlur(cv2.cvtColor(np.clip(im, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY), (0, 0), 3).astype(np.float32)
+    dark = (g(img) - g(fill) < -14) & (grow(m, 40) > 0) & (grow((others > 20).astype(np.uint8) * 255, 8) == 0)
+    hole = grow(m, RIM)
+    _, labels = cv2.connectedComponents(dark.astype(np.uint8))
+    touching = np.unique(labels[(grow(hole, 1) > 0) & dark])
+    shadow = np.isin(labels, touching[touching > 0])
+    hole = np.maximum(hole, cv2.morphologyEx(shadow.astype(np.uint8) * 255, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8)))
+    return cv2.GaussianBlur(hole, (0, 0), 1.5)
+
+
+def plate(img, hole, fill, others):
     # img without its hands (hole): filled with `fill` (the other drawing here), grey, its tone matched to the skin
-    # around the hole (on the face only: beside it the page is white in both, and edges a few px apart smeared grey).
-    # Where the other drawing has a hand too (others), filled in from around it.
+    # around the hole where both drawings have ink (on blank page there is nothing to match, and edges a few px apart
+    # there smeared grey). Where the other drawing has a hand too (others), filled in from around it.
     fill = cv2.cvtColor(cv2.cvtColor(np.clip(fill, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY), cv2.COLOR_GRAY2BGR)
     fill = fill.astype(np.float32)
+    g = lambda im: cv2.GaussianBlur(cv2.cvtColor(np.clip(im, 0, 255).astype(np.uint8), cv2.COLOR_BGR2GRAY), (0, 0), 4)
+    inked = cv2.GaussianBlur(((g(img) < 245) & (g(fill) < 245)).astype(np.float32), (0, 0), 4)[..., None]
     bad = grow((others > 20).astype(np.uint8) * 255, 8)
-    valid = ((grow(hole, 3) == 0) & (bad == 0)).astype(np.float32)[..., None]
+    valid = ((grow(hole, 3) == 0) & (bad == 0)).astype(np.float32)[..., None] * (inked > 0.99)
     diff = (img.astype(np.float32) - fill) * valid
     sig = 18
     near = cv2.GaussianBlur(valid, (0, 0), sig)[..., None]
     off = cv2.GaussianBlur(diff, (0, 0), sig) / np.maximum(near, 1e-3)
     far = cv2.GaussianBlur(diff, (0, 0), 3 * sig) / np.maximum(cv2.GaussianBlur(valid, (0, 0), 3 * sig)[..., None], 1e-3)
     w = np.clip(near * 4, 0, 1)
-    fill = np.clip(fill + np.clip(w * off + (1 - w) * far, -40, 40) * face, 0, 255)
+    fill = np.clip(fill + np.clip(w * off + (1 - w) * far, -40, 40) * inked, 0, 255)
     soft = hole.astype(np.float32)[..., None] / 255
     out = (img * (1 - soft) + fill * soft).astype(np.uint8)
     both = ((hole > 127) & (bad > 0)).astype(np.uint8) * 255
@@ -154,6 +172,42 @@ def mover(A, B, find, spec, morpher, swap=SWAP):
     white = lambda im, m: (im * (m[..., None] / 255.0) + 255 * (1 - m[..., None] / 255.0)).astype(np.uint8)
     dis = cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
 
+    # The drawing (the page around it is white), and how much it fades out to white at the bottom (hers does, his
+    # doesn't): each row's ink against the rows a little higher up, down to three quarters of it counting as shading.
+    rows = np.flatnonzero((A < 255).any((1, 2)) | (B < 255).any((1, 2)))
+    top, bottom = rows[0], rows[-1] + 1
+    ink = np.max([255 - cv2.cvtColor(img, cv2.COLOR_BGR2GRAY).astype(np.float32).mean(1) for img in (A, B)], 0)
+    ink[top:bottom] = np.convolve(np.pad(ink[top:bottom], 4, mode="edge"), np.ones(9) / 9, "valid")
+    low = bottom - 150
+    fade = np.zeros(H, np.float32)
+    fade[top:bottom] = 1
+    fade[low:bottom] = np.clip(ink[low:bottom] / max(0.75 * ink[low - 40:low].mean(), 1), 0, 1)
+    # An arm cut off by the drawing's edge (or faded out before it) goes on past it, mirrored, for when the hand
+    # moves (Jawline Sweep: the forearms swing up from the bottom); in the fading rows its strokes are first given
+    # back their full strength. Where the hands end up they are faded again as the drawing is there, so a forearm
+    # that swings up isn't cut off hard at the bottom edge or followed by its own faded end.
+    end = low + int(np.argmax(fade[low:bottom] < 0.5)) if (fade[low:bottom] < 0.5).any() else bottom
+
+    def slant(m):
+        # How far the hand's arm moves sideways per row where it leaves the drawing (0 when it doesn't).
+        ys = np.arange(max(top, end - 80), end)
+        ys = ys[(m[ys] > 127).any(1)]
+        if len(ys) < 20:
+            return 0.0
+        return float(np.polyfit(ys, [np.flatnonzero(m[y] > 127).mean() for y in ys], 1)[0])
+
+    def beyond(img, d):
+        # Mirrored along the arm's own slant d, so a slanted forearm goes on straight instead of folding back.
+        out = img.astype(np.float32)
+        if out.ndim == 3:
+            out[low:end] = 255 - (255 - out[low:end]) / np.maximum(fade[low:end], 0.5)[:, None, None]
+        xs, ys = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(end, H, dtype=np.float32))
+        mx, my = (xs - 2 * (ys - (end - 1)) * d).astype(np.float32), (2 * (end - 1) - ys).astype(np.float32)
+        out[end:] = cv2.remap(out, mx, my, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE).reshape(out[end:].shape)
+        out[:top] = out[top:2 * top][::-1]
+        return np.clip(out, 0, 255).astype(img.dtype)
+    drawing = fade[:, None, None].repeat(W, 1)
+
     hands = []
     for h in spec:
         ma, mb = cutout(A, h["relaxed"]), cutout(B, h["exercise"])
@@ -162,42 +216,34 @@ def mover(A, B, find, spec, morpher, swap=SWAP):
         T = similarity(tip_a, tip_b, angle, scale)
         # In the exercise drawing's place: the relaxed hand moved there (A2) and matched pixel by pixel to the
         # exercise hand (g: from the exercise hand into A2, f: the other way).
-        A2 = cv2.warpAffine(pad(A), T, size, flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
-        mA2 = cv2.warpAffine(pad(ma), T, size, flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
-        Bp, mBp = pad(B), pad(mb)
+        da, db = slant(ma), slant(mb)
+        A2 = cv2.warpAffine(pad(beyond(A, da)), T, size, flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+        mA2 = cv2.warpAffine(pad(beyond(ma, da)), T, size, flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+        Bp, mBp = pad(beyond(B, db)), pad(beyond(mb, db))
         ga, gb = (cv2.cvtColor(white(im, m), cv2.COLOR_BGR2GRAY) for im, m in ((A2, mA2), (Bp, mBp)))
         f, g = np.nan_to_num(dis.calc(ga, gb, None)), np.nan_to_num(dis.calc(gb, ga, None))
         hands.append(dict(ma=ma, mb=mb, tip_a=tip_a, tip_b=tip_b, angle=angle, scale=scale, T=T, A2=A2, mA2=mA2,
                           Bp=Bp, mBp=mBp, f=f, g=g))
 
-    # The face without hands, morphed as usual. The other drawing is moved into this face's shape on the face only
-    # (beside it the page is the same in both drawings, and moving it there dragged the other hand's edge in). Under a
-    # hand the face finder guesses (it put her brows on the fingers that cover them, so the brows showed twice); the
-    # face points are found again on each drawing with its hands taken out and filled from the other drawing as it
-    # lies on the page.
+    # The face without hands, morphed as usual. The other drawing is moved into this face's shape the same way the
+    # morph moves it (taken as it lies on the page, the chest behind the forearms showed twice: the morph moves the
+    # body with the chin), and the other hands there are left out. Under a hand the face finder guesses (it put her
+    # brows on the fingers that cover them, so the brows showed twice); the face points are found again on each
+    # drawing with its hands taken out and filled from the other drawing as it lies on the page.
     ma_all = np.max([h["ma"] for h in hands], 0)
     mb_all = np.max([h["mb"] for h in hands], 0)
 
-    def hull(p):
-        m = np.zeros((H, W), np.uint8)
-        cv2.fillConvexPoly(m, cv2.convexHull(np.int32(p[:468])), 255)
-        return cv2.GaussianBlur(cv2.dilate(m, np.ones((15, 15), np.uint8)).astype(np.float32) / 255, (0, 0), 10)[..., None]
-
-    def moved(to, img, others, face):
-        on_face = face * np.clip(to(img.astype(np.float32)), 0, 255) + (1 - face) * img
-        there = to(np.dstack([others] * 3))[..., 0]
-        bad = np.maximum(np.where(face[..., 0] > 0.01, there, 0), np.where(face[..., 0] < 0.99, others, 0))
-        return on_face, bad
+    def moved(to, img, others):
+        return np.clip(to(img.astype(np.float32)), 0, 255), to(np.dstack([others] * 3))[..., 0]
 
     pa, pb = find(A, "relaxed"), find(B, "exercise")
-    pa = find(plate(A, ma_all, B, mb_all, hull(pa)), "relaxed without hands")
-    pb = find(plate(B, mb_all, A, ma_all, hull(pb)), "exercise without hands")
-    face_a, face_b = hull(pa), hull(pb)
-    fill_a, bad_a = moved(morpher(B, A, pb, pa, 1.0).to_b, B, mb_all, face_a)
-    fill_b, bad_b = moved(morpher(A, B, pa, pb, 1.0).to_b, A, ma_all, face_b)
-    hole_a, hole_b = (cv2.GaussianBlur(grow(m, RIM), (0, 0), 1.5) for m in (ma_all, mb_all))
-    face = morpher(plate(A, hole_a, fill_a, bad_a, face_a), plate(B, hole_b, fill_b, bad_b, face_b), pa, pb, 1.0)
-    rim_a, rim_b = (np.clip(h.astype(np.float32) - m, 0, 255)[..., None] / 255 for h, m in ((hole_a, ma_all), (hole_b, mb_all)))
+    pa = find(plate(A, ma_all, B, mb_all), "relaxed without hands")
+    pb = find(plate(B, mb_all, A, ma_all), "exercise without hands")
+    fill_a, bad_a = moved(morpher(B, A, pb, pa, 1.0).to_b, B, mb_all)
+    fill_b, bad_b = moved(morpher(A, B, pa, pb, 1.0).to_b, A, ma_all)
+    hole_a, hole_b = shaded(A, fill_a, ma_all, bad_a), shaded(B, fill_b, mb_all, bad_b)
+    face = morpher(plate(A, hole_a, fill_a, bad_a), plate(B, hole_b, fill_b, bad_b), pa, pb, 1.0)
+    rim_a, rim_b = (h.astype(np.float32)[..., None] / 255 for h in (hole_a, hole_b))
 
     # Where the exercise hand runs off its page, its edge (moved inward on the way) shows the relaxed hand instead.
     page = np.zeros((H + 2 * P, W + 2 * P), np.float32)
@@ -234,8 +280,8 @@ def mover(A, B, find, spec, morpher, swap=SWAP):
                 inside = inside + (1 - inside) * float(smooth((a - 0.85) / 0.15))
                 layers[1][0] = a * inside
                 layers[0][0] = 1 - layers[1][0]
-            pre = sum(w * img * m for w, img, m in layers)
-            alpha = sum(w * m for w, img, m in layers)
+            pre = sum(w * img * m for w, img, m in layers) * drawing
+            alpha = sum(w * m for w, img, m in layers) * drawing
             out = out * (1 - alpha) + pre
         return np.clip(out, 0, 255).astype(np.uint8)
     return frame

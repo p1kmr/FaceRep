@@ -11,8 +11,8 @@ mouth counts as open only when it is dark inside (the face finder sometimes sees
 eye closes or opens wider, the more open eye stays still and the lid moves over it (a closing lid keeps its lashes), and the
 other drawing takes over only at the narrow end (blended, the iris showed through the closing lashes). The face finder's iris
 points are left out there: where a lid covers the top of the iris it puts that point on the lid, which tore a notch into it. Hands
-that move (Frown Release) are cut out of both drawings along outlines traced by hand and slide over the morphing face as
-solid pieces (`tools/hands.py`). Every frame is made of the approved drawings, so the face
+that move (Frown Release, Jawline Sweep) are cut out of both drawings along outlines traced by hand and slide over the
+morphing face as solid pieces (`tools/hands.py`). Every frame is made of the approved drawings, so the face
 never changes and there is no before/after look (App Review 1.4.1 / 2.3.1). No AI video: Flow/Veo was tried and
 changed the face, so it is not used (docs/videos.md).
 
@@ -44,9 +44,10 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 19-pout | ✓ | ✓ | |
 | 20-lip-corner-lift | ✓ | ✓ | |
 | 23-v-eyes | ✓ | ✓ | `gaze` (looks up, as in 17); the hands are in both drawings in nearly the same place, so the morph keeps them solid |
+| 25-jawline-sweep | ✓ | ✓ | `hands`: the fists sweep from under the chin up to the ears and the forearms swing up from the bottom edge; past the drawing's edge each forearm goes on along its own slant, and hers fades out where her drawing fades. The shade the forearms cast on the chest goes with them (left behind, it outlined where the arms had been) |
 | 26-frown-release | ✓ | ✓ | `hands`: the hands slide from between the brows to the temples as solid pieces over the morphing face (outlines traced by hand in `tools/hands.json`); on the last part of the move the relaxed hand turns into the exercise hand, both lined up pixel by pixel. Hers turns quickly at the very end (`swap`): her relaxed hand has two fingers curled and the exercise hand none, so a slow change showed both. A plain morph showed both pairs of hands at once, and a quick swap of the drawings flashed |
 
-Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not (23 does: its hands hardly move; hands that move slide with `hands`, 26), and
+Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not (23 does: its hands hardly move; hands that move slide with `hands`, 25 and 26), and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
 for that exercise. When the whole head moves, use `glide` (slides, Chin Tuck) or `tilt` (tilts, Neck Stretch) instead of the
 morph: one drawing, so nothing wobbles.
@@ -68,7 +69,8 @@ python3 -m venv .venv
   head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out, `gaze` for eyes that
   look somewhere else, `hands` for hands that move, with `swap` when one guide's hands change shape a lot).
 - Hands that move need their outlines in `tools/hands.json`: per exercise and guide, one entry per hand with a rough
-  outline on each drawing in page pixels (720×1280), starting at the fingertip; the tool snaps it onto the drawn edge.
+  outline on each drawing in page pixels (720×1280), starting at the fingertip; the tool snaps it onto the drawn edge. An
+  arm that runs off the drawing is traced a little past its edge (y 1145), so the cut-out is solid up to the edge.
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
 
 ## Check every clip

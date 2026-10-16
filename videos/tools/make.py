@@ -48,6 +48,7 @@ SETTINGS = {
     # swap: when the relaxed hand turns into the exercise hand (start, length); her relaxed hand has two fingers curled
     # and the exercise hand none, so a slow swap showed both: it happens quickly at the end of the move.
     "26-frown-release": {"hands": True, "swap": {"woman": (0.8, 0.14)}},
+    "25-jawline-sweep": {"hands": True},
     # tongue: on each exercise drawing, in page pixels (720x1280), the tongue's outline and the bottom of the chin
     # (the face finder takes the tongue for the chin); measure again if the drawing changes.
     "15-lion-face": {"tongue": {
