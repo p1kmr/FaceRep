@@ -31,9 +31,11 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 
 # Per exercise. sharp < 1: the two drawings are blended only in a window of that width around the middle of the
 # move, for big pose changes (head tilts) where a long blend shows two faces at once.
+# glide: no morph; the relaxed drawing's head slides straight back by this share of the face height (shoulders still,
+# neck follows) while its pale muscle deepens to the exercise drawing's red. For moves where the head only slides.
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
-    "11-chin-tuck": {"sharp": 0.08},
+    "11-chin-tuck": {"glide": 0.13},
 }
 
 
@@ -122,6 +124,41 @@ def morpher(A, B, pa, pb, sharp):
     return frame
 
 
+def glider(A, B, pa, amount):
+    # One drawing, so nothing can wobble: the head (down to the chin) moves as one piece, the neck shears smoothly
+    # to the shoulders, which stay put. Eyes stay level (no tilt).
+    fh = pa[152, 1] - pa[10, 1]
+    back = -1 if pa[1, 0] > pa[:, 0].mean() else 1
+    dx = back * amount * fh
+    y1, y2 = pa[152, 1] - 0.1 * fh, pa[152, 1] + 0.75 * fh
+    s = np.clip((np.arange(H, dtype=np.float32) - y1) / (y2 - y1), 0, 1)
+    w = 1 - s * s * (3 - 2 * s)
+    xs, ys = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
+
+    # The muscle is the coloured strip below the mouth; it deepens to the exercise drawing's strength.
+    la = cv2.cvtColor(A, cv2.COLOR_BGR2LAB).astype(np.float32)
+    lb = cv2.cvtColor(B, cv2.COLOR_BGR2LAB).astype(np.float32)
+    ca, ha = np.hypot(la[..., 1] - 128, la[..., 2] - 128), np.arctan2(la[..., 2] - 128, la[..., 1] - 128)
+    cb = np.hypot(lb[..., 1] - 128, lb[..., 2] - 128)
+    red = cb > 15
+    hb = np.arctan2(lb[..., 2][red].mean() - 128, lb[..., 1][red].mean() - 128)
+    mask = np.clip((ca - 3) / 6, 0, 1)
+    mask[:int(pa[14, 1])] = 0
+    mask = cv2.GaussianBlur(mask, (0, 0), 3)
+    gain = max(0.0, np.percentile(cb[cb > 6], 98) / max(np.percentile(ca[mask > 0.5], 98), 1.0) - 1)
+    turn = np.angle(np.exp(1j * (hb - ha)))
+
+    def frame(t):
+        lab = la.copy()
+        c = ca * (1 + gain * t * mask)
+        h = ha + turn * t * mask
+        lab[..., 1] = 128 + c * np.cos(h)
+        lab[..., 2] = 128 + c * np.sin(h)
+        img = cv2.cvtColor(lab.clip(0, 255).astype(np.uint8), cv2.COLOR_LAB2BGR)
+        return cv2.remap(img, xs - dx * t * w[:, None], ys, cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+    return frame
+
+
 def timeline():
     ease = lambda x: x * x * (3 - 2 * x)
     hold0, squeeze, hold1, release, rest = (round(s * FPS) for s in TIMING)
@@ -147,14 +184,17 @@ def main():
     ap.add_argument("--guide", choices=["man", "woman"])
     ap.add_argument("--preview")
     args = ap.parse_args()
-    sharp = SETTINGS.get(args.id, {}).get("sharp", 1.0)
+    settings = SETTINGS.get(args.id, {})
     find = landmarker()
     for guide in [args.guide] if args.guide else ["man", "woman"]:
         folder = os.path.join(GUIDES, guide, "exercises", args.id)
         A = page(os.path.join(folder, "relaxed.webp"))
         B = page(os.path.join(folder, "exercise.webp"))
         try:
-            frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), sharp)
+            if "glide" in settings:
+                frame = glider(A, B, find(A, f"{guide} relaxed"), settings["glide"])
+            else:
+                frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings.get("sharp", 1.0))
         except NoFace as e:
             print(e)
             stale = os.path.join(VIDEOS, guide, f"{args.id}.mp4")

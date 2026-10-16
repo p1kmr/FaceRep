@@ -12,7 +12,9 @@ red muscle highlight stay exactly as in the app, and the face can't get slimmer 
 2.3.1, the Health rule in CLAUDE.md). It is free, runs offline and gives the same result every time.
 
 It works best for front views where the expression changes. Side views use a short swap of the two drawings
-(`sharp` in `SETTINGS`). Head tilts (Chin Lift) can't be morphed from two flat drawings: mid-move shows two faces, so
+(`sharp` in `SETTINGS`). When the head only slides (Chin Tuck: straight back, eyes level, shoulders still), the tool
+uses `glide` instead: one drawing whose head moves as one piece while its muscle turns red, because morphing two
+drawings that don't line up made the head, ear and neck wobble. Head tilts (Chin Lift) can't be morphed from two flat drawings: mid-move shows two faces, so
 they keep the app's crossfade, and so may hands-on exercises.
 
 ## Tried and dropped: AI video (Google Flow / Veo, Omni Flash)

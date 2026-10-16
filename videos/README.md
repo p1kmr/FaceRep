@@ -19,12 +19,12 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
 | 04-mewing | — | — | see-through side view: no face found; keeps the app's crossfade |
 | 12-tongue-press | — | — | see-through window shows the tongue: the morph bends the inside of the window; keeps the app's crossfade |
-| 11-chin-tuck | ✓ | ✓ | side view with neck and shoulders; `sharp` 0.08 |
+| 11-chin-tuck | ✓ | ✓ | `glide`: the morph wobbled (the two drawings don't line up), so one drawing's head slides straight back, eyes level, shoulders still, and the neck muscle turns red |
 | 06-cheek-lift | ✓ | ✓ | |
 
 Front-view exercises with an expression change morph well. Head tilts (02, 05), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
-for that exercise.
+for that exercise. When the head only slides (Chin Tuck), use `glide` instead of the morph: one drawing, so nothing wobbles.
 
 ## Make one
 
@@ -39,7 +39,8 @@ python3 -m venv .venv
 - Needs `ffmpeg`. On Linux MediaPipe also needs `libegl1` and `libgles2`.
 - The face model downloads once into `tools/.cache/` (ignored by git).
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
-- Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes).
+- Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` for a head that
+  only slides).
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
 
 ## Check every clip
