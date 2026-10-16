@@ -12,7 +12,8 @@ before the blend, so nothing shows twice; the neck and shoulder outline is paire
 drawing has can't be blended without looking see-through: Lion Face's tongue is cut out (outline measured by hand)
 and slides out of the mouth solid, and when the eyes close or open wider (Eye Squeeze, Wide Eyes) the more open eye stays still and the lid
 moves over it instead of the other drawing's lid and lashes fading in over the iris; when the eyes look up (Lower Lid Lift) one
-iris slides up instead of two irises blending. Because every frame is made of the approved drawings, the face, the pencil style and the
+iris slides up instead of two irises blending. Hands that move (Frown Release) are cut out along outlines traced by hand and
+slide over the morphing face as solid pieces, so two pairs of hands never show at once. Because every frame is made of the approved drawings, the face, the pencil style and the
 red muscle highlight stay exactly as in the app, and the face can't get slimmer or smoother (App Review 1.4.1 /
 2.3.1, the Health rule in CLAUDE.md). It is free, runs offline and gives the same result every time.
 
@@ -23,7 +24,7 @@ while its muscle turns red, because morphing two drawings that don't line up mad
 drawing's own pivot (near the chin) by a share of its angle, so the face tilts in place, and the neck follows the jaw
 without leaning or sliding: one side gets longer, the other shorter (Neck Side Stretch, one rep to each side because
 the exercise switches sides every rep). Chin Lift still keeps the
-app's crossfade, and so may hands-on exercises.
+app's crossfade, and so may other hands-on exercises.
 
 ## Tried and dropped: AI video (Google Flow / Veo, Omni Flash)
 

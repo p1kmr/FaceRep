@@ -9,6 +9,7 @@ so the face moves (smile, pout, brows) but every frame is made of the approved d
 Setup and the per-exercise settings: README.md in videos/.
 """
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -16,6 +17,8 @@ import urllib.request
 
 import cv2
 import numpy as np
+
+import hands
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 VIDEOS = os.path.dirname(HERE)
@@ -41,6 +44,10 @@ SETTINGS = {
     "23-v-eyes": {"gaze": True},
     "11-chin-tuck": {"glide": 0.13},
     "05-neck-stretch": {"tilt": 0.85, "both": True},
+    # hands: the hands move; each is cut out along its outline in hands.json and slides as one piece (see hands.py).
+    # swap: when the relaxed hand turns into the exercise hand (start, length); her relaxed hand has two fingers curled
+    # and the exercise hand none, so a slow swap showed both: it happens quickly at the end of the move.
+    "26-frown-release": {"hands": True, "swap": {"woman": (0.8, 0.14)}},
     # tongue: on each exercise drawing, in page pixels (720x1280), the tongue's outline and the bottom of the chin
     # (the face finder takes the tongue for the chin); measure again if the drawing changes.
     "15-lion-face": {"tongue": {
@@ -523,6 +530,11 @@ def main():
                 frame = glider(A, B, find(A, f"{guide} relaxed"), settings["glide"])
             elif "tongue" in settings:
                 frame = tongue(A, B, find(A, f"{guide} relaxed"), settings["tongue"][guide], find, f"{guide} exercise")
+            elif "hands" in settings:
+                with open(os.path.join(HERE, "hands.json")) as f:
+                    spec = json.load(f)[args.id][guide]
+                frame = hands.mover(A, B, lambda img, what: find(img, f"{guide} {what}"), spec, morpher,
+                                    settings.get("swap", {}).get(guide, hands.SWAP))
             elif "tilt" in settings:
                 frame = tilter(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings["tilt"])
             else:
