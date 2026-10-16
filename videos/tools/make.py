@@ -33,7 +33,12 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # move, for big pose changes (head tilts) where a long blend shows two faces at once.
 SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
+    "12-tongue-press": {"sharp": 0.08},
 }
+
+
+class NoFace(Exception):
+    pass
 
 
 def page(path):
@@ -62,7 +67,7 @@ def landmarker():
     def find(img, label):
         res = det.detect(mp.Image(image_format=mp.ImageFormat.SRGB, data=cv2.cvtColor(img, cv2.COLOR_BGR2RGB)))
         if not res.face_landmarks:
-            sys.exit(f"{label}: no face found (side views and hands-on exercises keep the app's crossfade)")
+            raise NoFace(f"{label}: no face found, so this one keeps the app's crossfade")
         return np.array([[p.x * W, p.y * H] for p in res.face_landmarks[0]], dtype=np.float32)
     find.close = det.close
     return find
@@ -148,7 +153,11 @@ def main():
         folder = os.path.join(GUIDES, guide, "exercises", args.id)
         A = page(os.path.join(folder, "relaxed.webp"))
         B = page(os.path.join(folder, "exercise.webp"))
-        frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), sharp)
+        try:
+            frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), sharp)
+        except NoFace as e:
+            print(e)
+            continue
         cache = {}
         frames = []
         for t in timeline():
