@@ -4,7 +4,8 @@ One short loop per exercise and guide: relaxed, the move, hold, release (4 s, 72
 Made by `tools/make.py` from the app's own two drawings in `app/assets/guides/<man|woman>/exercises/<id>/`
 (`relaxed.webp` and `exercise.webp`) with a **face morph**: about 470 face points are found in both drawings and moved
 smoothly from one to the other while the drawings blend. What the face points miss (face edge, ears, chin) is matched pixel by
-pixel (optical flow) before the blend, so every line shows once and there is no ghost outline. Every frame is made of the approved drawings, so the face
+pixel (optical flow) before the blend, so every line shows once and there is no ghost outline; below the chin the
+outline of the neck and shoulders is paired row by row, and the blank page is never matched (no grey smudges). Every frame is made of the approved drawings, so the face
 never changes and there is no before/after look (App Review 1.4.1 / 2.3.1). No AI video: Flow/Veo was tried and
 changed the face, so it is not used (docs/videos.md).
 
@@ -27,6 +28,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 13-smiling-fish | ✓ | ✓ | |
 | 08-cheek-puff | ✓ | ✓ | |
 | 14-o-stretch | ✓ | ✓ | |
+| 15-lion-face | ✓ | ✓ | `tongue`: only the exercise drawing has the tongue, so a plain morph faded it in like a ghost and the face finder took it for the chin. The tongue's outline and the chin are measured by hand in `SETTINGS`; the face morphs to the drawing without the tongue and the solid tongue slides out of the mouth |
 
 Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not, and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
@@ -47,7 +49,7 @@ python3 -m venv .venv
 - The face model downloads once into `tools/.cache/` (ignored by git).
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
 - Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` / `tilt` for a
-  head that slides or tilts, `both` for one rep to each side).
+  head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out).
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
 
 ## Check every clip

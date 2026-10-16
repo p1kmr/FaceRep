@@ -38,6 +38,15 @@ SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
     "11-chin-tuck": {"glide": 0.13},
     "05-neck-stretch": {"tilt": 0.85, "both": True},
+    # tongue: on each exercise drawing, in page pixels (720x1280), the tongue's outline and the bottom of the chin
+    # (the face finder takes the tongue for the chin); measure again if the drawing changes.
+    "15-lion-face": {"tongue": {
+        "man": {"chin": 800, "outline": [(298, 630), (305, 620), (330, 617), (350, 618), (357, 623), (365, 618), (390, 617), (410, 620), (418, 632),
+                (420, 650), (418, 680), (416, 700), (410, 725), (400, 750), (385, 770), (365, 777), (345, 777), (332, 770),
+                (316, 750), (306, 725), (301, 700), (298, 680), (296, 650)]},
+        "woman": {"chin": 866, "outline": [(296, 712), (300, 703), (330, 701), (360, 702), (390, 701), (418, 703), (424, 712), (422, 740), (419, 770),
+                  (411, 800), (398, 828), (380, 843), (362, 846), (343, 843), (322, 830), (309, 800), (301, 770), (298, 740)]},
+    }},
 }
 
 
@@ -77,7 +86,31 @@ def landmarker():
     return find
 
 
-def morpher(A, B, pa, pb, sharp):
+def outline(img):
+    # Leftmost and rightmost drawn pixel of each row (the page is white around the figure).
+    ink = cv2.GaussianBlur(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), (0, 0), 2) < 232
+    rows = []
+    for r in ink:
+        xs = np.flatnonzero(r)
+        rows.append((float(xs[0]), float(xs[-1])) if len(xs) else (None, None))
+    return rows
+
+
+def morpher(A, B, pa, pb, sharp, layer=None):
+    # layer: optional (image, alpha, show) in B's shape, drawn on top and slid out from its top edge as show(t) goes
+    # 0 -> 1 (the tongue in Lion Face, which only the exercise drawing has).
+    # Below the chin the face points stop, so the outline of the neck and shoulders is paired row by row in both
+    # drawings: a wider or narrower neck then moves smoothly instead of fading in as a grey smudge.
+    sa, sb = outline(A), outline(B)
+    extra_a, extra_b = [], []
+    for y in range(int(max(pa[152, 1], pb[152, 1])) + 20, H - 20, 24):
+        for side in (0, 1):
+            xa, xb = sa[y][side], sb[y][side]
+            if xa is not None and xb is not None and abs(xa - xb) < 100 and 2 < xa < W - 3 and 2 < xb < W - 3:
+                extra_a.append([xa, y])
+                extra_b.append([xb, y])
+    if extra_a:
+        pa, pb = np.vstack([pa, extra_a]), np.vstack([pb, extra_b])
     # Corners and edge points stay put, so the whole page is covered by triangles.
     border = [[fx * (W - 1), y] for fx in np.linspace(0, 1, 7) for y in (0, H - 1)]
     border += [[x, fy * (H - 1)] for fy in np.linspace(0, 1, 9)[1:-1] for x in (0, W - 1)]
@@ -109,6 +142,9 @@ def morpher(A, B, pa, pb, sharp):
             rs, rd = cv2.boundingRect(s), cv2.boundingRect(d)
             if rd[2] == 0 or rd[3] == 0 or rs[2] == 0 or rs[3] == 0:
                 continue
+            # Skip flat triangles (points on one line), which have no affine transform.
+            if abs((s[1, 0] - s[0, 0]) * (s[2, 1] - s[0, 1]) - (s[1, 1] - s[0, 1]) * (s[2, 0] - s[0, 0])) < 1e-2:
+                continue
             M = cv2.getAffineTransform((s - np.float32(rs[:2])).astype(np.float32), (d - np.float32(rd[:2])).astype(np.float32))
             patch = img[rs[1]:rs[1] + rs[3], rs[0]:rs[0] + rs[2]].astype(np.float32)
             warped = cv2.warpAffine(patch, M, (rd[2], rd[3]), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
@@ -130,13 +166,53 @@ def morpher(A, B, pa, pb, sharp):
         if 0 < a < 1:
             # The face points don't cover every line (face edge, ears, chin), so what is left over would show twice.
             # Match it pixel by pixel and move both drawings to meet, so each line shows once.
-            f = dis.calc(gray(wa), gray(wb), None)
-            g = dis.calc(gray(wb), gray(wa), None)
+            ga, gb = gray(wa), gray(wb)
+            f = np.nan_to_num(dis.calc(ga, gb, None))
+            g = np.nan_to_num(dis.calc(gb, ga, None))
+            # Blank page stays blank: no matching where neither drawing has ink (it smears grey into the white).
+            ink = cv2.dilate(((ga < 245) | (gb < 245)).astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)
+            f[~ink] = 0
+            g[~ink] = 0
             wa = cv2.remap(wa, grid[0] - a * f[..., 0], grid[1] - a * f[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
             wb = cv2.remap(wb, grid[0] - (1 - a) * g[..., 0], grid[1] - (1 - a) * g[..., 1], cv2.INTER_LINEAR,
                            borderMode=cv2.BORDER_REPLICATE)
-        return np.clip((1 - a) * wa + a * wb, 0, 255).astype(np.uint8)
+        out = (1 - a) * wa + a * wb
+        if layer is not None:
+            img, alpha, show = layer
+            s = show(t)
+            if s > 0:
+                li, la = warp(img, pb, pts), warp(np.dstack([alpha] * 3), pb, pts)[..., 0]
+                rows = np.nonzero(la.max(1) > 0.5)[0]
+                top, length = rows[0], rows[-1] - rows[0]
+                shift = (1 - s) * length
+                sy = grid[1] + np.float32(shift)
+                li = cv2.remap(li, grid[0], sy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+                la = cv2.remap(la, grid[0], sy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_CONSTANT)
+                la[:top] = 0
+                out = out * (1 - la[..., None]) + li * la[..., None]
+        return np.clip(out, 0, 255).astype(np.uint8)
+    frame.to_b = lambda img: warp(img, pa, pb)
     return frame
+
+
+def tongue(A, B, pa, spec, find, label):
+    # Lion Face: only the exercise drawing has the tongue, so a plain morph fades it in like a ghost over the chin,
+    # and the face finder takes the tongue for the chin. The tongue (outline `poly`, traced on the exercise drawing's
+    # page) is cut out and painted over, the face is found again and morphed to that tongue-free drawing (mouth
+    # opens, eyes widen), and the solid tongue slides out of the mouth on top. The face finder still puts the chin too
+    # high, so the points below the lower lip are stretched down to the measured chin.
+    mask = np.zeros((H, W), np.uint8)
+    cv2.fillPoly(mask, [np.int32(spec["outline"])], 255)
+    pb = find(cv2.inpaint(B, cv2.dilate(mask, np.ones((7, 7), np.uint8)), 9, cv2.INPAINT_TELEA), f"{label} without tongue")
+    lip = pb[17, 1]
+    low = pb[:, 1] > lip
+    pb[low, 1] = lip + (pb[low, 1] - lip) * (spec["chin"] - lip) / (pb[152, 1] - lip)
+    soft = cv2.GaussianBlur(cv2.dilate(mask, np.ones((5, 5), np.uint8)).astype(np.float32) / 255, (0, 0), 2)[..., None]
+    under = morpher(A, A, pa, pb, 1.0).to_b(A)
+    Bn = (B * (1 - soft) + under * soft).astype(np.uint8)
+    alpha = cv2.GaussianBlur(mask.astype(np.float32) / 255, (0, 0), 1.2)
+    show = lambda t: float(smooth((t - 0.3) / 0.7))
+    return morpher(A, Bn, pa, pb, 1.0, layer=(B, alpha, show))
 
 
 def smooth(v):
@@ -269,6 +345,8 @@ def main():
         try:
             if "glide" in settings:
                 frame = glider(A, B, find(A, f"{guide} relaxed"), settings["glide"])
+            elif "tongue" in settings:
+                frame = tongue(A, B, find(A, f"{guide} relaxed"), settings["tongue"][guide], find, f"{guide} exercise")
             elif "tilt" in settings:
                 frame = tilter(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings["tilt"])
             else:
