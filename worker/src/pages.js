@@ -5,7 +5,7 @@
  */
 import { FREE_PER_MONTH } from './lib/access.js';
 
-const UPDATED = 'October 9, 2026';
+const UPDATED = { privacy: 'October 17, 2026', terms: 'October 9, 2026' };
 
 const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -52,13 +52,14 @@ function privacy(env) {
   return layout(
     'Privacy policy',
     `<h1>Privacy policy</h1>
-<p class="muted">Last updated ${UPDATED}</p>
+<p class="muted">Last updated ${UPDATED.privacy}</p>
 
 <div class="card">
 <strong>In short:</strong> ${c.app} has no account, no ads and no trackers. Your workouts, Coach chat and settings are
 stored only on your iPhone. Only three things ever leave it: the questions you send to the AI Coach (after you agree), a
 request for the Premium part of your workout plan (with Premium only), and the purchase details Apple and RevenueCat need to
-process a subscription. We never sell or share your data for advertising.
+process a subscription. Camera pictures and face data never leave your iPhone. We never sell or share your data for
+advertising.
 </div>
 
 <h2>Who we are</h2>
@@ -71,6 +72,13 @@ iOS; their names, times and days only leave your iPhone with a Coach question (s
 <p>The optional workout mirror shows your front camera on the screen while you exercise, so you can check your form. The
 picture is never recorded, saved or sent anywhere, and the camera is on only while the mirror is shown. Voice cues are
 spoken by your iPhone's built-in voice, on the device. ${c.app} does not use your photos, microphone, contacts or location.</p>
+<p><strong>Face data (move check).</strong> On iPhones that support Apple's face tracking (ARKit), the mirror's move check
+reads how parts of your face move while the mirror is on, for example how far your eyebrows rise or your cheeks puff out,
+and how far your head tilts, about 15 times a second. ${c.app} uses these readings only to show in the mirror whether it
+sees the exercise's move and how many holds it saw in the current exercise. They are processed on your iPhone as you move
+and then discarded: they are not stored, not even on your iPhone, never sent to us or anyone else, never used to identify
+you, and never used for advertising, marketing or data mining. You can turn the move check off in Settings (Move check in
+the mirror), or not use the mirror at all.</p>
 
 <h2>Data that leaves your iPhone</h2>
 <table>
@@ -162,7 +170,7 @@ function terms(env) {
   return layout(
     'Terms of use',
     `<h1>Terms of use</h1>
-<p class="muted">Last updated ${UPDATED}</p>
+<p class="muted">Last updated ${UPDATED.terms}</p>
 
 <p>These terms apply to the ${c.app} app, published by ${c.name}. By using ${c.app} you agree to them and to
 <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Apple's Standard License Agreement (EULA)</a>.

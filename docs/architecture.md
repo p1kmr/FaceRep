@@ -19,7 +19,8 @@ app/src/
 ├── constants/      config.ts, theme/, exercises.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
 ├── state/          settings/, premium/, progress/, plan/, chat/  (+ AppProviders.tsx)
 ├── hooks/          useSettings, usePremium, usePaywall, useProgress*, usePlan, useWorkout, useChat, useTheme…
-├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, plan/, notifications/, workout/ (pure)
+├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, plan/, notifications/, workout/ (pure),
+│                   faceTracking.ts (the only import of modules/face-tracking)
 ├── theme/          ThemeProvider + makeStyles
 ├── i18n/           i18next + locales/en/*.json
 └── utils/          dates, format, ids
@@ -81,6 +82,12 @@ shows the front camera (`expo-camera`) in a corner of the figure. `hooks/useMirr
 it's turned on; iOS asks only once, so after "Don't Allow" an alert offers the Settings app. Nothing is recorded or saved,
 and the camera stops in the background. The microphone purpose string exists only because the camera library can record
 video with sound (Apple rejects builds whose code can reach the microphone without one); FaceRep never asks for it.
+Tapping the small tile swaps the figure and the mirror (only their boxes change, so the camera doesn't restart).
+
+**Move check** (docs/face-tracking.md): on iPhones with Apple's face tracking (and Settings → Move check in the mirror
+on), the mirror is the local module `modules/face-tracking` (ARKit) instead of `expo-camera`, and shows a level and
+"Seen 3 of 10" for the exercises in `constants/moves.ts`. `services/workout/moveCheck.ts` is pure and tested: it learns
+the relaxed face during Get ready / Relax / Next up and counts holds. Face data stays on the iPhone and is never stored.
 
 ## React (web) → React Native: what changes
 | You know (React web) | In this app |

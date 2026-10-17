@@ -17,6 +17,8 @@
   "voiceCuesHint": "Dice Contrai, Rilassati e cosa viene dopo, così puoi seguire anche a occhi chiusi.",
   "mirror": "Specchio negli allenamenti",
   "mirrorHint": "La fotocamera frontale accanto alla figura. Non viene registrato né salvato nulla.",
+  "moveCheck": "Controllo del movimento nello specchio",
+  "moveCheckHint": "Mostra quando la fotocamera vede il movimento dell'esercizio. Funziona sul tuo iPhone: non viene registrato, salvato o inviato nulla.",
   "theme": {
     "title": "Tema",
     "system": "Sistema",

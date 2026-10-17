@@ -1,8 +1,9 @@
 # FaceRep: facial fitness for men and women (iOS)
 
 Guided face workouts for jawline, cheekbones, lips, eyes and face massage, with an anatomy drawing (a man or a woman)
-whose working muscle lights up red, a hold/relax timer with voice cues, an optional camera mirror, streaks, and a paid
-**AI Coach** for face-training and basic face care questions.
+whose working muscle lights up red, a hold/relax timer with voice cues, an optional camera mirror (on iPhones with face
+tracking it can show when it sees the move, on the device: docs/face-tracking.md), streaks, and a paid **AI Coach** for
+face-training and basic face care questions.
 Built with **Expo (React Native)**, the same architecture as Elowa.
 
 App Store name: **FaceRep: Face Yoga & Jawline** · bundle ID `com.p1kmr.facerep` (working name was FaceKit, which is taken; see `docs/launch.md`).
@@ -21,7 +22,8 @@ facerep/
 │   ├── src/app/          routes (Expo Router)            ├── src/state/      Context + useReducer per domain
 │   ├── src/components/   reusable UI (ui/, exercise/…)   ├── src/hooks/      public API for screens
 │   ├── src/constants/    config, theme tokens, exercises ├── src/services/   SQLite, purchases, AI, notifications, pure engines
-│   ├── assets/           exercise drawings, hero photos  └── modules/device-check   local Swift module (Apple DeviceCheck)
+│   ├── assets/           exercise drawings, hero photos  ├── modules/device-check   local Swift module (Apple DeviceCheck)
+│   │                                                     └── modules/face-tracking  local Swift module (ARKit, the mirror's move check)
 ├── worker/    ← Cloudflare Worker: AI Coach API + privacy/terms/support pages
 ├── store-screenshots/ ← App Store screenshots: capture from the app + editor, finished files in export/ (docs/screenshots.md)
 ├── brand/     ← the logo: one script makes the app icon (light, dark, tinted), splash, favicon and SVGs

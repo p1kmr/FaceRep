@@ -23,6 +23,16 @@
     "open": "Abrir Ajustes",
     "cancel": "Agora não"
   },
+  "mirrorBigger": "Ver o espelho maior",
+  "figureBigger": "Ver a figura maior",
+  "moveCheck": {
+    "starting": "Procurando seu rosto…",
+    "noFace": "Rosto fora da imagem",
+    "seen": "Visto {{seen}} de {{reps}}",
+    "hint": {
+      "browsStill": "Mantenha as sobrancelhas paradas"
+    }
+  },
   "endConfirm": {
     "title": "Encerrar este treino?",
     "body": "Os exercícios que você terminou continuam valendo.",

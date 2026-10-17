@@ -17,6 +17,8 @@
   "voiceCuesHint": "Says Squeeze, Relax and what's next, so you can follow along with your eyes closed.",
   "mirror": "Mirror in workouts",
   "mirrorHint": "Your front camera next to the figure. Nothing is recorded or saved.",
+  "moveCheck": "Move check in the mirror",
+  "moveCheckHint": "Shows when the camera sees the exercise move. It runs on your iPhone: nothing is recorded, saved or sent.",
   "theme": {
     "title": "Theme",
     "system": "System",

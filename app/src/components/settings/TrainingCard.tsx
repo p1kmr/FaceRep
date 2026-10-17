@@ -12,12 +12,16 @@ import { goalsFor } from '@/constants/exercises';
 import { useGuide } from '@/hooks/useGuide';
 import { useMirror } from '@/hooks/useMirror';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
-import { setGoal, setGuide, setHaptics, setVoiceCues } from '@/state/settings/actions';
+import { faceTrackingSupported } from '@/services/faceTracking';
+import { setGoal, setGuide, setHaptics, setMoveCheck, setVoiceCues } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { ToggleRow } from './ToggleRow';
 
-/** Settings → Training: focus, exercise pictures, reminders, and how workouts guide you (haptics, voice, mirror). */
+/**
+ * Settings → Training: focus, exercise pictures, reminders, and how workouts guide you (haptics, voice, mirror). The
+ * move check row only shows on iPhones with Apple's face tracking (docs/face-tracking.md).
+ */
 export function TrainingCard() {
   const { t } = useTranslation(['settings', 'common']);
   const styles = useStyles();
@@ -65,7 +69,21 @@ export function TrainingCard() {
         onValueChange={(on) => dispatch(setVoiceCues(on))}
         divider
       />
-      <ToggleRow title={t('settings:mirror')} subtitle={t('settings:mirrorHint')} value={mirror.on} onValueChange={mirror.setOn} />
+      <ToggleRow
+        title={t('settings:mirror')}
+        subtitle={t('settings:mirrorHint')}
+        value={mirror.on}
+        onValueChange={mirror.setOn}
+        divider={faceTrackingSupported}
+      />
+      {faceTrackingSupported ? (
+        <ToggleRow
+          title={t('settings:moveCheck')}
+          subtitle={t('settings:moveCheckHint')}
+          value={settings.moveCheck}
+          onValueChange={(on) => dispatch(setMoveCheck(on))}
+        />
+      ) : null}
     </Card>
   );
 }

@@ -67,6 +67,10 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
 - Never require notifications, location or tracking to use the app or to get something (5.1.2(i)).
 - Recording anything (camera, microphone, screen) needs consent and a visible sign that it is on (2.5.14). The mirror
   is a live preview only.
+- Face tracking (ARKit, the mirror's move check; docs/face-tracking.md) (5.1.1, 5.1.2(vi)): face data stays on the
+  iPhone and is never stored, sent, used to identify anyone, or used for marketing or data mining. The privacy policy's
+  "Face data" paragraph, the camera purpose string and the review notes say so; keep all three true when the feature
+  changes. It reads movement only: no face shape, symmetry or score (1.4.1, 2.3.1), and no jaw-caution exercise.
 - Prefer Apple's pickers to full access (the photo picker instead of the whole library, 5.1.1(iii)).
 
 **Notifications** (4.5.3, 4.5.4, 2.5.16)

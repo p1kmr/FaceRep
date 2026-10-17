@@ -11,6 +11,7 @@ import {
   GUIDE_SET,
   HAPTICS_SET,
   MIRROR_SET,
+  MOVE_CHECK_SET,
   ONBOARDING_COMPLETE,
   PLAN_GRID_TIP_SEEN,
   REMINDER_DELETED,
@@ -35,6 +36,7 @@ export const DEFAULT_SETTINGS: Settings = {
   haptics: true,
   voiceCues: true,
   mirror: false,
+  moveCheck: true,
   aiConsent: null,
   lastReviewPromptOn: null,
   askButton: { visible: true, side: 'right', y: 1, hintShows: 0 },
@@ -86,6 +88,7 @@ export function sanitizeSettings(saved: SavedSettings | null): Settings {
     haptics: s.haptics !== false,
     voiceCues: s.voiceCues !== false,
     mirror: s.mirror === true,
+    moveCheck: s.moveCheck !== false,
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
     lastReviewPromptOn: typeof s.lastReviewPromptOn === 'string' ? s.lastReviewPromptOn : null,
     askButton: sanitizeAskButton(s.askButton, d.askButton),
@@ -124,6 +127,8 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { voiceCues: action.payload === true });
     case MIRROR_SET:
       return update(state, { mirror: action.payload === true });
+    case MOVE_CHECK_SET:
+      return update(state, { moveCheck: action.payload === true });
     case AI_CONSENT_SET:
       return update(state, { aiConsent: action.payload });
     case REVIEW_PROMPTED:

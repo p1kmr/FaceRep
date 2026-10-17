@@ -1,7 +1,8 @@
 import { router, useLocalSearchParams } from 'expo-router';
+import { SymbolView } from 'expo-symbols';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, View } from 'react-native';
+import { Alert, Pressable, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { MirrorView } from '@/components/exercise/MirrorView';
@@ -20,6 +21,7 @@ import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { useTheme } from '@/hooks/useTheme';
 import { useWorkout } from '@/hooks/useWorkout';
 import { defaultItem, type WorkoutItem } from '@/services/workout/items';
+import { movePhaseOf } from '@/services/workout/moveCheck';
 import { currentExercise, phaseDuration, workoutResult, type WorkoutResult } from '@/services/workout/timer';
 import { setVoiceCues } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
@@ -60,6 +62,7 @@ export default function WorkoutScreen() {
   const { voiceCues } = useSettings();
   const settingsDispatch = useSettingsDispatch();
   const mirror = useMirror();
+  const [mirrorBig, setMirrorBig] = useState(false);
   const saveWorkout = useSaveWorkout();
   const askForReview = useReviewPrompt();
   const { streak } = useProgressSummary();
@@ -112,6 +115,7 @@ export default function WorkoutScreen() {
   const squeeze = state.phase === 'hold';
   // Before a jaw exercise starts, the jaw warning replaces the cue (onboarding has no safety step).
   const caution = (state.phase === 'ready' || state.phase === 'rest') && !!e.jawCaution;
+  const big = mirror.on && mirrorBig;
 
   return (
     <View style={[styles.root, safe]}>
@@ -127,20 +131,57 @@ export default function WorkoutScreen() {
             accessibilityLabel={t('voiceCues')}
             toggled={voiceCues}
           />
-          <IconButton icon="person.crop.square" onPress={() => mirror.setOn(!mirror.on)} accessibilityLabel={t('mirror')} toggled={mirror.on} />
+          <IconButton
+            icon="person.crop.square"
+            onPress={() => {
+              setMirrorBig(false);
+              mirror.setOn(!mirror.on);
+            }}
+            accessibilityLabel={t('mirror')}
+            toggled={mirror.on}
+          />
           <IconButton icon="forward.end.fill" onPress={skip} accessibilityLabel={t('skip')} />
         </View>
       </View>
 
+      {/*
+        Figure and mirror: tap the small one to swap them. Only their boxes change (plain views, the tap target is
+        a separate button on top), so the camera and the move check keep running instead of starting over.
+      */}
       <View style={styles.frames}>
-        <PlayerFigure
-          id={e.id}
-          squeeze={squeeze}
-          preview={state.phase === 'ready' || state.phase === 'rest'}
-          paused={state.paused}
-          label={`${name}, ${phaseLabel}`}
-        />
-        {mirror.on ? <MirrorView style={styles.mirror} /> : null}
+        <View style={big ? [styles.corner, styles.tile] : styles.fill}>
+          <PlayerFigure
+            id={e.id}
+            squeeze={squeeze}
+            preview={state.phase === 'ready' || state.phase === 'rest'}
+            paused={state.paused}
+            label={`${name}, ${phaseLabel}`}
+          />
+        </View>
+        {mirror.on ? (
+          <View style={big ? styles.big : [styles.corner, styles.tile]}>
+            <MirrorView
+              style={StyleSheet.absoluteFill}
+              exercise={e}
+              index={state.index}
+              phase={movePhaseOf(state.phase, state.paused)}
+              rep={state.rep}
+              large={big}
+            />
+          </View>
+        ) : null}
+        {mirror.on ? (
+          <Pressable
+            style={[styles.corner, styles.swapTarget]}
+            onPress={() => setMirrorBig(!big)}
+            accessibilityRole="button"
+            accessibilityLabel={big ? t('figureBigger') : t('mirrorBigger')}
+          >
+            <View style={styles.swap}>
+              <SymbolView name="arrow.up.left.and.arrow.down.right" size={11} weight="bold" tintColor={colors.onImage} />
+            </View>
+          </Pressable>
+        ) : null}
       </View>
 
       <View style={styles.info}>
@@ -207,7 +248,23 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   },
   actions: { flexDirection: 'row', gap: tokens.space.sm },
   frames: { flex: 1, marginHorizontal: tokens.space.lg },
-  mirror: { position: 'absolute', right: tokens.space.md, bottom: tokens.space.md, width: '38%' },
+  fill: { flex: 1 },
+  big: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, borderRadius: tokens.radius.xl, overflow: 'hidden' },
+  /** The small tile (figure or mirror) and the button on top of it. */
+  corner: { position: 'absolute', right: tokens.space.md, bottom: tokens.space.md, width: '38%', aspectRatio: 3 / 4 },
+  tile: { zIndex: 1, borderRadius: tokens.radius.lg, overflow: 'hidden', borderWidth: 2, borderColor: colors.background },
+  swapTarget: { zIndex: 2 },
+  swap: {
+    position: 'absolute',
+    top: tokens.space.xs,
+    left: tokens.space.xs,
+    width: 22,
+    height: 22,
+    borderRadius: tokens.radius.pill,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.overlay,
+  },
   info: { paddingHorizontal: tokens.space.xl, paddingTop: tokens.space.lg, gap: tokens.space.xs },
   caution: { fontWeight: tokens.font.weight.bold },
   controls: {

@@ -18,6 +18,8 @@
   "voiceCuesHint": "Diz Contraia, Relaxe e o que vem a seguir, para você acompanhar de olhos fechados.",
   "mirror": "Espelho nos treinos",
   "mirrorHint": "Sua câmera frontal ao lado da figura. Nada é gravado nem salvo.",
+  "moveCheck": "Checagem do movimento no espelho",
+  "moveCheckHint": "Mostra quando a câmera vê o movimento do exercício. Funciona no seu iPhone: nada é gravado, salvo ou enviado.",
   "theme": {
     "title": "Tema",
     "system": "Sistema",

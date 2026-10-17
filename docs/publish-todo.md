@@ -180,6 +180,8 @@ then shown to the owner):
       Worker logs.
 
 ## Not needed for 1.0
+- The mirror's move check (face tracking, branch `feat/openCV`): a later version. Its device test and release steps
+  (Worker deploy for the privacy policy, review notes, slide 5) are in docs/face-tracking.md §5 and §7.
 - Product Page Optimization tests, Custom Product Pages (the women-focused page in docs/launch.md §3 can come later),
   In-App Events, promo codes, subscription promotional images (warnings only).
 - The external TestFlight group "FaceRep Testers" (it needs beta review details and a phone number). The internal

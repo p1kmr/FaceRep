@@ -23,6 +23,16 @@
     "open": "Abrir Ajustes",
     "cancel": "Ahora no"
   },
+  "mirrorBigger": "Ver el espejo más grande",
+  "figureBigger": "Ver la figura más grande",
+  "moveCheck": {
+    "starting": "Buscando tu cara…",
+    "noFace": "No se ve tu cara",
+    "seen": "Visto {{seen}} de {{reps}}",
+    "hint": {
+      "browsStill": "Mantén las cejas quietas"
+    }
+  },
   "endConfirm": {
     "title": "¿Terminar este entrenamiento?",
     "body": "Los ejercicios que completaste seguirán contando.",
