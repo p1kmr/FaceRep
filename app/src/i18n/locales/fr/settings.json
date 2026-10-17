@@ -15,8 +15,6 @@
   "haptics": "Retour haptique",
   "voiceCues": "Guidage vocal",
   "voiceCuesHint": "Annonce « Contracte », « Relâche » et l'exercice suivant, pour que tu puisses suivre les yeux fermés.",
-  "mirror": "Miroir pendant les séances",
-  "mirrorHint": "Ta caméra avant à côté de l'illustration. Rien n'est enregistré ni sauvegardé.",
   "moveCheck": "Suivi du mouvement dans le miroir",
   "moveCheckHint": "Indique quand la caméra voit le mouvement de l'exercice. Tout se passe sur ton iPhone : rien n'est enregistré, sauvegardé ni envoyé.",
   "theme": {

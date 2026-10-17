@@ -94,8 +94,8 @@ eight exercises done with the hands (they cover the face). A test keeps hands-on
   > The workout mirror's optional move check uses ARKit face tracking on the device to show whether the camera sees the
   > exercise's movement (for example raised eyebrows) and how many holds it saw. Face data (blend shape values and head
   > rotation) is processed on the iPhone in real time and discarded: it is not stored, not sent to our server or any
-  > third party, and not used for identification, advertising or data mining. To see it: Settings → Mirror in workouts
-  > on, start Brow Lift from the Exercises tab. It can be turned off in Settings → Move check in the mirror.
+  > third party, and not used for identification, advertising or data mining. To see it: start Brow Lift from the Exercises
+  > tab and tap the person button at the top of the workout player (the mirror). It can be turned off in Settings → Move check in the mirror.
 - **No claims (1.4.1, 2.3.1).** It reads movement now, never face shape, symmetry, "progress" or a score. No "AI face
   scan" wording, and no "beta" label in the app (2.2).
 - **Safety.** No jaw-caution exercise is followed, and the level is full as soon as the move counts: it never asks for

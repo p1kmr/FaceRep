@@ -15,8 +15,6 @@
   "haptics": "Respuesta háptica",
   "voiceCues": "Guía por voz",
   "voiceCuesHint": "Dice “Aprieta”, “Relaja” y qué viene después, para que puedas seguir el ejercicio con los ojos cerrados.",
-  "mirror": "Espejo en los entrenamientos",
-  "mirrorHint": "Tu cámara frontal junto a la figura. No se graba ni se guarda nada.",
   "moveCheck": "Control del movimiento en el espejo",
   "moveCheckHint": "Muestra cuándo la cámara ve el movimiento del ejercicio. Funciona en tu iPhone: no se graba, guarda ni envía nada.",
   "theme": {

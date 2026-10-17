@@ -77,7 +77,7 @@ While it runs, `useWorkout()` also:
   `useApplicationAudioSession: false` gives speech its own iOS audio session, so the user's music is turned down for a
   cue and comes back instead of stopping.
 
-**Mirror** (Settings → Mirror in workouts, or the person button in the player): `components/exercise/MirrorView.tsx`
+**Mirror** (the person button in the workout player; it stays on for the next workout): `components/exercise/MirrorView.tsx`
 shows the front camera (`expo-camera`) as a small tile on the figure. `hooks/useMirror.ts` asks for the camera the first time
 it's turned on; iOS asks only once, so after "Don't Allow" an alert offers the Settings app. Nothing is recorded or saved,
 and the camera stops in the background. The microphone purpose string exists only because the camera library can record
@@ -130,7 +130,8 @@ it into reps and holds with `services/plan/plan.ts` → `planItems()`.
   today, lock for Premium) with the weekday under it, never the plan day number, which only appears in text ("Day 9
   of 28") so it can't be mistaken for a date. The day preview says "Done on …" or "Planned for …".
   How to read the grid is a one-time tip above it (`PlanGridTip`), closed by "Got it" or the first tap on a day
-  (`settings.planGridTipSeen`), so the grid stays compact.
+  (`settings.planGridTipSeen`), so the grid stays compact. On Today the grid is folded under the week strip
+  (`PlanToggle`, "Your 28-day plan"): closed until tapped, since the week above is enough day to day.
 
 ## Exercise catalog and programs
 27 exercises in 5 programs (jawline, cheekbones, lips, eyes, massage) plus the "full face" goal; the order of
@@ -162,9 +163,10 @@ uses a see-through theme color (`plateFade`); `Gradient` moves its alpha into `s
 alpha inside a stop color is ignored. The web preview draws both right, so check a new fade in the Simulator. Text on a
 drawing's white plate uses `onPlate` / `onPlateMuted` (the plate is white in both themes).
 
-**Today** (`app/(tabs)/index.tsx`): greeting and streak, this week (`WeekStrip`, the region's first weekday), today's
+**Today** (`app/(tabs)/index.tsx`): greeting and streak, this week (`WeekStrip`, the region's first weekday) with the
+28-day grid folded under it (`PlanToggle`), today's
 plan day as the hero (`TodayCard`: the face map with the areas the day works lit and slowly breathing, cropped to frame
-them; tap an area to open it in the library), three stat cards and the 28-day grid. The Coach stays the floating button
+them; tap an area to open it in the library) and three stat cards. The Coach stays the floating button
 (`AskBubble`, now on the brand gradient): one way in, as before.
 
 ## The face map

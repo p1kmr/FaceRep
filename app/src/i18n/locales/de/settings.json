@@ -15,8 +15,6 @@
   "haptics": "Haptik",
   "voiceCues": "Sprachansagen",
   "voiceCuesHint": "Sagt „Anspannen“, „Locker lassen“ und die nächste Übung an, damit du mit geschlossenen Augen mitmachen kannst.",
-  "mirror": "Spiegel im Training",
-  "mirrorHint": "Deine Frontkamera neben der Figur. Es wird nichts aufgenommen oder gespeichert.",
   "moveCheck": "Bewegungscheck im Spiegel",
   "moveCheckHint": "Zeigt, wann die Kamera die Übungsbewegung erkennt. Läuft auf deinem iPhone: Es wird nichts aufgenommen, gespeichert oder gesendet.",
   "theme": {
