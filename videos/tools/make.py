@@ -83,6 +83,24 @@ def page(path):
     return out
 
 
+def lineup(A, B):
+    # The exercise drawing turned and moved onto the relaxed one before it is morphed: several of the man's sit up to
+    # 11 px to the side of their relaxed drawing (Jaw Jut's is also turned a little), and the morph slid his whole
+    # figure sideways and back on every rep. Where the moved drawing no longer reaches (a strip along the page edge
+    # across the shoulders, a thin wedge along a turned drawing's bottom edge) and outside the relaxed drawing (the
+    # page's white bands), the relaxed drawing shows: edge pixels stretched across showed as streaks, the wedge as a
+    # white sliver. Returns the lined-up drawing and where a point measured on B lands on it (2x3).
+    g = lambda img: cv2.GaussianBlur(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), (0, 0), 2).astype(np.float32)
+    _, M = cv2.findTransformECC(g(A), g(B), np.eye(2, 3, dtype=np.float32), cv2.MOTION_EUCLIDEAN,
+                                (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 200, 1e-6), None, 5)
+    out = cv2.warpAffine(B, M, (W, H), flags=cv2.INTER_CUBIC | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
+    # The drawing's rows of a page (page() leaves the bands above and below pure white).
+    drawn = lambda img: np.repeat((img < 255).any((1, 2))[:, None], W, 1).astype(np.float32)
+    reach = cv2.warpAffine(drawn(B), M, (W, H), flags=cv2.INTER_LINEAR | cv2.WARP_INVERSE_MAP) * drawn(A)
+    reach = cv2.GaussianBlur(cv2.erode(reach, np.ones((7, 7), np.uint8)), (0, 0), 1.5)[..., None]
+    return np.round(out * reach + A * (1 - reach)).astype(np.uint8), cv2.invertAffineTransform(M)
+
+
 def landmarker():
     if not os.path.exists(MODEL):
         os.makedirs(os.path.dirname(MODEL), exist_ok=True)
@@ -413,7 +431,7 @@ def tongue(A, B, pa, spec, find, label):
     # opens, eyes widen), and the solid tongue slides out of the mouth on top. The face finder still puts the chin too
     # high, so the points below the lower lip are stretched down to the measured chin.
     mask = np.zeros((H, W), np.uint8)
-    cv2.fillPoly(mask, [np.int32(spec["outline"])], 255)
+    cv2.fillPoly(mask, [np.int32(np.round(spec["outline"]))], 255)
     pb = find(cv2.inpaint(B, cv2.dilate(mask, np.ones((7, 7), np.uint8)), 9, cv2.INPAINT_TELEA), f"{label} without tongue")
     lip = pb[17, 1]
     low = pb[:, 1] > lip
@@ -567,13 +585,18 @@ def main():
             if "glide" in settings:
                 frame = glider(A, B, find(A, f"{guide} relaxed"), settings["glide"])
             elif "tongue" in settings:
-                frame = tongue(A, B, find(A, f"{guide} relaxed"), settings["tongue"][guide], find, f"{guide} exercise")
+                B, onto = lineup(A, B)
+                spec = settings["tongue"][guide]
+                # Measured on the exercise drawing as it is, so they move with it.
+                xy = cv2.transform(np.float32([*spec["outline"], (np.mean(spec["outline"], 0)[0], spec["chin"])])[None], onto)[0]
+                spec = {"outline": xy[:-1], "chin": float(xy[-1, 1])}
+                frame = tongue(A, B, find(A, f"{guide} relaxed"), spec, find, f"{guide} exercise")
             elif "window" in settings:
                 with open(os.path.join(HERE, "window.json")) as f:
                     spec = json.load(f)[args.id].get(guide)
                 if spec is None:
                     raise NoFace(f"{guide}: no tongue outline in window.json, so this one keeps the app's crossfade")
-                frame = window.mover(A, B, spec)
+                frame = window.mover(A, lineup(A, B)[0], spec)
             elif "hands" in settings:
                 with open(os.path.join(HERE, "hands.json")) as f:
                     spec = json.load(f)[args.id][guide]
@@ -582,6 +605,7 @@ def main():
             elif "tilt" in settings:
                 frame = tilter(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings["tilt"])
             else:
+                B = lineup(A, B)[0]
                 frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings.get("sharp", 1.0),
                                 gaze=settings.get("gaze", False), spread=settings.get("spread", False))
         except NoFace as e:

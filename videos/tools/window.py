@@ -28,15 +28,6 @@ def grow(m, r):
     return cv2.dilate(m, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * r + 1, 2 * r + 1)))
 
 
-def lineup(A, B):
-    # The exercise drawing turned and moved onto the relaxed one (the man's head sits about 10 px to the side).
-    g = lambda img: cv2.GaussianBlur(cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), (0, 0), 2).astype(np.float32)
-    _, M = cv2.findTransformECC(g(A), g(B), np.eye(2, 3, dtype=np.float32), cv2.MOTION_EUCLIDEAN,
-                                (cv2.TERM_CRITERIA_EPS | cv2.TERM_CRITERIA_COUNT, 200, 1e-6), None, 5)
-    H, W = A.shape[:2]
-    return cv2.warpAffine(B, M, (W, H), flags=cv2.INTER_CUBIC | cv2.WARP_INVERSE_MAP, borderMode=cv2.BORDER_REPLICATE)
-
-
 def tongue(img, rough, back, exact=False):
     # The tongue: reddish pixels inside the rough outline, holes and gaps closed. Returns its outline and its filled
     # mask. The outline runs from the tip (the point nearest the rough outline's first point) to the back end (nearest
@@ -99,13 +90,13 @@ def plate(img, mine, other, theirs):
 
 
 def mover(A, B, spec):
-    # spec: the tongue, or {"pieces": [...]} for several parts that move (his Tongue Press: the muscle band under the
-    # tongue turns from flat to slanting, and blended in place it showed twice), drawn in that order. Each:
+    # B: the exercise drawing as lined up onto the relaxed one (make.lineup; the man's head sits about 10 px to the
+    # side). spec: the tongue, or {"pieces": [...]} for several parts that move (his Tongue Press: the muscle band under
+    # the tongue turns from flat to slanting, and blended in place it showed twice), drawn in that order. Each:
     # {"relaxed": rough outline, "exercise": rough outline, "back": [back end in relaxed, in exercise]} in page pixels,
-    # tip first (the exercise drawing as lined up onto the relaxed one); "exact": true when the outlines are traced
-    # exactly and used as they are, not refined by colour.
+    # tip first (the exercise drawing as lined up); "exact": true when the outlines are traced exactly and used as they
+    # are, not refined by colour.
     H, W = A.shape[:2]
-    B = lineup(A, B)
     gx, gy = np.meshgrid(np.arange(W, dtype=np.float32), np.arange(H, dtype=np.float32))
     soft = lambda m: cv2.GaussianBlur(grow(m, EDGE).astype(np.float32) / 255, (0, 0), 1.2)
     pieces = []

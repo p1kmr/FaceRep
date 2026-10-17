@@ -2,9 +2,10 @@
 
 One short loop per exercise and guide: relaxed, the move, hold, release (4 s, 720×1280, 30 fps, H.264, no sound).
 Made by `tools/make.py` from the app's own two drawings in `app/assets/guides/<man|woman>/exercises/<id>/`
-(`relaxed.webp` and `exercise.webp`) with a **face morph**: about 470 face points are found in both drawings and moved
-smoothly from one to the other while the drawings blend. What the face points miss (face edge, ears, chin) is matched pixel by
-pixel (optical flow) before the blend, so every line shows once and there is no ghost outline; below the chin the
+(`relaxed.webp` and `exercise.webp`) with a **face morph**: the exercise drawing is lined up onto the relaxed one (several
+of the man's sit up to 11 px to the side, and his whole figure slid sideways and back on every rep), then about 470 face
+points are found in both drawings and moved smoothly from one to the other while the drawings blend. What the face
+points miss (face edge, ears, chin) is matched pixel by pixel (optical flow) before the blend, so every line shows once and there is no ghost outline; below the chin the
 outline of the neck and shoulders is paired row by row, and the blank page is never matched (no grey smudges). When the mouth
 opens or closes, the opening comes from the open-mouth drawing only (blending the closed lips there makes streaks); a
 mouth counts as open only when it is dark inside (the face finder sometimes sees an opening in closed lips). When an
@@ -86,6 +87,7 @@ python3 -m venv .venv
 ## Check every clip
 
 - The move matches the exercise and what must stay still stays still.
+- Nothing slides sideways: the hair and shoulders stay where they are (only the head of 05 and 11 moves, on purpose).
 - Same face from start to end; no double face, smear or warped edges (look at the middle frames in the contact sheet).
 - The face is not slimmer, smoother or sharper at the end.
 - Jaw exercises look gentle.

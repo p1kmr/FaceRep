@@ -5,11 +5,14 @@ Short silent loops that show one rep of each exercise. They live in **`videos/<m
 
 ## The method: face morph of the two app drawings
 
-Every exercise already has two aligned drawings per guide (docs/images.md): `relaxed.webp` and `exercise.webp`. The
-tool finds about 470 face points in both, moves them smoothly from the relaxed to the exercise position and blends
-the two drawings on the way. Lines the face points miss (face edge, ears, chin) are matched pixel by pixel (optical flow)
-before the blend, so nothing shows twice; the neck and shoulder outline is paired row by row. Something only one
-drawing has can't be blended without looking see-through: Lion Face's tongue is cut out (outline measured by hand)
+Every exercise already has two drawings per guide (docs/images.md): `relaxed.webp` and `exercise.webp`. They should
+line up, but several of the man's exercise drawings sit up to 11 px to the side, and morphed as they were, his whole
+figure slid sideways and back on every rep. So the tool first lines the exercise drawing up onto the relaxed one (the
+strip it no longer covers at the page edge comes from the relaxed drawing). It then finds about 470 face points in both,
+moves them smoothly from the relaxed to the exercise position and blends the two drawings on the way. Lines the face
+points miss (face edge, ears, chin) are matched pixel by pixel (optical flow) before the blend, so nothing shows twice;
+the neck and shoulder outline is paired row by row. Something only one drawing has can't be blended without looking
+see-through: Lion Face's tongue is cut out (outline measured by hand)
 and slides out of the mouth solid, and when the eyes close or open wider (Eye Squeeze, Wide Eyes) the more open eye stays still and the lid
 moves over it instead of the other drawing's lid and lashes fading in over the iris; when the eyes look up (Lower Lid Lift) one
 iris slides up instead of two irises blending; when the red highlight changes shape (V Eyes) it spreads from the eye outward
@@ -40,6 +43,7 @@ artifact (https://claude.ai/artifact/Nbert5f5PApgezCxiMwWP2) still has the 9:16 
 
 - The movement matches the exercise's steps in the app (`exercises.json`), including what must **not** move
   (eyebrows in 16, cheeks in 19, shoulders in 02/05/11).
+- Nothing slides sideways: the hair and shoulders stay where they are (only the head of 05 and 11 moves, on purpose).
 - Same face from start to end; no double face in the middle frames, no smear.
 - **No before/after look**: the face is not smoother, slimmer or "sharper" at the end. If in doubt, reject it.
 - Jaw exercises (01, 03, 15) look gentle, never forced.
