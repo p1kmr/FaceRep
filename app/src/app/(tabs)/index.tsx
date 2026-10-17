@@ -21,7 +21,7 @@ import { weekStart } from '@/utils/dates';
 
 /**
  * Today: greeting and streak, this week (with this month folded under it), today's plan day on the face (the areas it
- * works lit; its week and day open the 28-day plan) and the numbers. The Coach is the floating button.
+ * works lit) and the numbers. The Coach is the floating button.
  */
 export default function TodayScreen() {
   const plan = usePlan();
@@ -36,7 +36,6 @@ export default function TodayScreen() {
   const startPlan = () => router.push({ pathname: '/workout', params: { kind: 'plan' } });
   const unlock = () => router.push('/paywall');
   const learnArea = (area: FaceArea) => router.navigate({ pathname: '/exercises', params: { area } });
-  const openPlan = () => router.push('/plan');
 
   return (
     <Screen>
@@ -56,7 +55,6 @@ export default function TodayScreen() {
         onPractice={startPlan}
         onUnlock={unlock}
         onArea={learnArea}
-        onPlan={openPlan}
       />
       <StatCards summary={summary} weekMinutes={minutesBetween(sessions, weekStart(today, firstWeekday), today)} />
     </Screen>

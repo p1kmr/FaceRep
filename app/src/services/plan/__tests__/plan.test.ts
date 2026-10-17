@@ -2,7 +2,7 @@ import { EXERCISES, GOALS } from '@/constants/exercises';
 import { PLAN, type PlanDay } from '@/constants/plan';
 import type { SessionSummary } from '@/services/progress/stats';
 
-import { contentLevel, freeWeek, isFreeDay, nextPlanRef, parsePlanDays, planDates, planGrid, planItems, planProgress, weekOf } from '../plan';
+import { contentLevel, freeWeek, isFreeDay, nextPlanRef, parsePlanDays, planDates, planItems, planProgress, weekOf } from '../plan';
 
 const day = (n: number, over: Partial<PlanDay> = {}): PlanDay => ({ day: n, kind: 'workout', ids: ['09-brow-lift'], repPct: 100, holdPlusSec: 0, ...over });
 let seq = 0;
@@ -88,20 +88,6 @@ describe('free days and the grid', () => {
     expect(isFreeDay({ level: 1, day: 8 })).toBe(false);
     expect(isFreeDay({ level: 2, day: 1 })).toBe(false);
     expect([1, 7, 8, 28].map(weekOf)).toEqual([1, 1, 2, 4]);
-  });
-
-  it('shows done, today, upcoming, and locks Premium days for free users only', () => {
-    const sessions = [session('2026-10-01', { level: 1, day: 1 })];
-    const p = planProgress(sessions, '2026-10-02');
-    const dates = planDates(sessions, p, '2026-10-02');
-    const free = planGrid(p, false, dates);
-    expect(free.slice(0, 3)).toEqual([
-      { day: 1, status: 'done', date: '2026-10-01' },
-      { day: 2, status: 'today', date: '2026-10-02' },
-      { day: 3, status: 'upcoming', date: '2026-10-03' },
-    ]);
-    expect(free.slice(7).every((c) => c.status === 'locked')).toBe(true);
-    expect(planGrid(p, true, dates).some((c) => c.status === 'locked')).toBe(false);
   });
 });
 

@@ -34,29 +34,6 @@
       "premium": "Dein Abo konnte noch nicht bestätigt werden. Versuch es in einer Minute noch mal oder nutze „Käufe wiederherstellen“ in den Einstellungen.",
       "server": "Der Plan konnte nicht geladen werden. Versuch es gleich noch mal.",
       "retry": "Erneut versuchen"
-    },
-    "preview": {
-      "practice": "Tag {{day}} üben",
-      "practiceNote": "Wenn du diesen Tag übst, geht dein Plan nicht weiter. Tag {{day}} ist dein nächster Tag.",
-      "practiceNoteDone": "Wenn du diesen Tag übst, geht dein Plan nicht weiter. Dein nächster Tag startet morgen.",
-      "doneOn": "Erledigt am {{date}}",
-      "today": "Heute, {{date}}",
-      "plannedFor": "Geplant für {{date}}, wenn du jeden Tag trainierst"
-    },
-    "grid": {
-      "title": "Dein 28-Tage-Plan",
-      "hint": "Die Zahlen sind Kalendertage: rot = erledigt, mit Ring = heute. Kommende Tage zeigen, wann sie dran sind, wenn du jeden Tag trainierst. Tipp auf einen Tag, um seine Übungen zu sehen.",
-      "week": "W{{week}}",
-      "cell": {
-        "done": "Tag {{day}}, erledigt",
-        "today": "Tag {{day}}, heute",
-        "upcoming": "Tag {{day}}",
-        "locked": "Tag {{day}}, Premium"
-      },
-      "tip": {
-        "title": "So liest du deinen Plan",
-        "done": "Verstanden"
-      }
     }
   },
   "hello": {

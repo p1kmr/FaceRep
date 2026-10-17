@@ -34,29 +34,6 @@
       "premium": "Your subscription couldn't be confirmed yet. Try again in a minute, or use Restore purchases in Settings.",
       "server": "The plan couldn't be loaded. Try again in a moment.",
       "retry": "Try again"
-    },
-    "preview": {
-      "practice": "Practice Day {{day}}",
-      "practiceNote": "Practicing this day doesn't move your plan on. Day {{day}} is your next day.",
-      "practiceNoteDone": "Practicing this day doesn't move your plan on. Your next day opens tomorrow.",
-      "doneOn": "Done on {{date}}",
-      "today": "Today, {{date}}",
-      "plannedFor": "Planned for {{date}} if you train every day"
-    },
-    "grid": {
-      "title": "Your 28-day plan",
-      "hint": "Numbers are dates: red when done, ringed for today. Days ahead show when they fall if you train every day. Tap a day to see its exercises.",
-      "week": "W{{week}}",
-      "cell": {
-        "done": "Day {{day}}, done",
-        "today": "Day {{day}}, today",
-        "upcoming": "Day {{day}}",
-        "locked": "Day {{day}}, Premium"
-      },
-      "tip": {
-        "title": "How to read your plan",
-        "done": "Got it"
-      }
     }
   },
   "hello": {

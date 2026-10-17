@@ -35,7 +35,6 @@ export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, 
     aiConsent: true,
     lastReviewPromptOn: today,
     askButton: { visible: coachButton, side: 'right', y: 0.97, hintShows: 99 },
-    planGridTipSeen: true,
   };
 }
 

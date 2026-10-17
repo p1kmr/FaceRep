@@ -34,29 +34,6 @@
       "premium": "Non è stato ancora possibile confermare il tuo abbonamento. Riprova tra un minuto, oppure usa Ripristina acquisti in Impostazioni.",
       "server": "Non è stato possibile caricare il piano. Riprova tra poco.",
       "retry": "Riprova"
-    },
-    "preview": {
-      "practice": "Allenati con il giorno {{day}}",
-      "practiceNote": "Allenarti con questo giorno non fa avanzare il piano. Il prossimo è il giorno {{day}}.",
-      "practiceNoteDone": "Allenarti con questo giorno non fa avanzare il piano. Il prossimo giorno si sblocca domani.",
-      "doneOn": "Completato: {{date}}",
-      "today": "Oggi, {{date}}",
-      "plannedFor": "Previsto per {{date}} se ti alleni ogni giorno"
-    },
-    "grid": {
-      "title": "Il tuo piano di 28 giorni",
-      "hint": "I numeri sono date: rossi se completati, cerchiati per oggi. I giorni futuri mostrano quando cadono se ti alleni ogni giorno. Tocca un giorno per vederne gli esercizi.",
-      "week": "S{{week}}",
-      "cell": {
-        "done": "Giorno {{day}}, completato",
-        "today": "Giorno {{day}}, oggi",
-        "upcoming": "Giorno {{day}}",
-        "locked": "Giorno {{day}}, Premium"
-      },
-      "tip": {
-        "title": "Come leggere il tuo piano",
-        "done": "Capito"
-      }
     }
   },
   "hello": {

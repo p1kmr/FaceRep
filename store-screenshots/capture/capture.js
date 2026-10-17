@@ -41,24 +41,6 @@ async function fitText(app, text) {
 /** The card (white, rounded) around an element. */
 const CARD_OF = `(el) => { while (el && el.parentElement) { const cs = getComputedStyle(el); if (cs.backgroundColor === 'rgb(255, 255, 255)' && parseFloat(cs.borderTopLeftRadius) >= 8) return el; el = el.parentElement; } return null; }`;
 
-/** Weeks 1–2 of Today's 28-day grid (days 4–17 in the demo), in raw-capture points: [x, y, w, h]. */
-async function gridRegion(app) {
-  return app.page.evaluate((cardOf) => {
-    const card = eval(cardOf);
-    const cells = [...document.querySelectorAll('div')].filter((e) => !e.childElementCount && /^(?:[4-9]|1[0-7])$/.test(e.textContent.trim()))
-      .filter((e) => e.getBoundingClientRect().width > 0); // other tabs stay in the page, hidden
-    // The grid is the card holding most of these numbers (not the week strip's dates or a stat card's "11").
-    const cards = new Map();
-    for (const e of cells) { const c = card(e); if (c) cards.set(c, [...(cards.get(c) ?? []), e]); }
-    const [grid, days] = [...cards].sort((a, b) => b[1].length - a[1].length)[0] ?? [];
-    if (!days || days.length < 14) return null;
-    const box = grid.getBoundingClientRect();
-    const top = Math.min(...days.map((d) => d.getBoundingClientRect().top));
-    const bottom = Math.max(...days.map((d) => d.getBoundingClientRect().bottom));
-    return [box.left, top - 14, box.width, bottom - top + 44].map((v) => Math.round(v));
-  }, CARD_OF);
-}
-
 /** The Coach's "New reminder" card, in raw-capture points. */
 async function cardRegion(app, title) {
   return app.page.evaluate(([cardOf, title]) => {
@@ -133,12 +115,6 @@ async function workout(lang, guide, name, { mirror = false } = {}) {
 async function today(app, lang) {
   await go(app, '/', 5000);
   await save(app, lang, 'today');
-  // The 28-day grid has its own page (from the week and day on Today's card): a second shot, and cut weeks 1–2 out of it.
-  await go(app, '/plan', 3000);
-  await save(app, lang, 'today-grid');
-  const grid = await gridRegion(app);
-  if (!grid) throw new Error(`${lang}: the 28-day grid wasn't found on Today`);
-  saveRegions(lang, { grid });
 }
 
 /** The Coach: a technique question, then a reminder it prepares (canned answers, no AI call). */

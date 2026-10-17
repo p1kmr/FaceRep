@@ -107,23 +107,3 @@ export function planDates(
   const next = p.doneToday ? addDays(today, 1) : today; // when the next day can be done
   return Array.from({ length: PLAN.days }, (_, i) => done.get(i + 1) ?? addDays(next, i - p.completed));
 }
-
-export type PlanCellStatus = 'done' | 'today' | 'upcoming' | 'locked';
-export interface PlanCell {
-  day: number;
-  status: PlanCellStatus;
-  /** Done on, or planned for (see planDates). */
-  date: ISODate;
-}
-
-/** The 28 days of the current level for the 4×7 grid. */
-export function planGrid(p: PlanProgress, isPremium: boolean, dates: readonly ISODate[]): PlanCell[] {
-  return Array.from({ length: PLAN.days }, (_, i) => {
-    const day = i + 1;
-    let status: PlanCellStatus = 'upcoming';
-    if (day <= p.completed) status = 'done';
-    else if (day === p.day && !p.doneToday) status = 'today';
-    if (status !== 'done' && !isPremium && !isFreeDay({ level: p.level, day })) status = 'locked';
-    return { day, status, date: dates[i] };
-  });
-}

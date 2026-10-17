@@ -11,7 +11,7 @@ data, made to look like an iPhone capture) and laid out in the
 |---|---|---|
 | 1 | Train your *face* like your body | Workout player, Jaw Clench mid-squeeze; timer ring magnified |
 | 2 | See the *muscle* you train | Jaw Clench page (man pictures); the masseter magnified |
-| 3 | A plan that *grows* with you · "Week 1 free" | Today, Week 2 · Day 12 of 28; weeks 1–2 of the grid lifted out |
+| 3 | A plan that *grows* with you · "Week 1 free" | Today, Week 2 · Day 12 of 28 on the day's card |
 | 4 | Just *listen* and follow | Workout player (man) with the voice cues as speech bubbles |
 | 5 | Check your form in the *mirror* · "Nothing recorded" | Two workout players with the camera mirror on: hers in front, his behind |
 | 6 | For *him*. For *her*. | "Who should the exercises show?" with both portraits |

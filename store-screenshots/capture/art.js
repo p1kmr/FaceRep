@@ -1,6 +1,6 @@
 // Draws the pieces around the phones: round portraits (the app's own AI-generated hero photos), per-language
 // chips and voice-cue bubbles whose words come from the app's translations, and cards lifted out of the framed
-// screens (the plan grid and the Coach's reminder card, where capture.js measured them). Output: ../public/art/…
+// screens (the Coach's reminder card and the mirror, where capture.js measured them). Output: ../public/art/…
 // plus art-manifest.json (sizes in canvas pixels, read by deck.js). Usage: node art.js [--sim] (after capture + frame)
 // With --sim, a card on a Simulator screen is cut where sim/<lang>/regions.json says (docs/screenshots.md §4).
 import fs from 'node:fs';
@@ -84,7 +84,7 @@ for (const lang of LANGS) {
   const sim = useSim ? simRegions(lang) : {};
   // [file, screen, raw top in the framed screen, region, canvas pixels per point, points cut off each side]
   // (the mirror's box has a white rounded border: cut inside it, so only the camera picture is lifted out)
-  for (const [name, screen, rawTop, key, scale, inset] of [['pop-grid.png', 'today-grid', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
+  for (const [name, screen, rawTop, key, scale, inset] of [['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
     // A Simulator screen is the whole screen, so its boxes are measured from the top (no offset).
     const fromSim = useSim && simShot(lang, screen);
     if (fromSim && !sim[key]) { console.warn(`  ${lang}: ${screen} is a Simulator shot but sim/${lang}/regions.json has no "${key}" box: ${name} skipped`); continue; }
@@ -104,7 +104,7 @@ await browser.close();
 
 // The deck gives each chip one box for every language: pad each language's picture to the widest one
 // (transparent on the right), so the words are the same size in every language and the chip stays left-aligned.
-for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'pop-grid.png', 'pop-card.png', 'pop-mirror.png', 'pop-mirror-man.png']) {
+for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'pop-card.png', 'pop-mirror.png', 'pop-mirror-man.png']) {
   const have = LANGS.filter((l) => manifest[`${l}/${name}`] && fs.existsSync(path.join(OUT, l, name)));
   if (!have.length) continue;
   const w = Math.max(...have.map((l) => manifest[`${l}/${name}`].w));

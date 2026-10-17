@@ -12,7 +12,6 @@ app/src/
 │   ├── coach.tsx            the AI Coach, a sheet opened by the floating button; ?q= starts a question
 │   ├── exercise/[id].tsx    exercise detail
 │   ├── workout.tsx          the guided player (full-screen modal): a plan day or single exercises
-│   ├── plan-day.tsx         one day of the 28-day plan, opened from the grid (start it or practice it)
 │   └── paywall, ai-consent, safety (modals)
 ├── components/     ui/ (AppText, Button, Card, Chip, Badge, Gradient, IconButton, ProgressRing, Screen, Segmented…),
 │                   exercise/, faceMap/, today/, progress/, coach/, paywall/, onboarding/, settings/
@@ -121,17 +120,12 @@ it into reps and holds with `services/plan/plan.ts` → `planItems()`.
   has Premium, keeps the answer in `kv` (`facerep.planCache`) for offline use and shows it only while Premium is active.
 - **Where you are is derived, not stored:** `planProgress(sessions, today)` reads the plan day saved with each workout. A
   day moves on only when its workout is finished (a missed day waits), and at most one plan day counts per calendar day.
-- `hooks/usePlan.ts` gives the Today screen everything: header, today's day (ready / locked / loading / error), the 4×7 grid,
-  and `dayAt(n)` for any day. Tapping a grid day opens `plan-day` (locked → paywall). Only the next day counts for the plan
-  (`countsFor`); any other day is practice. This also lets App Review see Weeks 2–4 right after a sandbox purchase.
+- `hooks/usePlan.ts` gives the Today screen everything: header, today's day (ready / locked / loading / error) with its
+  date, and `dayAt(n)` for any day. Only the next day counts for the plan (`countsFor`); any other day is practice. There
+  is no grid of the 28 days (the owner's call): Today shows the day's card, and the plan goes on one day at a time.
 - **Dates:** the plan counts days, not weekdays (install on a Thursday → Day 1 is Thursday; a missed day waits instead of
   being "missed"). `planDates()` puts a real date on every day: the date it was done, or the date it falls on if the user
-  trains every day from now. The Today card shows it; the grid's circles show the **date** (red when done, ring for
-  today, lock for Premium) with the weekday under it, never the plan day number, which only appears in text ("Day 9
-  of 28") so it can't be mistaken for a date. The day preview says "Done on …" or "Planned for …".
-  How to read the grid is a one-time tip above it (`PlanGridTip`), closed by "Got it" or the first tap on a day
-  (`settings.planGridTipSeen`), so the grid stays compact. The grid has its own page (`app/plan.tsx`, "Your 28-day plan"),
-  opened from the week and day on Today's card; it's also how App Review reaches Weeks 2–4 after a purchase.
+  trains every day from now. The Today card shows it next to "Week 1 · Day 3 of 28".
 
 ## Exercise catalog and programs
 27 exercises in 5 programs (jawline, cheekbones, lips, eyes, massage) plus the "full face" goal; the order of

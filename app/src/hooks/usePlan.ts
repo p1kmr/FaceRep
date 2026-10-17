@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useMemo } from 'react';
 
 import { PLAN, type PlanDay, type PlanRef } from '@/constants/plan';
-import { contentLevel, freeWeek, isFreeDay, nextPlanRef, planDates, planGrid, planItems, planProgress, weekOf } from '@/services/plan/plan';
+import { contentLevel, freeWeek, isFreeDay, nextPlanRef, planDates, planItems, planProgress, weekOf } from '@/services/plan/plan';
 import type { PlanError } from '@/services/plan/planApi';
 import { workoutSeconds, type WorkoutItem } from '@/services/workout/items';
 import { LoadPlanContext, PlanDispatchContext, PlanStateContext } from '@/state/plan/PlanProvider';
@@ -24,8 +24,8 @@ export type PlanToday =
   | { status: 'error'; error: PlanError };
 
 /**
- * The 28-day plan for the Today screen and the player: where the user is, today's day, the 4×7
- * grid. Premium days are loaded from the Worker as soon as the user has Premium (so they are on
+ * The 28-day plan for the Today screen and the player: where the user is and today's day (with its
+ * date). Premium days are loaded from the Worker as soon as the user has Premium (so they are on
  * the device before they're needed, and buying unlocks them right away).
  */
 export function usePlan() {
@@ -50,7 +50,7 @@ export function usePlan() {
     loadPlan({ appUserId, goal, level: fetchLevel });
   }, [isPremium, appUserId, state.hydrated, premiumDays, request, goal, fetchLevel, loadPlan]);
 
-  /** Any day of the level shown (today's, or one tapped in the grid). */
+  /** Any day of the level shown (today's, or the one a workout was started for). */
   const dayAt = useCallback(
     (n: number): PlanToday => {
       let day: PlanDay | undefined;
@@ -65,13 +65,12 @@ export function usePlan() {
   );
   const todayPlan = useMemo(() => dayAt(ref.day), [dayAt, ref.day]);
 
-  // After a finished level the grid shows the next one, starting at day 1 (today).
+  // After a finished level the dates are the next one's, starting at day 1 (today).
   const shown = useMemo(
     () => (progress.finished && next ? { level: next.level, day: 1, completed: 0, doneToday: false, finished: false } : progress),
     [progress, next],
   );
   const dates = useMemo(() => planDates(sessions, shown, today), [sessions, shown, today]);
-  const grid = useMemo(() => planGrid(shown, isPremium, dates), [shown, isPremium, dates]);
 
   return {
     progress,
@@ -83,7 +82,6 @@ export function usePlan() {
     dayAt,
     /** The plan day a workout of day `n` counts for: only the next day; any other day is practice. */
     countsFor: (n: number): PlanRef | null => (next && next.day === n ? next : null),
-    grid,
     retry: () => {
       if (appUserId) loadPlan({ appUserId, goal, level: fetchLevel });
     },

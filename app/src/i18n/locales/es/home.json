@@ -34,29 +34,6 @@
       "premium": "Aún no se pudo confirmar tu suscripción. Inténtalo de nuevo en un minuto o usa Restaurar compras en Ajustes.",
       "server": "No se pudo cargar el plan. Inténtalo de nuevo en un momento.",
       "retry": "Reintentar"
-    },
-    "preview": {
-      "practice": "Practicar día {{day}}",
-      "practiceNote": "Practicar este día no hace avanzar tu plan. Tu próximo día es el {{day}}.",
-      "practiceNoteDone": "Practicar este día no hace avanzar tu plan. Tu próximo día se abre mañana.",
-      "doneOn": "Completado el {{date}}",
-      "today": "Hoy, {{date}}",
-      "plannedFor": "Previsto para el {{date}} si entrenas cada día"
-    },
-    "grid": {
-      "title": "Tu plan de 28 días",
-      "hint": "Los números son fechas: en rojo los días completados y con un círculo el de hoy. Los días siguientes muestran la fecha que les toca si entrenas cada día. Toca un día para ver sus ejercicios.",
-      "week": "S{{week}}",
-      "cell": {
-        "done": "Día {{day}}, completado",
-        "today": "Día {{day}}, hoy",
-        "upcoming": "Día {{day}}",
-        "locked": "Día {{day}}, Premium"
-      },
-      "tip": {
-        "title": "Cómo leer tu plan",
-        "done": "Entendido"
-      }
     }
   },
   "hello": {

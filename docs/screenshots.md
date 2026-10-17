@@ -43,7 +43,7 @@ next slide, so the set reads as one story when people swipe.
 The hook, pick one per slide:
 - **Magnifier:** a circle 540–580 px across, zoomed 2.2–2.3×, on the thing that matters (the timer ring, the red
   muscle). It sits half over the phone, at the bottom-left or the right side.
-- **Lifted card:** a card cut from the screenshot (the plan grid, the reminder card), shown a bit larger than in the
+- **Lifted card:** a card cut from the screenshot (the reminder card, the mirror), shown a bit larger than in the
   phone (2.3 px per point). It has 40 px rounded corners, a big soft shadow and a −3 to +5° tilt, and it overlaps the
   phone toward the slide's edge.
 - **Chips and bubbles:** white pills with the app's own words and an icon. Bold text about 54 px, a deep shadow, and
@@ -58,7 +58,7 @@ no text smaller than the label, and no screenshot without the frame.
 |---|---|---|---|
 | 1 | Face yoga & jawline · Train your *face* like your body | Workout player, Jaw Clench mid-squeeze (`workout`) | Timer ring magnified |
 | 2 | Face exercises · See the *muscle* you train | Jaw Clench page, man pictures (`exercise-man`) | Masseter magnified |
-| 3 | 28-day plan · Week 1 free · A plan that *grows* with you | Today (`today`) | The plan grid lifted out |
+| 3 | 28-day plan · Week 1 free · A plan that *grows* with you | Today (`today`) | – |
 | 4 | Voice cues · Just *listen* and follow | Workout player, man (`workout-man`) | Three speech bubbles |
 | 5 | Camera mirror · Nothing recorded · Check your form in the *mirror* | Her and his player with the mirror on (`workout-mirror`, `workout-mirror-man`) | Two phones |
 | 6 | For men & women · For *him*. For *her*. | "Who should the exercises show?" (`guide`) | Both portraits |
@@ -147,10 +147,9 @@ xcrun simctl io booted screenshot --type=png store-screenshots/capture/sim/en/to
 `store-screenshots/capture/sim/<lang>/regions.json`. Use **points**: the pixel position in the screenshot divided by
 3, as `[x, y, width, height]` from the top-left of the screen. The web capture's values are a sanity check:
 ```
-{"grid":[16,641,408,124],"card":[16,540,408,176]}
+{"card":[16,540,408,176]}
 ```
-`grid` is weeks 1–2 of the 28-day grid, including the card's rounded edges. `card` is the Coach's "New reminder"
-card.
+`card` is the Coach's "New reminder" card.
 
 **8. Frame and cut,** then continue with §6:
 ```
@@ -170,7 +169,7 @@ still come from the web capture in `raw/`, so the two kinds can be mixed.
 - **Premium:** a Simulator build has no Premium without a purchase. The app has no test switch on purpose, because a
   hidden switch would break guideline 2.3.1. Without Premium, Day 8+ is locked, and the Coach shows "3 free answers
   left · Unlimited answers with Premium" (which is honest). For slide 3, either seed `--done 4`, so today is a Week 1
-  day and the grid shows Weeks 2–4 locked (that fits the "Week 1 free" label), or keep the web capture of `today`.
+  day (that fits the "Week 1 free" label), or keep the web capture of `today`.
 - **The camera:** the Simulator has none. Slide 5 (the mirror) stays from the web capture, or from a real iPhone.
 - **The Coach:** answers come from the real AI, not the fixed text the web capture uses. Read every answer in every
   language against §1 before you keep it, and ask again if it's long, odd or makes a claim. The reminder card appears

@@ -57,10 +57,9 @@ const slides = [
     callout: { focusX: 0.645, focusY: 0.375, zoom: 2.3, shape: 'circle' },
     calloutRect: { x: 760, y: 1240, width: 540, height: 540, rotation: 0, zIndex: 7 },
   }),
-  // 3 Today: the 28-day plan, Day 12 of 28; weeks 1–2 of the grid lifted out (cut per language by art.js).
+  // 3 Today: the 28-day plan, Day 12 of 28 on the day's card.
   slide(2, {
     shot: 'today', device: phone(250, 900, 1000, 3),
-    images: [art('grid', '{locale}/pop-grid.png', -10, 2400, { scale: 1, rotation: -3, zIndex: 7 })],
   }),
   // 4 Voice cues, as speech bubbles next to the player.
   slide(3, {
