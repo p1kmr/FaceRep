@@ -71,7 +71,7 @@ Delete the app first so onboarding and permissions start fresh.
       uses them; delete the app, reinstall, Restore.
 - [ ] **Weeks:** Today says "Week 1 · Day 1" with no jaw exercises; finish it → "Day 1 done. Day 2 is ready tomorrow.";
       the next day it says Day 2 (a missed day just waits). Day 7 is the easy day. Tap "Week 1 · Day 1": the week page
-      lists day 1 to 7, today open with Start, a later day opens to its exercises, a done day is faded with a check and
+      lists day 1 to 7, today open with Start, a later day opens to its exercises, a done day is green with "Done" and
       opens to what you did that day.
 - [ ] **Coach:** consent screen first; 3 free answers; a reminder proposal only applies after Confirm. Say "I did my jaw
       exercises this morning, about 5 minutes": a Save workout card shows today, the exercises and the minutes; Save → it

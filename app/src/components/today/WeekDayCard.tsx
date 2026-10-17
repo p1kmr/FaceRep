@@ -28,8 +28,9 @@ interface WeekDayCardProps {
 
 /**
  * One day of this week: "Day 4" with the areas it works and its minutes; open, its exercises at that day's reps and
- * hold (today's with its Start button). A done day is faded with a check and opens to what was done that date (from
- * the saved workout, so a workout saved through the Coach shows as it was; its reps aren't saved).
+ * hold (today's with its Start button). A done day is green ("Done" and a check, on a soft green head; no fading or
+ * strikethrough, it stays easy to read) and opens to what was done that date, each with a check (from the saved
+ * workout, so a workout saved through the Coach shows as it was; its reps aren't saved).
  */
 export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: WeekDayCardProps) {
   const { t } = useTranslation(['home', 'common', 'exercises']);
@@ -37,15 +38,13 @@ export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: 
   const { colors } = useTheme();
   const ids = day.done ? day.done.ids : day.items.map((i) => i.id);
   const areas = areasOfAll(ids);
-  const what = !ids.length
-    ? t('home:thisWeek.done')
-    : areas.length && areas.length <= 3
-      ? areas.map((a) => t(`exercises:areas.${a}.name`)).join(' · ')
-      : t(`common:programs.${goal}`);
+  const what = areas.length && areas.length <= 3 ? areas.map((a) => t(`exercises:areas.${a}.name`)).join(' · ') : t(`common:programs.${goal}`);
   const title = day.easy ? t('home:thisWeek.easyDay', { day: day.day }) : t('home:thisWeek.day', { day: day.day });
-  const subtitle = `${what} · ${t('common:minutes', { count: toMinutes(day.seconds) })}`;
+  const minutes = t('common:minutes', { count: toMinutes(day.seconds) });
+  // A done day says "Done" before it, in green; one saved with only minutes has no areas to name.
+  const subtitle = [ids.length ? what : null, minutes].filter(Boolean).join(' · ');
   const canOpen = ids.length > 0;
-  const label = [title, day.isToday ? t('home:thisWeek.today') : null, day.done && ids.length ? t('home:thisWeek.done') : null, subtitle];
+  const label = [title, day.isToday ? t('home:thisWeek.today') : null, day.done ? t('home:thisWeek.done') : null, subtitle];
 
   return (
     <Card style={day.isToday && styles.today}>
@@ -55,11 +54,16 @@ export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: 
         accessibilityRole="button"
         accessibilityState={canOpen ? { expanded: open } : undefined}
         accessibilityLabel={label.filter(Boolean).join(', ')}
-        style={({ pressed }) => [styles.head, pressed && styles.pressed]}
+        style={({ pressed }) => [styles.head, day.done && styles.doneHead, pressed && styles.pressed]}
       >
-        <View style={[styles.text, day.done && styles.faded]}>
+        <View style={styles.text}>
           <AppText variant="headline">{title}</AppText>
           <AppText variant="footnote" muted numberOfLines={1}>
+            {day.done ? (
+              <AppText variant="footnote" style={styles.doneText}>
+                {`${t('home:thisWeek.done')} · `}
+              </AppText>
+            ) : null}
             {subtitle}
           </AppText>
         </View>
@@ -70,11 +74,9 @@ export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: 
       {open && canOpen ? (
         <Animated.View entering={FadeIn.duration(MOTION.enterMs)} style={styles.list}>
           {day.done ? (
-            <View style={styles.faded}>
-              {day.done.ids.map((id, i) => (
-                <ExerciseRow key={id} id={id} hideReps onPress={() => onExercise(id)} divider={i < ids.length - 1} />
-              ))}
-            </View>
+            day.done.ids.map((id, i) => (
+              <ExerciseRow key={id} id={id} hideReps done onPress={() => onExercise(id)} divider={i < ids.length - 1} />
+            ))
           ) : (
             day.items.map((item, i) => (
               <ExerciseRow
@@ -103,8 +105,8 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   head: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.sm, padding: tokens.space.md, paddingLeft: tokens.space.lg },
   pressed: { backgroundColor: colors.surfaceAlt },
   text: { flex: 1, gap: 2 },
-  // A done day: still readable, but quieter than the days to come.
-  faded: { opacity: 0.55 },
+  doneHead: { backgroundColor: colors.successSoft },
+  doneText: { color: colors.success, fontWeight: tokens.font.weight.semibold },
   list: { borderTopWidth: 1, borderTopColor: colors.border },
   start: { padding: tokens.space.md, paddingTop: tokens.space.xs },
 }));
