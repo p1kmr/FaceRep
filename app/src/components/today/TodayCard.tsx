@@ -1,7 +1,7 @@
 import { SymbolView } from 'expo-symbols';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import type { Goal } from '@/constants/exercises';
 import { areasOfAll, type FaceArea } from '@/constants/faceMap';
@@ -25,6 +25,8 @@ interface TodayCardProps {
   isPremium: boolean;
   onStart: () => void;
   onUnlock: () => void;
+  /** A tap on "Week · Day": this week's days and their exercises (the week page). */
+  onWeek: () => void;
   /** A tap on an area of the face: learn about it in the library's face map. */
   onArea: (area: FaceArea) => void;
 }
@@ -34,10 +36,10 @@ const MAP_ASPECT = 720 / 974;
 
 /**
  * Today's workout as the hero: where it is in the weeks ("Week 6 · Day 3", never a total), the face with the areas it
- * works lit in red (tap one to learn about it), the areas as the title with the week's step under them, the exercises
+ * works lit in red (tap one to learn about it; tap "Week · Day" for the whole week), the areas as the title with the week's step under them, the exercises
  * and one big button. Without Premium it says that more exercises come with it.
  */
-export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onArea }: TodayCardProps) {
+export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek, onArea }: TodayCardProps) {
   const { t } = useTranslation(['home', 'common', 'exercises']);
   const styles = useStyles();
   const { colors } = useTheme();
@@ -79,11 +81,19 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onArea 
           />
         ) : null}
         <View style={styles.top} pointerEvents="box-none">
-          <View style={styles.pill}>
+          <Pressable
+            onPress={onWeek}
+            hitSlop={8}
+            accessibilityRole="button"
+            accessibilityLabel={where}
+            accessibilityHint={t('home:thisWeek.open')}
+            style={({ pressed }) => [styles.pill, pressed && styles.pressed]}
+          >
             <AppText variant="caption" style={styles.pillText}>
               {where.toUpperCase()}
             </AppText>
-          </View>
+            <SymbolView name="chevron.right" size={10} weight="bold" tintColor={colors.onImage} />
+          </Pressable>
           <Badge label={t(`common:programs.${goal}`)} tone="primary" />
         </View>
         <View style={styles.caption} pointerEvents="none">
@@ -138,7 +148,16 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   },
   mapBox: { aspectRatio: 1.08, overflow: 'hidden', backgroundColor: colors.plate },
   top: { position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', padding: tokens.space.md },
-  pill: { paddingHorizontal: tokens.space.sm + 2, paddingVertical: 5, borderRadius: tokens.radius.pill, backgroundColor: colors.overlay },
+  pill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.space.xs,
+    paddingHorizontal: tokens.space.sm + 2,
+    paddingVertical: 5,
+    borderRadius: tokens.radius.pill,
+    backgroundColor: colors.overlay,
+  },
+  pressed: { opacity: 0.7 },
   pillText: { color: colors.onImage, fontWeight: tokens.font.weight.bold, letterSpacing: 0.6 },
   caption: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingTop: 48, paddingHorizontal: tokens.space.lg, paddingBottom: tokens.space.md },
   // Always on the white plate, in both themes.

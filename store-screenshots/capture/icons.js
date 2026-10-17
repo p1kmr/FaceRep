@@ -19,6 +19,8 @@ export default {
   'arrow.up.left.and.arrow.down.right': 'S M4.5 10V4.5H10 M4.5 4.5 10.5 10.5 M19.5 14V19.5H14 M19.5 19.5 13.5 13.5',
   'chevron.right': 'S M9 4.5 16.5 12 9 19.5',
   'chevron.left': 'S M15 4.5 7.5 12 15 19.5',
+  'chevron.down': 'S M4.5 9 12 16.5 19.5 9',
+  'chevron.up': 'S M4.5 15 12 7.5 19.5 15',
   checkmark: 'S M4.5 12.5 9.5 17.5 19.5 6.5',
   'checkmark.circle.fill': `${CIRCLE}|W M7.5 12.3l3 3 6-6.3`,
   'checkmark.seal.fill': 'M12 1.5l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 22.5l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2Z|W M8 12.2l2.7 2.7 5.3-5.6',

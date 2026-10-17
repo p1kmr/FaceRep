@@ -23,6 +23,16 @@
     "doneMilestone": "{{weeks}} weeks of practice. Week {{next}} is ready tomorrow.",
     "unlock": "Unlock every exercise"
   },
+  "thisWeek": {
+    "title": "Week {{week}}",
+    "day": "Day {{day}}",
+    "easyDay": "Day {{day}} · Easy day",
+    "today": "Today",
+    "done": "Done",
+    "next": "Week {{week}}: {{note}}",
+    "how": "A new day comes the day after each workout. If you miss a day, it waits for you.",
+    "open": "Shows this week's workouts"
+  },
   "hello": {
     "morning": "Good morning",
     "afternoon": "Good afternoon",

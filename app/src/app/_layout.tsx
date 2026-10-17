@@ -50,6 +50,7 @@ function RootNavigator() {
         <Stack.Protected guard={onboardingDone}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="exercise/[id]" options={{ title: '', headerTransparent: true }} />
+          <Stack.Screen name="week" options={{ title: '' }} />
           <Stack.Screen name="workout" options={{ presentation: 'fullScreenModal', headerShown: false, gestureEnabled: false }} />
           <Stack.Screen name="paywall" options={{ presentation: 'modal', headerShown: false }} />
           <Stack.Screen name="ai-consent" options={{ presentation: 'modal', title: '' }} />

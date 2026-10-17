@@ -24,6 +24,8 @@ export function useTodayWorkout() {
   const workout = useMemo(() => todaysWorkout(goal, before, isPremium ? () => true : isFreeExercise), [goal, before, isPremium]);
   return {
     ...workout,
+    /** Days with a workout before today (services/workout/weeks.ts daysDone). */
+    daysDone: before,
     seconds: workoutSeconds(workout.items),
     done: sessions.some((s) => s.day === today && isDayWorkout(s)),
   };

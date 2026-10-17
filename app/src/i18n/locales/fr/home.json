@@ -23,6 +23,16 @@
     "doneMilestone": "{{weeks}} semaines de pratique. La semaine {{next}} sera prête demain.",
     "unlock": "Débloquer tous les exercices"
   },
+  "thisWeek": {
+    "title": "Semaine {{week}}",
+    "day": "Jour {{day}}",
+    "easyDay": "Jour {{day}} · Jour léger",
+    "today": "Aujourd'hui",
+    "done": "Fait",
+    "next": "Semaine {{week}} : {{note}}",
+    "how": "Un nouveau jour arrive le lendemain de chaque séance. Si tu sautes un jour, il t'attend.",
+    "open": "Affiche les séances de cette semaine"
+  },
   "hello": {
     "morning": "Bonjour",
     "afternoon": "Bon après-midi",

@@ -1,7 +1,7 @@
 import { EXERCISE_IDS, EXERCISES, isFreeExercise, PROGRAMS, WORKOUT, type ExerciseId, type Goal } from '@/constants/exercises';
 import { EASY_DAY_IDS, WEEKS } from '@/constants/weeks';
 
-import { todaysWorkout } from '../today';
+import { todaysWorkout, weekWorkouts } from '../today';
 
 const all = () => true;
 const ids = (w: { items: { id: ExerciseId }[] }) => w.items.map((i) => i.id);
@@ -95,6 +95,17 @@ describe("today's workout", () => {
       }
     }
     expect(todaysWorkout('lips', at(3, 1), isFreeExercise).items.some((i) => EXERCISES[i.id].program === 'lips')).toBe(true);
+  });
+
+  it("lays out the whole week of a day, each day as it would be that day", () => {
+    for (const done of [at(1, 1), at(2, 3), at(2, 7), at(9, 5)]) {
+      const days = weekWorkouts('cheekbones', done, all);
+      const now = todaysWorkout('cheekbones', done, all);
+      expect(days.map((d) => [d.week, d.day])).toEqual([1, 2, 3, 4, 5, 6, 7].map((day) => [now.week, day]));
+      expect(days[now.day - 1]).toEqual(now);
+      expect(days.map((d) => d.easy)).toEqual([false, false, false, false, false, false, true]);
+    }
+    expect(weekWorkouts('lips', at(4, 2), isFreeExercise)[3]).toEqual(todaysWorkout('lips', at(4, 4), isFreeExercise));
   });
 
   it('is empty when nothing is allowed', () => {

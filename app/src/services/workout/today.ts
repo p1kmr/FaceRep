@@ -55,3 +55,12 @@ export function todaysWorkout(goal: Goal, done: number, allowed: (id: ExerciseId
         );
   return { ...where, note: step.note, items: inCatalogOrder(ids).map((id) => dosedItem(id, step.repPct, step.holdPlusSec)) };
 }
+
+/**
+ * The week the day after `done` finished days is in, day 1 to 7, each as todaysWorkout makes it: the days before are
+ * done, the later ones come one workout at a time. Only this week, never a total.
+ */
+export function weekWorkouts(goal: Goal, done: number, allowed: (id: ExerciseId) => boolean): TodaysWorkout[] {
+  const first = (weekDay(done).week - 1) * WEEKS.daysPerWeek;
+  return Array.from({ length: WEEKS.daysPerWeek }, (_, i) => todaysWorkout(goal, first + i, allowed));
+}

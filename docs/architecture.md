@@ -11,13 +11,14 @@ app/src/
 │   ├── (tabs)/              Today · Exercises · Progress · Settings (native iOS tab bar)
 │   ├── coach.tsx            the AI Coach, a sheet opened by the floating button; ?q= starts a question
 │   ├── exercise/[id].tsx    exercise detail
+│   ├── week.tsx             this week: day 1 to 7 and their exercises (opened from the Today card's "Week · Day")
 │   ├── workout.tsx          the guided player (full-screen modal): today's workout or single exercises
 │   └── paywall, ai-consent, safety (modals)
 ├── components/     ui/ (AppText, Button, Card, Chip, Badge, Gradient, IconButton, ProgressRing, Screen, Segmented…),
 │                   exercise/, faceMap/, today/, progress/, coach/, paywall/, onboarding/, settings/
 ├── constants/      config.ts, theme/, exercises.ts, weeks.ts, faceMap.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
 ├── state/          settings/, premium/, progress/, chat/  (+ AppProviders.tsx)
-├── hooks/          useSettings, usePremium, usePaywall, useProgress*, useTodayWorkout, useWorkout, useChat, useTheme…
+├── hooks/          useSettings, usePremium, usePaywall, useProgress*, useTodayWorkout, useThisWeek, useWorkout, useChat, useTheme…
 ├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, notifications/, workout/ and faceMap/ (pure),
 │                   faceTracking.ts (the only import of modules/face-tracking)
 ├── theme/          ThemeProvider + makeStyles
@@ -133,6 +134,11 @@ stays at a top:
 - The Today card says "Week 6 · Day 3" (never a total, never "of 4") with the step under the title, and when the day
   is done "Day 3 done. Day 4 is ready tomorrow.", "Week 6 done. …", or at weeks 4, 8, 12, 26 and 52 "12 weeks of
   practice. …". Nothing promises a result or new content: the week number only says how long someone has practiced.
+- **This week** (`app/week.tsx`, opened by tapping "Week 6 · Day 3"): day 1 to 7 of the current week
+  (`weekWorkouts`), today's open with its Start button, a later day opens to show its exercises at that day's reps and
+  hold (tap one for the exercise page). A day done before today only says "Done": it may have been another mix (saved
+  through the Coach, or another focus area). Under the days: what the next week changes, when it changes something
+  ("Week 4: Holds 1 second longer"), and that a new day comes the day after a workout. Only this week, never a total.
 - **Nothing is sent:** the weeks are worked out on the iPhone from the saved workouts. The Worker has no plan endpoint.
 - **No exercise counts anywhere** (Today, paywall, store text, screenshots): "every exercise", never a number, so
   nobody reads the library as small.
@@ -169,7 +175,7 @@ drawing's white plate uses `onPlate` / `onPlateMuted` (the plate is white in bot
 
 **Today** (`app/(tabs)/index.tsx`): greeting and streak, this week (`WeekStrip`, the region's first weekday) with this
 month folded under it (`MonthToggle` "October 2026 ⌄" opens `MonthCard`: the Progress month, days with a workout
-filled; a day opens Progress), today's workout as the hero (`TodayCard`: "Week 6 · Day 3" and the week's step, the face
+filled; a day opens Progress), today's workout as the hero (`TodayCard`: "Week 6 · Day 3", which opens this week, and the week's step, the face
 map with the areas the day works lit and slowly breathing, cropped to frame them; tap an area to open it in the library)
 and three stat cards. The Coach stays the floating button
 (`AskBubble`, now on the brand gradient): one way in, as before.

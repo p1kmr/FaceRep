@@ -35,6 +35,7 @@ export default function TodayScreen() {
 
   const start = () => router.push({ pathname: '/workout', params: { kind: 'today' } });
   const unlock = () => router.push('/paywall');
+  const showWeek = () => router.push('/week');
   const learnArea = (area: FaceArea) => router.navigate({ pathname: '/exercises', params: { area } });
 
   return (
@@ -53,6 +54,7 @@ export default function TodayScreen() {
         isPremium={isPremium}
         onStart={start}
         onUnlock={unlock}
+        onWeek={showWeek}
         onArea={learnArea}
       />
       <StatCards summary={summary} weekMinutes={minutesBetween(sessions, weekStart(today, firstWeekday), today)} />
