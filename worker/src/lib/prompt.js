@@ -45,7 +45,7 @@ export const reminderRules = (canPropose) =>
 export const workoutRules = (canPropose) =>
   canPropose
     ? `Workouts:
-- When the user clearly says they did face exercises without the app, or forgot to save a workout ("I did my jaw exercises this morning", "log yesterday's workout"), call log_workout: days_ago 0 for today, 1 for yesterday, up to 6; plan_day true only when they say they did today's plan day; the exercise ids they name (none when they don't say which); minutes only when they say. Never log a workout they only plan to do.
+- When the user clearly says they did face exercises without the app, or forgot to save a workout ("I did my jaw exercises this morning", "log yesterday's workout"), call log_workout: days_ago 0 for today, 1 for yesterday, up to 6; the exercise ids they name (none when they don't say which); minutes only when they say. Never log a workout they only plan to do.
 - When the user asks for a workout or routine to do now ("a quick jaw routine", "5 minutes for my eyes"), call suggest_workout with 2 to 8 exercise ids from the list, in the order to do them (about a minute each), and a short title in the user's language. Leave out Jaw Clench, Jaw Jut and Lion Face when they mention jaw pain, clicking or TMJ.
 - The user confirms in the app. In your text say briefly what you prepared and ask them to check it below. Never claim it is already saved or started.
 - Exercise ids: ${Object.entries(EXERCISE_NAMES)

@@ -34,13 +34,3 @@ export function validateChatRequest(body) {
   if (reminders !== undefined && !(Array.isArray(reminders) && reminders.length <= REMINDER_LIMITS.max && reminders.every(isReminderContext))) return null;
   return { appUserId, locale, question: question.trim(), history, context, deviceToken, reminders: reminders ?? [] };
 }
-
-/** POST /plan: { appUserId, goal, level }. Levels 1–3 (see lib/plan.js MAX_LEVEL). */
-export function validatePlanRequest(body) {
-  if (!isObj(body)) return null;
-  // catalog: the app's exercise catalog version (apps before it existed send none: version 1).
-  const { appUserId, goal, level, catalog = 1, ...rest } = body;
-  if (Object.keys(rest).length) return null;
-  if (!isUserId(appUserId) || !GOALS.includes(goal) || !isInt(level, 1, 3) || !isInt(catalog, 1, 1000)) return null;
-  return { appUserId, goal, level, catalog };
-}

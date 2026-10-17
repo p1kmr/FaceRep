@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import { handleChat } from '../src/lib/handler.js';
-import { CATALOG } from '../src/lib/plan.js';
+import { CATALOG } from '../src/lib/catalog.js';
 import { buildMessages } from '../src/lib/prompt.js';
 import { EXERCISE_NAMES, sanitizeWorkoutCalls, WORKOUT_TOOLS } from '../src/lib/workouts.js';
 
@@ -21,17 +21,15 @@ test('workouts: every catalog exercise has a name for the prompt, and the tools 
   for (const tool of WORKOUT_TOOLS) assert.deepEqual(tool.function.parameters.properties.exercises.items.enum, CATALOG.map((e) => e.id));
 });
 
-test('workouts: a log needs a day 0–6 and something to save; plan days only today; unknown ids go', () => {
+test('workouts: a log needs a day 0–6 and something to save; unknown ids go', () => {
   assert.deepEqual(sanitizeWorkoutCalls([call('log_workout', { days_ago: 0, exercises: ['01-jaw-clench', '11-chin-tuck', '01-jaw-clench', 'push-ups'], minutes: 6 })]), [
-    { type: 'log', daysAgo: 0, plan: false, exercises: ['01-jaw-clench', '11-chin-tuck'], minutes: 6 },
+    { type: 'log', daysAgo: 0, exercises: ['01-jaw-clench', '11-chin-tuck'], minutes: 6 },
   ]);
-  assert.deepEqual(sanitizeWorkoutCalls([call('log_workout', { days_ago: 0, plan_day: true })]), [
-    { type: 'log', daysAgo: 0, plan: true, exercises: [], minutes: null },
-  ]);
-  // A plan day is only today's; minutes out of range are dropped, not clamped.
-  assert.deepEqual(sanitizeWorkoutCalls([call('log_workout', { days_ago: 1, plan_day: true, minutes: 500 })]), []);
+  // Nothing to save: no exercises, and minutes out of range are dropped, not clamped.
+  assert.deepEqual(sanitizeWorkoutCalls([call('log_workout', { days_ago: 0 })]), []);
+  assert.deepEqual(sanitizeWorkoutCalls([call('log_workout', { days_ago: 1, minutes: 500 })]), []);
   assert.deepEqual(sanitizeWorkoutCalls([call('log_workout', { days_ago: 2, minutes: 10 })]), [
-    { type: 'log', daysAgo: 2, plan: false, exercises: [], minutes: 10 },
+    { type: 'log', daysAgo: 2, exercises: [], minutes: 10 },
   ]);
   for (const days_ago of [-1, 7, 1.5, '0', undefined]) assert.deepEqual(sanitizeWorkoutCalls([call('log_workout', { days_ago, minutes: 5 })]), []);
 });
@@ -76,7 +74,7 @@ test('workouts: /chat returns the cleaned proposals next to the answer, reminder
   assert.equal(res.status, 200);
   assert.deepEqual(res.body, {
     answer: 'Nice work! Check it below.',
-    actions: [{ type: 'log', daysAgo: 0, plan: false, exercises: ['01-jaw-clench', '11-chin-tuck'], minutes: 6 }],
+    actions: [{ type: 'log', daysAgo: 0, exercises: ['01-jaw-clench', '11-chin-tuck'], minutes: 6 }],
   });
   const many = await handleChat(
     { method: 'POST', rawBody: JSON.stringify({ ...body, reminders: [] }), ip: '1.2.3.4' },

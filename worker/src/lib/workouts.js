@@ -4,7 +4,7 @@
  * until the user taps Confirm or Start. Everything the model returns is checked here (and again in the app): unknown
  * exercise ids and anything out of range are dropped, never "fixed up" into something the user didn't ask for.
  */
-import { CATALOG } from './plan.js';
+import { CATALOG } from './catalog.js';
 
 export const WORKOUT_LIMITS = { daysBack: 6, maxMinutes: 120, logMax: 12, routineMin: 2, routineMax: 8, titleChars: 40 };
 
@@ -54,7 +54,6 @@ export const WORKOUT_TOOLS = [
         type: 'object',
         properties: {
           days_ago: { type: 'integer', description: '0 = today, 1 = yesterday, up to 6.' },
-          plan_day: { type: 'boolean', description: "true only when they say they did today's plan day (the workout the app planned for today). Only with days_ago 0." },
           exercises: { ...IDS_SCHEMA, description: "Exercise ids from the list that they say they did. Empty when they don't say which." },
           minutes: { type: 'integer', description: 'How many minutes, only when they say. 1 to 120.' },
         },
@@ -85,8 +84,8 @@ const cleanIds = (v, max) =>
 const cleanTitle = (v) => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim().slice(0, WORKOUT_LIMITS.titleChars) : '');
 
 /**
- * Proposed workout actions the app can show: a log needs a day 0–6 and something to save (today's plan day,
- * exercises or minutes); a routine needs 2–8 known exercises. At most one of each per answer.
+ * Proposed workout actions the app can show: a log needs a day 0–6 and something to save (exercises or minutes); a
+ * routine needs 2–8 known exercises. At most one of each per answer.
  */
 export function sanitizeWorkoutCalls(toolCalls) {
   const out = [];
@@ -94,11 +93,10 @@ export function sanitizeWorkoutCalls(toolCalls) {
     if (name === 'log_workout' && !out.some((a) => a.type === 'log')) {
       const daysAgo = args.days_ago;
       if (!Number.isInteger(daysAgo) || daysAgo < 0 || daysAgo > WORKOUT_LIMITS.daysBack) continue;
-      const plan = args.plan_day === true && daysAgo === 0;
       const exercises = cleanIds(args.exercises, WORKOUT_LIMITS.logMax);
       const minutes = Number.isInteger(args.minutes) && args.minutes >= 1 && args.minutes <= WORKOUT_LIMITS.maxMinutes ? args.minutes : null;
-      if (!plan && !exercises.length && !minutes) continue;
-      out.push({ type: 'log', daysAgo, plan, exercises, minutes });
+      if (!exercises.length && !minutes) continue;
+      out.push({ type: 'log', daysAgo, exercises, minutes });
     } else if (name === 'suggest_workout' && !out.some((a) => a.type === 'routine')) {
       const exercises = cleanIds(args.exercises, WORKOUT_LIMITS.routineMax);
       if (exercises.length < WORKOUT_LIMITS.routineMin) continue;

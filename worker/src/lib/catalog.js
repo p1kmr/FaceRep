@@ -1,0 +1,33 @@
+/**
+ * The app's exercises as [id, program, loadsJaw], in its catalog order (app/src/constants/exercises.ts EXERCISE_IDS,
+ * program and jawCaution). The Coach may only name these (lib/workouts.js). A test fails when the two drift apart.
+ */
+export const CATALOG = [
+  ['01-jaw-clench', 'jawline', true],
+  ['02-chin-lift', 'jawline', false],
+  ['03-jaw-jut', 'jawline', true],
+  ['04-mewing', 'jawline', false],
+  ['12-tongue-press', 'jawline', false],
+  ['11-chin-tuck', 'jawline', false],
+  ['05-neck-stretch', 'jawline', false],
+  ['06-cheek-lift', 'cheekbones', false],
+  ['07-fish-face', 'cheekbones', false],
+  ['13-smiling-fish', 'cheekbones', false],
+  ['08-cheek-puff', 'cheekbones', false],
+  ['14-o-stretch', 'cheekbones', false],
+  ['15-lion-face', 'cheekbones', true],
+  ['18-lip-press', 'lips', false],
+  ['19-pout', 'lips', false],
+  ['20-lip-corner-lift', 'lips', false],
+  ['21-smile-line-press', 'lips', false],
+  ['09-brow-lift', 'eyes', false],
+  ['22-forehead-press', 'eyes', false],
+  ['16-wide-eyes', 'eyes', false],
+  ['17-lower-lid-lift', 'eyes', false],
+  ['23-v-eyes', 'eyes', false],
+  ['10-eye-squeeze', 'eyes', false],
+  ['24-jaw-release', 'massage', false],
+  ['25-jawline-sweep', 'massage', false],
+  ['26-frown-release', 'massage', false],
+  ['27-temple-circles', 'massage', false],
+].map(([id, program, loadsJaw]) => ({ id, program, loadsJaw }));

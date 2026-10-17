@@ -1,7 +1,6 @@
 # FaceRep API (Cloudflare Worker)
 
-Three jobs:
-- `POST /plan`: the Premium part of the 28-day plan (Weeks 2–4, Levels 2–3), only after RevenueCat confirms Premium (`src/lib/plan.js`, `src/lib/planHandler.js`). Needs `REVENUECAT_SECRET_KEY`; without it nobody gets them. After changing `plan.js`, run `npm run plan:export` (updates the free week bundled in the app).
+Two jobs:
 - `POST /chat`: the AI Coach. With the user's reminder list it can also propose reminder changes (function calling, `src/lib/reminders.js`), and it can propose saving a workout the user did without the app or a short routine to start (`src/lib/workouts.js`); the app shows each for the user to confirm. Receives a question (+ the last few turns and an anonymous training context), checks it, applies daily limits and the Premium / free-allowance check, asks a **Workers AI** model and returns a cleaned-up answer.
 - `GET /privacy`, `/terms`, `/support`: the public pages App Store Connect asks for (`src/pages.js`), so no separate website is needed.
 
@@ -44,7 +43,7 @@ npm run deploy    # prints https://facerep-api.<your-subdomain>.workers.dev
 Open `/privacy`, `/terms`, `/support` on that URL to check the pages.
 
 ### B. Point the app at it
-- Done: `app/eas.json` → `EXPO_PUBLIC_AI_URL` = `https://facerep-api.elowa-app.workers.dev/chat` (the app derives `/plan` from it) and FaceRep's own `EXPO_PUBLIC_RC_IOS_KEY`; `app/src/constants/links.ts` → `SITE`.
+- Done: `app/eas.json` → `EXPO_PUBLIC_AI_URL` = `https://facerep-api.elowa-app.workers.dev/chat` and FaceRep's own `EXPO_PUBLIC_RC_IOS_KEY`; `app/src/constants/links.ts` → `SITE`.
 - Done: support address `kindcodelabs@gmail.com` in `links.ts` (`supportEmail`) and `wrangler.jsonc` (`SUPPORT_EMAIL`).
 - Local dev: `app/.env` (copy `app/.env.example`).
 
@@ -59,7 +58,7 @@ Logs: Cloudflare dashboard → Workers & Pages → `facerep-api` → **Logs** (o
 
 ### D. Premium and free limits (do this before release)
 
-Until this is done, anyone who finds the URL can use the Coach (only the daily limits stop them), and **nobody** gets Weeks 2–4 of the plan (`/plan` fails closed).
+Until this is done, anyone who finds the URL can use the Coach (only the daily limits stop them).
 
 1. **RevenueCat secret key**: RevenueCat → FaceRep project → API keys → **+ New secret API key** (API **v1**, name `facerep-worker`):
    ```bash

@@ -5,7 +5,7 @@
  */
 import { FREE_PER_MONTH } from './lib/access.js';
 
-const UPDATED = { privacy: 'October 17, 2026', terms: 'October 9, 2026' };
+const UPDATED = { privacy: 'October 17, 2026', terms: 'October 17, 2026' };
 
 const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -56,9 +56,8 @@ function privacy(env) {
 
 <div class="card">
 <strong>In short:</strong> ${c.app} has no account, no ads and no trackers. Your workouts, Coach chat and settings are
-stored only on your iPhone. Only three things ever leave it: the questions you send to the AI Coach (after you agree), a
-request for the Premium part of your workout plan (with Premium only), and the purchase details Apple and RevenueCat need to
-process a subscription. Camera pictures and face data never leave your iPhone. We never sell or share your data for
+stored only on your iPhone. Only two things ever leave it: the questions you send to the AI Coach (after you agree), and
+the purchase details Apple and RevenueCat need to process a subscription. Camera pictures and face data never leave your iPhone. We never sell or share your data for
 advertising.
 </div>
 
@@ -94,13 +93,6 @@ the mirror), or not use the mirror at all.</p>
   <td>To answer your question</td>
 </tr>
 <tr>
-  <td><strong>Premium plan request</strong>: the random app ID, your focus area, your plan level and the version of the exercise list in your app (so the plan only uses exercises your app has). No workout history, and not who the exercise pictures show.</td>
-  <td>With Premium only, when your plan needs Weeks 2 to 4 or a new level (about once per level; the answer is then kept on
-  your iPhone)</td>
-  <td>Our server on Cloudflare, which asks RevenueCat whether the app ID has an active subscription</td>
-  <td>To send the Premium part of the plan only to subscribers</td>
-</tr>
-<tr>
   <td><strong>Purchase data</strong>: the random app ID, App Store transaction and receipt details, device and app version</td>
   <td>When you view plans, buy, or restore purchases</td>
   <td>Apple (payment) and RevenueCat (subscription management)</td>
@@ -112,12 +104,12 @@ the mirror), or not use the mirror at all.</p>
 <p>Our server does not store your questions or the AI answers, and it never logs request contents. Cloudflare states that
 it does not use customer content sent to Workers AI to train models. To prevent abuse our server keeps two daily counters:
 one keyed by the random app ID and one keyed by a one-way, secret-keyed hash of your IP address (the IP itself is never
-stored). They are deleted automatically after about two days. For the free plan's monthly allowance it also keeps a count of
-free answers per random app ID, deleted after about two months. The same kind of daily counters limit plan requests. Cloudflare processes your IP address to deliver the request.</p>
+stored). They are deleted automatically after about two days. For the free monthly allowance it also keeps a count of
+free answers per random app ID, deleted after about two months. Cloudflare processes your IP address to deliver the request.</p>
 <p>To check that a request really comes from ${c.app} on an iPhone, the app sends a one-time Apple DeviceCheck token, which
 our server passes to Apple and never stores. Apple lets us keep one yes/no mark per iPhone: whether its free Coach answers
 for the month are used up, so deleting and reinstalling the app doesn't reset them. The mark contains nothing about you. To
-check Premium (for the Coach and for the Premium plan), our server asks RevenueCat whether the random app ID has an active
+check Premium for the Coach, our server asks RevenueCat whether the random app ID has an active
 subscription.</p>
 
 <h2>Service providers</h2>
@@ -134,7 +126,7 @@ Where required, transfers rely on the providers' Standard Contractual Clauses or
 <h2>Legal bases (EU/UK)</h2>
 <ul>
   <li>AI Coach: your <strong>consent</strong> (Art. 6(1)(a) GDPR). You can withdraw it any time in Settings → Allow AI Coach.</li>
-  <li>Purchases and the Premium plan: <strong>performance of a contract</strong> (Art. 6(1)(b)).</li>
+  <li>Purchases and Premium: <strong>performance of a contract</strong> (Art. 6(1)(b)).</li>
   <li>Abuse prevention counters: our <strong>legitimate interest</strong> in keeping the service available and costs under control (Art. 6(1)(f)).</li>
 </ul>
 
@@ -186,9 +178,8 @@ AI Coach answers are generated automatically and may be wrong.</p>
 <h2>Premium subscriptions and purchases</h2>
 <ul>
   <li>Premium is offered as auto-renewing weekly, monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
-  <li>Week 1 of the 28-day plan and every single exercise are free. Premium adds Weeks 2 to 4, Levels 2 and 3 and unlimited
-  AI Coach answers for personal use (see fair use below). The Premium part of the plan is loaded from our server, so the first time
-  it needs an internet connection.</li>
+  <li>A set of exercises, a daily workout made from them and ${FREE_PER_MONTH} AI Coach answers a month are free. Premium
+  unlocks every exercise (also in the daily workout) and unlimited AI Coach answers for personal use (see fair use below).</li>
   <li>Payment is charged to your Apple Account at confirmation of purchase.</li>
   <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the period.</li>
   <li>You can manage and cancel subscriptions in your Apple Account settings after purchase.</li>
