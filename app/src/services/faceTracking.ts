@@ -16,6 +16,8 @@ export interface NativeFaceEvent {
   t?: number;
   shapes?: Record<string, number>;
   rotation?: number[];
+  /** ARKit's error code when the session stopped for good (the mirror then falls back to the plain camera). */
+  error?: number;
 }
 
 export interface FaceTrackingViewProps extends ViewProps {

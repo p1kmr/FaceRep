@@ -55,6 +55,10 @@ ARKit face anchor (60/s)
 - The camera stops in the background (the view's `active` prop) and when the mirror closes. When the move check is off
   or the iPhone can't track faces, the mirror is the plain camera (`expo-camera`) as before. Only one of them uses the
   camera at a time.
+- **If ARKit stops** with an error, the mirror switches to the plain camera for the rest of that workout (no level),
+  so it never stays black. After an interruption (a call, Control Center) tracking starts again. The device log has
+  `FaceRep face tracking …` lines (started, first camera frame, interrupted, failed with Apple's error code; never
+  anything about the face): Console app on a Mac with the iPhone connected, search "FaceRep face".
 
 ## 3. Which exercises
 
@@ -117,6 +121,8 @@ TestFlight, or a development build (docs/device-testing.md §1), then:
       the brows rise.
 - [ ] Tap the small mirror: it becomes big and the count goes on (no restart). Tap the small figure to swap back.
 - [ ] Cover the camera: "Face not in view". Leave the app and come back: the camera restarts, the count stays.
+- [ ] The mirror shows your face, not black. If it's black with "Face not in view", read the `FaceRep face tracking`
+      lines in Console (§2): no "first camera frame" means ARKit got no camera (the error code says why).
 - [ ] Settings → Move check off: the plain mirror, no level. Jaw Jut, Lion Face and the hands-on exercises: no level.
 - [ ] A 10-minute workout with the mirror big: note battery and warmth.
 - [ ] If you can, an iPhone without Face ID but with A12 or later (iPhone SE 2nd or 3rd generation): tracking works

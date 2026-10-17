@@ -14,6 +14,7 @@ public class FaceTrackingView: ExpoView, ARSessionDelegate {
   private var active = false
   private var running = false
   private var lastSent: TimeInterval = 0
+  private var loggedFrame = false
 
   public required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
@@ -50,6 +51,8 @@ public class FaceTrackingView: ExpoView, ARSessionDelegate {
       let configuration = ARFaceTrackingConfiguration()
       configuration.isLightEstimationEnabled = false
       lastSent = 0
+      loggedFrame = false
+      NSLog("FaceRep face tracking started (view %.0f×%.0f)", bounds.width, bounds.height)
       sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
     } else {
       sceneView.session.pause()
@@ -63,6 +66,10 @@ public class FaceTrackingView: ExpoView, ARSessionDelegate {
       return
     }
     lastSent = frame.timestamp
+    if !loggedFrame {
+      loggedFrame = true
+      NSLog("FaceRep face tracking: first camera frame (view %.0f×%.0f)", sceneView.bounds.width, sceneView.bounds.height)
+    }
     guard let face = frame.anchors.compactMap({ $0 as? ARFaceAnchor }).first, face.isTracked else {
       onFace(["tracked": false, "t": frame.timestamp])
       return
@@ -76,8 +83,32 @@ public class FaceTrackingView: ExpoView, ARSessionDelegate {
     onFace(["tracked": true, "t": frame.timestamp, "shapes": shapes, "rotation": rotation])
   }
 
+  /// The session stopped for good: the app then shows the plain camera instead. Only Apple's error code goes to the
+  /// app and the device log, never anything about the face.
   public func session(_ session: ARSession, didFailWithError error: Error) {
     running = false
+    let code = (error as NSError).code
+    NSLog("FaceRep face tracking failed (%ld): %@", code, error.localizedDescription)
+    onFace(["tracked": false, "t": lastSent, "error": code])
+  }
+
+  /// The camera was taken away for a while (a call, Control Center, another camera user): no face until it's back.
+  public func sessionWasInterrupted(_ session: ARSession) {
+    NSLog("FaceRep face tracking interrupted")
     onFace(["tracked": false, "t": lastSent])
+  }
+
+  /// Back from an interruption: start again rather than wait on a face ARKit may have lost.
+  public func sessionInterruptionEnded(_ session: ARSession) {
+    NSLog("FaceRep face tracking resumed")
+    guard running else {
+      return
+    }
+    running = false
+    updateSession()
+  }
+
+  deinit {
+    sceneView.session.pause()
   }
 }
