@@ -49,8 +49,9 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 24-jaw-release | ✓ | ✓ | the lips part and the eyes half-close (eye rule); the hands rest on the jaw in nearly the same place in both drawings, so they stay solid. The white circling marker is only in the exercise drawing and fades in like the arrows |
 | 25-jawline-sweep | ✓ | ✓ | `hands`: the fists sweep from under the chin up to the ears and the forearms swing up from the bottom edge; past the drawing's edge each forearm goes on along its own slant, and hers fades out where her drawing fades. The shade the forearms cast on the chest goes with them (left behind, it outlined where the arms had been) |
 | 26-frown-release | ✓ | ✓ | `hands`: the hands slide from between the brows to the temples as solid pieces over the morphing face (outlines traced by hand in `tools/hands.json`); on the last part of the move the relaxed hand turns into the exercise hand, both lined up pixel by pixel. Hers turns quickly at the very end (`swap`): her relaxed hand has two fingers curled and the exercise hand none, so a slow change showed both. A plain morph showed both pairs of hands at once, and a quick swap of the drawings flashed |
+| 27-temple-circles | ✓ | ✓ | the eyes close (eye rule: the lids come down over still eyes); the fingertips stay on the temples in both drawings, so they stay solid while the red rings build up |
 
-Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not (23 does: its hands hardly move; hands that move slide with `hands`, 25 and 26), and
+Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not (21–24 and 27 do: their hands hardly move; hands that move slide with `hands`, 25 and 26), and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
 for that exercise. When the whole head moves, use `glide` (slides, Chin Tuck) or `tilt` (tilts, Neck Stretch) instead of the
 morph: one drawing, so nothing wobbles.
