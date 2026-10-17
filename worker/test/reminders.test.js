@@ -116,7 +116,10 @@ test('/chat: a reminder proposal comes back as an action next to the answer (and
   assert.deepEqual(res.body.actions, [{ type: 'create', kind: 'mewing', title: '', times: ['10:00', '12:00'], days: [1, 2, 3, 4, 5] }]);
   assert.match(res.body.answer, /Confirm/);
   assert.equal(committed, 1);
-  assert.equal(ai.calls[0].input.tools.length, 3);
+  assert.deepEqual(
+    ai.calls[0].input.tools.map((t) => t.function.name),
+    ['create_reminder', 'update_reminder', 'delete_reminder', 'log_workout', 'suggest_workout'],
+  );
 });
 
 test('/chat: tool calls without text are fine; the fallback model gets no tools', async () => {

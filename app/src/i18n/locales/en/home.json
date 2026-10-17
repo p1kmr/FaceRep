@@ -64,7 +64,6 @@
     "afternoon": "Good afternoon",
     "evening": "Good evening"
   },
-  "ask": "Ask the Coach anything",
   "week": {
     "done": "{{date}}, workout done",
     "today": "Today, {{date}}"

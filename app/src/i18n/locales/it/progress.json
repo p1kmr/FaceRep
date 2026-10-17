@@ -10,7 +10,11 @@
   "repsCount_one": "{{count}} ripetizione",
   "repsCount_other": "{{count}} ripetizioni",
   "calendar": "Calendario",
-  "views": { "week": "Settimana", "month": "Mese", "year": "Anno" },
+  "views": {
+    "week": "Settimana",
+    "month": "Mese",
+    "year": "Anno"
+  },
   "previous": "Precedente",
   "next": "Successivo",
   "summaryWeek": "{{days}} su 7 giorni · {{minutes}}",
@@ -31,5 +35,6 @@
     "body": "Completa il tuo primo allenamento e lo vedrai qui."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Giorno {{day}} · {{exercises}} · {{minutes}}"
+  "sessionPlan": "Giorno {{day}} · {{exercises}} · {{minutes}}",
+  "logged": "Registrato"
 }

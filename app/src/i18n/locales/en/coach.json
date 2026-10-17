@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "I'm your {{app}} Coach. Ask me about face exercises, technique, posture or a simple face care routine.",
-  "placeholder": "Ask about your workout or face care",
+  "intro": "I'm your {{app}} Coach. Ask me about face exercises, technique, posture or a simple face care routine. I can also put together a quick routine, save a workout you did without the app, or set reminders.",
+  "placeholder": "Ask, or tell me what you did",
   "send": "Send",
   "clear": "Clear chat",
   "clearConfirm": "Delete this conversation from your iPhone?",
@@ -25,7 +25,22 @@
     "done": "Saved",
     "declined": "Not saved",
     "open": "See reminders",
-    "missing": "This reminder doesn't exist anymore."
+    "missing": "This reminder doesn't exist anymore.",
+    "log": "Save workout",
+    "routine": "Workout for you",
+    "routineTitle": "Your routine",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "countsFor": "Counts as Day {{day}} of your plan",
+    "extra": "An extra workout: it doesn't count for your plan.",
+    "more_one": "+{{count}} more",
+    "more_other": "+{{count}} more",
+    "save": "Save",
+    "start": "Start",
+    "started": "Started",
+    "notStarted": "Not started",
+    "openProgress": "See progress",
+    "nothing": "There's nothing to save yet. Tell the Coach which exercises you did or for how long."
   },
   "bubble": {
     "open": "Ask the Coach",
@@ -33,7 +48,7 @@
   },
   "hint": {
     "title": "Ask the Coach",
-    "body": "Technique, mewing, posture or face care: ask me anything. I can also set reminders for you.",
+    "body": "Technique, mewing, posture or face care: ask me anything. I can also save workouts, put together a routine and set reminders.",
     "technique": "Check my technique",
     "remind": "Set a reminder",
     "ask": "Ask a question",
@@ -48,7 +63,9 @@
     "skincare": "Simple face care routine?",
     "skincare_man": "Simple face care routine for men?",
     "skincare_woman": "Simple face care routine for women?",
-    "doubleChin": "Can exercises help a double chin?"
+    "doubleChin": "Can exercises help a double chin?",
+    "routine": "Give me a quick 5-minute jaw routine",
+    "log": "I did my jaw exercises this morning. Can you save them?"
   },
   "errors": {
     "notConfigured": "The Coach isn't set up in this build yet.",

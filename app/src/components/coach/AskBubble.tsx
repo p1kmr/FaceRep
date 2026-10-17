@@ -15,6 +15,7 @@ import { setAskButton } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { AppText } from '../ui/AppText';
+import { Gradient } from '../ui/Gradient';
 import { AskHint, type AskHintChoice } from './AskHint';
 
 const SIZE = 56;
@@ -156,12 +157,18 @@ export function AskBubble() {
           accessibilityActions={[{ name: 'activate' }]}
           onAccessibilityAction={openCoach}
         >
-          <SymbolView
-            name="sparkles"
-            size={24}
-            tintColor={colors.onPrimary}
-            fallback={<AppText style={styles.fallback}>✦</AppText>}
-          />
+          <View style={styles.fill}>
+            <Gradient colors={[colors.primaryEnd, colors.primary]} />
+          </View>
+          {/* In its own view: the web build paints a bare icon under the gradient. */}
+          <View>
+            <SymbolView
+              name="sparkles"
+              size={24}
+              tintColor={colors.onPrimary}
+              fallback={<AppText style={styles.fallback}>✦</AppText>}
+            />
+          </View>
         </Animated.View>
       </GestureDetector>
       {hint ? <AskHint position={hintPosition} side={askButton.side} onChoose={choose} onClose={hintDone} /> : null}
@@ -180,7 +187,9 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: colors.primary,
-    boxShadow: `0 6px 16px ${colors.shadow}`,
+    boxShadow: `${tokens.elevation.glow} ${colors.glow}`,
   },
+  // The brand gradient in its own clipped circle, so the glow can spread around the button.
+  fill: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, borderRadius: SIZE / 2, overflow: 'hidden' },
   fallback: { color: colors.onPrimary, fontSize: tokens.font.size.headline },
 }));

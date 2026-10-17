@@ -8,6 +8,7 @@ import { Composer } from '@/components/coach/Composer';
 import { MessageBubble } from '@/components/coach/MessageBubble';
 import { ReminderActionCard } from '@/components/coach/ReminderActionCard';
 import { TypingDots } from '@/components/coach/TypingDots';
+import { WorkoutActionCard } from '@/components/coach/WorkoutActionCard';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
 import { IconButton } from '@/components/ui/IconButton';
@@ -18,6 +19,7 @@ import { useChat } from '@/hooks/useChat';
 import { useFreeAiLabel } from '@/hooks/useFreeAiLabel';
 import { useGuide } from '@/hooks/useGuide';
 import { usePremium } from '@/hooks/usePremium';
+import { isReminderProposal, isWorkoutProposal } from '@/state/chat/selectors';
 import { makeStyles } from '@/theme/makeStyles';
 
 /**
@@ -92,9 +94,13 @@ export default function CoachScreen() {
               >
                 <MessageBubble role={m.role} text={m.text} />
               </Pressable>
-              {(chat.actions[m.id] ?? []).map((p, i) => (
-                <ReminderActionCard key={i} proposed={p} onResolve={(accept) => chat.resolveAction(m.id, i, accept)} />
-              ))}
+              {(chat.actions[m.id] ?? []).map((p, i) =>
+                isReminderProposal(p) ? (
+                  <ReminderActionCard key={i} proposed={p} onResolve={(accept) => chat.resolveAction(m.id, i, accept)} />
+                ) : isWorkoutProposal(p) ? (
+                  <WorkoutActionCard key={i} proposed={p} onResolve={(accept) => chat.resolveAction(m.id, i, accept)} />
+                ) : null,
+              )}
             </View>
           ))}
           {chat.pending ? <MessageBubble role="user" text={chat.pending.text} /> : null}

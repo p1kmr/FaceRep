@@ -1,7 +1,6 @@
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
-import { AskBar } from '@/components/today/AskBar';
 import { PlanGrid } from '@/components/today/PlanGrid';
 import { PlanGridTip } from '@/components/today/PlanGridTip';
 import { StatCards } from '@/components/today/StatCards';
@@ -25,8 +24,8 @@ import { makeStyles } from '@/theme/makeStyles';
 import { weekStart } from '@/utils/dates';
 
 /**
- * Today: greeting and streak, this week, today's plan day on the face (the areas it works lit), the Coach bar, the
- * numbers, and the 28-day grid (with a first-use tip). The Coach is also the floating button.
+ * Today: greeting and streak, this week, today's plan day on the face (the areas it works lit), the numbers, and the
+ * 28-day grid (with a first-use tip). The Coach is the floating button.
  */
 export default function TodayScreen() {
   const { t } = useTranslation('home');
@@ -63,7 +62,6 @@ export default function TodayScreen() {
         onUnlock={unlock}
         onArea={learnArea}
       />
-      <AskBar />
       <StatCards summary={summary} weekMinutes={minutesBetween(sessions, weekStart(today, firstWeekday), today)} />
       <SectionHeader title={t('plan.grid.title')} />
       {planGridTipSeen ? null : <PlanGridTip onDone={closeTip} />}

@@ -1,10 +1,11 @@
 import { createContext, useCallback, useEffect, useReducer, type Dispatch, type ReactNode } from 'react';
 
 import type { PlanRef } from '@/constants/plan';
+import type { LoggedWorkout } from '@/services/progress/log';
 import { insertSession, listSessions } from '@/services/progress/sessionsRepo';
 import type { SessionSummary } from '@/services/progress/stats';
 import type { WorkoutResult } from '@/services/workout/timer';
-import { todayISO } from '@/utils/dates';
+import { fromISODate, todayISO } from '@/utils/dates';
 import { createId } from '@/utils/ids';
 
 import { hydrateProgress, sessionAdded, type ProgressAction } from './actions';
@@ -17,6 +18,10 @@ type SaveWorkout = (result: WorkoutResult, kind: SessionSummary['kind'], plan?: 
 
 /** Saves a finished workout (SQLite first, then state) and returns it, or null when nothing was done. */
 export const SaveWorkoutContext = createContext<SaveWorkout | null>(null);
+
+type LogWorkout = (workout: LoggedWorkout) => Promise<SessionSummary>;
+/** Saves a workout done without the app, from a Coach proposal the user confirmed (services/progress/log.ts). */
+export const LogWorkoutContext = createContext<LogWorkout | null>(null);
 
 /** Workout history: read once from SQLite, then every finished workout is inserted and dispatched. */
 export function ProgressProvider({ children }: { children: ReactNode }) {
@@ -47,10 +52,33 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
     return session;
   }, []);
 
+  const logWorkout = useCallback<LogWorkout>(async (w) => {
+    const now = new Date();
+    // Today: now. An earlier day: its noon (the time only orders the history).
+    const noon = fromISODate(w.day);
+    noon.setHours(12);
+    const session: SessionSummary = {
+      id: createId(),
+      day: w.day,
+      finishedAt: w.day === todayISO(now) ? now.toISOString() : noon.toISOString(),
+      durationSec: w.durationSec,
+      totalReps: w.items.reduce((sum, i) => sum + i.reps, 0),
+      exerciseIds: w.items.map((i) => i.id),
+      kind: w.plan || w.items.length > 1 ? 'routine' : 'single',
+      logged: true,
+      ...(w.plan ? { plan: w.plan } : {}),
+    };
+    await insertSession(session, w.items).catch(() => {});
+    dispatch(sessionAdded(session));
+    return session;
+  }, []);
+
   return (
     <ProgressStateContext.Provider value={state}>
       <ProgressDispatchContext.Provider value={dispatch}>
-        <SaveWorkoutContext.Provider value={saveWorkout}>{children}</SaveWorkoutContext.Provider>
+        <SaveWorkoutContext.Provider value={saveWorkout}>
+          <LogWorkoutContext.Provider value={logWorkout}>{children}</LogWorkoutContext.Provider>
+        </SaveWorkoutContext.Provider>
       </ProgressDispatchContext.Provider>
     </ProgressStateContext.Provider>
   );

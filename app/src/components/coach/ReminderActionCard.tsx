@@ -6,6 +6,7 @@ import { Pressable, View } from 'react-native';
 import { useReminderText } from '@/hooks/useReminderText';
 import { useSettings } from '@/hooks/useSettings';
 import { useTheme } from '@/hooks/useTheme';
+import type { ReminderAction } from '@/services/ai/types';
 import type { ProposedAction } from '@/state/chat/types';
 import { makeStyles } from '@/theme/makeStyles';
 
@@ -17,7 +18,7 @@ import { Button } from '../ui/Button';
  * One reminder change the Coach proposed: what will happen, and Confirm / No thanks (same as Elowa's
  * cards). Nothing is saved until the user taps Confirm.
  */
-export function ReminderActionCard({ proposed, onResolve }: { proposed: ProposedAction; onResolve: (accept: boolean) => void }) {
+export function ReminderActionCard({ proposed, onResolve }: { proposed: ProposedAction & { action: ReminderAction }; onResolve: (accept: boolean) => void }) {
   const { t } = useTranslation('coach');
   const { colors } = useTheme();
   const styles = useStyles();
@@ -91,8 +92,9 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     padding: tokens.space.lg,
     borderRadius: tokens.radius.lg,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.cardBorder,
     backgroundColor: colors.surface,
+    boxShadow: `${tokens.elevation.card} ${colors.shadow}`,
   },
   header: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.sm },
   heading: { color: colors.primary, fontWeight: tokens.font.weight.semibold },

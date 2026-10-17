@@ -1,11 +1,11 @@
-import type { AiError, ReminderAction } from '@/services/ai/types';
+import type { AiError, CoachAction } from '@/services/ai/types';
 import type { StoredMessage } from '@/services/chat/chatRepo';
 
 export type ChatMessage = StoredMessage;
 
-/** A reminder change the Coach proposed, and what the user did with it. */
+/** Something the Coach proposed (a reminder change, a workout to save or to start), and what the user did with it. */
 export interface ProposedAction {
-  action: ReminderAction;
+  action: CoachAction;
   status: 'pending' | 'done' | 'declined';
 }
 
@@ -16,7 +16,7 @@ export interface ChatState {
   pending: ChatMessage | null;
   error: AiError | null;
   /**
-   * Proposed reminder changes per answer id. Kept in memory only: after a restart the answer stays
+   * Proposed actions per answer id. Kept in memory only: after a restart the answer stays
    * in the history but its cards don't (nothing was changed unless the user confirmed).
    */
   actions: Record<string, ProposedAction[]>;

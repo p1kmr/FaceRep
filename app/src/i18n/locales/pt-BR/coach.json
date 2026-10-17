@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Sou seu Coach do {{app}}. Pergunte sobre exercícios faciais, técnica, postura ou uma rotina simples de cuidados com o rosto.",
-  "placeholder": "Pergunte sobre seu treino facial ou cuidados com o rosto",
+  "intro": "Sou seu Coach do {{app}}. Pergunte sobre exercícios faciais, técnica, postura ou uma rotina simples de cuidados com o rosto. Também posso montar uma rotina rápida, salvar um treino que você fez sem o app ou criar lembretes.",
+  "placeholder": "Pergunte ou conte o que você fez",
   "send": "Enviar",
   "clear": "Limpar conversa",
   "clearConfirm": "Apagar esta conversa do seu iPhone?",
@@ -26,7 +26,22 @@
     "done": "Salvo",
     "declined": "Não salvo",
     "open": "Ver lembretes",
-    "missing": "Este lembrete não existe mais."
+    "missing": "Este lembrete não existe mais.",
+    "log": "Salvar treino",
+    "routine": "Treino para você",
+    "routineTitle": "Sua rotina",
+    "today": "Hoje",
+    "yesterday": "Ontem",
+    "countsFor": "Conta como o dia {{day}} do seu plano",
+    "extra": "Um treino extra: não conta para o seu plano.",
+    "more_one": "+{{count}} mais",
+    "more_other": "+{{count}} mais",
+    "save": "Salvar",
+    "start": "Começar",
+    "started": "Iniciado",
+    "notStarted": "Não iniciado",
+    "openProgress": "Ver progresso",
+    "nothing": "Ainda não há nada para salvar. Diga ao Coach quais exercícios você fez ou por quanto tempo."
   },
   "bubble": {
     "open": "Pergunte ao Coach",
@@ -34,7 +49,7 @@
   },
   "hint": {
     "title": "Pergunte ao Coach",
-    "body": "Técnica, mewing, postura ou cuidados com o rosto: pode perguntar. Também posso criar lembretes para você.",
+    "body": "Técnica, mewing, postura ou cuidados com o rosto: pode perguntar. Também posso salvar treinos, montar uma rotina e criar lembretes.",
     "technique": "Conferir minha técnica",
     "remind": "Criar um lembrete",
     "ask": "Fazer uma pergunta",
@@ -49,7 +64,9 @@
     "skincare": "Rotina simples de cuidados com o rosto?",
     "skincare_man": "Rotina simples de cuidados com o rosto para homens?",
     "skincare_woman": "Rotina simples de cuidados com o rosto para mulheres?",
-    "doubleChin": "Exercícios podem ajudar na papada?"
+    "doubleChin": "Exercícios podem ajudar na papada?",
+    "routine": "Monte uma rotina rápida de 5 minutos para a mandíbula",
+    "log": "Fiz meus exercícios de mandíbula hoje de manhã. Pode salvar?"
   },
   "errors": {
     "notConfigured": "O Coach ainda não está configurado nesta versão.",

@@ -10,7 +10,11 @@
   "repsCount_one": "{{count}} Wiederholung",
   "repsCount_other": "{{count}} Wiederholungen",
   "calendar": "Kalender",
-  "views": { "week": "Woche", "month": "Monat", "year": "Jahr" },
+  "views": {
+    "week": "Woche",
+    "month": "Monat",
+    "year": "Jahr"
+  },
   "previous": "Zurück",
   "next": "Weiter",
   "summaryWeek": "{{days}} von 7 Tagen · {{minutes}}",
@@ -31,5 +35,6 @@
     "body": "Schließ dein erstes Training ab, dann erscheint es hier."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Tag {{day}} · {{exercises}} · {{minutes}}"
+  "sessionPlan": "Tag {{day}} · {{exercises}} · {{minutes}}",
+  "logged": "Nachgetragen"
 }

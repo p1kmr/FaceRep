@@ -1,4 +1,3 @@
-import { Image } from 'expo-image';
 import { SymbolView } from 'expo-symbols';
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +12,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 import { formatDay, toMinutes } from '@/utils/format';
 
+import { ExerciseAvatars } from '../exercise/ExerciseAvatars';
 import { FaceMap } from '../faceMap/FaceMap';
 import { AppText } from '../ui/AppText';
 import { Badge } from '../ui/Badge';
@@ -35,33 +35,6 @@ interface TodayCardProps {
 /** Placeholder thumbnails for a locked day (the real Premium days aren't on the device). */
 const teaserIds = (goal: Goal): ExerciseId[] =>
   EXERCISE_IDS.filter((id) => goal === 'full' || EXERCISES[id].program === goal).slice(0, 5);
-
-/** Up to five exercise thumbnails as overlapping circles, then "+n". */
-function Avatars({ ids, blurred }: { ids: readonly ExerciseId[]; blurred?: boolean }) {
-  const styles = useStyles();
-  const images = useGuideImages();
-  const shown = ids.slice(0, 5);
-  return (
-    <View style={styles.avatars} accessible={false}>
-      {shown.map((id, i) => (
-        <Image
-          key={id}
-          source={images.exercises[id].thumb}
-          style={[styles.avatar, i > 0 && styles.overlap]}
-          contentFit="cover"
-          blurRadius={blurred ? 10 : 0}
-        />
-      ))}
-      {ids.length > shown.length ? (
-        <View style={[styles.avatar, styles.overlap, styles.more]}>
-          <AppText variant="caption" style={styles.moreText}>
-            +{ids.length - shown.length}
-          </AppText>
-        </View>
-      ) : null}
-    </View>
-  );
-}
 
 /** Image shape of the face map (base.webp). */
 const MAP_ASPECT = 720 / 974;
@@ -124,7 +97,7 @@ export function TodayCard({ plan, goal, isPremium, onStart, onPractice, onUnlock
       <>
         {progress.finished ? <AppText>{t('home:plan.levelDone', { level: progress.level })}</AppText> : null}
         <View style={styles.row}>
-          <Avatars ids={today.day.ids} />
+          <ExerciseAvatars ids={today.day.ids} />
           <AppText variant="footnote" muted style={styles.flex}>
             {meta}
           </AppText>
@@ -142,7 +115,7 @@ export function TodayCard({ plan, goal, isPremium, onStart, onPractice, onUnlock
     body = (
       <>
         <View style={styles.row}>
-          <Avatars ids={teaserIds(goal)} blurred />
+          <ExerciseAvatars ids={teaserIds(goal)} blurred />
           <SymbolView name="lock.fill" size={20} tintColor={colors.textMuted} />
         </View>
         <AppText muted>{t('home:plan.locked.body')}</AppText>
@@ -225,9 +198,4 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   body: { padding: tokens.space.lg, gap: tokens.space.md },
   row: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.md },
   flex: { flex: 1 },
-  avatars: { flexDirection: 'row' },
-  avatar: { width: 42, height: 42, borderRadius: tokens.radius.pill, borderWidth: 2, borderColor: colors.surface, backgroundColor: colors.plate },
-  overlap: { marginLeft: -12 },
-  more: { alignItems: 'center', justifyContent: 'center', backgroundColor: colors.surfaceAlt },
-  moreText: { fontWeight: tokens.font.weight.bold },
 }));

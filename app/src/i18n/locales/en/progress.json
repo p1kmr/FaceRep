@@ -10,7 +10,11 @@
   "repsCount_one": "{{count}} rep",
   "repsCount_other": "{{count}} reps",
   "calendar": "Calendar",
-  "views": { "week": "Week", "month": "Month", "year": "Year" },
+  "views": {
+    "week": "Week",
+    "month": "Month",
+    "year": "Year"
+  },
   "previous": "Previous",
   "next": "Next",
   "summaryWeek": "{{days}} of 7 days · {{minutes}}",
@@ -31,5 +35,6 @@
     "body": "Finish your first workout and it shows up here."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Day {{day}} · {{exercises}} · {{minutes}}"
+  "sessionPlan": "Day {{day}} · {{exercises}} · {{minutes}}",
+  "logged": "Logged"
 }

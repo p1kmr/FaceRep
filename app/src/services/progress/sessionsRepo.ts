@@ -29,6 +29,8 @@ function toSummary(row: SessionRow): SessionSummary {
     exerciseIds: (row.exercise_ids ?? '').split(',').filter(isExerciseId),
     kind: row.kind === 'single' ? 'single' : 'routine',
     ...(row.plan_level && row.plan_day ? { plan: { level: row.plan_level, day: row.plan_day } } : {}),
+    // A workout saved from the Coach is stored with kind 'logged' (no migration: kind is free text).
+    ...(row.kind === 'logged' ? { logged: true } : {}),
   };
 }
 
@@ -49,7 +51,7 @@ export async function insertSession(s: SessionSummary, reps: { id: ExerciseId; r
       s.finishedAt,
       s.durationSec,
       s.totalReps,
-      s.kind,
+      s.logged ? 'logged' : s.kind,
       s.plan?.level ?? null,
       s.plan?.day ?? null,
     );

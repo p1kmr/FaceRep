@@ -6,6 +6,7 @@ import { makeStyles } from '@/theme/makeStyles';
 import { formatDay, toMinutes } from '@/utils/format';
 
 import { AppText } from '../ui/AppText';
+import { Badge } from '../ui/Badge';
 
 export function SessionRow({ session, divider }: { session: SessionSummary; divider?: boolean }) {
   const { t, i18n } = useTranslation(['progress', 'common']);
@@ -18,7 +19,11 @@ export function SessionRow({ session, divider }: { session: SessionSummary; divi
   return (
     <View style={[styles.row, divider && styles.divider]}>
       <View style={styles.text}>
-        <AppText>{formatDay(session.day, i18n.language)}</AppText>
+        <View style={styles.title}>
+          <AppText>{formatDay(session.day, i18n.language)}</AppText>
+          {/* Saved from the Coach (done without the app), not finished in the player. */}
+          {session.logged ? <Badge label={t('progress:logged')} /> : null}
+        </View>
         <AppText variant="footnote" muted>
           {meta}
         </AppText>
@@ -34,4 +39,5 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   row: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.md, paddingHorizontal: tokens.space.lg, paddingVertical: tokens.space.md },
   divider: { borderBottomWidth: 1, borderBottomColor: colors.border },
   text: { flex: 1, gap: 2 },
+  title: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.sm },
 }));

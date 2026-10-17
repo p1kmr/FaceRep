@@ -79,7 +79,8 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
 - The system prompt (`worker/src/lib/prompt.js`) keeps the safety rules: no diagnosis, no result promises, no looks
   ratings, kind help and a pointer to support when someone sounds distressed.
 - "AI answers can be wrong. Not medical advice." stays visible, and long-press → report stays.
-- The Coach only proposes. Nothing changes until the person taps Confirm.
+- The Coach only proposes: reminder changes, a workout to save (done without the app), a routine to start. Nothing is
+  changed, saved or started until the person taps Confirm, Save or Start on its card, and the card shows what will happen.
 - If people could ever see each other's content (sharing, groups, public chats), that is user-generated content (1.2):
   filtering, report, block and published contact details first.
 

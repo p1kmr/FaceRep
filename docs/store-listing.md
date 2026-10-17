@@ -28,7 +28,7 @@ Use **English (US)** for English (UK), English (Australia) and English (India); 
 - **Subtitle (30):** `Lips, Cheeks & Mewing Workouts`
 - **Keywords (100):** `double,chin,cheekbone,jaw,tongue,posture,facial,fitness,men,women,exercise,eye,massage,skincare,glow`
 - **Promotional text (158):** See the muscle you train. Voice-guided face workouts for jawline, cheekbones, lips and eyes, with a 28-day plan and an optional camera mirror. Week 1 is free.
-- **What's New:** First release: a 28-day plan with five programs (jawline, cheekbones, lips, eyes and face massage), exercise drawings of a man or a woman, voice cues, a camera mirror, streaks and the AI Coach.
+- **What's New:** First release: a 28-day plan with five programs (jawline, cheekbones, lips, eyes and face massage), exercise drawings and short videos of a man or a woman, a face map, voice cues, a camera mirror, streaks and the AI Coach.
 
 **Description**
 
@@ -40,6 +40,9 @@ Every exercise shows the working muscle lit up in red, moving from relaxed to sq
 
 FOLLOW ALONG WITHOUT LOOKING
 Voice cues tell you when to squeeze, relax and what comes next, so you can train with your eyes closed or your hands on your face. The screen stays on while you train. Turn on the mirror to see yourself next to the drawing and check your form: the camera picture is never recorded or saved.
+
+KNOW YOUR FACE
+Tap an area on the face map, from forehead to neck, to see its muscles and the exercises that work them. Most exercises also have a short video of the move, made from its drawing.
 
 FIVE PROGRAMS, 27 EXERCISES
 • Jawline: jaw clench, chin lift, jaw jut, mewing, tongue press, chin tuck and neck stretch
@@ -54,6 +57,7 @@ A 28-DAY PLAN
 • Hold and relax timer with voice cues and haptics
 • Streaks and a week, month and year calendar of your workouts
 • Reminders for workouts, mewing checks and posture breaks, on your days and times (or ask the Coach to set them)
+• Tell the Coach what you did without the app and it saves the workout once you confirm, or ask it for a quick routine
 
 WHAT'S FREE
 Week 1 of the plan and every exercise on its own, any time. No account, no ads. Your workouts stay on your iPhone.
@@ -82,7 +86,7 @@ Privacy Policy: https://facerep-api.elowa-app.workers.dev/privacy
 - **Subtitle (27):** `Mandíbula, pómulos y mewing`
 - **Keywords (99):** `ejercicios,papada,gimnasia,rostro,cara,labios,mejillas,ojos,lengua,postura,masaje,hombre,mujer,piel`
 - **Promotional text (170):** Mira el músculo que entrenas. Ejercicios faciales guiados por voz para mandíbula, pómulos, labios y ojos, con un plan de 28 días y espejo opcional. La semana 1 es gratis.
-- **What's New:** Primera versión: un plan de 28 días con cinco programas (mandíbula, pómulos, labios, ojos y masaje facial), dibujos de los ejercicios con un hombre o una mujer, guía por voz, espejo con la cámara, rachas y el Coach con IA.
+- **What's New:** Primera versión: un plan de 28 días con cinco programas (mandíbula, pómulos, labios, ojos y masaje facial), dibujos y vídeos cortos de los ejercicios con un hombre o una mujer, un mapa facial, guía por voz, espejo con la cámara, rachas y el Coach con IA.
 
 **Description**
 
@@ -94,6 +98,9 @@ Cada ejercicio muestra en rojo el músculo que trabaja, que pasa de relajado a c
 
 SIGUE EL EJERCICIO SIN MIRAR
 La guía por voz te dice cuándo apretar, cuándo relajar y qué viene después, para que puedas entrenar con los ojos cerrados o con las manos en la cara. La pantalla se mantiene encendida mientras entrenas. Activa el espejo para verte junto al dibujo y revisar tu técnica: la imagen de la cámara nunca se graba ni se guarda.
+
+CONOCE TU CARA
+Toca una zona del mapa facial, de la frente al cuello, para ver sus músculos y los ejercicios que los trabajan. La mayoría de los ejercicios tienen también un vídeo corto del movimiento, hecho a partir de su dibujo.
 
 CINCO PROGRAMAS, 27 EJERCICIOS
 • Mandíbula: apretón de mandíbula, elevación de barbilla, mandíbula al frente, mewing, presión de lengua, retracción de barbilla y estiramiento lateral de cuello
@@ -108,6 +115,7 @@ UN PLAN DE 28 DÍAS
 • Temporizador de contracción y relajación con guía por voz y respuesta háptica
 • Rachas y un calendario semanal, mensual y anual de tus entrenamientos
 • Recordatorios para entrenar, revisar tu mewing y hacer pausas para la postura, en los días y horas que elijas (o pídele al Coach que los cree)
+• Cuéntale al Coach lo que hiciste sin la app y guardará el entrenamiento cuando lo confirmes, o pídele una rutina rápida
 
 QUÉ ES GRATIS
 La semana 1 del plan y cada ejercicio por separado, cuando quieras. Sin cuenta y sin anuncios. Tus entrenamientos se quedan en tu iPhone.
@@ -136,7 +144,7 @@ Política de privacidad: https://facerep-api.elowa-app.workers.dev/privacy
 - **Subtitle (26):** `Lábios, Bochechas e Mewing`
 - **Keywords (91):** `mandíbula,papada,queixo,ginástica,exercício,rosto,maçã,língua,postura,massagem,homem,mulher`
 - **Promotional text (170):** Veja o músculo que você treina. Treinos faciais guiados por voz para mandíbula, bochechas, lábios e olhos, plano de 28 dias e espelho de câmera opcional. Semana 1 grátis.
-- **What's New:** Primeira versão: um plano de 28 dias com cinco programas (mandíbula, maçãs do rosto, lábios, olhos e massagem facial), desenhos dos exercícios com homem ou mulher, instruções por voz, espelho com a câmera, sequências e o Coach de IA.
+- **What's New:** Primeira versão: um plano de 28 dias com cinco programas (mandíbula, maçãs do rosto, lábios, olhos e massagem facial), desenhos e vídeos curtos dos exercícios com homem ou mulher, um mapa do rosto, instruções por voz, espelho com a câmera, sequências e o Coach de IA.
 
 **Description**
 
@@ -148,6 +156,9 @@ Cada exercício mostra o músculo trabalhado destacado em vermelho, passando de 
 
 ACOMPANHE SEM OLHAR
 As instruções por voz avisam quando contrair, quando relaxar e o que vem a seguir, para você treinar de olhos fechados ou com as mãos no rosto. A tela fica ligada durante o treino. Ative o espelho para se ver ao lado do desenho e conferir sua execução: a imagem da câmera nunca é gravada nem salva.
+
+CONHEÇA SEU ROSTO
+Toque em uma área do mapa do rosto, da testa ao pescoço, para ver os músculos e os exercícios que os trabalham. A maioria dos exercícios também tem um vídeo curto do movimento, feito a partir do desenho.
 
 CINCO PROGRAMAS, 27 EXERCÍCIOS
 • Mandíbula: contração da mandíbula, elevação do queixo, projeção da mandíbula, mewing, pressão da língua, retração do queixo e alongamento lateral do pescoço
@@ -162,6 +173,7 @@ UM PLANO DE 28 DIAS
 • Timer de contração e relaxamento com instruções por voz e retorno tátil
 • Sequências e um calendário semanal, mensal e anual dos seus treinos
 • Lembretes de treino, checagens de mewing e pausas para a postura, nos seus dias e horários (ou peça ao Coach para criá-los)
+• Conte ao Coach o que você fez sem o app e ele salva o treino quando você confirmar, ou peça uma rotina rápida
 
 O QUE É GRÁTIS
 A semana 1 do plano e cada exercício avulso, quando quiser. Sem conta, sem anúncios. Seus treinos ficam no seu iPhone.
@@ -190,7 +202,7 @@ Política de Privacidade: https://facerep-api.elowa-app.workers.dev/privacy
 - **Subtitle (25):** `Gesichtstraining & Mewing`
 - **Keywords (98):** `doppelkinn,kieferlinie,wangenknochen,face,yoga,gesichtsgymnastik,gesicht,kinn,lippen,massage,zunge`
 - **Promotional text (169):** Sieh den Muskel, den du trainierst. Sprachgeführtes Gesichtstraining für Kiefer, Wangen, Lippen und Augen, mit 28-Tage-Plan und optionalem Kameraspiegel. Woche 1 gratis.
-- **What's New:** Erste Version: ein 28-Tage-Plan mit fünf Programmen (Kieferlinie, Wangenknochen, Lippen, Augen und Gesichtsmassage), Übungszeichnungen von Mann oder Frau, Sprachansagen, ein Kameraspiegel, Serien und der KI-Coach.
+- **What's New:** Erste Version: ein 28-Tage-Plan mit fünf Programmen (Kieferlinie, Wangenknochen, Lippen, Augen und Gesichtsmassage), Übungszeichnungen und kurze Videos von Mann oder Frau, eine Gesichtskarte, Sprachansagen, ein Kameraspiegel, Serien und der KI-Coach.
 
 **Description**
 
@@ -202,6 +214,9 @@ Jede Übung zeigt den arbeitenden Muskel rot hervorgehoben, im Takt des Timers v
 
 MITMACHEN, OHNE HINZUSEHEN
 Per Sprachansage erfährst du, wann du anspannst und lockerlässt und was als Nächstes kommt. So kannst du mit geschlossenen Augen oder mit den Händen im Gesicht trainieren. Der Bildschirm bleibt beim Training an. Schalte den Spiegel ein, um dich neben der Zeichnung zu sehen und deine Ausführung zu prüfen: Das Kamerabild wird nie aufgenommen oder gespeichert.
+
+LERN DEIN GESICHT KENNEN
+Tippe auf einen Bereich der Gesichtskarte, von der Stirn bis zum Hals, um seine Muskeln und die Übungen dafür zu sehen. Die meisten Übungen haben auch ein kurzes Video der Bewegung, gemacht aus ihrer Zeichnung.
 
 FÜNF PROGRAMME, 27 ÜBUNGEN
 • Kieferlinie: Kiefer anspannen, Kinn heben, Kiefer vorschieben, Mewing, Zungendruck, Kinn einziehen und seitliche Halsdehnung
@@ -216,6 +231,7 @@ EIN 28-TAGE-PLAN
 • Timer für Halten und Lockern mit Sprachansagen und Haptik
 • Serien und ein Wochen-, Monats- und Jahreskalender deiner Trainings
 • Erinnerungen für Training, Mewing-Checks und Haltungspausen an deinen Tagen und zu deinen Uhrzeiten (oder lass sie dir vom Coach einrichten)
+• Erzähl dem Coach, was du ohne die App gemacht hast, und er speichert das Training, sobald du bestätigst, oder lass dir eine kurze Routine zusammenstellen
 
 DAS IST KOSTENLOS
 Woche 1 des Plans und jede einzelne Übung, jederzeit. Kein Konto, keine Werbung. Deine Trainings bleiben auf deinem iPhone.
@@ -244,7 +260,7 @@ Datenschutzerklärung: https://facerep-api.elowa-app.workers.dev/privacy
 - **Subtitle (27):** `Pommettes, lèvres et mewing`
 - **Keywords (98):** `double,menton,exercices,joues,yeux,gym,faciale,jawline,massage,langue,posture,cou,homme,femme,face`
 - **Promotional text (166):** Vois le muscle que tu travailles. Séances guidées à la voix pour mâchoire, pommettes, lèvres et yeux, plan de 28 jours et miroir caméra en option. Semaine 1 gratuite.
-- **What's New:** Première version : un plan de 28 jours avec cinq programmes (mâchoire, pommettes, lèvres, yeux et massage du visage), des illustrations d'exercices avec un homme ou une femme, le guidage vocal, un miroir caméra, les séries et le Coach IA.
+- **What's New:** Première version : un plan de 28 jours avec cinq programmes (mâchoire, pommettes, lèvres, yeux et massage du visage), des illustrations et de courtes vidéos d'exercices avec un homme ou une femme, une carte du visage, le guidage vocal, un miroir caméra, les séries et le Coach IA.
 
 **Description**
 
@@ -256,6 +272,9 @@ Chaque exercice montre le muscle sollicité en rouge, qui passe du relâchement 
 
 SUIS LA SÉANCE SANS REGARDER
 Le guidage vocal t'indique quand contracter, quand relâcher et ce qui vient ensuite : tu peux t'entraîner les yeux fermés ou les mains sur le visage. L'écran reste allumé pendant la séance. Active le miroir pour te voir à côté de l'illustration et vérifier ta technique : l'image de la caméra n'est jamais enregistrée ni sauvegardée.
+
+CONNAIS TON VISAGE
+Touche une zone de la carte du visage, du front au cou, pour voir ses muscles et les exercices qui les font travailler. La plupart des exercices ont aussi une courte vidéo du mouvement, faite à partir de leur illustration.
 
 CINQ PROGRAMMES, 27 EXERCICES
 • Mâchoire : mâchoire serrée, menton levé, mâchoire en avant, mewing, pression de la langue, menton rentré et étirement du cou
@@ -270,6 +289,7 @@ UN PLAN DE 28 JOURS
 • Minuteur de maintien et de relâchement avec guidage vocal et retour haptique
 • Séries et calendrier de tes séances par semaine, mois et année
 • Rappels pour tes séances, ton mewing et ta posture, aux jours et heures de ton choix (ou demande au Coach de les créer)
+• Raconte au Coach ce que tu as fait sans l'app et il enregistre la séance quand tu confirmes, ou demande-lui une routine rapide
 
 CE QUI EST GRATUIT
 La semaine 1 du plan et chaque exercice à l'unité, à tout moment. Pas de compte, pas de pub. Tes séances restent sur ton iPhone.
@@ -298,7 +318,7 @@ Politique de confidentialité : https://facerep-api.elowa-app.workers.dev/priva
 - **Subtitle (26):** `Esercizi Mascella e Mewing`
 - **Keywords (97):** `viso,doppio,mento,zigomi,guance,labbra,occhi,jawline,ginnastica,massaggio,postura,uomo,donna,face`
 - **Promotional text (169):** Vedi il muscolo che alleni. Allenamenti viso guidati a voce per mascella, zigomi, labbra e occhi, con un piano di 28 giorni e uno specchio opzionale. Settimana 1 gratis.
-- **What's New:** Prima versione: un piano di 28 giorni con cinque programmi (mascella, zigomi, labbra, occhi e massaggio viso), disegni degli esercizi con un uomo o una donna, indicazioni vocali, uno specchio con la fotocamera, serie e il Coach IA.
+- **What's New:** Prima versione: un piano di 28 giorni con cinque programmi (mascella, zigomi, labbra, occhi e massaggio viso), disegni e brevi video degli esercizi con un uomo o una donna, una mappa del viso, indicazioni vocali, uno specchio con la fotocamera, serie e il Coach IA.
 
 **Description**
 
@@ -310,6 +330,9 @@ Ogni esercizio mostra in rosso il muscolo che lavora, che passa da rilassato a c
 
 SEGUI SENZA GUARDARE
 Le indicazioni vocali ti dicono quando contrarre, quando rilassarti e cosa viene dopo, così puoi allenarti a occhi chiusi o con le mani sul viso. Lo schermo resta acceso mentre ti alleni. Attiva lo specchio per vederti accanto al disegno e controllare l'esecuzione: l'immagine della fotocamera non viene mai registrata né salvata.
+
+CONOSCI IL TUO VISO
+Tocca una zona della mappa del viso, dalla fronte al collo, per vedere i suoi muscoli e gli esercizi che li allenano. La maggior parte degli esercizi ha anche un breve video del movimento, ricavato dal suo disegno.
 
 CINQUE PROGRAMMI, 27 ESERCIZI
 • Mascella: mascella serrata, mento in su, mascella in avanti, mewing, pressione della lingua, retrazione del mento e stretching laterale del collo
@@ -324,6 +347,7 @@ UN PIANO DI 28 GIORNI
 • Timer di tenuta e rilassamento con indicazioni vocali e feedback aptico
 • Serie e un calendario settimanale, mensile e annuale dei tuoi allenamenti
 • Promemoria per allenamenti, controlli del mewing e pause per la postura, nei giorni e agli orari che scegli tu (oppure chiedi al Coach di impostarli)
+• Racconta al Coach cosa hai fatto senza l'app e salverà l'allenamento quando confermi, oppure chiedigli una routine veloce
 
 COSA È GRATIS
 La settimana 1 del piano e ogni singolo esercizio, quando vuoi. Nessun account, nessuna pubblicità. I tuoi allenamenti restano sul tuo iPhone.

@@ -1,7 +1,8 @@
 import { buildMessages } from './prompt.js';
 import { generateAnswer } from './model.js';
-import { REMINDER_TOOLS, sanitizeActions } from './reminders.js';
+import { REMINDER_LIMITS, REMINDER_TOOLS, sanitizeActions } from './reminders.js';
 import { validateChatRequest } from './validate.js';
+import { sanitizeWorkoutCalls, WORKOUT_TOOLS } from './workouts.js';
 
 // Includes room for the DeviceCheck token (a few KB).
 const MAX_BODY_BYTES = 30_000;
@@ -39,12 +40,14 @@ export async function handleChat({ method, rawBody, ip }, { ai, model, fallbackM
     model,
     fallbackModel,
     maxOutputTokens,
-    // The main model can propose reminder changes (function calling); the fallback only answers.
+    // The main model can propose reminder changes and workouts (function calling); the fallback only answers.
     messages: buildMessages({ ...input, appName, canPropose: true }),
     fallbackMessages: buildMessages({ ...input, appName, canPropose: false }),
-    tools: REMINDER_TOOLS,
+    tools: [...REMINDER_TOOLS, ...WORKOUT_TOOLS],
   }).catch(() => null);
-  const actions = result ? sanitizeActions(result.toolCalls, input.reminders) : [];
+  const actions = result
+    ? [...sanitizeActions(result.toolCalls, input.reminders), ...sanitizeWorkoutCalls(result.toolCalls)].slice(0, REMINDER_LIMITS.actionsPerAnswer)
+    : [];
   if (!result || (!result.answer && !actions.length)) {
     console.error('chat: model call failed');
     return { status: 502, body: { error: 'model' } };

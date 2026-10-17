@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Ich bin dein {{app}}-Coach. Frag mich zu Gesichtsübungen, Technik, Haltung oder einer einfachen Gesichtspflege-Routine.",
-  "placeholder": "Frag zu deinem Gesichtstraining oder zur Gesichtspflege",
+  "intro": "Ich bin dein {{app}}-Coach. Frag mich zu Gesichtsübungen, Technik, Haltung oder einer einfachen Gesichtspflege-Routine. Ich kann dir auch eine kurze Routine zusammenstellen, ein Training speichern, das du ohne die App gemacht hast, oder Erinnerungen einrichten.",
+  "placeholder": "Frag mich oder erzähl, was du gemacht hast",
   "send": "Senden",
   "clear": "Chat löschen",
   "clearConfirm": "Diese Unterhaltung von deinem iPhone löschen?",
@@ -25,7 +25,22 @@
     "done": "Gespeichert",
     "declined": "Nicht gespeichert",
     "open": "Erinnerungen ansehen",
-    "missing": "Diese Erinnerung gibt es nicht mehr."
+    "missing": "Diese Erinnerung gibt es nicht mehr.",
+    "log": "Training speichern",
+    "routine": "Training für dich",
+    "routineTitle": "Deine Routine",
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "countsFor": "Zählt als Tag {{day}} deines Plans",
+    "extra": "Ein zusätzliches Training: Es zählt nicht für deinen Plan.",
+    "more_one": "+{{count}} weitere",
+    "more_other": "+{{count}} weitere",
+    "save": "Speichern",
+    "start": "Starten",
+    "started": "Gestartet",
+    "notStarted": "Nicht gestartet",
+    "openProgress": "Fortschritt ansehen",
+    "nothing": "Noch nichts zu speichern. Sag dem Coach, welche Übungen du gemacht hast oder wie lange."
   },
   "bubble": {
     "open": "Frag den Coach",
@@ -33,7 +48,7 @@
   },
   "hint": {
     "title": "Frag den Coach",
-    "body": "Technik, Mewing, Haltung oder Gesichtspflege: Frag mich alles. Ich kann auch Erinnerungen für dich einrichten.",
+    "body": "Technik, Mewing, Haltung oder Gesichtspflege: Frag mich alles. Ich kann auch Trainings speichern, eine Routine zusammenstellen und Erinnerungen einrichten.",
     "technique": "Meine Technik prüfen",
     "remind": "Erinnerung einrichten",
     "ask": "Frage stellen",
@@ -48,7 +63,9 @@
     "skincare": "Einfache Gesichtspflege-Routine?",
     "skincare_man": "Einfache Gesichtspflege für Männer?",
     "skincare_woman": "Einfache Gesichtspflege für Frauen?",
-    "doubleChin": "Können Übungen bei einem Doppelkinn helfen?"
+    "doubleChin": "Können Übungen bei einem Doppelkinn helfen?",
+    "routine": "Stell mir eine kurze 5-Minuten-Routine für den Kiefer zusammen",
+    "log": "Ich habe heute Morgen meine Kieferübungen gemacht. Kannst du sie speichern?"
   },
   "errors": {
     "notConfigured": "Der Coach ist in diesem Build noch nicht eingerichtet.",

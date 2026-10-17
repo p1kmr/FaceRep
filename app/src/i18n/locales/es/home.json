@@ -64,7 +64,6 @@
     "afternoon": "Buenas tardes",
     "evening": "Buenas noches"
   },
-  "ask": "Pregunta al Coach lo que quieras",
   "week": {
     "done": "{{date}}, entrenamiento hecho",
     "today": "Hoy, {{date}}"

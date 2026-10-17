@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Soy tu Coach de {{app}}. Pregúntame sobre ejercicios faciales, técnica, postura o una rutina sencilla de cuidado facial.",
-  "placeholder": "Pregunta sobre tus ejercicios o tu cuidado facial",
+  "intro": "Soy tu Coach de {{app}}. Pregúntame sobre ejercicios faciales, técnica, postura o una rutina sencilla de cuidado facial. También puedo armarte una rutina rápida, guardar un entrenamiento que hiciste sin la app o crear recordatorios.",
+  "placeholder": "Pregunta o cuéntame qué hiciste",
   "send": "Enviar",
   "clear": "Borrar chat",
   "clearConfirm": "¿Eliminar esta conversación de tu iPhone?",
@@ -25,7 +25,22 @@
     "done": "Guardado",
     "declined": "No guardado",
     "open": "Ver recordatorios",
-    "missing": "Este recordatorio ya no existe."
+    "missing": "Este recordatorio ya no existe.",
+    "log": "Guardar entrenamiento",
+    "routine": "Entrenamiento para ti",
+    "routineTitle": "Tu rutina",
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "countsFor": "Cuenta como el día {{day}} de tu plan",
+    "extra": "Un entrenamiento extra: no cuenta para tu plan.",
+    "more_one": "+{{count}} más",
+    "more_other": "+{{count}} más",
+    "save": "Guardar",
+    "start": "Empezar",
+    "started": "Empezado",
+    "notStarted": "No empezado",
+    "openProgress": "Ver progreso",
+    "nothing": "Todavía no hay nada que guardar. Dile al Coach qué ejercicios hiciste o durante cuánto tiempo."
   },
   "bubble": {
     "open": "Pregunta al Coach",
@@ -33,7 +48,7 @@
   },
   "hint": {
     "title": "Pregunta al Coach",
-    "body": "Técnica, mewing, postura o cuidado facial: pregúntame lo que quieras. También puedo crear recordatorios por ti.",
+    "body": "Técnica, mewing, postura o cuidado facial: pregúntame lo que quieras. También puedo guardar entrenamientos, armarte una rutina y crear recordatorios.",
     "technique": "Revisar mi técnica",
     "remind": "Crear un recordatorio",
     "ask": "Hacer una pregunta",
@@ -48,7 +63,9 @@
     "skincare": "¿Una rutina sencilla de cuidado facial?",
     "skincare_man": "¿Una rutina sencilla de cuidado facial para hombres?",
     "skincare_woman": "¿Una rutina sencilla de cuidado facial para mujeres?",
-    "doubleChin": "¿Los ejercicios pueden ayudar con la papada?"
+    "doubleChin": "¿Los ejercicios pueden ayudar con la papada?",
+    "routine": "Dame una rutina rápida de 5 minutos para la mandíbula",
+    "log": "Hice mis ejercicios de mandíbula esta mañana. ¿Puedes guardarlos?"
   },
   "errors": {
     "notConfigured": "El Coach aún no está configurado en esta versión.",

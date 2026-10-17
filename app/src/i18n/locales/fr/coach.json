@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Je suis ton Coach {{app}}. Pose-moi tes questions sur les exercices du visage, la technique, la posture ou une routine simple de soins du visage.",
-  "placeholder": "Pose ta question sur ta séance ou tes soins du visage",
+  "intro": "Je suis ton Coach {{app}}. Pose-moi tes questions sur les exercices du visage, la technique, la posture ou une routine simple de soins du visage. Je peux aussi te préparer une routine rapide, enregistrer une séance faite sans l'app ou créer des rappels.",
+  "placeholder": "Pose une question ou raconte ce que tu as fait",
   "send": "Envoyer",
   "clear": "Effacer la discussion",
   "clearConfirm": "Supprimer cette conversation de ton iPhone ?",
@@ -25,7 +25,22 @@
     "done": "Enregistré",
     "declined": "Non enregistré",
     "open": "Voir les rappels",
-    "missing": "Ce rappel n'existe plus."
+    "missing": "Ce rappel n'existe plus.",
+    "log": "Enregistrer la séance",
+    "routine": "Séance pour toi",
+    "routineTitle": "Ta routine",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "countsFor": "Compte comme le jour {{day}} de ton plan",
+    "extra": "Une séance en plus, qui ne compte pas pour ton plan.",
+    "more_one": "+{{count}} autre",
+    "more_other": "+{{count}} autres",
+    "save": "Enregistrer",
+    "start": "Commencer",
+    "started": "Commencée",
+    "notStarted": "Pas commencée",
+    "openProgress": "Voir les progrès",
+    "nothing": "Rien à enregistrer pour l'instant. Dis au Coach quels exercices tu as faits ou pendant combien de temps."
   },
   "bubble": {
     "open": "Demander au Coach",
@@ -33,7 +48,7 @@
   },
   "hint": {
     "title": "Demande au Coach",
-    "body": "Technique, mewing, posture ou soins du visage : demande-moi ce que tu veux. Je peux aussi créer des rappels pour toi.",
+    "body": "Technique, mewing, posture ou soins du visage : demande-moi ce que tu veux. Je peux aussi enregistrer tes séances, te préparer une routine et créer des rappels.",
     "technique": "Vérifier ma technique",
     "remind": "Créer un rappel",
     "ask": "Poser une question",
@@ -48,7 +63,9 @@
     "skincare": "Une routine simple de soins du visage ?",
     "skincare_man": "Une routine simple de soins du visage pour homme ?",
     "skincare_woman": "Une routine simple de soins du visage pour femme ?",
-    "doubleChin": "Les exercices peuvent-ils aider pour le double menton ?"
+    "doubleChin": "Les exercices peuvent-ils aider pour le double menton ?",
+    "routine": "Prépare-moi une routine rapide de 5 minutes pour la mâchoire",
+    "log": "J'ai fait mes exercices de mâchoire ce matin. Tu peux les enregistrer ?"
   },
   "errors": {
     "notConfigured": "Le Coach n'est pas encore configuré dans cette version.",

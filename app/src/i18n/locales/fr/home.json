@@ -64,7 +64,6 @@
     "afternoon": "Bon après-midi",
     "evening": "Bonsoir"
   },
-  "ask": "Pose ta question au Coach",
   "week": {
     "done": "{{date}}, séance faite",
     "today": "Aujourd'hui, {{date}}"

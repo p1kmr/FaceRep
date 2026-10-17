@@ -104,6 +104,20 @@ Builds 3–6 must not be used.
       screenshot from build 7: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
 - [ ] Optional: delete the local branch `backup/weekly-local-29d96e7` if the owner agrees.
 
+## 1b. Build 8: new look, face map, exercise videos, Coach that saves and starts workouts
+Build 7 doesn't have these. The clips play with `expo-video`, a native module, so they need a new build (an over-the-air
+update can't add native code). Build 8 replaces build 7 as the one to test and submit.
+- [ ] **Owner: deploy the Worker** (the Coach's new tools and prompt, and the Mewing / Tongue Press text). In `worker/`:
+      `npm run deploy`. An app before build 8 ignores the new proposals, so deploying first is safe.
+- [ ] **Build 8** from `app/` the same way as build 7 (EAS production profile, auto-submit), when the owner says go.
+- [ ] **Owner tests build 8** with docs/device-testing.md §3 (new lines: Coach save / routine, videos, face map), then
+      attaches it to version 1.0 in place of build 7.
+- [ ] **Store text:** the description and What's New in docs/store-listing.md now mention the face map, the videos and the
+      Coach saving workouts (all six languages); put them on the 1.0 page.
+- [ ] **Screenshots:** Today, the player, the exercise page, Progress and the Coach look different now: re-capture and
+      re-export them (store-screenshots/README.md) before submitting.
+- [ ] **Review notes:** use the updated text in docs/launch.md (face map, videos, Coach save / routine).
+
 ## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real
 iPhone. Keys are per Apple team, so the existing team DeviceCheck key can be reused (FaceRep only validates tokens and

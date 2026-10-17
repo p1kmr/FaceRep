@@ -50,6 +50,27 @@ describe('AI client', () => {
     expect(parseChatReply({ answer: '', actions: [{ type: 'delete' }] })).toBeNull();
   });
 
+  it('checks proposed workouts again: known exercises only, days 0–6, plan days only today', () => {
+    const reply = parseChatReply({
+      answer: 'Check it below.',
+      actions: [
+        { type: 'log', daysAgo: 0, plan: true, exercises: ['01-jaw-clench', 'squats', '01-jaw-clench'], minutes: 6 },
+        { type: 'routine', title: '  Quick jaw ', exercises: ['01-jaw-clench', '11-chin-tuck'] },
+        { type: 'routine', exercises: ['01-jaw-clench'] }, // one exercise is not a routine
+        { type: 'log', daysAgo: 9, minutes: 5 },
+      ],
+    });
+    expect(reply?.actions).toEqual([
+      { type: 'log', daysAgo: 0, plan: true, exercises: ['01-jaw-clench'], minutes: 6 },
+      { type: 'routine', title: 'Quick jaw', exercises: ['01-jaw-clench', '11-chin-tuck'] },
+    ]);
+    const earlier = parseChatReply({ answer: 'ok', actions: [{ type: 'log', daysAgo: 2, plan: true, exercises: [], minutes: 500 }] });
+    expect(earlier?.actions).toEqual([]); // a plan day 2 days ago and 500 minutes: nothing left to save
+    expect(parseChatReply({ answer: 'ok', actions: [{ type: 'log', daysAgo: 1, plan: false, exercises: [], minutes: 12 }] })?.actions).toEqual([
+      { type: 'log', daysAgo: 1, plan: false, exercises: [], minutes: 12 },
+    ]);
+  });
+
   it('sends the DeviceCheck token with the question', async () => {
     const fetchImpl = respond(200, { answer: 'Keep your tongue flat on the palate.' });
     await expect(requestChat(input, fetchImpl)).resolves.toEqual({ answer: 'Keep your tongue flat on the palate.', actions: [] });

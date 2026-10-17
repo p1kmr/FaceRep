@@ -35,5 +35,6 @@
     "body": "Termine ta première séance et elle apparaîtra ici."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Jour {{day}} · {{exercises}} · {{minutes}}"
+  "sessionPlan": "Jour {{day}} · {{exercises}} · {{minutes}}",
+  "logged": "Ajoutée"
 }

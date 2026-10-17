@@ -151,8 +151,8 @@ drawing's white plate uses `onPlate` / `onPlateMuted` (the plate is white in bot
 
 **Today** (`app/(tabs)/index.tsx`): greeting and streak, this week (`WeekStrip`, the region's first weekday), today's
 plan day as the hero (`TodayCard`: the face map with the areas the day works lit and slowly breathing, cropped to frame
-them; tap an area to open it in the library), the Coach bar (`AskBar`, a second way into the Coach), three stat cards
-and the 28-day grid.
+them; tap an area to open it in the library), three stat cards and the 28-day grid. The Coach stays the floating button
+(`AskBubble`, now on the brand gradient): one way in, as before.
 
 ## The face map
 `constants/faceMap.ts`: eight areas (forehead, temples, eyes, cheeks, lips, jaw, chin, neck), which muscle lies in
@@ -192,6 +192,17 @@ and asks for notification permission when one is turned on. Old saves with one d
 The Worker gives the main model three tools (`create_reminder`, `update_reminder`, `delete_reminder`, `worker/src/lib/reminders.js`),
 checks every call against that list and returns them as `actions`; the fallback model gets no tools. The app checks them again
 (`parseChatReply`) and shows `ReminderActionCard`s: nothing changes until the user taps Confirm. Cards live in memory only.
+
+**The Coach can also save or start a workout.** Two more tools (`worker/src/lib/workouts.js`): `log_workout` (a workout the
+user did without the app or forgot to save: 0–6 days back, today's plan day, the exercise ids they named, the minutes they
+said) and `suggest_workout` (2–8 exercise ids to do now, with a short title). The Worker drops unknown ids and anything out
+of range; no new data is sent for this (the question already carries what the user said). In the app,
+`services/progress/log.ts` (pure, tested) turns a proposed log into what is saved, from the app's own data: today's plan
+day counts for the plan only when it is the next day and ready (same as the Start button), an earlier day never counts,
+otherwise the named exercises with their usual reps, and the minutes the user said win over the estimate.
+`WorkoutActionCard` shows exactly that before Save, or the routine before Start (which opens the player with those
+exercises). A saved workout is stored with kind `logged` (no migration) and shows a "Logged" tag in the history. Nothing is
+saved or started until the user taps Save or Start. The iPhone keyboard's dictation mic works in the Coach's text field.
 
 
 ## Languages

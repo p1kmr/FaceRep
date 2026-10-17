@@ -1,3 +1,5 @@
+import { EXERCISE_NAMES } from './workouts.js';
+
 /** The exercises in the app, so the Coach recommends what the user can actually do. */
 const EXERCISES = `Jawline program: Jaw Clench (masseter), Chin Lift (platysma, front of neck), Jaw Jut (platysma, mentalis), Mewing (a gentle resting tongue posture, not a press: the whole tongue, back part included, rests on the palate with the tip where it sits for "n", lips closed, teeth lightly touching, nose breathing; 20-second holds), Tongue Press (an active rep: the front of the tongue pushes firmly up behind the upper front teeth while humming, teeth slightly apart, then drops and relaxes; under-chin muscles), Chin Tuck (deep neck flexors, posture), Neck Side Stretch.
 Cheekbones program: Cheek Lift (zygomaticus), Fish Face (buccinator), Smiling Fish (fish face plus a smile), Cheek Puff (buccinator, lips), O Stretch (mouth in a long O, lips over teeth), Lion Face (mouth wide, tongue out, eyes wide).
@@ -39,12 +41,24 @@ export const reminderRules = (canPropose) =>
 - Use the ids from the user's reminders below. Times are 24-hour 'HH:mm' in the user's local time.`
     : `Reminders: you can't change reminders right now. If asked, tell the user to set them in Settings, Reminders.`;
 
+/** Workout rules: with tools the Coach proposes saving or starting a workout (the user confirms); without, it says how. */
+export const workoutRules = (canPropose) =>
+  canPropose
+    ? `Workouts:
+- When the user clearly says they did face exercises without the app, or forgot to save a workout ("I did my jaw exercises this morning", "log yesterday's workout"), call log_workout: days_ago 0 for today, 1 for yesterday, up to 6; plan_day true only when they say they did today's plan day; the exercise ids they name (none when they don't say which); minutes only when they say. Never log a workout they only plan to do.
+- When the user asks for a workout or routine to do now ("a quick jaw routine", "5 minutes for my eyes"), call suggest_workout with 2 to 8 exercise ids from the list, in the order to do them (about a minute each), and a short title in the user's language. Leave out Jaw Clench, Jaw Jut and Lion Face when they mention jaw pain, clicking or TMJ.
+- The user confirms in the app. In your text say briefly what you prepared and ask them to check it below. Never claim it is already saved or started.
+- Exercise ids: ${Object.entries(EXERCISE_NAMES)
+        .map(([id, name]) => `${id} ${name}`)
+        .join(', ')}.`
+    : `Workouts: you can't save or start workouts right now. If asked, say a workout saves itself when they finish it in the app, and they can start any exercise from the Exercises tab.`;
+
 export function buildMessages({ locale, context, history, question, appName, reminders = [], canPropose = false }) {
   const reminderInfo = canPropose ? `\nThe user's reminders (JSON): ${JSON.stringify(reminders)}` : '';
   return [
     {
       role: 'system',
-      content: `${coachSystemPrompt(appName)}\n${reminderRules(canPropose)}\nLocale: ${locale}\nTraining context (JSON): ${JSON.stringify(context)}${reminderInfo}`,
+      content: `${coachSystemPrompt(appName)}\n${reminderRules(canPropose)}\n${workoutRules(canPropose)}\nLocale: ${locale}\nTraining context (JSON): ${JSON.stringify(context)}${reminderInfo}`,
     },
     ...history.map((t) => ({ role: t.role, content: t.text })),
     { role: 'user', content: question },

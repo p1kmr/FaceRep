@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Sono il tuo Coach di {{app}}. Chiedimi degli esercizi per il viso, della tecnica, della postura o di una semplice routine di cura del viso.",
-  "placeholder": "Chiedi del tuo allenamento o della cura del viso",
+  "intro": "Sono il tuo Coach di {{app}}. Chiedimi degli esercizi per il viso, della tecnica, della postura o di una semplice routine di cura del viso. Posso anche prepararti una routine veloce, salvare un allenamento fatto senza l'app o impostare dei promemoria.",
+  "placeholder": "Chiedi o raccontami cosa hai fatto",
   "send": "Invia",
   "clear": "Cancella chat",
   "clearConfirm": "Eliminare questa conversazione dal tuo iPhone?",
@@ -25,7 +25,22 @@
     "done": "Salvato",
     "declined": "Non salvato",
     "open": "Vedi promemoria",
-    "missing": "Questo promemoria non esiste più."
+    "missing": "Questo promemoria non esiste più.",
+    "log": "Salva allenamento",
+    "routine": "Allenamento per te",
+    "routineTitle": "La tua routine",
+    "today": "Oggi",
+    "yesterday": "Ieri",
+    "countsFor": "Conta come giorno {{day}} del tuo piano",
+    "extra": "Un allenamento in più: non conta per il tuo piano.",
+    "more_one": "+{{count}} altro",
+    "more_other": "+{{count}} altri",
+    "save": "Salva",
+    "start": "Inizia",
+    "started": "Iniziato",
+    "notStarted": "Non iniziato",
+    "openProgress": "Vedi i progressi",
+    "nothing": "Non c'è ancora niente da salvare. Di' al Coach quali esercizi hai fatto o per quanto tempo."
   },
   "bubble": {
     "open": "Chiedi al Coach",
@@ -33,7 +48,7 @@
   },
   "hint": {
     "title": "Chiedi al Coach",
-    "body": "Tecnica, mewing, postura o cura del viso: chiedimi quello che vuoi. Posso anche impostare dei promemoria per te.",
+    "body": "Tecnica, mewing, postura o cura del viso: chiedimi quello che vuoi. Posso anche salvare gli allenamenti, prepararti una routine e impostare dei promemoria.",
     "technique": "Controlla la mia tecnica",
     "remind": "Imposta un promemoria",
     "ask": "Fai una domanda",
@@ -48,7 +63,9 @@
     "skincare": "Una semplice routine di cura del viso?",
     "skincare_man": "Una semplice routine di cura del viso per uomo?",
     "skincare_woman": "Una semplice routine di cura del viso per donna?",
-    "doubleChin": "Gli esercizi possono aiutare con il doppio mento?"
+    "doubleChin": "Gli esercizi possono aiutare con il doppio mento?",
+    "routine": "Preparami una routine veloce di 5 minuti per la mascella",
+    "log": "Stamattina ho fatto i miei esercizi per la mascella. Puoi salvarli?"
   },
   "errors": {
     "notConfigured": "Il Coach non è ancora configurato in questa build.",
