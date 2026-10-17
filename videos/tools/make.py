@@ -39,6 +39,8 @@ TIMING = (0.4, 1.2, 1.0, 1.0, 0.3)
 # muscle deepens to the exercise drawing's red. For moves of the whole head (see glider() and tilter()).
 # both: one rep to each side (the exercise switches sides every rep); the clip is twice as long.
 SETTINGS = {
+    # crossfade: no clip; the app keeps its crossfade (why in the text).
+    "02-chin-lift": {"crossfade": "the head tips back, a 3D turn two flat drawings can't show"},
     "03-jaw-jut": {"sharp": 0.08},
     # gaze: the eyes look up in the exercise drawing; one iris slides there instead of two blending.
     "17-lower-lid-lift": {"gaze": True},
@@ -560,6 +562,8 @@ def main():
         A = page(os.path.join(folder, "relaxed.webp"))
         B = page(os.path.join(folder, "exercise.webp"))
         try:
+            if "crossfade" in settings:
+                raise NoFace(f"{guide}: {settings['crossfade']}, so this one keeps the app's crossfade")
             if "glide" in settings:
                 frame = glider(A, B, find(A, f"{guide} relaxed"), settings["glide"])
             elif "tongue" in settings:
