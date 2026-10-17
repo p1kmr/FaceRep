@@ -37,7 +37,7 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
 - Say exactly what Premium gives. A limit people can really reach must be stated; a fair-use ceiling nobody reaches
   goes in the Terms only.
 - Weekly shows only its billed price. "Save X%" compares yearly with monthly, never with weekly.
-- "Free trial" means only the App Store's subscription trial. Week 1 is "free", never a "trial".
+- "Free trial" means only the App Store's subscription trial. Days 1 to 3 are "free", never a "trial".
 - A new paid feature means:
   - list it under PREMIUM in docs/store-listing.md;
   - describe it in the review notes, with steps to reach it;
@@ -95,8 +95,12 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
   - the app keeps working without an account unless accounts are the core feature.
 
 **What the server sends** (2.5.2, 2.3.1)
-- The Worker sends data (Coach answers, exercise IDs), never code that changes features. No hidden switches that change
+- The Worker sends data (Coach answers, exercise IDs) and, after a purchase, the Premium exercises (texts, drawings,
+  short videos: media the app shows, never code), never code that changes features. No hidden switches that change
   the app after review. Every feature must be reachable by the reviewer and described in the review notes.
+- The app works on first launch without any download (the free part is bundled). Premium content downloads only after a
+  purchase or restore, with its progress on the Today card (4.2.3). The Worker must be live during review: a reviewer's
+  sandbox purchase is checked with RevenueCat like any other.
 
 **New screens and features** (2.1, 2.3.1, 2.3.12, 2.4.1, 2.4.4, 2.5.9, 2.5.16, 4.2)
 - No crashes, no placeholder text, and the backend is live during review.
@@ -153,15 +157,16 @@ just to make a change pass. A new app language needs its own claim words: the te
 |---|---|---|
 | 1.4.1, 2.3.1 health and claims | no medical or result claims; "check with a doctor" | Safety line on welcome, Settings → Exercise safety, jaw caution on the exercise page and before jaw exercises; Coach refuses diagnosis; automatic word check ✅ |
 | 1.2, 4.7 AI content | report path, filtering | Long-press → report; the prompt keeps to the topic, no looks ratings ✅ |
-| 2.1 completeness | backend on during review, IAP reachable | Worker live; paywall from any locked day and Settings ✅ |
+| 2.1 completeness | backend on during review, IAP reachable | Worker live (deployed with the build that downloads Premium exercises); paywall from the locked days (Day 4 on, on Today and the week page) and Settings; after a sandbox purchase the Premium exercises download at once ✅ |
 | 2.3.2 paid items in metadata | say what's paid | "What's free" and "Premium" in the description; slides 3 and 8 label it ✅ |
-| 2.3.7 metadata | no prices in screenshots, no trademarks | "Week 1 free" and "3 free answers a month" say what is free (2.3.2), not a price ✅ |
+| 2.3.7 metadata | no prices in screenshots, no trademarks | "3 free answers a month" says what is free (2.3.2), not a price ✅. The screenshot words and store text still say "Week 1 free" / free weekly workouts: they must say "Days 1 to 3 free" before release (docs/publish-todo.md) ⚠️ |
 | 2.3.9 rights | own the images | AI-generated, fictional people, labelled ✅ |
 | 2.4.1 iPad | runs on iPad | iPhone-only; check in iPad compatibility mode (docs/device-testing.md) ⚠️ |
-| 2.5.2 self-contained | no downloaded code | The weeks are built on the iPhone; the Worker returns only JSON data that the app checks ✅ |
+| 2.5.2 self-contained | no downloaded code | The weeks are built on the iPhone; the Worker returns JSON data the app checks, and the Premium exercises' pictures, videos and texts (media, no code) ✅ |
+| 4.2.3 downloads | no required download on first launch | The free part is in the app; Premium exercises (about 9 MB) download after purchase, progress and Try again on Today ✅ |
 | 2.5.14 recording | consent + indicator | The mirror is preview only; iOS asks first and shows the camera dot ✅ |
 | 3.1.1, 3.1.2 subscriptions | IAP only; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`, the Worker re-checks RevenueCat ✅ |
-| 3.1.2(a) ongoing value | keeps giving value | Every exercise in weeks that never end, and the unlimited Coach ✅ |
+| 3.1.2(a) ongoing value | keeps giving value | Every day and every exercise in weeks that never end, and the unlimited Coach ✅ |
 | 3.1.2(c) what you get | describe it exactly | "Unlimited" Coach answers; the hidden ceiling (100 a day) only stops abuse, fair use in the Terms ✅ |
 | 4.3 spam | clearly different | Anatomy drawings (man or woman), voice-guided timer, mirror, AI Coach ✅ |
 | 4.5.4 notifications | not required, no marketing | Only the person's reminders; asked when one is turned on ✅ |

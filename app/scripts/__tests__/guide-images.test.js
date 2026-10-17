@@ -31,12 +31,15 @@ const layout = (areas = AREAS) =>
 const roots = [];
 afterAll(() => roots.forEach((root) => fs.rmSync(root, { recursive: true, force: true })));
 
-/** A tiny project: a catalog of `ids` and the given files under assets/guides. */
-function project(ids, files) {
+/** A tiny project: a catalog of `ids` (the `free` ones free) and the given files under assets/guides. */
+function project(ids, files, free = ids) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'guides-'));
   roots.push(root);
   fs.mkdirSync(path.join(root, 'src/constants'), { recursive: true });
-  fs.writeFileSync(path.join(root, 'src/constants/exercises.ts'), `export const EXERCISE_IDS = [${ids.map((id) => `'${id}'`).join(', ')}] as const;`);
+  fs.writeFileSync(
+    path.join(root, 'src/constants/exercises.ts'),
+    `export const EXERCISE_IDS = [${ids.map((id) => `'${id}'`).join(', ')}] as const;\nexport const FREE_EXERCISE_IDS: readonly ExerciseId[] = [${free.map((id) => `'${id}'`).join(', ')}];`,
+  );
   fs.writeFileSync(path.join(root, 'src/constants/faceMap.ts'), `export const FACE_AREAS = [${AREAS.map((a) => `'${a}'`).join(', ')}] as const;`);
   for (const [file, content] of Object.entries(files)) {
     const full = path.join(root, 'assets/guides', file);
@@ -131,6 +134,19 @@ describe('guide images (npm run images)', () => {
     const out = render(result);
     expect(out).toContain("relaxed: require('@/assets/guides/man/exercises/02-b/relaxed.webp')");
     expect(out).not.toContain('woman');
+  });
+
+  it('checks the Premium exercises too, but only the free ones go into the app', () => {
+    const ids = ['01-a', '02-b'];
+    const result = scan(project(ids, fullSet('man', ids), ['02-b']));
+    expect(result.guides.man.complete).toBe(true);
+    const out = render(result);
+    expect(out).toContain("thumb: require('@/assets/guides/man/exercises/02-b/thumb.webp')");
+    expect(out).not.toContain('01-a');
+    // The Worker serves the Premium pictures, so one missing is still reported.
+    const files = fullSet('man', ids);
+    delete files['man/exercises/01-a/thumb.webp'];
+    expect(scan(project(ids, files, ['02-b'])).guides.man.missing).toEqual(['man/exercises/01-a/thumb.webp']);
   });
 
   it('reports wrong sizes, frames that don\'t line up, stray files and an incomplete default guide', () => {

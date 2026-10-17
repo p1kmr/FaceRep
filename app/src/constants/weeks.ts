@@ -8,6 +8,12 @@ import type { ExerciseId } from './exercises';
 export const WEEKS = {
   daysPerWeek: 7,
   /**
+   * Without Premium, days 1 to this are open, made from the free exercises; from the next day on the weeks need
+   * Premium (they show locked, with one free exercise named). The Terms say the same (worker/src/pages.js FREE_DAYS,
+   * compared by npm run review:check).
+   */
+  freeDays: 3,
+  /**
    * From which week each step trains (the last one stays): percent of each exercise's usual reps, seconds added to its
    * hold (never to a jaw-caution one), and whether jaw-caution exercises are in yet. `note` names it on the Today card.
    */

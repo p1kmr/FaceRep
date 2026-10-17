@@ -1,9 +1,9 @@
 {
   "headline": "Desbloqueie todos os exercícios",
-  "subhead": "Os treinos semanais são grátis com uma seleção de exercícios. O Premium libera todos os exercícios e respostas ilimitadas do Coach de IA.",
+  "subhead": "Os dias 1 a {{free}} dos treinos semanais são grátis, com uma seleção de exercícios. O Premium libera todos os dias seguintes, todos os exercícios e respostas ilimitadas do Coach de IA.",
   "benefits": {
     "exercises": "Toda a biblioteca de exercícios, para cada área do rosto",
-    "weeks": "Todos os exercícios nos seus treinos semanais, uma combinação nova a cada dia",
+    "weeks": "Todos os dias dos seus treinos semanais, uma combinação nova a cada dia",
     "coach": "Respostas ilimitadas do Coach de IA sobre técnica e rotina"
   },
   "aiNote": "As perguntas ao Coach são respondidas por uma IA (Cloudflare Workers AI). Vamos pedir sua permissão antes da primeira pergunta.",

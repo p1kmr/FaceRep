@@ -6,6 +6,8 @@ import { View } from 'react-native';
 import { WeekDayCard } from '@/components/today/WeekDayCard';
 import { AppText } from '@/components/ui/AppText';
 import { Screen } from '@/components/ui/Screen';
+import { WEEKS } from '@/constants/weeks';
+import { usePremium } from '@/hooks/usePremium';
 import { useSettings } from '@/hooks/useSettings';
 import { useThisWeek } from '@/hooks/useThisWeek';
 import { makeStyles } from '@/theme/makeStyles';
@@ -13,16 +15,19 @@ import { makeStyles } from '@/theme/makeStyles';
 /**
  * This week, opened from the Today card's "Week · Day": day 1 to 7 with today's open, so the user sees what is
  * planned. Only this week (never a total); a later day starts after the one before it, so only today has Start.
+ * Without Premium, days after the free ones show locked, each naming one free exercise.
  */
 export default function WeekScreen() {
   const { t } = useTranslation('home');
   const styles = useStyles();
   const { goal } = useSettings();
+  const { isPremium } = usePremium();
   const week = useThisWeek();
   const [open, setOpen] = useState(() => week.days.find((d) => d.isToday)?.day ?? 0);
 
   const start = () => router.push({ pathname: '/workout', params: { kind: 'today' } });
   const showExercise = (id: string) => router.push({ pathname: '/exercise/[id]', params: { id } });
+  const unlock = () => router.push('/paywall');
 
   return (
     <Screen edges={['bottom']}>
@@ -41,9 +46,15 @@ export default function WeekScreen() {
           onToggle={() => setOpen(open === d.day ? 0 : d.day)}
           onExercise={showExercise}
           onStart={start}
+          onUnlock={unlock}
         />
       ))}
       <View style={styles.notes}>
+        {isPremium ? null : (
+          <AppText variant="footnote" muted>
+            {t('thisWeek.free', { free: WEEKS.freeDays })}
+          </AppText>
+        )}
         {week.next ? (
           <AppText variant="footnote" muted>
             {t('thisWeek.next', { week: week.week + 1, note: t(`today.notes.${week.next}`) })}

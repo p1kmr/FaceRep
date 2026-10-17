@@ -17,13 +17,14 @@ export const isGuideId = (v: unknown): v is GuideId => typeof v === 'string' && 
 
 /**
  * The two frames the player crossfades between, the square thumbnail cut from the exercise frame, and the exercise's
- * clip (a bundled MP4, from videos/tools/app.py) when it has one.
+ * clip (an MP4 from videos/tools/app.py) when it has one. Free exercises: bundled (static require). Premium ones: files
+ * the Worker sent after purchase, kept on the iPhone (services/content), so the clip is then a file URI.
  */
 export interface ExerciseImages {
   relaxed: ImageSourcePropType;
   exercise: ImageSourcePropType;
   thumb: ImageSourcePropType;
-  clip?: number;
+  clip?: number | string;
 }
 
 /** The face map: the grey face, where each area is, and each area's red layer (cut to its box). */
@@ -33,9 +34,12 @@ export interface FaceMapImages {
   areas: Record<FaceArea, ImageSourcePropType>;
 }
 
-/** One guide's full set: the hero photos, the face map and every exercise of the catalog. */
+/**
+ * One guide's set: the hero photos, the face map and the exercises the app can show: in the app the free ones, plus,
+ * with Premium, the Premium ones once they're on the iPhone (hooks/useGuide.ts useGuideImages).
+ */
 export interface GuideImages {
   hero: { home: ImageSourcePropType; paywall: ImageSourcePropType };
   map: FaceMapImages;
-  exercises: Record<ExerciseId, ExerciseImages>;
+  exercises: Partial<Record<ExerciseId, ExerciseImages>>;
 }

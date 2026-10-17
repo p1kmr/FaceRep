@@ -5,6 +5,9 @@
  */
 import { FREE_PER_MONTH } from './lib/access.js';
 
+/** Days of the weekly workouts that are free: the same as WEEKS.freeDays in the app (npm run review:check compares them). */
+export const FREE_DAYS = 3;
+
 const UPDATED = { privacy: 'October 17, 2026', terms: 'October 17, 2026' };
 
 const escape = (text) =>
@@ -93,6 +96,13 @@ the mirror), or not use the mirror at all.</p>
   <td>To answer your question</td>
 </tr>
 <tr>
+  <td><strong>Premium download</strong>: the random app ID</td>
+  <td>With Premium: after you buy or restore, and about once a day to check for updated exercises</td>
+  <td>Our server on Cloudflare, which asks RevenueCat whether the ID has an active subscription</td>
+  <td>To send you the Premium exercises (their texts, drawings and short videos). The app keeps them on your iPhone, so
+  they work offline. Nothing about your workouts is sent.</td>
+</tr>
+<tr>
   <td><strong>Purchase data</strong>: the random app ID, App Store transaction and receipt details, device and app version</td>
   <td>When you view plans, buy, or restore purchases</td>
   <td>Apple (payment) and RevenueCat (subscription management)</td>
@@ -104,19 +114,18 @@ the mirror), or not use the mirror at all.</p>
 <p>Our server does not store your questions or the AI answers, and it never logs request contents. Cloudflare states that
 it does not use customer content sent to Workers AI to train models. To prevent abuse our server keeps two daily counters:
 one keyed by the random app ID and one keyed by a one-way, secret-keyed hash of your IP address (the IP itself is never
-stored). They are deleted automatically after about two days. For the free monthly allowance it also keeps a count of
-free answers per random app ID, deleted after about two months. Cloudflare processes your IP address to deliver the request.</p>
-<p>To check that a request really comes from ${c.app} on an iPhone, the app sends a one-time Apple DeviceCheck token, which
-our server passes to Apple and never stores. Apple lets us keep one yes/no mark per iPhone: whether its free Coach answers
-for the month are used up, so deleting and reinstalling the app doesn't reset them. The mark contains nothing about you. To
-check Premium for the Coach, our server asks RevenueCat whether the random app ID has an active
-subscription.</p>
+stored). They are deleted automatically after about two days. Premium downloads have their own counters of the same kind.
+For the free monthly allowance it also keeps a count of free answers per random app ID, deleted after about two months.
+Cloudflare processes your IP address to deliver the request.</p>
+<p>To check that a request really comes from ${c.app} on an iPhone, the app sends a one-time Apple DeviceCheck token with
+free Coach questions, which our server passes to Apple to check that it is valid and never stores. To check Premium for the
+Coach and for the Premium downloads, our server asks RevenueCat whether the random app ID has an active subscription.</p>
 
 <h2>Service providers</h2>
 <ul>
   <li><strong>Cloudflare, Inc.</strong>: hosts our server and runs the AI model (Workers AI).</li>
   <li><strong>RevenueCat, Inc.</strong>: manages subscriptions and purchases.</li>
-  <li><strong>Apple Inc.</strong>: App Store payments, DeviceCheck (the free-answers mark above), and optional crash reports
+  <li><strong>Apple Inc.</strong>: App Store payments, DeviceCheck (the token check above), and optional crash reports
   and app analytics you choose to share with developers in iOS settings.</li>
 </ul>
 <p>We share data with these providers only to run ${c.app}, and each of them protects it at least as well as this
@@ -178,8 +187,10 @@ AI Coach answers are generated automatically and may be wrong.</p>
 <h2>Premium subscriptions and purchases</h2>
 <ul>
   <li>Premium is offered as auto-renewing weekly, monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
-  <li>A set of exercises, a daily workout made from them and ${FREE_PER_MONTH} AI Coach answers a month are free. Premium
-  unlocks every exercise (also in the daily workout) and unlimited AI Coach answers for personal use (see fair use below).</li>
+  <li>A set of exercises, the first ${FREE_DAYS} days of the weekly workouts (made from those exercises) and ${FREE_PER_MONTH}
+  AI Coach answers a month are free. Premium unlocks every day of the weekly workouts, every exercise and
+  unlimited AI Coach answers for personal use (see fair use below). The Premium exercises are downloaded to your iPhone
+  once you subscribe, so the first time needs an internet connection.</li>
   <li>Payment is charged to your Apple Account at confirmation of purchase.</li>
   <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the period.</li>
   <li>You can manage and cancel subscriptions in your Apple Account settings after purchase.</li>

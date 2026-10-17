@@ -45,6 +45,9 @@ export function weekDay(done: number): WeekDay {
   return { week: Math.floor(n / WEEKS.daysPerWeek) + 1, day, easy: day === WEEKS.daysPerWeek };
 }
 
+/** Without Premium only days 1 to WEEKS.freeDays are open: true when the day after `done` finished days is one. */
+export const isFreeDay = (done: number) => Math.max(0, Math.floor(done)) < WEEKS.freeDays;
+
 /** Workout days (easy days left out) among the first `done` days: moves the daily mix along. */
 export const workoutsBefore = (done: number) => {
   const n = Math.max(0, Math.floor(done));

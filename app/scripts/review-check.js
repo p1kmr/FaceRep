@@ -103,14 +103,19 @@ function flatten(obj, prefix = '') {
   }, {});
 }
 
-/** Every user-visible text as { where, lang, text }: app strings, iOS texts, store listing, screenshot words, web pages. */
+/**
+ * Every user-visible text as { where, lang, text }: app strings, the Premium exercises' texts (sent by the Worker),
+ * iOS texts, store listing, screenshot words, web pages.
+ */
 function texts() {
   const out = [];
   const locales = 'app/src/i18n/locales';
   for (const lang of fs.readdirSync(path.join(REPO, locales)).filter((l) => !l.startsWith('.'))) {
-    for (const file of fs.readdirSync(path.join(REPO, locales, lang)).filter((f) => f.endsWith('.json'))) {
-      const where = `${locales}/${lang}/${file}`;
-      for (const [key, text] of Object.entries(flatten(JSON.parse(read(where))))) out.push({ where: `${where} "${key}"`, lang, text });
+    for (const dir of [locales, PREMIUM_LOCALES]) {
+      for (const file of fs.readdirSync(path.join(REPO, dir, lang)).filter((f) => f.endsWith('.json'))) {
+        const where = `${dir}/${lang}/${file}`;
+        for (const [key, text] of Object.entries(flatten(JSON.parse(read(where))))) out.push({ where: `${where} "${key}"`, lang, text });
+      }
     }
     const native = `app/locales-native/${lang}.json`;
     for (const [key, text] of Object.entries(JSON.parse(read(native)))) out.push({ where: `${native} "${key}"`, lang, text });
@@ -119,6 +124,28 @@ function texts() {
   for (const [lang, block] of Object.entries(screenshotBlocks())) out.push({ where: `store-screenshots/capture/copy.js (${lang})`, lang, text: block });
   out.push({ where: 'worker/src/pages.js', lang: 'en', text: read('worker/src/pages.js') });
   return out;
+}
+
+/** The Premium exercises' texts: never in the app, the Worker sends them after purchase (worker/scripts/content.js). */
+const PREMIUM_LOCALES = 'worker/content/locales';
+
+/** The catalog from app/src/constants/exercises.ts: every id, the free ones, and an id's i18n key. */
+function catalog() {
+  const source = read('app/src/constants/exercises.ts');
+  const list = (re) => [...(source.match(re)?.[1] ?? '').matchAll(/'([^']+)'/g)].map((m) => m[1]);
+  const ids = list(/EXERCISE_IDS = \[([\s\S]*?)\] as const/);
+  const free = list(/FREE_EXERCISE_IDS[^=]*= \[([\s\S]*?)\];/);
+  const keyOf = (id) => source.match(new RegExp(`'${id}': \\{[^}]*key: '(\\w+)'`))?.[1];
+  return { ids, free, keyOf };
+}
+
+/** Every .ts/.tsx file under app/src, as [path, text]. */
+function appSources(dir = 'app/src') {
+  return fs.readdirSync(path.join(REPO, dir), { withFileTypes: true }).flatMap((entry) => {
+    const file = `${dir}/${entry.name}`;
+    if (entry.isDirectory()) return entry.name === '__tests__' ? [] : appSources(file);
+    return /\.tsx?$/.test(entry.name) ? [[file, read(file)]] : [];
+  });
 }
 
 const STORE_LANGS = { 'English (US)': 'en', 'Spanish (es)': 'es', 'Portuguese (Brazil)': 'pt-BR', German: 'de', French: 'fr', Italian: 'it' };
@@ -202,6 +229,27 @@ function check() {
     if (ceiling.test(text)) problems.push(`${where}: names the fair-use ceiling (${perUser} a day); the Coach is sold as unlimited, never show the number`);
   }
   if (!screenshotBlocks().en?.includes(`${free} FREE ANSWERS A MONTH`)) problems.push(`copy.js (en) slide 8 must say "${free} FREE ANSWERS A MONTH"`);
+
+  // The Premium exercises (texts, drawings, clips) never ship in the app: only the Worker sends them, after RevenueCat
+  // confirms Premium, so a patched app can't unlock them (docs/premium.md). Their words follow the same rules as above.
+  const { ids, free: freeIds, keyOf } = catalog();
+  if (!ids.length || !freeIds.length) problems.push('app/src/constants/exercises.ts: EXERCISE_IDS or FREE_EXERCISE_IDS not found');
+  const premium = ids.filter((id) => !freeIds.includes(id));
+  for (const [file, source] of appSources()) {
+    for (const id of premium) {
+      if (source.includes(`/exercises/${id}/`)) problems.push(`${file} bundles a picture or clip of the Premium exercise ${id}: only free exercises go into the app (npm run images)`);
+    }
+  }
+  for (const lang of fs.readdirSync(path.join(REPO, 'app/src/i18n/locales')).filter((l) => !l.startsWith('.'))) {
+    const items = JSON.parse(read(`app/src/i18n/locales/${lang}/exercises.json`)).items ?? {};
+    for (const id of premium) {
+      if (items[keyOf(id)]) problems.push(`app/src/i18n/locales/${lang}/exercises.json has the Premium exercise "${keyOf(id)}": its texts belong in ${PREMIUM_LOCALES}`);
+    }
+  }
+  // The free days the app gives are the ones the Terms promise (2.3.1).
+  if (number('app/src/constants/weeks.ts', /freeDays:\s*(\d+)/) !== number('worker/src/pages.js', /FREE_DAYS\s*=\s*(\d+)/)) {
+    problems.push('WEEKS.freeDays (app/src/constants/weeks.ts) differs from FREE_DAYS in the Terms (worker/src/pages.js)');
+  }
 
   // No tracking (5.1.2, App Privacy labels).
   const pkg = JSON.parse(read('app/package.json'));

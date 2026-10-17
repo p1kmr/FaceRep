@@ -21,7 +21,12 @@
     "doneDay": "Giorno {{day}} fatto. Il giorno {{next}} sarà pronto domani.",
     "doneWeek": "Settimana {{week}} fatta. La settimana {{next}} sarà pronta domani.",
     "doneMilestone": "{{weeks}} settimane di pratica. La settimana {{next}} sarà pronta domani.",
-    "unlock": "Sblocca tutti gli esercizi"
+    "unlock": "Sblocca tutti gli esercizi",
+    "lockedDay": "I giorni da 1 a {{free}} sono gratis. Premium sblocca il giorno {{day}} e tutti quelli dopo.",
+    "unlockDay": "Sblocca il giorno {{day}}",
+    "doneFree": "Giorno {{day}} fatto. Il giorno {{next}} arriva con Premium.",
+    "downloading": "Preparo i tuoi esercizi Premium… {{percent}}%",
+    "downloadFailed": "Non è stato possibile scaricare i tuoi esercizi Premium."
   },
   "thisWeek": {
     "title": "Settimana {{week}}",
@@ -31,7 +36,9 @@
     "done": "Fatto",
     "next": "Settimana {{week}}: {{note}}",
     "how": "Un nuovo giorno arriva il giorno dopo ogni allenamento. Se salti un giorno, ti aspetta.",
-    "open": "Mostra gli allenamenti di questa settimana"
+    "open": "Mostra gli allenamenti di questa settimana",
+    "locked": "Premium",
+    "free": "I giorni da 1 a {{free}} sono gratis. Premium sblocca tutti quelli dopo."
   },
   "hello": {
     "morning": "Buongiorno",

@@ -4,11 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 
 import { EXERCISES, type ExerciseId } from '@/constants/exercises';
+import { useExerciseAccess } from '@/hooks/useContent';
 import { useGuideImages } from '@/hooks/useGuide';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { AppText } from '../ui/AppText';
+import { LockedPicture } from './LockedPicture';
 
 interface ExerciseRowProps {
   id: ExerciseId;
@@ -23,13 +25,41 @@ interface ExerciseRowProps {
   hideReps?: boolean;
 }
 
-/** Thumbnail, name, main muscle and reps × hold. */
+/**
+ * Thumbnail, name, main muscle and reps × hold. A locked exercise (Premium, or not on this iPhone yet) shows only that
+ * it's a Premium exercise and its area, with a blurred stand-in picture: its name and picture aren't in the app.
+ */
 export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, hideReps }: ExerciseRowProps) {
   const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
   const images = useGuideImages();
+  const lock = useExerciseAccess().lockOf(id);
   const e = EXERCISES[id];
+  if (lock) {
+    const title = t('exercises:locked.name');
+    const meta = lock === 'premium' ? t(`common:programs.${e.program}`) : t(`exercises:locked.${lock}`);
+    return (
+      <Pressable
+        onPress={onPress}
+        disabled={!onPress}
+        accessibilityRole="button"
+        accessibilityLabel={`${title}, ${meta}`}
+        style={({ pressed }) => [styles.row, divider && styles.divider, pressed && styles.pressed]}
+      >
+        <LockedPicture id={id} lock={lock} style={styles.thumb} />
+        <View style={styles.text}>
+          <AppText variant="headline" muted numberOfLines={1}>
+            {title}
+          </AppText>
+          <AppText variant="footnote" muted numberOfLines={1}>
+            {meta}
+          </AppText>
+        </View>
+        {onPress ? <SymbolView name="chevron.right" size={14} weight="semibold" tintColor={colors.textMuted} /> : null}
+      </Pressable>
+    );
+  }
   const name = t(`exercises:items.${e.key}.name`);
   const muscle = t(`exercises:muscles.${e.muscles[0]}`);
   const meta = hideReps ? muscle : `${muscle} · ${t('common:reps', { reps: reps ?? e.reps, hold: holdSec ?? e.holdSec })}`;
@@ -41,7 +71,7 @@ export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, hideRep
       accessibilityLabel={`${name}, ${meta}`}
       style={({ pressed }) => [styles.row, divider && styles.divider, pressed && styles.pressed]}
     >
-      <Image source={images.exercises[id].thumb} style={styles.thumb} contentFit="cover" />
+      <Image source={images.exercises[id]?.thumb} style={styles.thumb} contentFit="cover" />
       <View style={styles.text}>
         <AppText variant="headline" numberOfLines={1}>
           {name}

@@ -1,9 +1,9 @@
 {
   "headline": "Unlock every exercise",
-  "subhead": "The weekly workouts are free with a set of exercises. Premium adds every exercise and unlimited AI Coach answers.",
+  "subhead": "Days 1 to {{free}} of the weekly workouts are free, with a set of exercises. Premium unlocks every day after them, every exercise and unlimited AI Coach answers.",
   "benefits": {
     "exercises": "The whole exercise library, for every area of the face",
-    "weeks": "Every exercise in your weekly workouts, a new mix each day",
+    "weeks": "Every day of your weekly workouts, a new mix each day",
     "coach": "Unlimited AI Coach answers on technique and routine"
   },
   "aiNote": "Coach questions are answered by an AI (Cloudflare Workers AI). You'll be asked for permission before your first question.",

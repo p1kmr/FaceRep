@@ -36,7 +36,7 @@ export function GuidePicker({ value, onChange }: { value: GuideId | null; onChan
             }}
             style={[styles.card, selected && styles.selected]}
           >
-            <Image source={guideImages(g).exercises[PREVIEW].thumb} style={styles.image} contentFit="cover" accessible={false} />
+            <Image source={guideImages(g).exercises[PREVIEW]?.thumb} style={styles.image} contentFit="cover" accessible={false} />
             <View style={styles.label}>
               <AppText variant="headline">{t(`guides.${g}`)}</AppText>
               <View style={[styles.radio, selected && styles.radioOn]}>

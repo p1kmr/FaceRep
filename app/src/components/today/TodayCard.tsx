@@ -1,10 +1,12 @@
 import { SymbolView } from 'expo-symbols';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import type { Goal } from '@/constants/exercises';
 import { areasOfAll, type FaceArea } from '@/constants/faceMap';
+import { WEEKS } from '@/constants/weeks';
+import { useExerciseAccess, usePremiumContent } from '@/hooks/useContent';
 import { useGuideImages } from '@/hooks/useGuide';
 import { useTheme } from '@/hooks/useTheme';
 import type { useTodayWorkout } from '@/hooks/useTodayWorkout';
@@ -36,14 +38,18 @@ const MAP_ASPECT = 720 / 974;
 
 /**
  * Today's workout as the hero: where it is in the weeks ("Week 6 · Day 3", never a total), the face with the areas it
- * works lit in red (tap one to learn about it; tap "Week · Day" for the whole week), the areas as the title with the week's step under them, the exercises
- * and one big button. Without Premium it says that more exercises come with it.
+ * works lit in red (tap one to learn about it; tap "Week · Day" for the whole week), the areas as the title with the
+ * week's step under them, the exercises and one big button. Without Premium it says that more exercises come with it,
+ * and a day after the free ones is locked: its free exercise shows, the others are blurred, and the button unlocks.
+ * With Premium, until the Premium exercises are on the iPhone, it shows the download instead of Start.
  */
 export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek, onArea }: TodayCardProps) {
   const { t } = useTranslation(['home', 'common', 'exercises']);
   const styles = useStyles();
   const { colors } = useTheme();
   const { map } = useGuideImages();
+  const { canUse } = useExerciseAccess();
+  const content = usePremiumContent();
   const [box, setBox] = useState({ width: 0, height: 0 });
   const ids = workout.items.map((i) => i.id);
   const areas = areasOfAll(ids);
@@ -53,11 +59,16 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek,
   const { week, day, easy } = workout;
   const where = easy ? t('home:today.weekEasy', { week }) : t('home:today.week', { week, day });
   const note = easy ? t('home:today.easy') : t(`home:today.notes.${workout.note}`);
-  const doneText = !easy
-    ? t('home:today.doneDay', { day, next: day + 1 })
-    : isMilestone(week)
-      ? t('home:today.doneMilestone', { weeks: week, next: week + 1 })
-      : t('home:today.doneWeek', { week, next: week + 1 });
+  const doneText = workout.nextLocked
+    ? t('home:today.doneFree', { day, next: day + 1 })
+    : !easy
+      ? t('home:today.doneDay', { day, next: day + 1 })
+      : isMilestone(week)
+        ? t('home:today.doneMilestone', { weeks: week, next: week + 1 })
+        : t('home:today.doneWeek', { week, next: week + 1 });
+  // Premium, but not every exercise of today is on this iPhone yet (services/content).
+  const missing = !workout.locked && ids.some((id) => !canUse(id));
+  const failed = missing && content.status === 'failed';
 
   // Frame the lit areas: the face is cropped to the card, and moved up so a neck day shows the neck.
   const mapHeight = box.width / MAP_ASPECT;
@@ -112,6 +123,24 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek,
             <SymbolView name="checkmark.circle.fill" size={24} tintColor={colors.success} />
             <AppText style={styles.flex}>{doneText}</AppText>
           </View>
+        ) : workout.locked ? (
+          <View style={styles.row}>
+            <ExerciseAvatars ids={ids} />
+            <AppText variant="footnote" muted style={styles.flex}>
+              {t('home:today.lockedDay', { free: WEEKS.freeDays, day })}
+            </AppText>
+          </View>
+        ) : missing ? (
+          <View style={styles.row} accessibilityLiveRegion="polite">
+            {failed ? (
+              <SymbolView name="exclamationmark.triangle.fill" size={22} tintColor={colors.warning} />
+            ) : (
+              <ActivityIndicator color={colors.primary} />
+            )}
+            <AppText variant="footnote" muted style={styles.flex}>
+              {failed ? t('home:today.downloadFailed') : t('home:today.downloading', { percent: Math.round(content.progress * 100) })}
+            </AppText>
+          </View>
         ) : (
           <View style={styles.row}>
             <ExerciseAvatars ids={ids} />
@@ -120,16 +149,22 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek,
             </AppText>
           </View>
         )}
-        <Button
-          title={workout.done ? t('home:today.again') : t('home:today.start')}
-          variant={workout.done ? 'secondary' : 'primary'}
-          onPress={onStart}
-          icon={workout.done ? undefined : 'play.fill'}
-          size={workout.done ? 'regular' : 'large'}
-          disabled={!ids.length}
-          fullWidth
-        />
-        {isPremium ? null : (
+        {workout.locked ? (
+          <Button title={t('home:today.unlockDay', { day })} onPress={onUnlock} icon="lock.fill" size="large" fullWidth />
+        ) : failed ? (
+          <Button title={t('exercises:locked.retry')} onPress={content.retry} size="large" fullWidth />
+        ) : (
+          <Button
+            title={workout.done ? t('home:today.again') : t('home:today.start')}
+            variant={workout.done ? 'secondary' : 'primary'}
+            onPress={onStart}
+            icon={workout.done ? undefined : 'play.fill'}
+            size={workout.done ? 'regular' : 'large'}
+            disabled={!ids.length || missing}
+            fullWidth
+          />
+        )}
+        {isPremium || workout.locked ? null : (
           <Button title={t('home:today.unlock')} variant="ghost" onPress={onUnlock} fullWidth />
         )}
       </View>

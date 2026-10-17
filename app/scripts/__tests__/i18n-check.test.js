@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 
-const { check } = require('../i18n-check');
+const { check, PREMIUM_ROOT } = require('../i18n-check');
 const { SUPPORTED_LANGUAGES } = require('../../src/constants/i18n');
 
 const roots = [];
@@ -20,8 +20,10 @@ function locales(langs) {
 }
 
 describe('i18n check', () => {
-  it('every app language is complete', () => {
+  it('every app language is complete, and so are the Premium exercises the Worker sends', () => {
     expect(check()).toEqual([]);
+    expect(check(PREMIUM_ROOT)).toEqual([]);
+    expect(fs.readdirSync(PREMIUM_ROOT).sort()).toEqual([...SUPPORTED_LANGUAGES].sort());
   });
 
   it('every supported language has a folder and a native-texts file, and nothing else does', () => {

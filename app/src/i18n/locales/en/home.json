@@ -21,7 +21,12 @@
     "doneDay": "Day {{day}} done. Day {{next}} is ready tomorrow.",
     "doneWeek": "Week {{week}} done. Week {{next}} is ready tomorrow.",
     "doneMilestone": "{{weeks}} weeks of practice. Week {{next}} is ready tomorrow.",
-    "unlock": "Unlock every exercise"
+    "unlock": "Unlock every exercise",
+    "lockedDay": "Days 1 to {{free}} are free. Premium unlocks Day {{day}} and every day after it.",
+    "unlockDay": "Unlock Day {{day}}",
+    "doneFree": "Day {{day}} done. Day {{next}} comes with Premium.",
+    "downloading": "Getting your Premium exercises… {{percent}}%",
+    "downloadFailed": "Your Premium exercises couldn't be downloaded."
   },
   "thisWeek": {
     "title": "Week {{week}}",
@@ -31,7 +36,9 @@
     "done": "Done",
     "next": "Week {{week}}: {{note}}",
     "how": "A new day comes the day after each workout. If you miss a day, it waits for you.",
-    "open": "Shows this week's workouts"
+    "open": "Shows this week's workouts",
+    "locked": "Premium",
+    "free": "Days 1 to {{free}} are free. Premium unlocks every day after them."
   },
   "hello": {
     "morning": "Good morning",

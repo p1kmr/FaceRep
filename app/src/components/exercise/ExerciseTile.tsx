@@ -4,46 +4,68 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 
 import { EXERCISES, type ExerciseId } from '@/constants/exercises';
+import { useExerciseAccess } from '@/hooks/useContent';
 import { useGuideImages } from '@/hooks/useGuide';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { AppText } from '../ui/AppText';
+import { LockedPicture } from './LockedPicture';
 
 interface ExerciseTileProps {
   id: ExerciseId;
   onPress: () => void;
   /** Done today: a check on the picture. */
   done?: boolean;
-  /** Needs Premium: a lock on the picture. */
-  locked?: boolean;
 }
 
-/** A grid tile: the exercise drawing (muscle in red), name, main muscle and reps × hold; a lock when it needs Premium. */
-export function ExerciseTile({ id, onPress, done, locked }: ExerciseTileProps) {
+/**
+ * A grid tile: the exercise drawing (muscle in red), name, main muscle and reps × hold. A locked one (Premium, or not
+ * on this iPhone yet) shows a blurred stand-in with a lock and only "Premium exercise" and its area.
+ */
+export function ExerciseTile({ id, onPress, done }: ExerciseTileProps) {
   const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
   const images = useGuideImages();
+  const lock = useExerciseAccess().lockOf(id);
   const e = EXERCISES[id];
+  if (lock) {
+    const title = t('exercises:locked.name');
+    const meta = lock === 'premium' ? t(`common:programs.${e.program}`) : t(`exercises:locked.${lock}`);
+    return (
+      <Pressable
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={`${title}, ${meta}`}
+        style={({ pressed }) => [styles.tile, pressed && styles.pressed]}
+      >
+        <LockedPicture id={id} lock={lock} kind="exercise" iconSize={18} style={styles.picture} />
+        <View style={styles.text}>
+          <AppText variant="headline" muted numberOfLines={1} style={styles.name}>
+            {title}
+          </AppText>
+          <AppText variant="caption" muted numberOfLines={1}>
+            {meta}
+          </AppText>
+        </View>
+      </Pressable>
+    );
+  }
   const name = t(`exercises:items.${e.key}.name`);
   const meta = `${t(`exercises:muscles.${e.muscles[0]}`)} · ${t('common:reps', { reps: e.reps, hold: e.holdSec })}`;
   return (
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={locked ? `${name}, ${meta}, ${t('exercises:premium')}` : `${name}, ${meta}`}
+      accessibilityLabel={`${name}, ${meta}`}
       style={({ pressed }) => [styles.tile, pressed && styles.pressed]}
     >
       <View style={styles.picture}>
-        <Image source={images.exercises[id].exercise} style={styles.image} contentFit="cover" contentPosition="top" transition={150} />
+        <Image source={images.exercises[id]?.exercise} style={styles.image} contentFit="cover" contentPosition="top" transition={150} />
         {done ? (
           <View style={styles.done}>
             <SymbolView name="checkmark.circle.fill" size={22} tintColor={colors.success} />
-          </View>
-        ) : locked ? (
-          <View style={styles.lock}>
-            <SymbolView name="lock.fill" size={12} tintColor={colors.onImage} />
           </View>
         ) : null}
       </View>
@@ -73,17 +95,6 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   picture: { aspectRatio: 0.86, backgroundColor: colors.plate },
   image: { width: '100%', height: '100%' },
   done: { position: 'absolute', top: tokens.space.sm, right: tokens.space.sm, borderRadius: tokens.radius.pill, backgroundColor: colors.surface },
-  lock: {
-    position: 'absolute',
-    top: tokens.space.sm,
-    right: tokens.space.sm,
-    width: 26,
-    height: 26,
-    borderRadius: tokens.radius.pill,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.overlay,
-  },
   text: { padding: tokens.space.md, gap: 2 },
   name: { fontSize: tokens.font.size.body, fontWeight: tokens.font.weight.semibold },
 }));

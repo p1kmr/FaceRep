@@ -67,8 +67,13 @@ Delete the app first so onboarding and permissions start fresh.
 - [ ] **Languages:** Settings → Language opens FaceRep in the Settings app → Language → Español: the app restarts in
       Spanish (texts, voice, reminder notifications, Coach replies). Check long German words fit (Deutsch).
 - [ ] **Reminders:** add one for 2 minutes from now; the notification arrives; turning it off cancels it.
-- [ ] **Premium (sandbox):** tap a locked exercise in the library → paywall → buy → every exercise opens and Today's workout
-      uses them; delete the app, reinstall, Restore.
+- [ ] **Free days and Premium download (sandbox):** without Premium, days 1–3 work; the library shows the Premium
+      exercises only as "Premium exercise" with a blurred picture and a lock (no names). After day 3, Today shows Day 4
+      locked: one exercise named, the others blurred, "Unlock Day 4"; the week page shows days 4–7 the same way. Unlock →
+      buy → Today shows "Getting your Premium exercises… %", then Start; every exercise opens in the library with its
+      name, steps and video. Turn on Airplane Mode and force-quit: everything still works. Delete the app, reinstall,
+      Restore: the Premium exercises download again. With the Worker unreachable (Wi-Fi off before buying), Today says
+      they couldn't be downloaded, and Try again works once back online.
 - [ ] **Weeks:** Today says "Week 1 · Day 1" with no jaw exercises; finish it → "Day 1 done. Day 2 is ready tomorrow.";
       the next day it says Day 2 (a missed day just waits). Day 7 is the easy day. Tap "Week 1 · Day 1": the week page
       lists day 1 to 7, today open with Start, a later day opens to its exercises, a done day is green with "Done" and

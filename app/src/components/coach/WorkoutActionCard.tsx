@@ -5,6 +5,7 @@ import { Pressable, View } from 'react-native';
 
 import { EXERCISES } from '@/constants/exercises';
 import { useChat } from '@/hooks/useChat';
+import { useExerciseAccess } from '@/hooks/useContent';
 import { useTheme } from '@/hooks/useTheme';
 import type { LogAction, RoutineAction } from '@/services/ai/types';
 import { defaultItem, workoutSeconds } from '@/services/workout/items';
@@ -30,12 +31,15 @@ export function WorkoutActionCard({ proposed, onResolve }: WorkoutActionCardProp
   const { colors } = useTheme();
   const styles = useStyles();
   const { previewLog } = useChat();
+  const { canUse } = useExerciseAccess();
   const { action, status } = proposed;
   const log = action.type === 'log' ? action : null;
   const saving = log ? previewLog(log) : null;
-  const ids = log ? (saving?.items.map((i) => i.id) ?? []) : action.type === 'routine' ? action.exercises : [];
+  // A routine runs only what this iPhone can show (the workout screen leaves the rest out).
+  const ids = log ? (saving?.items.map((i) => i.id) ?? []) : action.type === 'routine' ? action.exercises.filter(canUse) : [];
   const seconds = log ? (saving?.durationSec ?? 0) : workoutSeconds(ids.map(defaultItem));
-  const names = ids.map((id) => t(`exercises:items.${EXERCISES[id].key}.name`));
+  // A saved workout may name a Premium exercise that isn't on this iPhone: it says so, never its name.
+  const names = ids.map((id) => (canUse(id) ? t(`exercises:items.${EXERCISES[id].key}.name`) : t('exercises:locked.name')));
   const listed = names.length > 4 ? [...names.slice(0, 3), t('coach:actions.more', { count: names.length - 3 })] : names;
   const meta = [ids.length ? t('common:exercises', { count: ids.length }) : '', seconds ? t('common:minutes', { count: toMinutes(seconds) }) : '']
     .filter(Boolean)

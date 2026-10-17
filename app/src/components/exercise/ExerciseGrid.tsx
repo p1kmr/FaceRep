@@ -1,16 +1,14 @@
 import { router } from 'expo-router';
 import { View } from 'react-native';
 
-import { isFreeExercise, type ExerciseId } from '@/constants/exercises';
-import { usePremium } from '@/hooks/usePremium';
+import type { ExerciseId } from '@/constants/exercises';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { ExerciseTile } from './ExerciseTile';
 
-/** Exercises as a two-column grid; a tap opens the exercise page. Without Premium the locked ones show a lock. */
+/** Exercises as a two-column grid; a tap opens the exercise page. A locked one shows locked (ExerciseTile). */
 export function ExerciseGrid({ ids, doneToday }: { ids: readonly ExerciseId[]; doneToday: ReadonlySet<ExerciseId> }) {
   const styles = useStyles();
-  const { isPremium } = usePremium();
   return (
     <View style={styles.grid}>
       {ids.map((id) => (
@@ -18,7 +16,6 @@ export function ExerciseGrid({ ids, doneToday }: { ids: readonly ExerciseId[]; d
           key={id}
           id={id}
           done={doneToday.has(id)}
-          locked={!isPremium && !isFreeExercise(id)}
           onPress={() => router.push({ pathname: '/exercise/[id]', params: { id } })}
         />
       ))}

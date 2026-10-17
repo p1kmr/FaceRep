@@ -4,7 +4,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test test/*.test.js",
+    "content": "node scripts/content.js",
+    "predev": "npm run content",
     "dev": "wrangler dev",
+    "predeploy": "npm run content",
     "deploy": "wrangler deploy",
     "db:migrate": "wrangler d1 migrations apply facerep-limits --remote"
   },

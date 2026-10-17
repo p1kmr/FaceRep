@@ -34,16 +34,16 @@
     "pauseVideo": "Pausar vídeo",
     "unlock": "Desbloquear com o Premium"
   },
+  "locked": {
+    "name": "Exercício Premium",
+    "downloading": "Baixando…",
+    "failed": "Não baixado",
+    "premiumBody": "Este exercício faz parte do Premium. Os passos e o vídeo são baixados no seu iPhone quando você assina.",
+    "downloadingBody": "Seus exercícios Premium estão sendo baixados neste iPhone. Na primeira vez, leva um momento.",
+    "failedBody": "Não foi possível baixar seus exercícios Premium. Verifique sua conexão e tente de novo.",
+    "retry": "Tentar de novo"
+  },
   "items": {
-    "jawClench": {
-      "name": "Contração da mandíbula",
-      "cue": "Aperte os dentes de trás e sinta os músculos da mandíbula saltarem.",
-      "steps": [
-        "Sente-se com a postura ereta, lábios fechados e ombros relaxados.",
-        "Morda com os dentes de trás usando cerca de metade da sua força.",
-        "Segure e sinta o músculo na frente da orelha se contrair. Depois, solte devagar."
-      ]
-    },
     "chinLift": {
       "name": "Elevação do queixo",
       "cue": "Incline a cabeça para trás e empurre o lábio inferior por cima do superior.",
@@ -51,33 +51,6 @@
         "Sente-se ou fique em pé com as costas retas.",
         "Incline a cabeça para trás até olhar para o teto.",
         "Empurre o lábio inferior para cima, por cima do superior, e sinta a frente do pescoço alongar."
-      ]
-    },
-    "jawJut": {
-      "name": "Projeção da mandíbula",
-      "cue": "Leve a mandíbula para a frente e erga levemente o queixo.",
-      "steps": [
-        "Olhe para a frente e incline o queixo um pouco para cima.",
-        "Deslize a mandíbula para a frente até sentir um alongamento embaixo do queixo.",
-        "Segure e depois volte a mandíbula devagar."
-      ]
-    },
-    "mewing": {
-      "name": "Mewing",
-      "cue": "Apoie a língua inteira de leve no céu da boca, inclusive a parte de trás.",
-      "steps": [
-        "Feche os lábios e deixe os dentes se encostarem de leve, sem apertar.",
-        "Coloque a ponta da língua onde ela fica quando você diz “n”, logo atrás dos dentes da frente de cima. Depois encoste o resto da língua, inclusive a parte de trás, no céu da boca.",
-        "Mantenha um contato leve e uniforme: é uma posição de repouso, não uma pressão forte. Respire pelo nariz e segure."
-      ]
-    },
-    "neckStretch": {
-      "name": "Alongamento lateral do pescoço",
-      "cue": "Incline a orelha em direção ao ombro e mantenha os ombros baixos.",
-      "steps": [
-        "Sente-se com a postura ereta e solte os ombros.",
-        "Incline devagar a orelha direita em direção ao ombro direito.",
-        "Segure o alongamento, volte ao centro e troque de lado na próxima repetição."
       ]
     },
     "cheekLift": {
@@ -98,15 +71,6 @@
         "Segure, depois solte e relaxe."
       ]
     },
-    "cheekPuff": {
-      "name": "Bochechas infladas",
-      "cue": "Encha as bochechas de ar e mantenha-as redondas.",
-      "steps": [
-        "Inspire e feche os lábios.",
-        "Empurre o ar para as duas bochechas até elas inflarem.",
-        "Segure e depois solte o ar devagar."
-      ]
-    },
     "browLift": {
       "name": "Elevação das sobrancelhas",
       "cue": "Erga as sobrancelhas o máximo que conseguir.",
@@ -114,60 +78,6 @@
         "Olhe para a frente com o rosto relaxado.",
         "Erga as sobrancelhas o máximo que conseguir.",
         "Segure e depois abaixe-as devagar."
-      ]
-    },
-    "eyeSqueeze": {
-      "name": "Olhos apertados",
-      "cue": "Feche os olhos com força e depois solte devagar.",
-      "steps": [
-        "Relaxe a testa.",
-        "Feche os olhos e aperte-os com força.",
-        "Segure e depois abra-os devagar."
-      ]
-    },
-    "chinTuck": {
-      "name": "Retração do queixo",
-      "cue": "Deslize a cabeça para trás em linha reta, formando uma pequena papada.",
-      "steps": [
-        "Sente-se ou fique em pé com a postura ereta, os ombros baixos e o olhar reto para a frente.",
-        "Deslize a cabeça para trás em linha reta, como se um fio puxasse sua nuca, até as orelhas ficarem alinhadas com os ombros.",
-        "Segure sem inclinar o queixo para cima ou para baixo e depois volte devagar para a frente."
-      ]
-    },
-    "tonguePress": {
-      "name": "Pressão da língua",
-      "cue": "Empurre com firmeza a frente da língua para cima, atrás dos dentes de cima, e cantarole.",
-      "steps": [
-        "Sente-se com a postura ereta, os lábios fechados e os dentes levemente separados.",
-        "Empurre com firmeza a parte da frente da língua contra o céu da boca, logo atrás dos dentes da frente de cima.",
-        "Cantarole baixinho e sinta os músculos embaixo do queixo se contraírem. Segure, depois solte a língua e relaxe antes da próxima repetição."
-      ]
-    },
-    "smilingFish": {
-      "name": "Peixe sorridente",
-      "cue": "Faça cara de peixe e depois erga os cantos da boca em um sorriso.",
-      "steps": [
-        "Sugue as bochechas para dentro, entre os dentes, e faça bico com os lábios.",
-        "Mantenha a cara de peixe e puxe os cantos da boca para cima em um sorriso.",
-        "Segure e sinta as bochechas subirem. Depois, relaxe o rosto todo."
-      ]
-    },
-    "oStretch": {
-      "name": "Alongamento em O",
-      "cue": "Abra a boca em um O alongado e puxe os lábios por cima dos dentes.",
-      "steps": [
-        "Olhe para a frente e mantenha a testa relaxada.",
-        "Abra a boca formando um O comprido e puxe os lábios por cima dos dentes.",
-        "Segure e sinta o rosto alongar. Depois, feche a boca devagar."
-      ]
-    },
-    "lionFace": {
-      "name": "Cara de leão",
-      "cue": "Abra bem a boca, coloque a língua para fora e arregale os olhos.",
-      "steps": [
-        "Inspire pelo nariz.",
-        "Expire enquanto abre bem a boca, estica a língua para fora em direção ao queixo e arregala os olhos.",
-        "Segure o alongamento, depois feche a boca e relaxe. Não force a mandíbula a abrir além do que for confortável."
       ]
     },
     "wideEyes": {
@@ -179,24 +89,6 @@
         "Segure olhando fixo para um ponto e depois relaxe os olhos."
       ]
     },
-    "lowerLidLift": {
-      "name": "Elevação da pálpebra inferior",
-      "cue": "Olhe para cima e erga as pálpebras inferiores, como se apertasse os olhos contra o sol.",
-      "steps": [
-        "Mantenha a cabeça reta e olhe levemente para cima.",
-        "Erga só as pálpebras inferiores, como se apertasse os olhos contra uma luz forte. Mantenha a testa relaxada.",
-        "Segure e depois deixe as pálpebras inferiores descerem devagar."
-      ]
-    },
-    "lipPress": {
-      "name": "Pressão dos lábios",
-      "cue": "Pressione os lábios um contra o outro e enrole-os suavemente para dentro.",
-      "steps": [
-        "Feche a boca e mantenha a mandíbula relaxada.",
-        "Pressione os lábios um contra o outro e enrole-os levemente para dentro, sobre os dentes.",
-        "Segure e depois deixe os lábios relaxarem."
-      ]
-    },
     "pout": {
       "name": "Biquinho",
       "cue": "Projete os lábios para a frente em um biquinho comprido, como um beijo.",
@@ -204,69 +96,6 @@
         "Mantenha os dentes separados e o rosto relaxado.",
         "Projete os lábios para a frente até onde for confortável, como se mandasse um beijo.",
         "Segure e depois relaxe os lábios."
-      ]
-    },
-    "lipCornerLift": {
-      "name": "Elevação dos cantos da boca",
-      "cue": "Com os lábios fechados, erga só os cantos da boca.",
-      "steps": [
-        "Mantenha os lábios fechados e as bochechas soltas.",
-        "Erga só os cantos da boca em um sorriso discreto.",
-        "Segure e depois deixe os cantos descerem."
-      ]
-    },
-    "smileLinePress": {
-      "name": "Pressão nas linhas do sorriso",
-      "cue": "Pontas dos dedos nas linhas do sorriso: sorria contra uma leve pressão.",
-      "steps": [
-        "Apoie os indicadores de leve nas linhas que vão do nariz aos cantos da boca.",
-        "Sorria bem largo enquanto os dedos seguram a pele no lugar com suavidade.",
-        "Segure e depois relaxe o sorriso e os dedos."
-      ]
-    },
-    "foreheadPress": {
-      "name": "Pressão na testa",
-      "cue": "Palmas na testa: erga as sobrancelhas contra uma leve pressão.",
-      "steps": [
-        "Apoie as palmas das duas mãos na testa, logo acima das sobrancelhas.",
-        "Tente erguer as sobrancelhas enquanto as mãos seguram a pele parada com suavidade.",
-        "Segure e depois relaxe a testa."
-      ]
-    },
-    "vEyes": {
-      "name": "Olhos em V",
-      "cue": "Dedos em V ao redor dos olhos: olhe para cima e aperte os olhos.",
-      "steps": [
-        "Apoie de leve os dedos médios na ponta interna das sobrancelhas e os indicadores na ponta externa, formando um V.",
-        "Olhe para cima e erga as pálpebras inferiores, apertando bem os olhos.",
-        "Segure e depois relaxe os olhos."
-      ]
-    },
-    "jawRelease": {
-      "name": "Relaxamento da mandíbula",
-      "cue": "Círculos lentos com as pontas dos dedos no músculo da mandíbula, dentes separados.",
-      "steps": [
-        "Separe os dentes e deixe a mandíbula solta.",
-        "Encontre o músculo na parte de trás de cada bochecha e pressione de leve com as pontas dos dedos.",
-        "Faça círculos lentos e depois descanse as mãos."
-      ]
-    },
-    "jawlineSweep": {
-      "name": "Deslize na mandíbula",
-      "cue": "Deslize os nós dos dedos do queixo até as orelhas, ao longo da mandíbula.",
-      "steps": [
-        "Feche as mãos sem apertar e apoie os nós dos dedos embaixo do meio do queixo.",
-        "Deslize-os devagar ao longo da linha da mandíbula até logo abaixo das orelhas.",
-        "Afaste as mãos e comece de novo pelo queixo."
-      ]
-    },
-    "frownRelease": {
-      "name": "Relaxamento da testa",
-      "cue": "Deslize os dedos do meio das sobrancelhas para fora, até as têmporas.",
-      "steps": [
-        "Apoie as pontas dos dedos entre as sobrancelhas.",
-        "Deslize-as devagar para fora, por cima das sobrancelhas, até as têmporas.",
-        "Afaste as mãos e comece de novo pelo meio."
       ]
     },
     "templeCircles": {

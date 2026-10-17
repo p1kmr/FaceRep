@@ -2,7 +2,7 @@ import { EXERCISE_IDS, EXERCISES } from '@/constants/exercises';
 import { WEEKS } from '@/constants/weeks';
 import type { SessionSummary } from '@/services/progress/stats';
 
-import { countsAsDay, daysDone, dosedItem, isDayWorkout, isMilestone, stepOf, weekDay, weekDone, workoutDates, workoutsBefore } from '../weeks';
+import { countsAsDay, daysDone, dosedItem, isDayWorkout, isFreeDay, isMilestone, stepOf, weekDay, weekDone, workoutDates, workoutsBefore } from '../weeks';
 
 const session = (day: string, kind: SessionSummary['kind'] = 'routine', extra: Partial<SessionSummary> = {}): SessionSummary => ({
   id: `${day}-${kind}-${Math.random()}`,
@@ -55,6 +55,14 @@ describe('days done', () => {
     expect(countsAsDay({ finished: 1, planned: 3 })).toBe(false);
     expect(countsAsDay({ finished: 1, planned: 1 })).toBe(true);
     expect(countsAsDay({ finished: 0, planned: 0 })).toBe(false);
+  });
+});
+
+describe('free days', () => {
+  it('without Premium days 1 to 3 are open, day 4 on is locked', () => {
+    expect(WEEKS.freeDays).toBe(3);
+    expect([0, 1, 2, 3, 4, 30].map(isFreeDay)).toEqual([true, true, true, false, false, false]);
+    expect(isFreeDay(-1)).toBe(true);
   });
 });
 

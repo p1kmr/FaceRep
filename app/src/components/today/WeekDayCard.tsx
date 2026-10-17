@@ -6,6 +6,7 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import type { ExerciseId, Goal } from '@/constants/exercises';
 import { areasOfAll } from '@/constants/faceMap';
 import { MOTION } from '@/constants/motion';
+import { useExerciseAccess } from '@/hooks/useContent';
 import type { WeekDayWorkout } from '@/hooks/useThisWeek';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
@@ -24,27 +25,35 @@ interface WeekDayCardProps {
   onToggle: () => void;
   onExercise: (id: ExerciseId) => void;
   onStart: () => void;
+  /** The paywall: a locked day's button and its hidden exercises. */
+  onUnlock: () => void;
 }
 
 /**
  * One day of this week: "Day 4" with the areas it works and its minutes; open, its exercises at that day's reps and
  * hold (today's with its Start button). A done day is green ("Done" and a check, on a soft green head; no fading or
  * strikethrough, it stays easy to read) and opens to what was done that date, each with a check (from the saved
- * workout, so a workout saved through the Coach shows as it was; its reps aren't saved).
+ * workout, so a workout saved through the Coach shows as it was; its reps aren't saved). Without Premium a day after
+ * the free ones is locked ("Premium" and a lock): open, it names one free exercise and shows the others blurred and
+ * locked (ExerciseRow), with Unlock.
  */
-export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: WeekDayCardProps) {
+export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart, onUnlock }: WeekDayCardProps) {
   const { t } = useTranslation(['home', 'common', 'exercises']);
   const styles = useStyles();
   const { colors } = useTheme();
+  const { canUse } = useExerciseAccess();
   const ids = day.done ? day.done.ids : day.items.map((i) => i.id);
   const areas = areasOfAll(ids);
   const what = areas.length && areas.length <= 3 ? areas.map((a) => t(`exercises:areas.${a}.name`)).join(' · ') : t(`common:programs.${goal}`);
   const title = day.easy ? t('home:thisWeek.easyDay', { day: day.day }) : t('home:thisWeek.day', { day: day.day });
   const minutes = t('common:minutes', { count: toMinutes(day.seconds) });
-  // A done day says "Done" before it, in green; one saved with only minutes has no areas to name.
+  // A done day says "Done" before it, in green, a locked one "Premium"; one saved with only minutes has no areas to name.
   const subtitle = [ids.length ? what : null, minutes].filter(Boolean).join(' · ');
   const canOpen = ids.length > 0;
-  const label = [title, day.isToday ? t('home:thisWeek.today') : null, day.done ? t('home:thisWeek.done') : null, subtitle];
+  const status = day.done ? t('home:thisWeek.done') : day.locked ? t('home:thisWeek.locked') : null;
+  const label = [title, day.isToday ? t('home:thisWeek.today') : null, status, subtitle];
+  // Premium, but not every exercise of today is on this iPhone yet: Start waits (the Today card shows the download).
+  const missing = day.items.some((i) => !canUse(i.id));
 
   return (
     <Card style={day.isToday && styles.today}>
@@ -59,16 +68,13 @@ export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: 
         <View style={styles.text}>
           <AppText variant="headline">{title}</AppText>
           <AppText variant="footnote" muted numberOfLines={1}>
-            {day.done ? (
-              <AppText variant="footnote" style={styles.doneText}>
-                {`${t('home:thisWeek.done')} · `}
-              </AppText>
-            ) : null}
+            {status ? <AppText variant="footnote" style={day.done ? styles.doneText : styles.lockedText}>{`${status} · `}</AppText> : null}
             {subtitle}
           </AppText>
         </View>
         {day.isToday ? <Badge label={t('home:thisWeek.today')} tone="primary" /> : null}
         {day.done ? <SymbolView name="checkmark.circle.fill" size={22} tintColor={colors.success} /> : null}
+        {day.locked ? <SymbolView name="lock.fill" size={16} tintColor={colors.textMuted} /> : null}
         {canOpen ? <SymbolView name={open ? 'chevron.up' : 'chevron.down'} size={13} weight="semibold" tintColor={colors.textMuted} /> : null}
       </Pressable>
       {open && canOpen ? (
@@ -84,14 +90,19 @@ export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: 
                 id={item.id}
                 reps={item.reps}
                 holdSec={item.holdSec}
-                onPress={() => onExercise(item.id)}
+                // A locked day: only its free exercise opens; the hidden ones lead to the paywall.
+                onPress={day.locked && item.id !== day.preview?.id ? onUnlock : () => onExercise(item.id)}
                 divider={i < day.items.length - 1}
               />
             ))
           )}
-          {day.isToday && !day.done ? (
+          {day.locked ? (
             <View style={styles.start}>
-              <Button title={t('home:today.start')} icon="play.fill" onPress={onStart} fullWidth />
+              <Button title={t('home:today.unlockDay', { day: day.day })} icon="lock.fill" onPress={onUnlock} fullWidth />
+            </View>
+          ) : day.isToday && !day.done ? (
+            <View style={styles.start}>
+              <Button title={t('home:today.start')} icon="play.fill" onPress={onStart} disabled={missing} fullWidth />
             </View>
           ) : null}
         </Animated.View>
@@ -107,6 +118,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   text: { flex: 1, gap: 2 },
   doneHead: { backgroundColor: colors.successSoft },
   doneText: { color: colors.success, fontWeight: tokens.font.weight.semibold },
+  lockedText: { color: colors.primary, fontWeight: tokens.font.weight.semibold },
   list: { borderTopWidth: 1, borderTopColor: colors.border },
   start: { padding: tokens.space.md, paddingTop: tokens.space.xs },
 }));

@@ -14,11 +14,11 @@ import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 
 /**
- * The exercise's clip, or null when it has none (Chin Lift) or Reduce Motion is on: then show the drawings
- * (ExerciseFrames) instead (docs/videos.md).
+ * The exercise's clip (bundled, or a downloaded Premium file), or null when it has none (Chin Lift) or Reduce Motion is
+ * on: then show the drawings (ExerciseFrames) instead (docs/videos.md).
  */
-export function useExerciseClip(id: ExerciseId): number | null {
-  const clip = useGuideImages().exercises[id].clip;
+export function useExerciseClip(id: ExerciseId): number | string | null {
+  const clip = useGuideImages().exercises[id]?.clip;
   const reduceMotion = useReducedMotion();
   return clip && !reduceMotion ? clip : null;
 }
@@ -26,7 +26,7 @@ export function useExerciseClip(id: ExerciseId): number | null {
 interface ExerciseClipProps {
   id: ExerciseId;
   /** From useExerciseClip. */
-  clip: number;
+  clip: number | string;
   /** Accessibility description of what's on screen. */
   label: string;
   /** A pause / play button on the clip (the exercise page). */
@@ -47,7 +47,7 @@ export function ExerciseClip({ id, clip, label, controls, paused = false, fill, 
   const { t } = useTranslation('exercises');
   const styles = useStyles();
   const { colors } = useTheme();
-  const relaxed = useGuideImages().exercises[id].relaxed;
+  const relaxed = useGuideImages().exercises[id]?.relaxed;
   const active = useAppActive();
   const [focused, setFocused] = useState(true);
   const [stopped, setStopped] = useState(false);

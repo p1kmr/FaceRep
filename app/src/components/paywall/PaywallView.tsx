@@ -6,6 +6,7 @@ import { Linking, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LINKS } from '@/constants/links';
+import { WEEKS } from '@/constants/weeks';
 import { useGuideImages } from '@/hooks/useGuide';
 import type { PlanCard } from '@/hooks/usePaywall';
 import { useTheme } from '@/hooks/useTheme';
@@ -67,7 +68,7 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
               {t('headline')}
             </AppText>
             <AppText muted center>
-              {t('subhead')}
+              {t('subhead', { free: WEEKS.freeDays })}
             </AppText>
           </View>
           <View style={styles.benefits}>

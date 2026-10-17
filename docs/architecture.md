@@ -127,7 +127,13 @@ stays at a top:
 - **Jaw-caution exercises never go above their usual reps or hold** (`dosedItem`), in any week.
 - **Days 1–6:** five exercises of the focus area from a window that moves with every workout day, so each one comes up
   in turn (an area with fewer is topped up from the others; full face goes through all of them), in catalog order
-  (massage last). Without Premium only the free exercises (`FREE_EXERCISE_IDS`, none loads the jaw).
+  (massage last).
+- **Days 1 to 3 are free** (`WEEKS.freeDays`, `isFreeDay`): without Premium they are made from the free exercises
+  (`FREE_EXERCISE_IDS`, none loads the jaw). A later day is made as Premium makes it (`dayAllowed`) and shows locked:
+  the Today card names its first free exercise (`previewOf`), shows the others blurred and has "Unlock Day 4"; the
+  workout screen opens the paywall instead. Week 1's easy day has no free exercise, so it shows all of them hidden.
+  After the last free day the done line says "Day 3 done. Day 4 comes with Premium." The free exercises stay in the
+  library to do on their own.
 - **Where you are is derived, not stored:** `daysDone(sessions, today)` counts the dates before today with a workout
   (`isDayWorkout`: Today's workout with at least half of it done, or a workout saved through the Coach), one per date.
   A missed date waits and nothing is skipped; a week can't be done in one afternoon. A single exercise from the library
@@ -145,9 +151,30 @@ stays at a top:
   (`weekDone`, from the saved workouts, not the plan: it may have been saved through the Coach, or another focus area
   then; no reps, they aren't saved). Under the days: what the next week changes, when it changes something
   ("Week 4: Holds 1 second longer"), and that a new day comes the day after a workout. Only this week, never a total.
+  Without Premium a day after the free ones is locked ("Premium" in its head, a lock): open, it names one free
+  exercise (tap for its page) and shows the others as "Premium exercise" with a blurred picture (tap: the paywall),
+  with "Unlock Day 5"; under the days, "Days 1 to 3 are free. Premium unlocks every day after them."
 - **Nothing is sent:** the weeks are worked out on the iPhone from the saved workouts. The Worker has no plan endpoint.
+  It only sends the Premium exercises themselves (below), which the weeks then use.
 - **No exercise counts anywhere** (Today, paywall, store text, screenshots): "every exercise", never a number, so
   nobody reads the library as small.
+
+## Premium exercises (downloaded, never in the app)
+The free exercises are bundled. The Premium ones (texts in every language, drawings, clips) come only from the Worker
+after its RevenueCat check and are kept in Caches (docs/premium.md §2b has the steps and the rule):
+- `services/content/pack.ts` (pure): the pack's shape, checked like any server data; files named by hash; which
+  Premium exercises are complete on the device (`packImages`). `contentApi.ts`: `POST /content`. `sync.ts`: what the
+  device has shows at once, the Worker is asked when something is missing or once a day, missing files download four at
+  a time, old ones are deleted; with every file there, a failed request still ends ready. `store.native.ts` keeps the
+  files (`expo-file-system`, Caches), `store.ts` keeps them in memory for the web build.
+- `state/content/` holds the pack, where each file is and the download's status; `ContentProvider` runs the sync while
+  the user has Premium (after a purchase or restore, for another guide, on Try again).
+- `useGuideImages()` adds the Premium pictures that are on the device; `useExerciseAccess()` tells a screen whether it
+  may show an exercise (`canUse`) or why it shows locked (`lockOf`: premium, downloading, failed). `ExerciseRow`,
+  `ExerciseTile`, `ExerciseAvatars` and the exercise page draw a locked one as "Premium exercise" with its program and a
+  blurred stand-in (`LockedPicture`, a free exercise of the same area): never its name, picture, muscles or steps.
+- With Premium, until today's exercises are on the iPhone the Today card shows the download's progress (or Try again)
+  instead of Start.
 
 ## Exercise catalog and programs
 27 exercises in 5 programs (jawline, cheekbones, lips, eyes, massage) plus the "full face" goal; the order of

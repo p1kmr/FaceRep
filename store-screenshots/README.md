@@ -49,8 +49,10 @@ Changes to the editor template (all marked "FaceRep" in the code): `{locale}` in
 cd app
 EXPO_PUBLIC_AI_URL=https://demo.facerep.invalid/chat EXPO_PUBLIC_RC_IOS_KEY= npx expo start --web --port 8081
 ```
-Keep it running. The demo address is never called: the capture answers it inside the browser. In a second terminal:
+Keep it running. The demo address is never called: the capture answers it inside the browser, including the Premium
+exercises' download, which it serves from the Worker's built folder. In a second terminal:
 ```bash
+npm --prefix worker run content   # from the repo root: builds worker/.content (the Premium exercises)
 cd store-screenshots/capture
 npm install
 npx playwright install chromium   # once, on a laptop (cloud sessions: CHROMIUM_PATH=/opt/pw-browsers/chromium)

@@ -1,9 +1,12 @@
 // Checks that every language has the same namespaces, keys and {{placeholders}} as English (same script as Elowa).
-// `npm run i18n:check`; also run by `npm test` (scripts/__tests__/i18n-check.test.js). No dependencies.
+// Also the Premium exercises' texts, which the Worker sends after purchase (never in the app): same layout, in
+// worker/content/locales. `npm run i18n:check`; also run by `npm test` (scripts/__tests__/i18n-check.test.js).
+// No dependencies.
 const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..', 'src', 'i18n', 'locales');
+const PREMIUM_ROOT = path.join(__dirname, '..', '..', 'worker', 'content', 'locales');
 const BASE = 'en';
 
 /** Flattens a namespace into { "a.b.c": "text" } (arrays become a.0, a.1…). */
@@ -59,10 +62,10 @@ function check(root = ROOT) {
   return problems;
 }
 
-module.exports = { check, flatten, ROOT };
+module.exports = { check, flatten, ROOT, PREMIUM_ROOT };
 
 if (require.main === module) {
-  const problems = check();
+  const problems = [...check(), ...check(PREMIUM_ROOT).map((p) => `Premium texts (worker/content/locales): ${p}`)];
   for (const p of problems) console.error(p);
   console.log(problems.length ? `${problems.length} i18n problems` : 'i18n: all languages complete');
   process.exit(problems.length ? 1 : 0);

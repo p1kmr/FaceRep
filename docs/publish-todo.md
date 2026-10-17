@@ -34,7 +34,7 @@ Re-check before acting: from the repo root run
 | TestFlight internal group | "FaceRep Internal" `d5f868e2-03ee-4425-a73a-4164ab2e5a5b` |
 | Expo project | `@p1kmr/facerep`, `b4548307-778f-43c8-bcaa-8ddb0df42673` |
 | RevenueCat | project `proj88dfbdbb`, App Store app `appe9482ca317`, entitlement `premium`, offering `default` |
-| Worker | `facerep-api`, https://facerep-api.elowa-app.workers.dev (`/privacy`, `/terms`, `/support`, `/chat`; `/plan` only until the next deploy) |
+| Worker | `facerep-api`, https://facerep-api.elowa-app.workers.dev (`/privacy`, `/terms`, `/support`, `/chat`, `/content` from the next deploy; `/plan` only until then) |
 | Apple team | `Z43K3DU9C9` |
 
 ## Already done (verified 2026-10-09)
@@ -132,6 +132,27 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
       docs/face-tracking.md §5, and the weeks with docs/device-testing.md.
 - [ ] Deploy the Worker (it drops `/plan`) only once that build is on TestFlight: build 12 and older still load Weeks 2–4
       from `/plan`.
+
+## 1c. Next build: days 1–3 free, Premium exercises only from the Worker
+The next build (13) changes what's free and where the Premium exercises come from (docs/premium.md §2b): days 1 to 3
+are free; from day 4 the weeks need Premium (a locked day names one free exercise, the others are blurred); the Premium
+exercises' texts, drawings and clips are no longer in the app, the Worker sends them after its RevenueCat check.
+- [ ] **Owner: deploy the Worker as soon as build 13 is on TestFlight**, the same day: build 13 gets its Premium
+      exercises only from `POST /content`, which the deployed Worker doesn't have yet. In `worker/`: `npm install`, then
+      `npm run deploy` (it builds the Premium folder `.content/` first, about 18 MB, and uploads it with the Worker; the
+      first upload takes a minute). No new secret: the download token's key comes from `REVENUECAT_SECRET_KEY`.
+- [ ] Check after the deploy: `https://facerep-api.elowa-app.workers.dev/content/files/man/04-mewing/clip.mp4` in a
+      browser must answer `{"error":"token"}` (the files are private), and `/privacy` shows the new "Premium download" row.
+- [ ] **Owner tests build 13** with docs/device-testing.md (the "Free days and Premium download" lines): days 1–3 free,
+      day 4 locked, buying in the sandbox downloads the Premium exercises, they work in airplane mode afterwards,
+      Restore on another iPhone downloads them again.
+- [ ] **Store text, screenshots and review notes** (paused until the owner says, with the 28-day clean-up): they still
+      say "Week 1 free" and free weekly workouts. They must say "Days 1 to 3 free" (never "trial"), the What's free and
+      Premium lists must match the paywall, and the review notes must say how a reviewer reaches a Premium day: Today or
+      the week page (tap "Week · Day") shows Day 4 onward locked → Unlock → sandbox purchase → the Premium exercises
+      download right away and every day and exercise opens. A reviewer can't wait three days for Day 4.
+- [ ] App Privacy needs no change: the download sends only the random app ID, already declared as User ID (App
+      Functionality, not linked).
 
 ## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real

@@ -1,7 +1,7 @@
 import { EXERCISE_IDS, EXERCISES, isFreeExercise, PROGRAMS, WORKOUT, type ExerciseId, type Goal } from '@/constants/exercises';
 import { EASY_DAY_IDS, WEEKS } from '@/constants/weeks';
 
-import { todaysWorkout, weekWorkouts } from '../today';
+import { dayAllowed, previewOf, todaysWorkout, weekWorkouts } from '../today';
 
 const all = () => true;
 const ids = (w: { items: { id: ExerciseId }[] }) => w.items.map((i) => i.id);
@@ -99,13 +99,37 @@ describe("today's workout", () => {
 
   it("lays out the whole week of a day, each day as it would be that day", () => {
     for (const done of [at(1, 1), at(2, 3), at(2, 7), at(9, 5)]) {
-      const days = weekWorkouts('cheekbones', done, all);
+      const days = weekWorkouts('cheekbones', done, () => all);
       const now = todaysWorkout('cheekbones', done, all);
       expect(days.map((d) => [d.week, d.day])).toEqual([1, 2, 3, 4, 5, 6, 7].map((day) => [now.week, day]));
       expect(days[now.day - 1]).toEqual(now);
       expect(days.map((d) => d.easy)).toEqual([false, false, false, false, false, false, true]);
     }
-    expect(weekWorkouts('lips', at(4, 2), isFreeExercise)[3]).toEqual(todaysWorkout('lips', at(4, 4), isFreeExercise));
+    expect(weekWorkouts('lips', at(4, 2), () => isFreeExercise)[3]).toEqual(todaysWorkout('lips', at(4, 4), isFreeExercise));
+  });
+
+  it('without Premium, days 1 to 3 are made from the free exercises and later days the Premium way', () => {
+    expect([0, 1, 2, 3, 10].map((done) => dayAllowed(false, done)('04-mewing'))).toEqual([false, false, false, true, true]);
+    expect([0, 1, 2, 3].map((done) => dayAllowed(false, done)('02-chin-lift'))).toEqual([true, true, true, true]);
+    expect(dayAllowed(true, 0)('04-mewing')).toBe(true);
+    // The week page builds each day with its own rule: day 4 of a free user is the same day Premium gets.
+    for (const goal of GOALS_ALL) {
+      const week = weekWorkouts(goal, at(1, 2), (d) => dayAllowed(false, d));
+      expect(week.slice(0, WEEKS.freeDays).every((d) => d.items.every((i) => isFreeExercise(i.id)))).toBe(true);
+      expect(week.slice(WEEKS.freeDays)).toEqual(weekWorkouts(goal, at(1, 2), () => all).slice(WEEKS.freeDays));
+    }
+  });
+
+  it('a locked day names one exercise, a free one: every goal has one on the locked workout days of week 1', () => {
+    for (const goal of GOALS_ALL) {
+      for (let done = WEEKS.freeDays; done < WEEKS.daysPerWeek - 1; done++) {
+        const preview = previewOf(todaysWorkout(goal, done, all).items);
+        expect(preview && isFreeExercise(preview.id)).toBe(true);
+      }
+    }
+    // Week 1's easy day is all massage, none of it free: it shows every exercise hidden.
+    expect(previewOf(todaysWorkout('full', at(1, 7), all).items)).toBeNull();
+    expect(previewOf([])).toBeNull();
   });
 
   it('is empty when nothing is allowed', () => {

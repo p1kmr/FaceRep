@@ -174,6 +174,19 @@ i18n.use(initReactI18next).init({
   ns: Object.keys(resources.en),
   // {{app}} in any string is the app name, so a rename is one line in constants/config.ts.
   interpolation: { escapeValue: false, defaultVariables: { app: CONFIG.appName } },
+  // Screens show new texts as soon as they're added (the Premium exercises' texts, addPremiumTexts).
+  react: { bindI18nStore: 'added' },
 });
+
+/**
+ * The Premium exercises' texts, which the Worker sends after purchase (services/content): into exercises:items of
+ * each language, next to the free ones from the app's own locales.
+ */
+export function addPremiumTexts(texts: Readonly<Record<string, Readonly<Record<string, unknown>>>>) {
+  for (const lang of SUPPORTED_LANGUAGES) {
+    const items = texts[lang];
+    if (items && Object.keys(items).length) i18n.addResourceBundle(lang, 'exercises', { items }, true, true);
+  }
+}
 
 export default i18n;

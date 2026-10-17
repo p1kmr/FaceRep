@@ -1,9 +1,9 @@
 {
   "headline": "Alle Übungen freischalten",
-  "subhead": "Das Wochentraining ist mit einer Auswahl an Übungen kostenlos. Premium bringt alle Übungen und unbegrenzte Antworten vom KI-Coach.",
+  "subhead": "Tag 1 bis {{free}} des Wochentrainings sind mit einer Auswahl an Übungen kostenlos. Premium schaltet alle Tage danach frei, dazu alle Übungen und unbegrenzte Antworten vom KI-Coach.",
   "benefits": {
     "exercises": "Die ganze Übungsbibliothek, für jeden Bereich des Gesichts",
-    "weeks": "Alle Übungen in deinem Wochentraining, jeden Tag neu gemischt",
+    "weeks": "Jeder Tag deines Wochentrainings, jeden Tag neu gemischt",
     "coach": "Unbegrenzte Antworten vom KI-Coach zu Technik und Routine"
   },
   "aiNote": "Coach-Fragen beantwortet eine KI (Cloudflare Workers AI). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.",

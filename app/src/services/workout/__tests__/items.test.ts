@@ -5,13 +5,15 @@ import { GUIDE_IDS } from '@/constants/guides';
 import { defaultItem, workoutSeconds } from '../items';
 
 describe('exercise catalog', () => {
-  it('every program has exercises and every guide in the app has the three pictures of each', () => {
+  it('every program has exercises; the app has the three pictures of each free one, and none of a Premium one', () => {
     for (const p of PROGRAMS) expect(EXERCISE_IDS.some((id) => EXERCISES[id].program === p)).toBe(true);
     expect(AVAILABLE_GUIDES).toContain('man');
     for (const guide of AVAILABLE_GUIDES) {
       for (const id of EXERCISE_IDS) {
         const img = guideImages(guide).exercises[id];
-        expect([img.relaxed, img.exercise, img.thumb].every(Boolean)).toBe(true);
+        if (FREE_EXERCISE_IDS.includes(id)) expect([img?.relaxed, img?.exercise, img?.thumb].every(Boolean)).toBe(true);
+        // Premium pictures come from the Worker after purchase (services/content), never from the app.
+        else expect(img).toBeUndefined();
       }
     }
     // A guide without its full set falls back to the man's pictures.

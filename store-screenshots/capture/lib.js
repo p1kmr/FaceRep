@@ -1,6 +1,7 @@
 // Opens the FaceRep web build so it looks and behaves like the iPhone app for a screenshot:
 // fixed date and time, demo data in the app's own SQLite database, Premium on, the iPhone font and
-// SF Symbol look-alikes, and the Coach answered locally (no Worker, no AI, no RevenueCat).
+// SF Symbol look-alikes, the Coach answered locally and the Premium exercises served from worker/.content
+// as the Worker would after its RevenueCat check (no Worker, no AI, no RevenueCat).
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -36,6 +37,23 @@ export const simRegions = (lang) => {
   return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')) : {};
 };
 
+/** The Premium exercises as the Worker serves them: run `npm --prefix worker run content` first. */
+const CONTENT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..', 'worker', '.content');
+const CONTENT_TYPES = { '.webp': 'image/webp', '.mp4': 'video/mp4' };
+
+/** POST /content and GET /content/files/… answered like the Worker: the pack and a token only with Premium. */
+function contentRoute(route, premium) {
+  const url = new URL(route.request().url());
+  if (url.pathname === '/content') {
+    if (!premium) return route.fulfill({ status: 402, contentType: 'application/json', body: '{"error":"premium"}' });
+    const pack = fs.readFileSync(path.join(CONTENT, 'pack.json'), 'utf8');
+    return route.fulfill({ contentType: 'application/json', body: `{"token":"demo","expires":${Date.now() + 3_600_000},"pack":${pack}}` });
+  }
+  const file = path.join(CONTENT, decodeURIComponent(url.pathname.slice('/content/files/'.length)));
+  if (!premium || !file.startsWith(CONTENT + path.sep) || !fs.existsSync(file)) return route.fulfill({ status: 404, body: '' });
+  return route.fulfill({ contentType: CONTENT_TYPES[path.extname(file)] ?? 'application/octet-stream', body: fs.readFileSync(file) });
+}
+
 const LOCAL_CHROMIUM = '/opt/pw-browsers/chromium';
 const executablePath = process.env.CHROMIUM_PATH || (fs.existsSync(LOCAL_CHROMIUM) ? LOCAL_CHROMIUM : undefined);
 
@@ -66,6 +84,7 @@ const PATCHES = [
  * Coach's canned reply for a question. The page is 440 × 894 points (iPhone 17 Pro Max below the status bar) @3x.
  */
 export async function openApp({ lang = 'en', seed = {}, premium = true, chat, camera, width = 440, height = 894, scale = 3 } = {}) {
+  if (premium && !fs.existsSync(path.join(CONTENT, 'pack.json'))) throw new Error('worker/.content is missing: run npm --prefix worker run content first');
   // `camera`: a .y4m file Chromium plays as the front camera (the workout mirror), camera access already allowed.
   const args = camera ? ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream', `--use-file-for-fake-video-capture=${camera}`] : [];
   const browser = await chromium.launch({ executablePath, args });
@@ -97,6 +116,7 @@ export async function openApp({ lang = 'en', seed = {}, premium = true, chat, ca
     await route.fulfill({ response: res, body: js });
   });
   await ctx.route(`${DEMO_HOST}/**`, async (route) => {
+    if (new URL(route.request().url()).pathname.startsWith('/content')) return contentRoute(route, premium);
     const body = JSON.parse(route.request().postData() || '{}');
     const reply = chat ? await chat(body) : { answer: '…', actions: [] };
     return route.fulfill({ contentType: 'application/json', body: JSON.stringify(reply) });

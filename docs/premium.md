@@ -6,8 +6,8 @@ Read this before changing purchases, the paywall, AI limits or the Worker's acce
 ## The idea in one paragraph
 
 There are no accounts. On first launch the app makes a **random ID** (a UUID, no personal data) and keeps it in the iOS
-Keychain. That ID is the user's identity everywhere: RevenueCat stores purchases under it, and the Cloudflare Worker counts
-free Coach answers under it. Apple handles the payment. **RevenueCat is the source of truth** for "is this ID Premium?".
+Keychain. That ID is the user's identity everywhere: RevenueCat stores purchases under it, the Cloudflare Worker counts
+free Coach answers under it and sends the Premium exercises to it once RevenueCat says it's Premium. Apple handles the payment. **RevenueCat is the source of truth** for "is this ID Premium?".
 The app asks RevenueCat with the public SDK key; the Worker asks again with the secret key, because anyone could call the
 Worker directly. **Apple DeviceCheck** proves a request comes from the app on a real iPhone.
 
@@ -16,10 +16,12 @@ Worker directly. **Apple DeviceCheck** proves a request comes from the app on a 
 iPhone app ── purchase/restore (react-native-purchases, public appl_ key) ──► RevenueCat ◄────┘
   │  random appUserId (Keychain)                                                ▲
   │  POST /chat { appUserId, deviceToken, question, history, context }          │ GET /v1/subscribers/<appUserId> (sk_ key)
+  │  POST /content { appUserId } → token + pack; GET /content/files/… (token)   │
   └──────────────────────────────────────────────► Cloudflare Worker ───────────┘
                                                      │  D1: free_usage (per ID per month), rate_limits (per day)
                                                      ├──► Apple DeviceCheck (token validation only)
-                                                     └──► Workers AI (only if access is allowed)
+                                                     ├──► Workers AI (only if access is allowed)
+                                                     └──► its private assets: the Premium exercises (§2b)
 ```
 
 ## 1. Identity: the app user ID
@@ -42,16 +44,29 @@ iPhone app ── purchase/restore (react-native-purchases, public appl_ key) �
 Rules
 - `isPremium` is only written from RevenueCat results.
 - Without a RevenueCat key (web, Expo Go) everything works, as Free.
-- **(FaceRep)** Free: **the weekly workouts with the free exercises** (`FREE_EXERCISE_IDS`: one or two per area, none that loads the jaw), streaks and progress, 3 Coach answers a month. Premium: **every exercise**, in the weeks and in the library, and **unlimited AI Coach answers** (the Worker's `LIMITS` stop only abuse: 100 a day per app ID, far beyond normal use; the Terms mention fair use, the app never shows the number).
+- **(FaceRep)** Free: **days 1 to 3 of the weekly workouts** (`WEEKS.freeDays`), made from the free exercises (`FREE_EXERCISE_IDS`: one or two per area, none that loads the jaw), those exercises on their own in the library, streaks and progress, 3 Coach answers a month. From day 4 the weeks need Premium: a locked day names one of its free exercises and shows the others blurred. Premium: **every day and every exercise**, in the weeks and in the library, and **unlimited AI Coach answers** (the Worker's `LIMITS` stop only abuse: 100 a day per app ID, far beyond normal use; the Terms mention fair use, the app never shows the number). The app says "Days 1 to 3 are free", never "trial".
 - `FREE_LIMITS.aiPerMonth = 3` (`constants/limits.ts`), refilled on the 1st. The app's count is for display and to open the paywall early; the Worker is the authority. A 402 `freeUsed` syncs the app to "all used".
 - **(FaceRep)** AI consent (guideline 5.1.2(i)) comes before the first question, and the paywall also says the Coach uses Cloudflare Workers AI, so nobody pays before knowing where questions go.
 
-## 2b. What the app unlocks by itself
-Every exercise ships in the app (drawings, clips, texts), and the weeks are worked out on the iPhone
-(`services/workout/today.ts`), so the app decides which exercises a free user gets (`isFreeExercise`). A patched app
-that flips `isPremium` to true can therefore unlock the Premium exercises; it can't get unlimited Coach answers, because
-the Worker asks RevenueCat itself. That trade-off is accepted: no plan has to come from the server, everything works
-offline, and nothing about the workouts is sent.
+## 2b. Premium exercises come only from the Worker
+The Premium exercises' texts (every language), drawings and clips are **not in the app**: a patched app that flips
+`isPremium` gets their IDs and reps (the weeks need them) but no name, step, picture or video. Free users see them only
+as "Premium exercise" with their area and a blurred stand-in (a free exercise's picture, `standInFor`), never their
+muscles either (a muscle like "Tongue posture" would name the exercise). The Coach names only the free ones to them.
+
+| Step | Where |
+|---|---|
+| The pack: drawings and clips from `app/assets/guides/` (the generated list bundles only the free ones), texts from `worker/content/locales/<lang>/exercises.json`, a `pack.json` with each file's size and hash | `worker/scripts/content.js` → `worker/.content/` (not committed), run by `npm run deploy` and `npm run dev` |
+| `POST /content { appUserId }`: daily rate limit, then RevenueCat; Premium → `{ token, expires, pack }`, otherwise 402 | `worker/src/lib/content.js` |
+| `GET /content/files/<guide>/<id>/<file>` with `Authorization: Bearer <token>` (web: `?t=`): the file. The token is an HMAC that ends after an hour; its key is derived from `REVENUECAT_SECRET_KEY`, so there is no other secret | same |
+| The files are the Worker's static assets with `run_worker_first`: no URL serves them without the Worker's check | `worker/wrangler.jsonc` |
+| The app asks after a purchase or restore, when anything is missing, and once a day for updates; it downloads only missing or changed files (the hash is in the name), deletes old ones and keeps them in Caches (iOS may clear Caches when storage is low; the app downloads again) | `services/content/*`, `state/content/*` |
+| The texts go into i18n (`addPremiumTexts`), the pictures into `useGuideImages()`; `useExerciseAccess()` says what a screen may show | `i18n/index.ts`, `hooks/useGuide.ts`, `hooks/useContent.ts` |
+
+With Premium, until the exercises are on the iPhone the Today card shows the download (and Try again if it fails); the
+first download needs a connection (about 9 MB per picture set), then everything works offline. If the subscription
+ends, the files stay on the iPhone but show locked again. The rule to keep: **anything worth paying for comes from the
+Worker after its RevenueCat check, never only blocked inside the app.**
 
 ## 3. Buying and restoring
 Same as Elowa: Paywall → StoreKit → RevenueCat records `premium` under the app user ID. Restore on a new iPhone moves the
@@ -77,7 +92,8 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 | Worker secret / var | If missing |
 |---|---|
 | `AI` binding + `AI_MODEL` | 503 `unconfigured` |
-| `REVENUECAT_SECRET_KEY` (`sk_…`) | `/chat`: **gate open**, everyone gets unlimited Coach answers (only daily limits). Don't ship like this. |
+| `REVENUECAT_SECRET_KEY` (`sk_…`) | `/chat`: **gate open**, everyone gets unlimited Coach answers (only daily limits). `/content`: closed, nobody gets the Premium exercises (503). Don't ship like this. |
+| `CONTENT` assets (`.content/`, built before deploy) | `/content`: 503; deploy with `npm run deploy`, which builds it first |
 | `DEVICECHECK_KEY`, `DEVICECHECK_KEY_ID`, `APPLE_TEAM_ID` | No iPhone check |
 | `IP_HASH_SECRET` | IP hash falls back to plain SHA-256 (weaker) |
 
@@ -124,11 +140,13 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 
 ## 7. Known limits
 - No cross-device sync of workout history (on-device by design); Premium moves with Restore.
-- `isPremium` can be faked on a jailbroken phone; that unlocks the Premium exercises (they ship in the app, §2b), never the unlimited Coach, which the Worker checks with RevenueCat.
-- RevenueCat outage = no Coach for anyone (503).
+- `isPremium` can be faked on a jailbroken phone; that unlocks neither the Premium exercises (they come only from the Worker, §2b) nor the unlimited Coach: the Worker checks RevenueCat for both. Someone who paid can copy the files they downloaded; every app has that.
+- The Premium exercises' IDs (like `04-mewing`) and reps are in the app, because the weeks are worked out on the iPhone; their names, steps, pictures and clips aren't.
+- RevenueCat outage = no Coach for anyone (503), and no first download of the Premium exercises (what's already on an iPhone keeps working).
+- Every Premium download is one Worker request plus one per file (about 80 per picture set): Cloudflare's free plan allows 100,000 requests a day. With many new subscribers a day, move to the Workers Paid plan.
 - Free-count months are UTC on the server and local in the app; the server wins.
 - Without DeviceCheck bits, someone who erases the iPhone (wiping the Keychain) gets 3 new free answers. Acceptable.
 
 ## 8. Tests
-- App: `state/premium/__tests__/reducer.test.ts`, `services/purchases/__tests__/*.test.ts`, `services/ai/__tests__/client.test.ts`, `state/chat/__tests__/reducer.test.ts`, `services/workout/__tests__/today.test.ts` (the free exercises only, without Premium).
-- Worker (`cd worker && npm test`): `test/access.test.js` (Premium, free count, DeviceCheck token), `test/chat.test.js` (handler, model fallback, prompt rules, rate limits, pages), `test/catalog.test.js` (the Coach's exercise list matches the app).
+- App: `state/premium/__tests__/reducer.test.ts`, `services/purchases/__tests__/*.test.ts`, `services/ai/__tests__/client.test.ts`, `state/chat/__tests__/reducer.test.ts`, `services/workout/__tests__/today.test.ts` (the free days and locked days), `services/content/__tests__/*` and `state/content/__tests__/reducer.test.ts` (the pack, the download, the cache), `scripts/__tests__/review-check.test.js` (no Premium exercise in the app).
+- Worker (`cd worker && npm test`): `test/access.test.js` (Premium, free count, DeviceCheck token), `test/chat.test.js` (handler, model fallback, prompt rules, rate limits, pages), `test/catalog.test.js` (the Coach's exercise list matches the app, free ones included), `test/workouts.test.js` (a free user's Coach names no Premium exercise), `test/content.test.js` (tokens, `/content` only for Premium, files only with a token, the pack complete in both guides and every language).

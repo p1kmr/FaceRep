@@ -1,6 +1,12 @@
 # FaceRep API (Cloudflare Worker)
 
-Two jobs:
+Three jobs:
+- `POST /content` and `GET /content/files/…`: the Premium exercises (texts in every language, drawings, clips), which
+  are never in the app. `/content` checks Premium with RevenueCat and hands out the list (`pack.json`) and a token that
+  is valid for an hour; each file needs the token. The files are this Worker's private static assets, built into
+  `.content/` by `npm run content` (it runs before `npm run deploy` and `npm run dev`) from the app's
+  `assets/guides/` and `content/locales/<lang>/exercises.json` (`src/lib/content.js`, `scripts/content.js`,
+  docs/premium.md §2b). Free users' Coach names only the free exercises.
 - `POST /chat`: the AI Coach. With the user's reminder list it can also propose reminder changes (function calling, `src/lib/reminders.js`), and it can propose saving a workout the user did without the app or a short routine to start (`src/lib/workouts.js`); the app shows each for the user to confirm. Receives a question (+ the last few turns and an anonymous training context), checks it, applies daily limits and the Premium / free-allowance check, asks a **Workers AI** model and returns a cleaned-up answer.
 - `GET /privacy`, `/terms`, `/support`: the public pages App Store Connect asks for (`src/pages.js`), so no separate website is needed.
 
@@ -93,9 +99,16 @@ Turn on step 2 only once the app build that sends DeviceCheck tokens is the one 
 | `LEGAL_NAME` | empty (optional) | Your name or business; empty shows "the developer of FaceRep" |
 
 The free allowance is `FREE_PER_MONTH` in `src/lib/access.js` and must match `FREE_LIMITS.aiPerMonth` in the app.
+The free days are `FREE_DAYS` in `src/pages.js` (the Terms) and must match `WEEKS.freeDays` in the app.
+
+**Premium exercises:** a new or changed Premium exercise (texts in `content/locales/<lang>/exercises.json`, pictures
+and clip in `app/assets/guides/`) reaches the apps with the next `npm run deploy`; the apps pick it up within a day
+(only the changed files download). Each download is one request plus one per file (about 80 per picture set), on the
+same daily request allowance as the Coach.
 
 ## Develop and test locally
 ```bash
-npm test                     # 16 tests, no accounts needed
+npm test                     # no accounts needed (it also checks the Premium pack is complete)
+npm run content              # builds .content/ (the Premium exercises) by itself
 npx wrangler dev --remote    # Workers AI needs Cloudflare; --remote runs against your account
 ```

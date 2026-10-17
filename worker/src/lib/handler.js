@@ -2,7 +2,7 @@ import { buildMessages } from './prompt.js';
 import { generateAnswer } from './model.js';
 import { REMINDER_LIMITS, REMINDER_TOOLS, sanitizeActions } from './reminders.js';
 import { validateChatRequest } from './validate.js';
-import { sanitizeWorkoutCalls, WORKOUT_TOOLS } from './workouts.js';
+import { sanitizeWorkoutCalls, workoutTools } from './workouts.js';
 
 // Includes room for the DeviceCheck token (a few KB).
 const MAX_BODY_BYTES = 30_000;
@@ -32,8 +32,10 @@ export async function handleChat({ method, rawBody, ip }, { ai, model, fallbackM
   if (limit !== 'ok') return { status: 503, body: { error: 'unavailable' } };
 
   // Premium or free answers left (402 = free answers used up, 403 = not a real iPhone app).
-  const access = checkAccess ? await checkAccess(input) : { ok: true, commit: async () => {} };
+  const access = checkAccess ? await checkAccess(input) : { ok: true, premium: false, commit: async () => {} };
   if (!access.ok) return { status: access.status, body: access.body };
+  // Without Premium the Coach only knows the free exercises (catalog.js idsFor).
+  const premium = access.premium === true;
 
   const result = await generateAnswer({
     ai,
@@ -41,12 +43,12 @@ export async function handleChat({ method, rawBody, ip }, { ai, model, fallbackM
     fallbackModel,
     maxOutputTokens,
     // The main model can propose reminder changes and workouts (function calling); the fallback only answers.
-    messages: buildMessages({ ...input, appName, canPropose: true }),
-    fallbackMessages: buildMessages({ ...input, appName, canPropose: false }),
-    tools: [...REMINDER_TOOLS, ...WORKOUT_TOOLS],
+    messages: buildMessages({ ...input, appName, canPropose: true, premium }),
+    fallbackMessages: buildMessages({ ...input, appName, canPropose: false, premium }),
+    tools: [...REMINDER_TOOLS, ...workoutTools(premium)],
   }).catch(() => null);
   const actions = result
-    ? [...sanitizeActions(result.toolCalls, input.reminders), ...sanitizeWorkoutCalls(result.toolCalls)].slice(0, REMINDER_LIMITS.actionsPerAnswer)
+    ? [...sanitizeActions(result.toolCalls, input.reminders), ...sanitizeWorkoutCalls(result.toolCalls, premium)].slice(0, REMINDER_LIMITS.actionsPerAnswer)
     : [];
   if (!result || (!result.answer && !actions.length)) {
     console.error('chat: model call failed');

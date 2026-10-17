@@ -1,0 +1,184 @@
+{
+  "items": {
+    "jawClench": {
+      "name": "Mâchoire serrée",
+      "cue": "Serre les dents du fond et sens les muscles de ta mâchoire ressortir.",
+      "steps": [
+        "Redresse-toi, lèvres fermées, épaules relâchées.",
+        "Serre les dents du fond avec environ la moitié de ta force.",
+        "Maintiens et sens le muscle devant ton oreille se contracter, puis relâche lentement."
+      ]
+    },
+    "jawJut": {
+      "name": "Mâchoire en avant",
+      "cue": "Avance ta mâchoire inférieure et lève légèrement le menton.",
+      "steps": [
+        "Regarde droit devant toi, puis lève un peu le menton.",
+        "Fais glisser ta mâchoire inférieure vers l'avant jusqu'à sentir un étirement sous le menton.",
+        "Maintiens, puis ramène lentement ta mâchoire."
+      ]
+    },
+    "mewing": {
+      "name": "Mewing",
+      "cue": "Pose doucement toute ta langue contre ton palais, arrière compris.",
+      "steps": [
+        "Ferme les lèvres et laisse tes dents se toucher légèrement, sans serrer.",
+        "Place le bout de ta langue là où il se met quand tu dis « n », juste derrière tes dents du haut. Puis monte le reste de ta langue, arrière compris, à plat contre ton palais.",
+        "Garde un contact léger et régulier. C'est une position de repos, pas une forte pression. Respire par le nez et maintiens."
+      ]
+    },
+    "neckStretch": {
+      "name": "Étirement du cou",
+      "cue": "Penche l'oreille vers l'épaule en gardant les épaules basses.",
+      "steps": [
+        "Redresse-toi et relâche les épaules.",
+        "Penche lentement l'oreille droite vers l'épaule droite.",
+        "Maintiens l'étirement, reviens au centre et change de côté à la répétition suivante."
+      ]
+    },
+    "cheekPuff": {
+      "name": "Joues gonflées",
+      "cue": "Remplis tes joues d'air et garde-les bien rondes.",
+      "steps": [
+        "Inspire et ferme les lèvres.",
+        "Pousse l'air dans tes deux joues pour les gonfler.",
+        "Maintiens, puis laisse sortir l'air lentement."
+      ]
+    },
+    "eyeSqueeze": {
+      "name": "Yeux serrés",
+      "cue": "Ferme les yeux en les serrant fort, puis relâche lentement.",
+      "steps": [
+        "Détends ton front.",
+        "Ferme les yeux et serre-les bien.",
+        "Maintiens, puis rouvre-les lentement."
+      ]
+    },
+    "chinTuck": {
+      "name": "Menton rentré",
+      "cue": "Recule la tête bien droite et fais un petit double menton.",
+      "steps": [
+        "Redresse-toi, épaules basses et regard à l'horizontale, en position assise ou debout.",
+        "Recule la tête en ligne droite, comme si un fil tirait l'arrière de ta tête, jusqu'à ce que tes oreilles soient au-dessus de tes épaules.",
+        "Maintiens sans lever ni baisser le menton, puis reviens lentement vers l'avant."
+      ]
+    },
+    "tonguePress": {
+      "name": "Pression de la langue",
+      "cue": "Pousse fermement l'avant de ta langue derrière tes dents du haut et fredonne.",
+      "steps": [
+        "Redresse-toi, lèvres fermées et dents légèrement écartées.",
+        "Pousse fermement l'avant de ta langue contre ton palais, juste derrière tes dents du haut.",
+        "Fredonne doucement et sens les muscles sous ton menton se contracter. Maintiens, puis laisse retomber ta langue et relâche-la avant la répétition suivante."
+      ]
+    },
+    "smilingFish": {
+      "name": "Poisson souriant",
+      "cue": "Fais une bouche de poisson, puis remonte les coins de ta bouche en souriant.",
+      "steps": [
+        "Aspire tes joues entre tes dents et avance les lèvres.",
+        "Garde la bouche de poisson et tire les coins de ta bouche vers le haut en souriant.",
+        "Maintiens et sens tes joues remonter, puis détends tout ton visage."
+      ]
+    },
+    "oStretch": {
+      "name": "Étirement en O",
+      "cue": "Ouvre la bouche en un long O et rabats tes lèvres sur tes dents.",
+      "steps": [
+        "Regarde droit devant toi et garde le front détendu.",
+        "Ouvre la bouche en un grand O vertical et rabats tes lèvres sur tes dents.",
+        "Maintiens et sens ton visage s'étirer, puis referme lentement la bouche."
+      ]
+    },
+    "lionFace": {
+      "name": "Tête de lion",
+      "cue": "Ouvre grand la bouche, tire la langue et écarquille les yeux.",
+      "steps": [
+        "Inspire par le nez.",
+        "Expire en ouvrant grand la bouche, tire la langue vers ton menton et écarquille les yeux.",
+        "Maintiens l'étirement, puis ferme la bouche et détends-toi. Ne force pas l'ouverture de ta mâchoire au-delà de ce qui est confortable."
+      ]
+    },
+    "lowerLidLift": {
+      "name": "Regard plissé",
+      "cue": "Regarde vers le haut et remonte tes paupières inférieures, comme si tu plissais les yeux au soleil.",
+      "steps": [
+        "Garde la tête droite et regarde légèrement vers le haut.",
+        "Remonte seulement tes paupières inférieures, comme face à une lumière vive. Garde le front détendu.",
+        "Maintiens, puis laisse redescendre lentement tes paupières inférieures."
+      ]
+    },
+    "lipPress": {
+      "name": "Lèvres pincées",
+      "cue": "Presse tes lèvres l'une contre l'autre et rentre-les doucement.",
+      "steps": [
+        "Ferme la bouche et garde la mâchoire détendue.",
+        "Presse tes lèvres l'une contre l'autre et rentre-les légèrement sur tes dents.",
+        "Maintiens, puis relâche tes lèvres."
+      ]
+    },
+    "lipCornerLift": {
+      "name": "Coins de bouche relevés",
+      "cue": "Lèvres fermées, remonte seulement les coins de ta bouche.",
+      "steps": [
+        "Garde les lèvres fermées et les joues détendues.",
+        "Remonte juste les coins de ta bouche en un petit sourire.",
+        "Maintiens, puis laisse redescendre les coins."
+      ]
+    },
+    "smileLinePress": {
+      "name": "Plis du sourire",
+      "cue": "Doigts sur les plis du sourire, souris contre une légère pression.",
+      "steps": [
+        "Pose légèrement tes index sur les plis qui vont de ton nez aux coins de ta bouche.",
+        "Fais un grand sourire pendant que tes doigts maintiennent doucement la peau.",
+        "Maintiens, puis relâche ton sourire et tes doigts."
+      ]
+    },
+    "foreheadPress": {
+      "name": "Pression du front",
+      "cue": "Paumes sur le front, lève les sourcils contre une légère pression.",
+      "steps": [
+        "Pose tes deux paumes à plat sur ton front, juste au-dessus des sourcils.",
+        "Essaie de lever les sourcils pendant que tes mains maintiennent doucement la peau.",
+        "Maintiens, puis détends ton front."
+      ]
+    },
+    "vEyes": {
+      "name": "Yeux en V",
+      "cue": "Doigts en V autour des yeux, regarde vers le haut et plisse les yeux.",
+      "steps": [
+        "Pose légèrement tes majeurs au début de tes sourcils, près du nez, et tes index à leur extrémité, pour former un V.",
+        "Regarde vers le haut et remonte tes paupières inférieures en plissant bien les yeux.",
+        "Maintiens, puis détends tes yeux."
+      ]
+    },
+    "jawRelease": {
+      "name": "Détente de la mâchoire",
+      "cue": "Petits cercles lents du bout des doigts sur le muscle de la mâchoire, dents écartées.",
+      "steps": [
+        "Desserre les dents et laisse ta mâchoire pendre, bien relâchée.",
+        "Trouve le muscle à l'arrière de chaque joue et appuie légèrement du bout des doigts.",
+        "Fais des cercles lents, puis repose tes mains."
+      ]
+    },
+    "jawlineSweep": {
+      "name": "Lissage de la mâchoire",
+      "cue": "Fais glisser tes phalanges du menton le long de la mâchoire jusqu'aux oreilles.",
+      "steps": [
+        "Ferme les poings sans serrer et place tes phalanges sous le milieu de ton menton.",
+        "Fais-les glisser lentement le long de ta mâchoire jusque sous tes oreilles.",
+        "Décolle tes mains et recommence depuis le menton."
+      ]
+    },
+    "frownRelease": {
+      "name": "Lissage des sourcils",
+      "cue": "Lisse du milieu des sourcils jusqu'aux tempes.",
+      "steps": [
+        "Pose le bout de tes doigts entre tes sourcils.",
+        "Fais-les glisser lentement vers l'extérieur, sur tes sourcils, jusqu'aux tempes.",
+        "Décolle tes mains et recommence au milieu."
+      ]
+    }
+  }
+}

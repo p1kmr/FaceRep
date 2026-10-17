@@ -7,6 +7,10 @@
   "observability": { "enabled": true },
   // Workers AI: the model runs on Cloudflare, so there is no third AI key to manage.
   "ai": { "binding": "AI" },
+  // The Premium exercises (drawings, clips, texts), built into .content/ by `npm run content` (runs before deploy and
+  // dev). Private: every request runs the Worker first, and a file goes out only with a token from POST /content,
+  // given after RevenueCat confirms Premium (src/lib/content.js).
+  "assets": { "directory": "./.content", "binding": "CONTENT", "run_worker_first": true },
   "vars": {
     // Fast, cheap open model ($0.10 / $0.30 per million tokens in / out at the time of writing).
     "AI_MODEL": "@cf/google/gemma-4-26b-a4b-it",

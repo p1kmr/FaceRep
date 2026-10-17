@@ -13,7 +13,8 @@ import { WorkoutComplete } from '@/components/exercise/WorkoutComplete';
 import { AppText } from '@/components/ui/AppText';
 import { IconButton } from '@/components/ui/IconButton';
 import { ProgressRing } from '@/components/ui/ProgressRing';
-import { isExerciseId, isFreeExercise } from '@/constants/exercises';
+import { isExerciseId } from '@/constants/exercises';
+import { useExerciseAccess } from '@/hooks/useContent';
 import { useMirror } from '@/hooks/useMirror';
 import { usePremium } from '@/hooks/usePremium';
 import { useProgressSummary, useSaveWorkout } from '@/hooks/useProgress';
@@ -31,19 +32,24 @@ import { makeStyles } from '@/theme/makeStyles';
 
 /**
  * The guided player: the figure squeezes and relaxes with the timer.
- * ?kind=today → today's workout (hooks/useTodayWorkout).
- * ?ids=a,b,c&kind=single → exercises from the library or the Coach with their usual reps. Without Premium only the free
- *   ones run; when none of them is free, the paywall opens instead.
+ * ?kind=today → today's workout (hooks/useTodayWorkout). A locked day (without Premium, after the free days) opens the
+ *   paywall instead; with Premium it waits until every exercise of the day is on the iPhone (services/content).
+ * ?ids=a,b,c&kind=single → exercises from the library or the Coach with their usual reps. Only the ones this iPhone can
+ *   show run (without Premium the free ones); when none can, the paywall opens instead (with Premium: back).
  */
 export default function WorkoutScreen() {
   const params = useLocalSearchParams<{ ids?: string; kind?: string }>();
   const todayWorkout = useTodayWorkout();
   const { isPremium } = usePremium();
+  const { canUse } = useExerciseAccess();
   // Fixed when the screen opens: the running workout stays as it was.
   const [setup] = useState<{ items: WorkoutItem[]; kind: 'routine' | 'single'; locked: boolean }>(() => {
-    if (params.kind === 'today') return { items: todayWorkout.items, kind: 'routine', locked: false };
+    if (params.kind === 'today') {
+      const ready = !todayWorkout.locked && todayWorkout.items.every((i) => canUse(i.id));
+      return { items: ready ? todayWorkout.items : [], kind: 'routine', locked: !ready };
+    }
     const ids = (params.ids ?? '').split(',').filter(isExerciseId);
-    const allowed = isPremium ? ids : ids.filter(isFreeExercise);
+    const allowed = ids.filter(canUse);
     return { items: allowed.map(defaultItem), kind: 'single', locked: ids.length > 0 && !allowed.length };
   });
   const { kind } = setup;
@@ -86,12 +92,17 @@ export default function WorkoutScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- finish runs once, guarded by `saved`
   }, [state.phase]);
 
-  // Only Premium exercises were asked for (from the Coach or a link): the paywall instead of an empty player.
-  useEffect(() => {
-    if (setup.locked) router.replace('/paywall');
-  }, [setup.locked]);
-
   const close = () => (router.canGoBack() ? router.back() : router.replace('/'));
+
+  // Only Premium exercises were asked for (from the Coach or a link), or a locked day: the paywall instead of an empty
+  // player. With Premium they just aren't on this iPhone yet (the Today card shows the download): back.
+  useEffect(() => {
+    if (setup.locked) {
+      if (isPremium) close();
+      else router.replace('/paywall');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- once, when the screen opens
+  }, [setup.locked]);
   // Today's workout, not done yet today, stopping before half of it: saved, but the day waits (weeks.ts countsAsDay).
   const dayWaits = (r: WorkoutResult) => kind === 'routine' && !todayWorkout.done && !countsAsDay(r);
 

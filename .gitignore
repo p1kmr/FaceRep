@@ -28,6 +28,8 @@ web-build/
 # Cloudflare Worker
 worker/node_modules/
 worker/.wrangler/
+# Built by `npm run content` from app/assets/guides and worker/content (the Premium exercises)
+worker/.content/
 worker/.dev.vars*
 
 # Apple private keys (DeviceCheck, App Store Connect, In-App Purchase)

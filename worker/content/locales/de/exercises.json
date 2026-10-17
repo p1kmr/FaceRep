@@ -1,0 +1,184 @@
+{
+  "items": {
+    "jawClench": {
+      "name": "Kiefer anspannen",
+      "cue": "Beiß die Backenzähne zusammen und spür, wie sich deine Kiefermuskeln wölben.",
+      "steps": [
+        "Setz dich aufrecht hin, Lippen geschlossen, Schultern locker.",
+        "Beiß mit etwa halber Kraft auf die Backenzähne.",
+        "Halte und spür, wie sich der Muskel vor deinem Ohr anspannt. Dann langsam lösen."
+      ]
+    },
+    "jawJut": {
+      "name": "Kiefer vorschieben",
+      "cue": "Schieb den Unterkiefer nach vorn und heb das Kinn leicht an.",
+      "steps": [
+        "Schau geradeaus und heb dann das Kinn ein wenig an.",
+        "Schieb den Unterkiefer nach vorn, bis du eine Dehnung unter dem Kinn spürst.",
+        "Halten, dann den Kiefer langsam zurücknehmen."
+      ]
+    },
+    "mewing": {
+      "name": "Mewing",
+      "cue": "Leg die ganze Zunge sanft an den Gaumen, auch den hinteren Teil.",
+      "steps": [
+        "Schließ die Lippen und lass die Zähne locker aufeinanderliegen, ohne sie zusammenzubeißen.",
+        "Leg die Zungenspitze dorthin, wo sie beim „n“ liegt, direkt hinter den oberen Schneidezähnen. Dann heb den Rest der Zunge, auch den hinteren Teil, flach an den Gaumen.",
+        "Halte den Kontakt leicht und gleichmäßig: Das ist eine Ruheposition, kein kräftiger Druck. Atme durch die Nase und halte."
+      ]
+    },
+    "neckStretch": {
+      "name": "Seitliche Halsdehnung",
+      "cue": "Neig dein Ohr zur Schulter und lass die Schultern unten.",
+      "steps": [
+        "Setz dich aufrecht hin und lass die Schultern sinken.",
+        "Neig dein rechtes Ohr langsam zur rechten Schulter.",
+        "Halte die Dehnung, komm zurück zur Mitte und wechsle bei der nächsten Wiederholung die Seite."
+      ]
+    },
+    "cheekPuff": {
+      "name": "Wangen aufblasen",
+      "cue": "Füll deine Wangen mit Luft und halte sie rund.",
+      "steps": [
+        "Atme ein und schließ die Lippen.",
+        "Drück die Luft in beide Wangen, sodass sie sich aufblähen.",
+        "Halten, dann die Luft langsam rauslassen."
+      ]
+    },
+    "eyeSqueeze": {
+      "name": "Augen zukneifen",
+      "cue": "Kneif die Augen fest zu und lös sie dann langsam.",
+      "steps": [
+        "Entspann deine Stirn.",
+        "Schließ die Augen und kneif sie fest zu.",
+        "Halten, dann langsam öffnen."
+      ]
+    },
+    "chinTuck": {
+      "name": "Kinn einziehen",
+      "cue": "Schieb den Kopf gerade nach hinten und mach ein kleines Doppelkinn.",
+      "steps": [
+        "Setz oder stell dich aufrecht hin, Schultern unten, Blick geradeaus.",
+        "Schieb den Kopf gerade nach hinten, als würde ein Faden am Hinterkopf ziehen, bis deine Ohren über den Schultern sind.",
+        "Halten, ohne das Kinn zu heben oder zu senken, dann langsam wieder nach vorn gleiten."
+      ]
+    },
+    "tonguePress": {
+      "name": "Zungendruck",
+      "cue": "Drück den vorderen Teil der Zunge fest hinter die oberen Zähne und summe.",
+      "steps": [
+        "Setz dich aufrecht hin, Lippen geschlossen, Zähne leicht auseinander.",
+        "Drück den vorderen Teil der Zunge fest gegen den Gaumen, direkt hinter den oberen Schneidezähnen.",
+        "Summ leise und spür, wie sich die Muskeln unterm Kinn anspannen. Halten, dann die Zunge sinken lassen und vor der nächsten Wiederholung entspannen."
+      ]
+    },
+    "smilingFish": {
+      "name": "Lächelnder Fisch",
+      "cue": "Mach ein Fischgesicht und zieh dann die Mundwinkel zu einem Lächeln hoch.",
+      "steps": [
+        "Saug die Wangen zwischen die Zähne und spitz die Lippen.",
+        "Halte das Fischgesicht und zieh die Mundwinkel zu einem Lächeln nach oben.",
+        "Halten und spüren, wie sich die Wangen heben, dann das ganze Gesicht entspannen."
+      ]
+    },
+    "oStretch": {
+      "name": "O-Dehnung",
+      "cue": "Öffne den Mund zu einem langen O und zieh die Lippen über die Zähne.",
+      "steps": [
+        "Schau geradeaus und lass die Stirn entspannt.",
+        "Öffne den Mund zu einem hohen O und zieh die Lippen über die Zähne.",
+        "Halten und spüren, wie sich dein Gesicht in die Länge streckt, dann den Mund langsam schließen."
+      ]
+    },
+    "lionFace": {
+      "name": "Löwengesicht",
+      "cue": "Mund weit auf, Zunge raus und Augen weit öffnen.",
+      "steps": [
+        "Atme durch die Nase ein.",
+        "Atme aus, öffne dabei den Mund weit, streck die Zunge Richtung Kinn und reiß die Augen weit auf.",
+        "Halte die Dehnung, dann Mund schließen und entspannen. Öffne den Kiefer nicht weiter, als es angenehm ist."
+      ]
+    },
+    "lowerLidLift": {
+      "name": "Unterlid heben",
+      "cue": "Schau nach oben und heb die Unterlider, als würdest du in die Sonne blinzeln.",
+      "steps": [
+        "Halte den Kopf gerade und schau leicht nach oben.",
+        "Heb nur die Unterlider, als würdest du in helles Licht blinzeln. Lass die Stirn entspannt.",
+        "Halten, dann die Unterlider langsam sinken lassen."
+      ]
+    },
+    "lipPress": {
+      "name": "Lippen pressen",
+      "cue": "Press die Lippen aufeinander und roll sie sanft ein.",
+      "steps": [
+        "Schließ den Mund und lass den Kiefer locker.",
+        "Press die Lippen aufeinander und roll sie leicht über die Zähne nach innen.",
+        "Halten, dann die Lippen locker lassen."
+      ]
+    },
+    "lipCornerLift": {
+      "name": "Mundwinkel heben",
+      "cue": "Heb bei geschlossenen Lippen nur die Mundwinkel an.",
+      "steps": [
+        "Lippen geschlossen, Wangen weich.",
+        "Heb nur die Mundwinkel zu einem kleinen Lächeln an.",
+        "Halten, dann die Mundwinkel sinken lassen."
+      ]
+    },
+    "smileLinePress": {
+      "name": "Lachlinien-Druck",
+      "cue": "Fingerspitzen auf die Lachlinien, gegen leichten Druck lächeln.",
+      "steps": [
+        "Leg die Zeigefinger leicht auf die Linien von der Nase zu den Mundwinkeln.",
+        "Lächle breit, während deine Finger die Haut sanft festhalten.",
+        "Halten, dann Lächeln und Finger entspannen."
+      ]
+    },
+    "foreheadPress": {
+      "name": "Stirndruck",
+      "cue": "Handflächen auf die Stirn, Brauen gegen leichten Druck heben.",
+      "steps": [
+        "Leg beide Handflächen flach auf die Stirn, direkt über den Augenbrauen.",
+        "Versuch, die Augenbrauen zu heben, während deine Hände die Haut sanft festhalten.",
+        "Halten, dann die Stirn entspannen."
+      ]
+    },
+    "vEyes": {
+      "name": "V-Augen",
+      "cue": "Finger als V um die Augen, nach oben schauen und die Augen zusammenkneifen.",
+      "steps": [
+        "Leg die Mittelfinger leicht an die inneren Enden der Augenbrauen und die Zeigefinger an die äußeren Enden, sodass ein V entsteht.",
+        "Schau nach oben und heb die Unterlider, bis du die Augen kräftig zusammenkneifst.",
+        "Halten, dann die Augen entspannen."
+      ]
+    },
+    "jawRelease": {
+      "name": "Kiefer lockern",
+      "cue": "Langsame Kreise mit den Fingerspitzen auf dem Kiefermuskel, Zähne auseinander.",
+      "steps": [
+        "Lass die Zähne auseinander und den Kiefer locker hängen.",
+        "Such den Muskel hinten an jeder Wange und drück leicht mit den Fingerspitzen.",
+        "Mach langsame Kreise, dann lass die Hände ruhen."
+      ]
+    },
+    "jawlineSweep": {
+      "name": "Kieferlinie ausstreichen",
+      "cue": "Streich mit den Knöcheln vom Kinn den Kiefer entlang bis zu den Ohren.",
+      "steps": [
+        "Mach lockere Fäuste und leg die Knöchel unter die Mitte deines Kinns.",
+        "Streich langsam die Kieferlinie entlang bis knapp unter die Ohren.",
+        "Nimm die Hände weg und beginne wieder am Kinn."
+      ]
+    },
+    "frownRelease": {
+      "name": "Brauen ausstreichen",
+      "cue": "Streich von der Mitte zwischen den Brauen nach außen zu den Schläfen.",
+      "steps": [
+        "Leg die Fingerspitzen zwischen die Augenbrauen.",
+        "Streich langsam nach außen über die Brauen bis zu den Schläfen.",
+        "Nimm die Hände weg und beginne wieder in der Mitte."
+      ]
+    }
+  }
+}

@@ -1,8 +1,8 @@
-import { EXERCISE_IDS, EXERCISES, WORKOUT, type ExerciseId, type Goal } from '@/constants/exercises';
+import { EXERCISE_IDS, EXERCISES, isFreeExercise, WORKOUT, type ExerciseId, type Goal } from '@/constants/exercises';
 import { EASY_DAY_IDS, WEEKS } from '@/constants/weeks';
 
 import type { WorkoutItem } from './items';
-import { dosedItem, stepOf, weekDay, workoutsBefore, type WeekDay, type WeekNote } from './weeks';
+import { dosedItem, isFreeDay, stepOf, weekDay, workoutsBefore, type WeekDay, type WeekNote } from './weeks';
 
 const rotate = <T>(list: readonly T[], by: number): T[] => {
   if (!list.length) return [];
@@ -56,11 +56,24 @@ export function todaysWorkout(goal: Goal, done: number, allowed: (id: ExerciseId
   return { ...where, note: step.note, items: inCatalogOrder(ids).map((id) => dosedItem(id, step.repPct, step.holdPlusSec)) };
 }
 
+const anyExercise = () => true;
+
 /**
- * The week the day after `done` finished days is in, day 1 to 7, each as todaysWorkout makes it: the days before are
- * done, the later ones come one workout at a time. Only this week, never a total.
+ * Which exercises the day after `done` finished days is made from: every one with Premium. Without it, the free ones
+ * on the free days (WEEKS.freeDays), and every one on a later day: that day shows locked, as it will be once unlocked.
  */
-export function weekWorkouts(goal: Goal, done: number, allowed: (id: ExerciseId) => boolean): TodaysWorkout[] {
+export const dayAllowed = (premium: boolean, done: number): ((id: ExerciseId) => boolean) =>
+  premium || !isFreeDay(done) ? anyExercise : isFreeExercise;
+
+/** The one exercise a locked day names, its first free one (the others stay hidden); null when it has none. */
+export const previewOf = (items: readonly WorkoutItem[]): WorkoutItem | null => items.find((i) => isFreeExercise(i.id)) ?? null;
+
+/**
+ * The week the day after `done` finished days is in, day 1 to 7, each as todaysWorkout makes it from the exercises
+ * `allowedFor` that day (dayAllowed): the days before are done, the later ones come one workout at a time. Only this
+ * week, never a total.
+ */
+export function weekWorkouts(goal: Goal, done: number, allowedFor: (dayDone: number) => (id: ExerciseId) => boolean): TodaysWorkout[] {
   const first = (weekDay(done).week - 1) * WEEKS.daysPerWeek;
-  return Array.from({ length: WEEKS.daysPerWeek }, (_, i) => todaysWorkout(goal, first + i, allowed));
+  return Array.from({ length: WEEKS.daysPerWeek }, (_, i) => todaysWorkout(goal, first + i, allowedFor(first + i)));
 }

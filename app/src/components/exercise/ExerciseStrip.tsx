@@ -16,7 +16,7 @@ export function ExerciseStrip({ ids, index }: { ids: readonly ExerciseId[]; inde
     <View style={styles.row} importantForAccessibility="no-hide-descendants" accessibilityElementsHidden>
       {ids.map((id, i) => (
         <View key={`${id}-${i}`} style={[styles.item, i === index && styles.current, i > index && styles.later]}>
-          <Image source={images.exercises[id].thumb} style={styles.thumb} contentFit="cover" />
+          <Image source={images.exercises[id]?.thumb} style={styles.thumb} contentFit="cover" />
           {i < index ? (
             <View style={styles.done}>
               <SymbolView name="checkmark.circle.fill" size={16} tintColor={colors.success} />

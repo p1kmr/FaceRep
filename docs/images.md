@@ -27,7 +27,10 @@ app/assets/
      originals elsewhere, see "AI images" below);
    - cuts `thumb.webp` from `exercise.webp` (a full-width square starting 6% from the top: the face) when it's missing;
    - writes `src/constants/guideImages.generated.ts` (never edit it by hand). React Native's bundler only includes images
-     loaded with a fixed `require('…')` path, so the list of files has to be written out.
+     loaded with a fixed `require('…')` path, so the list of files has to be written out. It lists **only the free
+     exercises** (`FREE_EXERCISE_IDS`): the Premium ones stay out of the app and reach paying users from the Worker
+     (`npm --prefix worker run content` copies them into the Worker's private folder; docs/premium.md §2b). Their files
+     are checked here all the same.
 3. `npm run images:check` (also part of `npm test`) fails when the default guide (man) is incomplete, a file has the
    wrong size or name, the relaxed and exercise frames differ in size, or the generated list is out of date.
 

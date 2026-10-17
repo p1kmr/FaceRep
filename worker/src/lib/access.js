@@ -63,18 +63,19 @@ export async function pruneFreeUsage(db, now = new Date()) {
 const deny = (status, error) => ({ ok: false, status, body: { error } });
 
 /**
- * Returns { ok: true, commit } or { ok: false, status, body }. Call commit() after a successful
- * answer: it counts a free answer (Premium: nothing to do).
- * Without a RevenueCat key the gate is open (older setup; the daily limits still apply).
+ * Returns { ok: true, premium, commit } or { ok: false, status, body }. Call commit() after a successful
+ * answer: it counts a free answer (Premium: nothing to do). `premium` is true only when RevenueCat says so: the Coach
+ * names the Premium exercises only then.
+ * Without a RevenueCat key the gate is open (older setup; the daily limits still apply), as free for the exercises.
  */
 export function createAccessCheck({ isPremium, freeUsage, deviceCheck, freePerMonth = FREE_PER_MONTH }) {
   return async function checkAccess({ appUserId, deviceToken }, now = new Date()) {
-    const open = { ok: true, commit: async () => {} };
+    const open = { ok: true, premium: false, commit: async () => {} };
     if (!isPremium) return open;
 
     const premium = await isPremium(appUserId, now);
     if (premium === 'unavailable') return deny(503, 'unavailable');
-    if (premium) return open;
+    if (premium) return { ...open, premium: true };
 
     const month = monthOf(now);
     if (deviceCheck) {
@@ -93,6 +94,7 @@ export function createAccessCheck({ isPremium, freeUsage, deviceCheck, freePerMo
 
     return {
       ok: true,
+      premium: false,
       commit: async () => {
         await freeUsage.add(appUserId, month).catch(() => console.error('free usage: count failed'));
       },

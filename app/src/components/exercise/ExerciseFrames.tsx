@@ -37,9 +37,9 @@ export function ExerciseFrames({ id, squeeze, label, fill, style }: ExerciseFram
 
   return (
     <View style={[styles.plate, fill ? styles.fill : styles.ratio, style]} accessible accessibilityRole="image" accessibilityLabel={label}>
-      <Image source={images.relaxed} style={StyleSheet.absoluteFill} contentFit="contain" transition={0} />
+      <Image source={images?.relaxed} style={StyleSheet.absoluteFill} contentFit="contain" transition={0} />
       <Animated.View style={[StyleSheet.absoluteFill, exerciseStyle]}>
-        <Image source={images.exercise} style={StyleSheet.absoluteFill} contentFit="contain" transition={0} />
+        <Image source={images?.exercise} style={StyleSheet.absoluteFill} contentFit="contain" transition={0} />
       </Animated.View>
     </View>
   );
