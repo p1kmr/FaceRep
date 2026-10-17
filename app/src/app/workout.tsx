@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { Alert, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ExerciseFrames } from '@/components/exercise/ExerciseFrames';
 import { MirrorView } from '@/components/exercise/MirrorView';
+import { PlayerFigure } from '@/components/exercise/PlayerFigure';
 import { RepPips } from '@/components/exercise/RepPips';
 import { WorkoutComplete } from '@/components/exercise/WorkoutComplete';
 import { AppText } from '@/components/ui/AppText';
@@ -133,7 +133,13 @@ export default function WorkoutScreen() {
       </View>
 
       <View style={styles.frames}>
-        <ExerciseFrames id={e.id} squeeze={squeeze} label={`${name}, ${phaseLabel}`} fill />
+        <PlayerFigure
+          id={e.id}
+          squeeze={squeeze}
+          preview={state.phase === 'ready' || state.phase === 'rest'}
+          paused={state.paused}
+          label={`${name}, ${phaseLabel}`}
+        />
         {mirror.on ? <MirrorView style={styles.mirror} /> : null}
       </View>
 

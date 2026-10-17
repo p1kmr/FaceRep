@@ -29,7 +29,9 @@
     "plan": "{{reps}} repeticiones · mantén {{hold}} s · relaja {{relax}} s",
     "start": "Empezar ejercicio",
     "jawCaution": "Sáltate este ejercicio si tienes dolor de mandíbula, chasquidos o un problema de ATM.",
-    "handsCaution": "Usa las manos limpias y presión ligera. Evita la piel irritada y no presiones una zona tratada hace poco con bótox o rellenos."
+    "handsCaution": "Usa las manos limpias y presión ligera. Evita la piel irritada y no presiones una zona tratada hace poco con bótox o rellenos.",
+    "playVideo": "Reproducir vídeo",
+    "pauseVideo": "Pausar vídeo"
   },
   "items": {
     "jawClench": {

@@ -3,25 +3,30 @@ import { SymbolView } from 'expo-symbols';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
+import { ExerciseClip, useExerciseClip } from '@/components/exercise/ExerciseClip';
 import { ExerciseFrames } from '@/components/exercise/ExerciseFrames';
 import { MuscleBadges } from '@/components/exercise/MuscleBadges';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Screen } from '@/components/ui/Screen';
-import { EXERCISES, isExerciseId } from '@/constants/exercises';
+import { EXERCISES, isExerciseId, type ExerciseId } from '@/constants/exercises';
 import { useDemoSqueeze } from '@/hooks/useDemoSqueeze';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 
-/** One exercise: animated preview, muscles, how-to steps, start it on its own. */
+/** One exercise: its clip (or the drawings), muscles, how-to steps, start it on its own. */
 export default function ExerciseScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  return isExerciseId(id) ? <ExerciseDetail id={id} /> : null;
+}
+
+function ExerciseDetail({ id }: { id: ExerciseId }) {
   const { t } = useTranslation('exercises');
   const { colors } = useTheme();
   const styles = useStyles();
-  const squeeze = useDemoSqueeze();
-  if (!isExerciseId(id)) return null;
+  const clip = useExerciseClip(id);
+  const squeeze = useDemoSqueeze(1800, !clip);
   const e = EXERCISES[id];
   const name = t(`items.${e.key}.name`);
   const steps = t(`items.${e.key}.steps`, { returnObjects: true }) as string[];
@@ -37,7 +42,7 @@ export default function ExerciseScreen() {
         />
       }
     >
-      <ExerciseFrames id={e.id} squeeze={squeeze} label={name} />
+      {clip ? <ExerciseClip id={e.id} clip={clip} label={name} controls /> : <ExerciseFrames id={e.id} squeeze={squeeze} label={name} />}
       <View style={styles.titles}>
         <AppText variant="title" accessibilityRole="header">
           {name}

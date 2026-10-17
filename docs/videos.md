@@ -45,13 +45,27 @@ artifact (https://claude.ai/artifact/Nbert5f5PApgezCxiMwWP2) still has the 9:16 
 - Jaw exercises (01, 03, 15) look gentle, never forced.
 - Man and woman clips of the same exercise show the same move.
 
-## Into the app (later, one change)
+## In the app
 
-The workout player today crossfades the two drawings in time with the rep counter (`ExerciseFrames.tsx`): squeeze
-shows the exercise drawing, release the relaxed one, for each exercise's own timing. A clip has a fixed timing, so it
-must not replace that sync. Options when the set is ready: show the clip on the exercise page (it isn't timed), or
-drive the morph frames from the rep counter in the player. Either way: `expo-video` or an image sequence (justify the
-dependency), the drawings stay as the poster and the Reduce Motion fallback, the jaw caution stays before jaw
-exercises, new labels in all six languages, the Settings footer says "pictures and videos", and a new build. Clips
-go under `app/assets` only in that change (the images check rejects unknown files in the exercise folders). The
-store text and screenshots must not show them as results.
+`videos/tools/app.py` copies each clip into its exercise folder as `app/assets/guides/<guide>/exercises/<id>/clip.mp4`:
+cut back to the drawing's shape (the white bands of the 9:16 page go, so the clip lines up with the drawing) and encoded
+smaller (H.264, CRF 26, no sound, about 350 KB; 15 MB for all 52). `npm run images` lists them in the generated file
+(`exercises[id].clip`) and its check rejects a clip that isn't an MP4 or is over 1.2 MB. Re-run `app.py` (and
+`npm run images`) after re-making a clip with `make.py`.
+
+`components/exercise/ExerciseClip.tsx` plays one with **`expo-video`** (the Expo SDK's own player: hardware H.264, one
+small native module; an image sequence would have been 3–5 times bigger). It loops muted, mixes with the user's music
+(`audioMixingMode: 'mixWithOthers'`), shows the relaxed drawing until its first frame is on screen, and stops when its
+screen is covered, the app goes to the background or the user taps pause. No picture-in-picture, no background play
+(`app.json`).
+
+- **Exercise page:** the clip loops at the top, with a pause / play button.
+- **Workout player:** a clip has a fixed timing, so it doesn't replace the rep-synced drawings. It plays before each
+  exercise, during "Get ready" and "Next up" (the move once), and the two drawings take over in time with the counter
+  when the reps start (`PlayerFigure.tsx`). The jaw caution still replaces the cue before jaw exercises.
+- **Reduce Motion** (or no clip, 02 Chin Lift): the drawings, as before.
+- Settings' note on the pictures says the videos are made from the AI-generated drawings (all six languages).
+- The store text and screenshots must not show clips as results.
+
+The web build (store screenshot capture) can't decode H.264 in the bundled Chromium; it shows the drawing (the cover),
+which is also what the screenshots use.

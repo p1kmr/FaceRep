@@ -28,6 +28,6 @@
     "man": "Hombre",
     "woman": "Mujer"
   },
-  "aiImages": "Los dibujos y las fotos de los ejercicios de {{app}} están generados con IA y muestran personas ficticias.",
+  "aiImages": "Los dibujos y las fotos de los ejercicios de {{app}} están generados con IA y muestran personas ficticias. Los vídeos de los ejercicios están hechos a partir de estos dibujos.",
   "disclaimer": "{{app}} es una app de bienestar y fitness y no ofrece consejo médico. Los resultados varían de una persona a otra."
 }

@@ -16,8 +16,8 @@ morphing face as solid pieces (`tools/hands.py`). Every frame is made of the app
 never changes and there is no before/after look (App Review 1.4.1 / 2.3.1). No AI video: Flow/Veo was tried and
 changed the face, so it is not used (docs/videos.md).
 
-Not in the app yet. These files are the source; playing them in the app is a separate change (docs/videos.md,
-"Into the app").
+These files are the masters. `tools/app.py` copies them into the app at app size (`clip.mp4` in each exercise folder;
+docs/videos.md, "In the app"): run it, then `npm run images` in `app/`, after re-making a clip.
 
 ## Status
 
@@ -79,6 +79,7 @@ python3 -m venv .venv
   relaxed one), tip first, plus its back end; the tool takes the reddish pixels inside it (`exact` when the whole window
   is pink and the outline is used as traced). Several moving parts go in `pieces`, drawn in order.
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
+- Into the app: `python3 app.py` (all) or `python3 app.py 06-cheek-lift` (needs only `ffmpeg`), then `npm run images`.
 
 ## Check every clip
 

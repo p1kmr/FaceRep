@@ -15,6 +15,14 @@ function fakeWebp(width, height) {
   return buf;
 }
 
+/** The start of an MP4 file (its `ftyp` box), padded to `bytes`. */
+function fakeMp4(bytes = 64) {
+  const buf = Buffer.alloc(bytes);
+  buf.writeUInt32BE(24, 0);
+  buf.write('ftypisom', 4, 'ascii');
+  return buf;
+}
+
 const roots = [];
 afterAll(() => roots.forEach((root) => fs.rmSync(root, { recursive: true, force: true })));
 
@@ -52,6 +60,32 @@ describe('guide images (npm run images)', () => {
     expect(fs.readFileSync(path.join(ROOT, OUTPUT), 'utf8')).toBe(render(result));
   });
 
+  it('the app: every exercise but Chin Lift has its clip, in both guides', () => {
+    const { ids, clips } = scan();
+    const expected = ids.filter((id) => id !== '02-chin-lift');
+    expect(clips.man).toEqual(expected);
+    expect(clips.woman).toEqual(expected);
+  });
+
+  it('lists clips where they are; a clip that is not an MP4 or too big is a problem', () => {
+    const ids = ['01-a', '02-b', '03-c'];
+    const root = project(ids, {
+      ...fullSet('man', ids),
+      'man/exercises/01-a/clip.mp4': fakeMp4(),
+      'man/exercises/02-b/clip.mp4': 'not a video',
+      'man/exercises/03-c/clip.mp4': fakeMp4(1_300_000),
+    });
+    const result = scan(root);
+    expect(result.clips.man).toEqual(['01-a']);
+    expect(result.problems).toEqual([
+      'assets/guides/man/exercises/02-b/clip.mp4: not an MP4 file',
+      'assets/guides/man/exercises/03-c/clip.mp4: 1300 KB, too big for the app (make it with videos/tools/app.py)',
+    ]);
+    const out = render(result);
+    expect(out).toContain("clip: require('@/assets/guides/man/exercises/01-a/clip.mp4')");
+    expect(out).not.toContain('02-b/clip.mp4');
+  });
+
   it('reads the size from the WebP header', () => {
     expect(webpSize(path.join(ROOT, 'assets/guides/man/exercises/01-jaw-clench/thumb.webp'))).toEqual({ width: 240, height: 240 });
     expect(webpSize(path.join(ROOT, 'assets/brand/icon.png'))).toBeNull();
@@ -83,7 +117,7 @@ describe('guide images (npm run images)', () => {
       'assets/guides/female: unknown guide folder (use man or woman)',
       'assets/guides/man/hero/home.webp: 1000×600, should be 1200×675 (run npm run images)',
       'man/exercises/01-a: relaxed (758×1024) and exercise (760×1024) must be the same size to line up',
-      'assets/guides/man/exercises/01-a/relaxed.png: unexpected file (expected relaxed.webp, exercise.webp, thumb.webp; run npm run images to convert PNG/JPG)',
+      'assets/guides/man/exercises/01-a/relaxed.png: unexpected file (expected relaxed.webp, exercise.webp, thumb.webp, clip.mp4; run npm run images to convert PNG/JPG)',
       'The default guide (man) must be complete; missing: man/hero/paywall.webp',
     ]);
   });

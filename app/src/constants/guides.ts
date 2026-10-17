@@ -14,11 +14,15 @@ export const DEFAULT_GUIDE: GuideId = 'man';
 
 export const isGuideId = (v: unknown): v is GuideId => typeof v === 'string' && (GUIDE_IDS as readonly string[]).includes(v);
 
-/** The two frames the player crossfades between, and the square thumbnail cut from the exercise frame. */
+/**
+ * The two frames the player crossfades between, the square thumbnail cut from the exercise frame, and the exercise's
+ * clip (a bundled MP4, from videos/tools/app.py) when it has one.
+ */
 export interface ExerciseImages {
   relaxed: ImageSourcePropType;
   exercise: ImageSourcePropType;
   thumb: ImageSourcePropType;
+  clip?: number;
 }
 
 /** One guide's full set: the hero photos and every exercise of the catalog. */

@@ -11,7 +11,8 @@ app/assets/
   guides/
     man/
       hero/                      home.webp (1200×675), paywall.webp (762×1024)
-      exercises/01-jaw-clench/   relaxed.webp, exercise.webp (≈757×1024), thumb.webp (240×240)
+      exercises/01-jaw-clench/   relaxed.webp, exercise.webp (≈757×1024), thumb.webp (240×240),
+                                 clip.mp4 (optional: the exercise's clip, copied in by videos/tools/app.py)
       …
     woman/                       same layout
 ```
@@ -29,7 +30,8 @@ app/assets/
 3. `npm run images:check` (also part of `npm test`) fails when the default guide (man) is incomplete, a file has the
    wrong size or name, the relaxed and exercise frames differ in size, or the generated list is out of date.
 
-A guide is in the app only when it's **complete** (both heroes, and all three files of every exercise). The
+A guide is in the app only when it's **complete** (both heroes, and all three pictures of every exercise; clips are
+optional, an exercise without one keeps the crossfade). The
 Man/Woman question in onboarding and the "Exercise pictures" row in Settings appear by themselves once two guides are
 complete. A folder for an exercise that isn't in the catalog yet is fine: it's reported as a note and not bundled.
 

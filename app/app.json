@@ -138,7 +138,14 @@
           "barcodeScannerEnabled": false
         }
       ],
-      "expo-font"
+      "expo-font",
+      [
+        "expo-video",
+        {
+          "supportsBackgroundPlayback": false,
+          "supportsPictureInPicture": false
+        }
+      ]
     ],
     "locales": {
       "en": "./locales-native/en.json",

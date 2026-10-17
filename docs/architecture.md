@@ -59,8 +59,10 @@ Schema changes: append to `services/db/migrations.ts` (tracked with `PRAGMA user
 
 ## The workout player
 `services/workout/timer.ts` is a pure state machine (`ready → hold → relax → … → rest → … → done`), ticked once a second
-by `useWorkout()`. The figure is two still drawings (relaxed / exercise) crossfaded with Reanimated on every phase
-change, so the face is identical and the app stays small (no video). Leaving the app pauses the workout.
+by `useWorkout()`. During the reps the figure is two still drawings (relaxed / exercise) crossfaded with Reanimated on
+every phase change, so it stays in time with the counter. Before each exercise ("Get ready", "Next up") the exercise's
+clip plays instead (`PlayerFigure.tsx`, `ExerciseClip.tsx`, `expo-video`; docs/videos.md). Leaving the app pauses the
+workout.
 
 While it runs, `useWorkout()` also:
 - **keeps the screen on** (`expo-keep-awake`, only while running; paused or finished lets it sleep). Without it iOS
