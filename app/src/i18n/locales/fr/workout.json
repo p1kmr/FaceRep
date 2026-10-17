@@ -23,6 +23,16 @@
     "open": "Ouvrir Réglages",
     "cancel": "Plus tard"
   },
+  "mirrorBigger": "Agrandir le miroir",
+  "figureBigger": "Agrandir l'illustration",
+  "moveCheck": {
+    "starting": "Recherche de ton visage…",
+    "noFace": "Visage hors du cadre",
+    "seen": "Vu {{seen}} sur {{reps}}",
+    "hint": {
+      "browsStill": "Garde les sourcils immobiles"
+    }
+  },
   "endConfirm": {
     "title": "Terminer cette séance ?",
     "body": "Les exercices déjà faits compteront quand même.",

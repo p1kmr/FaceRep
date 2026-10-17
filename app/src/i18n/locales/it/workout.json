@@ -23,6 +23,16 @@
     "open": "Apri Impostazioni",
     "cancel": "Non ora"
   },
+  "mirrorBigger": "Ingrandisci lo specchio",
+  "figureBigger": "Ingrandisci la figura",
+  "moveCheck": {
+    "starting": "Cerco il tuo viso…",
+    "noFace": "Viso fuori inquadratura",
+    "seen": "Visto {{seen}} di {{reps}}",
+    "hint": {
+      "browsStill": "Tieni ferme le sopracciglia"
+    }
+  },
   "endConfirm": {
     "title": "Terminare l'allenamento?",
     "body": "Gli esercizi che hai completato contano comunque.",

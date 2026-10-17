@@ -142,6 +142,9 @@ test('pages: privacy, terms and support render with the app name; unknown paths 
   }
   const privacy = await renderPage('/privacy', env).text();
   assert.match(privacy, /same or equal protection/); // App Store 5.1.1(i)
+  // Apps using face tracking (ARKit) must say what face data they use and that it stays on the device (5.1.1, 5.1.2(vi)).
+  assert.match(privacy, /Face data \(move check\)/);
+  assert.match(privacy, /never sent to us or anyone else/);
   const terms = await renderPage('/terms', env).text();
   assert.match(terms, /unlimited\s+AI Coach answers for personal use/);
   assert.match(terms, /automated or abusive use/);

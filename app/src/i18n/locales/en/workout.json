@@ -23,6 +23,16 @@
     "open": "Open Settings",
     "cancel": "Not now"
   },
+  "mirrorBigger": "Show the mirror bigger",
+  "figureBigger": "Show the figure bigger",
+  "moveCheck": {
+    "starting": "Looking for your face…",
+    "noFace": "Face not in view",
+    "seen": "Seen {{seen}} of {{reps}}",
+    "hint": {
+      "browsStill": "Keep your eyebrows still"
+    }
+  },
   "endConfirm": {
     "title": "End this workout?",
     "body": "The exercises you finished will still count.",

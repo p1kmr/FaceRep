@@ -23,6 +23,16 @@
     "open": "Einstellungen öffnen",
     "cancel": "Nicht jetzt"
   },
+  "mirrorBigger": "Spiegel größer zeigen",
+  "figureBigger": "Figur größer zeigen",
+  "moveCheck": {
+    "starting": "Suche dein Gesicht …",
+    "noFace": "Gesicht nicht im Bild",
+    "seen": "Erkannt: {{seen}} von {{reps}}",
+    "hint": {
+      "browsStill": "Augenbrauen ruhig halten"
+    }
+  },
   "endConfirm": {
     "title": "Training beenden?",
     "body": "Die Übungen, die du geschafft hast, zählen trotzdem.",

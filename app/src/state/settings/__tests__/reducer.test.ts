@@ -11,6 +11,7 @@ import {
   setGoal,
   setGuide,
   setMirror,
+  setMoveCheck,
   setVoiceCues,
 } from '../actions';
 import { DEFAULT_SETTINGS, initialSettingsState, settingsReducer } from '../reducer';
@@ -92,6 +93,17 @@ describe('settingsReducer', () => {
     expect(settingsReducer(s, hydrateSettings({ goal: 'eyes' })).settings).toMatchObject({ voiceCues: true, mirror: false });
     const odd = settingsReducer(s, hydrateSettings({ voiceCues: false, mirror: 'yes' as never }));
     expect(odd.settings).toMatchObject({ voiceCues: false, mirror: false });
+  });
+
+  it('the move check starts on; off is remembered and only a clear off turns it off', () => {
+    expect(DEFAULT_SETTINGS.moveCheck).toBe(true);
+    const off = settingsReducer(initialSettingsState, setMoveCheck(false));
+    expect(off.settings.moveCheck).toBe(false);
+    expect(settingsReducer(off, setMoveCheck(true)).settings.moveCheck).toBe(true);
+    expect(settingsReducer(off, hydrateSettings({ moveCheck: false })).settings.moveCheck).toBe(false);
+    // Saves from before the move check existed, or odd values, keep it on (it does nothing without the mirror).
+    expect(settingsReducer(off, hydrateSettings({ mirror: true })).settings).toMatchObject({ mirror: true, moveCheck: true });
+    expect(settingsReducer(off, hydrateSettings({ moveCheck: 'no' as never })).settings.moveCheck).toBe(true);
   });
 
   it('shows the 28-day grid tip until it is dismissed, also after an update', () => {

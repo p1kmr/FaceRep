@@ -32,6 +32,8 @@ export interface Settings {
   voiceCues: boolean;
   /** Front camera as a mirror in workouts. Nothing is recorded or saved. */
   mirror: boolean;
+  /** In the mirror, Apple's face tracking shows when it sees the move (iPhones that have it). Nothing is recorded or saved. */
+  moveCheck: boolean;
   /** Consent to send Coach questions to the AI (null = not asked yet). */
   aiConsent: boolean | null;
   lastReviewPromptOn: ISODate | null;

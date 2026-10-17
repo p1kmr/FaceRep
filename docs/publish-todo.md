@@ -112,11 +112,15 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
 - [ ] **Build 8** from `app/` the same way as build 7 (EAS production profile, auto-submit), when the owner says go.
 - [ ] **Owner tests build 8** with docs/device-testing.md §3 (new lines: Coach save / routine, videos, face map), then
       attaches it to version 1.0 in place of build 7.
+- [ ] **Move check in the mirror (face tracking, an experiment):** build 8 has it; test it with docs/face-tracking.md §5.
+      Keep it: do §7 there before submitting (Worker deploy for the privacy policy, What's New, slide 5; the review
+      notes in docs/launch.md already describe it). Drop it:
+      revert its commit ("Mirror move check with Apple face tracking…"), deploy the Worker again and make a new build.
 - [ ] **Store text:** the description and What's New in docs/store-listing.md now mention the face map, the videos and the
       Coach saving workouts (all six languages); put them on the 1.0 page.
 - [ ] **Screenshots:** Today, the player, the exercise page, Progress and the Coach look different now: re-capture and
       re-export them (store-screenshots/README.md) before submitting.
-- [ ] **Review notes:** use the updated text in docs/launch.md (face map, videos, Coach save / routine).
+- [ ] **Review notes:** use the updated text in docs/launch.md (face map, videos, Coach save / routine, move check).
 
 ## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real

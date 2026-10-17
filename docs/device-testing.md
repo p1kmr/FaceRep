@@ -9,6 +9,7 @@ them there before every App Store submission:
 | Reminders (notifications) | Local notifications are an iOS service |
 | Haptics, voice cues, keep-screen-on | The browser has no Taptic Engine; its voices and wake lock behave differently |
 | Mirror (camera permission prompt) | The iOS prompt, "Don't Allow" and the Settings-app path only exist on iOS |
+| Move check in the mirror (face tracking) | ARKit runs only on an iPhone with Face ID or an A12 chip and later; not in the Simulator (docs/face-tracking.md §5) |
 | DeviceCheck, Keychain app ID | iOS-only APIs (`modules/device-check`, `expo-secure-store`) |
 | Language (Settings → FaceRep → Language) | iOS lists the app's languages from the build |
 | SF Symbols, native tab bar, Dynamic Type | iOS rendering |
@@ -59,7 +60,9 @@ Delete the app first so onboarding and permissions start fresh.
 - [ ] **Massage exercises:** the ring and the voice say "Massage" instead of "Squeeze".
 - [ ] **Mirror:** tap the person button → iOS asks for the camera with our text → Allow → your face appears in the corner,
       mirrored. Leave the app and come back: the workout is paused and the camera restarts. Delete and reinstall, tap
-      "Don't Allow", tap again → our alert offers Settings.
+      "Don't Allow", tap again → our alert offers Settings. Tap the small mirror: it swaps with the figure.
+- [ ] **Move check:** the checklist in docs/face-tracking.md §5 (Brow Lift with the mirror on: the level fills and the
+      count goes up once per hold).
 - [ ] **Pause by leaving:** press the side button during a workout → it pauses; unlock → Resume works.
 - [ ] **Languages:** Settings → Language opens FaceRep in the Settings app → Language → Español: the app restarts in
       Spanish (texts, voice, reminder notifications, Coach replies). Check long German words fit (Deutsch).
