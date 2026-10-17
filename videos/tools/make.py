@@ -19,6 +19,7 @@ import cv2
 import numpy as np
 
 import hands
+import window
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 VIDEOS = os.path.dirname(HERE)
@@ -49,6 +50,9 @@ SETTINGS = {
     # and the exercise hand none, so a slow swap showed both: it happens quickly at the end of the move.
     "26-frown-release": {"hands": True, "swap": {"woman": (0.8, 0.14)}},
     "25-jawline-sweep": {"hands": True},
+    # window: side view with a see-through window; the tongue inside rises to the palate (see window.py).
+    "04-mewing": {"window": True},
+    "12-tongue-press": {"window": True},
     # tongue: on each exercise drawing, in page pixels (720x1280), the tongue's outline and the bottom of the chin
     # (the face finder takes the tongue for the chin); measure again if the drawing changes.
     "15-lion-face": {"tongue": {
@@ -560,6 +564,12 @@ def main():
                 frame = glider(A, B, find(A, f"{guide} relaxed"), settings["glide"])
             elif "tongue" in settings:
                 frame = tongue(A, B, find(A, f"{guide} relaxed"), settings["tongue"][guide], find, f"{guide} exercise")
+            elif "window" in settings:
+                with open(os.path.join(HERE, "window.json")) as f:
+                    spec = json.load(f)[args.id].get(guide)
+                if spec is None:
+                    raise NoFace(f"{guide}: no tongue outline in window.json, so this one keeps the app's crossfade")
+                frame = window.mover(A, B, spec)
             elif "hands" in settings:
                 with open(os.path.join(HERE, "hands.json")) as f:
                     spec = json.load(f)[args.id][guide]

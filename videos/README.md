@@ -26,8 +26,8 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 01-jaw-clench | ✓ | ✓ | small move by nature: the muscle builds up |
 | 02-chin-lift | — | — | front view, head tips back (a 3D turn): the morph shows two faces and `tilt` can't turn a flat drawing that way; keeps the app's crossfade |
 | 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
-| 04-mewing | — | — | see-through side view: no face found; keeps the app's crossfade |
-| 12-tongue-press | — | — | see-through window shows the tongue: the morph bends the inside of the window; keeps the app's crossfade |
+| 04-mewing | ✓ | ✓ | `window`: side view with a see-through window and no face found, and a plain blend showed two tongues. The exercise drawing is lined up onto the relaxed one, the tongue is cut out of both (outlines in `tools/window.json`) and one tongue rises to the palate, its outline paired from the tip, with the red spreading from the tip back. A thin line where his tongue's base lifts off the floor of the mouth shows briefly |
+| 12-tongue-press | ✓ | ✓ | `window` (as 04): the tongue lifts to press behind the upper teeth; his muscle band under the tongue moves as a second piece (flat to slanting). Her exercise drawing shows the inner side of the teeth, which the relaxed one doesn't, so those fade in |
 | 05-neck-stretch | ✓ | ✓ | `tilt` 0.85, `both`: one rep to each side (8 s; the exercise switches sides every rep, the face is never flipped). The head turns around the exercise drawing's own pivot (near the chin), so the face tilts in place; the neck stays upright and follows the jaw above it, so the far side gets longer (the stretch, in red) and the near side shorter; shoulders still. Tilting from the base of the neck slid the head sideways, and bending the neck made it stretch like rubber |
 | 11-chin-tuck | ✓ | ✓ | `glide`: the morph wobbled (the two drawings don't line up), so one drawing's head slides straight back, eyes level, shoulders still, and the neck muscle turns red |
 | 06-cheek-lift | ✓ | ✓ | |
@@ -51,7 +51,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 26-frown-release | ✓ | ✓ | `hands`: the hands slide from between the brows to the temples as solid pieces over the morphing face (outlines traced by hand in `tools/hands.json`); on the last part of the move the relaxed hand turns into the exercise hand, both lined up pixel by pixel. Hers turns quickly at the very end (`swap`): her relaxed hand has two fingers curled and the exercise hand none, so a slow change showed both. A plain morph showed both pairs of hands at once, and a quick swap of the drawings flashed |
 | 27-temple-circles | ✓ | ✓ | the eyes close (eye rule: the lids come down over still eyes); the fingertips stay on the temples in both drawings, so they stay solid while the red rings build up |
 
-Front-view exercises with an expression change morph well. Head tilts (02), see-through windows (04, 12) and hands-on exercises (21–27) may not (21–24 and 27 do: their hands hardly move; hands that move slide with `hands`, 25 and 26), and
+Front-view exercises with an expression change morph well. Head tilts back (02) can't be shown from two flat drawings; see-through windows (04, 12) use `window`; hands-on exercises (21–27) may not (21–24 and 27 do: their hands hardly move; hands that move slide with `hands`, 25 and 26), and
 side views need a short swap (`sharp`): if a clip shows two faces at once or the face can't be found, keep the app's crossfade
 for that exercise. When the whole head moves, use `glide` (slides, Chin Tuck) or `tilt` (tilts, Neck Stretch) instead of the
 morph: one drawing, so nothing wobbles.
@@ -71,10 +71,13 @@ python3 -m venv .venv
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
 - Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` / `tilt` for a
   head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out, `gaze` for eyes that
-  look somewhere else, `spread` for a red highlight that changes shape, `hands` for hands that move, with `swap` when one guide's hands change shape a lot).
+  look somewhere else, `spread` for a red highlight that changes shape, `window` for a side view where the tongue moves inside a see-through window, `hands` for hands that move, with `swap` when one guide's hands change shape a lot).
 - Hands that move need their outlines in `tools/hands.json`: per exercise and guide, one entry per hand with a rough
   outline on each drawing in page pixels (720×1280), starting at the fingertip; the tool snaps it onto the drawn edge. An
   arm that runs off the drawing is traced a little past its edge (y 1145), so the cut-out is solid up to the edge.
+- `window` needs the tongue's rough outline in `tools/window.json`, on each drawing (the exercise one as lined up onto the
+  relaxed one), tip first, plus its back end; the tool takes the reddish pixels inside it (`exact` when the whole window
+  is pink and the outline is used as traced). Several moving parts go in `pieces`, drawn in order.
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
 
 ## Check every clip

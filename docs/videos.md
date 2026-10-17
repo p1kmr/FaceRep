@@ -14,7 +14,9 @@ and slides out of the mouth solid, and when the eyes close or open wider (Eye Sq
 moves over it instead of the other drawing's lid and lashes fading in over the iris; when the eyes look up (Lower Lid Lift) one
 iris slides up instead of two irises blending; when the red highlight changes shape (V Eyes) it spreads from the eye outward
 instead of two red patterns blending. Hands that move (Frown Release, Jawline Sweep) are cut out along outlines traced by hand and
-slide over the morphing face as solid pieces, so two pairs of hands never show at once. Because every frame is made of the approved drawings, the face, the pencil style and the
+slide over the morphing face as solid pieces, so two pairs of hands never show at once. In the side views with a see-through
+window (Mewing, Tongue Press) the head stays and one tongue rises to the palate, its outline changing from the one drawing's to
+the other's. Because every frame is made of the approved drawings, the face, the pencil style and the
 red muscle highlight stay exactly as in the app, and the face can't get slimmer or smoother (App Review 1.4.1 /
 2.3.1, the Health rule in CLAUDE.md). It is free, runs offline and gives the same result every time.
 
@@ -24,8 +26,8 @@ while its muscle turns red, because morphing two drawings that don't line up mad
 `glide` slides the head straight back (Chin Tuck: eyes level, shoulders still); `tilt` turns it around the exercise
 drawing's own pivot (near the chin) by a share of its angle, so the face tilts in place, and the neck follows the jaw
 without leaning or sliding: one side gets longer, the other shorter (Neck Side Stretch, one rep to each side because
-the exercise switches sides every rep). Chin Lift still keeps the
-app's crossfade, and so may other hands-on exercises.
+the exercise switches sides every rep). Chin Lift keeps the app's crossfade: the head tips back, a turn two flat drawings
+can't show.
 
 ## Tried and dropped: AI video (Google Flow / Veo, Omni Flash)
 
