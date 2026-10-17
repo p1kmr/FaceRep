@@ -1,13 +1,13 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { SymbolView } from 'expo-symbols';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Pressable, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View, type LayoutRectangle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ExerciseStrip } from '@/components/exercise/ExerciseStrip';
 import { MirrorView } from '@/components/exercise/MirrorView';
 import { PlayerFigure } from '@/components/exercise/PlayerFigure';
+import { PlayerStage } from '@/components/exercise/PlayerStage';
 import { RepPips } from '@/components/exercise/RepPips';
 import { WorkoutComplete } from '@/components/exercise/WorkoutComplete';
 import { AppText } from '@/components/ui/AppText';
@@ -64,6 +64,8 @@ export default function WorkoutScreen() {
   const settingsDispatch = useSettingsDispatch();
   const mirror = useMirror();
   const [mirrorBig, setMirrorBig] = useState(false);
+  // Where the frame is on the screen, for PlayerStage (measured once it's laid out).
+  const [area, setArea] = useState<LayoutRectangle | null>(null);
   const saveWorkout = useSaveWorkout();
   const askForReview = useReviewPrompt();
   const { streak } = useProgressSummary();
@@ -147,45 +149,8 @@ export default function WorkoutScreen() {
 
       {state.queue.length > 1 ? <ExerciseStrip ids={state.queue.map((q) => q.id)} index={state.index} /> : null}
 
-      {/*
-        Figure and mirror: tap the small one to swap them. Only their boxes change (plain views, the tap target is
-        a separate button on top), so the camera and the move check keep running instead of starting over.
-      */}
-      <View style={[styles.frames, squeeze && !state.paused && styles.glow]}>
-        <View style={big ? [styles.corner, styles.tile] : styles.fill}>
-          <PlayerFigure
-            id={e.id}
-            squeeze={squeeze}
-            preview={state.phase === 'ready' || state.phase === 'rest'}
-            paused={state.paused}
-            label={`${name}, ${phaseLabel}`}
-          />
-        </View>
-        {mirror.on ? (
-          <View style={big ? styles.big : [styles.corner, styles.tile]}>
-            <MirrorView
-              style={StyleSheet.absoluteFill}
-              exercise={e}
-              index={state.index}
-              phase={movePhaseOf(state.phase, state.paused)}
-              rep={state.rep}
-              large={big}
-            />
-          </View>
-        ) : null}
-        {mirror.on ? (
-          <Pressable
-            style={[styles.corner, styles.swapTarget]}
-            onPress={() => setMirrorBig(!big)}
-            accessibilityRole="button"
-            accessibilityLabel={big ? t('figureBigger') : t('mirrorBigger')}
-          >
-            <View style={styles.swap}>
-              <SymbolView name="arrow.up.left.and.arrow.down.right" size={11} weight="bold" tintColor={colors.onImage} />
-            </View>
-          </Pressable>
-        ) : null}
-      </View>
+      {/* The frame keeps the figure's place and glow; the figure and the mirror are drawn by PlayerStage on top. */}
+      <View style={[styles.frames, squeeze && !state.paused && styles.glow]} onLayout={(ev) => setArea(ev.nativeEvent.layout)} />
 
       <View style={styles.info}>
         <AppText variant="brand" center numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={styles.name}>
@@ -237,6 +202,39 @@ export default function WorkoutScreen() {
         </View>
       </View>
       <RepPips total={e.reps} done={state.completedReps[state.index]} current={state.rep} />
+
+      {area ? (
+        <PlayerStage
+          area={area}
+          mirrorBig={big}
+          onSwap={() => setMirrorBig(!big)}
+          onCloseMirror={() => {
+            setMirrorBig(false);
+            mirror.setOn(false);
+          }}
+          figure={
+            <PlayerFigure
+              id={e.id}
+              squeeze={squeeze}
+              preview={state.phase === 'ready' || state.phase === 'rest'}
+              paused={state.paused}
+              label={`${name}, ${phaseLabel}`}
+            />
+          }
+          mirror={
+            mirror.on ? (
+              <MirrorView
+                style={StyleSheet.absoluteFill}
+                exercise={e}
+                index={state.index}
+                phase={movePhaseOf(state.phase, state.paused)}
+                rep={state.rep}
+                large={big}
+              />
+            ) : null
+          }
+        />
+      ) : null}
     </View>
   );
 }
@@ -256,24 +254,6 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   glow: { boxShadow: `0px 0px 36px ${colors.glow}` },
   where: { fontWeight: tokens.font.weight.bold, letterSpacing: 0.8, flexShrink: 1, textAlign: 'center' },
   name: { fontSize: 34, lineHeight: 40 },
-  fill: { flex: 1 },
-  big: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, borderRadius: tokens.radius.xl, overflow: 'hidden' },
-  /** The small tile (figure or mirror) and the button on top of it. */
-  corner: { position: 'absolute', right: tokens.space.md, bottom: tokens.space.md, width: '38%', aspectRatio: 3 / 4 },
-  // The plate color fills the corners the figure's rounder plate leaves open (the mirror covers it).
-  tile: { zIndex: 1, borderRadius: tokens.radius.lg, overflow: 'hidden', borderWidth: 2, borderColor: colors.background, backgroundColor: colors.plate },
-  swapTarget: { zIndex: 2 },
-  swap: {
-    position: 'absolute',
-    top: tokens.space.xs,
-    left: tokens.space.xs,
-    width: 22,
-    height: 22,
-    borderRadius: tokens.radius.pill,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.overlay,
-  },
   info: { paddingHorizontal: tokens.space.xl, paddingTop: tokens.space.lg, gap: tokens.space.xs },
   caution: { fontWeight: tokens.font.weight.bold },
   controls: {

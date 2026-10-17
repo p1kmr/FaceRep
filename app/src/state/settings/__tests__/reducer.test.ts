@@ -12,6 +12,7 @@ import {
   setGuide,
   setMirror,
   setMoveCheck,
+  setTileSpot,
   setVoiceCues,
 } from '../actions';
 import { DEFAULT_SETTINGS, initialSettingsState, settingsReducer } from '../reducer';
@@ -104,6 +105,19 @@ describe('settingsReducer', () => {
     // Saves from before the move check existed, or odd values, keep it on (it does nothing without the mirror).
     expect(settingsReducer(off, hydrateSettings({ mirror: true })).settings).toMatchObject({ mirror: true, moveCheck: true });
     expect(settingsReducer(off, hydrateSettings({ moveCheck: 'no' as never })).settings.moveCheck).toBe(true);
+  });
+
+  it("remembers where the workout's small tile was dragged, within limits", () => {
+    expect(DEFAULT_SETTINGS.tileSpot).toBeNull();
+    let s = settingsReducer(initialSettingsState, setTileSpot({ x: 0.2, y: 0.7 }));
+    expect(s.settings.tileSpot).toEqual({ x: 0.2, y: 0.7 });
+    expect(settingsReducer(s, setTileSpot({ x: -3, y: 9 })).settings.tileSpot).toEqual({ x: 0, y: 1 });
+    expect(settingsReducer(s, setTileSpot(null)).settings.tileSpot).toBeNull();
+    // Saves from before it existed, or broken ones, put the tile back in its corner.
+    s = settingsReducer(s, hydrateSettings({ goal: 'eyes' }));
+    expect(s.settings.tileSpot).toBeNull();
+    expect(settingsReducer(s, hydrateSettings({ tileSpot: { x: 0.5, y: 'top' } as never })).settings.tileSpot).toBeNull();
+    expect(settingsReducer(s, hydrateSettings({ tileSpot: { x: 0.5, y: 0.1 } })).settings.tileSpot).toEqual({ x: 0.5, y: 0.1 });
   });
 
   it('shows the 28-day grid tip until it is dismissed, also after an update', () => {

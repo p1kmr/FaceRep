@@ -25,6 +25,7 @@
   },
   "mirrorBigger": "Agrandir le miroir",
   "figureBigger": "Agrandir l'illustration",
+  "mirrorClose": "Fermer le miroir",
   "moveCheck": {
     "starting": "Recherche de ton visage…",
     "noFace": "Visage hors du cadre",

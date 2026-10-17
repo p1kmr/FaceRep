@@ -25,6 +25,7 @@
   },
   "mirrorBigger": "Show the mirror bigger",
   "figureBigger": "Show the figure bigger",
+  "mirrorClose": "Close the mirror",
   "moveCheck": {
     "starting": "Looking for your face…",
     "noFace": "Face not in view",

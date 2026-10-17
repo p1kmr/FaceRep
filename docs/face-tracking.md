@@ -2,7 +2,7 @@
 
 The workout mirror can show when it sees the exercise's move: a level on the edge of the mirror fills and turns green,
 and a line counts the holds it saw ("Seen 3 of 10"). It uses Apple's face tracking (ARKit) on the iPhone. Nothing is
-recorded, saved or sent. Tapping the small tile swaps the figure and the mirror, so the mirror can be big.
+recorded, saved or sent. Tapping the small tile swaps the figure and the mirror, so the mirror can be big; it can be dragged anywhere and × closes the mirror.
 
 Status: an experiment on `main` as one commit ("Mirror move check with Apple face tracking…", from the branch
 `feat/openCV`), **not yet tried on an iPhone**. It needs a new build (build 8; an over-the-air update can't add native
@@ -120,6 +120,7 @@ TestFlight, or a development build (docs/device-testing.md §1), then:
 - [ ] Neck Side Stretch counts both sides; Chin Lift counts a nod up. Wide Eyes says "Keep your eyebrows still" when
       the brows rise.
 - [ ] Tap the small mirror: it becomes big and the count goes on (no restart). Tap the small figure to swap back.
+- [ ] Drag the small tile over the buttons and back: the count goes on; the next workout opens it in the same spot. × closes the mirror.
 - [ ] Cover the camera: "Face not in view". Leave the app and come back: the camera restarts, the count stays.
 - [ ] The mirror shows your face, not black. If it's black with "Face not in view", read the `FaceRep face tracking`
       lines in Console (§2): no "first camera frame" means ARKit got no camera (the error code says why).

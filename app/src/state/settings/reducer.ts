@@ -20,10 +20,11 @@ import {
   SETTINGS_HYDRATE,
   SETTINGS_RESET,
   THEME_MODE_SET,
+  TILE_SPOT_SET,
   VOICE_CUES_SET,
   type SettingsAction,
 } from './actions';
-import type { AskButtonSettings, SavedSettings, Settings, SettingsState } from './types';
+import type { AskButtonSettings, SavedSettings, Settings, SettingsState, TileSpot } from './types';
 
 export const DEFAULT_SETTINGS: Settings = {
   themeMode: 'system',
@@ -37,6 +38,7 @@ export const DEFAULT_SETTINGS: Settings = {
   voiceCues: true,
   mirror: false,
   moveCheck: true,
+  tileSpot: null,
   aiConsent: null,
   lastReviewPromptOn: null,
   askButton: { visible: true, side: 'right', y: 1, hintShows: 0 },
@@ -73,6 +75,16 @@ function sanitizeAskButton(saved: Partial<AskButtonSettings> | undefined, base: 
   };
 }
 
+const unit = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) ? Math.min(1, Math.max(0, v)) : null);
+
+/** Both fractions within 0–1, or no spot at all (the corner). */
+function sanitizeTileSpot(saved: unknown): TileSpot | null {
+  if (!saved || typeof saved !== 'object') return null;
+  const x = unit((saved as TileSpot).x);
+  const y = unit((saved as TileSpot).y);
+  return x === null || y === null ? null : { x, y };
+}
+
 /** Keeps only valid saved values (a saved file can be old or edited), the rest from defaults. */
 export function sanitizeSettings(saved: SavedSettings | null): Settings {
   const s = saved ?? {};
@@ -89,6 +101,7 @@ export function sanitizeSettings(saved: SavedSettings | null): Settings {
     voiceCues: s.voiceCues !== false,
     mirror: s.mirror === true,
     moveCheck: s.moveCheck !== false,
+    tileSpot: sanitizeTileSpot(s.tileSpot),
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
     lastReviewPromptOn: typeof s.lastReviewPromptOn === 'string' ? s.lastReviewPromptOn : null,
     askButton: sanitizeAskButton(s.askButton, d.askButton),
@@ -129,6 +142,8 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { mirror: action.payload === true });
     case MOVE_CHECK_SET:
       return update(state, { moveCheck: action.payload === true });
+    case TILE_SPOT_SET:
+      return update(state, { tileSpot: sanitizeTileSpot(action.payload) });
     case AI_CONSENT_SET:
       return update(state, { aiConsent: action.payload });
     case REVIEW_PROMPTED:

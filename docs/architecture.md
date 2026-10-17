@@ -78,11 +78,13 @@ While it runs, `useWorkout()` also:
   cue and comes back instead of stopping.
 
 **Mirror** (Settings → Mirror in workouts, or the person button in the player): `components/exercise/MirrorView.tsx`
-shows the front camera (`expo-camera`) in a corner of the figure. `hooks/useMirror.ts` asks for the camera the first time
+shows the front camera (`expo-camera`) as a small tile on the figure. `hooks/useMirror.ts` asks for the camera the first time
 it's turned on; iOS asks only once, so after "Don't Allow" an alert offers the Settings app. Nothing is recorded or saved,
 and the camera stops in the background. The microphone purpose string exists only because the camera library can record
 video with sound (Apple rejects builds whose code can reach the microphone without one); FaceRep never asks for it.
-Tapping the small tile swaps the figure and the mirror (only their boxes change, so the camera doesn't restart).
+`components/exercise/PlayerStage.tsx` draws the figure and the mirror in a layer over the whole player: tap the small
+tile to swap them (only their boxes change, so the camera doesn't restart), drag it anywhere on the screen (the spot is
+remembered as `tileSpot`, like the Coach button's), and × on the mirror closes it.
 
 **Move check** (docs/face-tracking.md): on iPhones with Apple's face tracking (and Settings → Move check in the mirror
 on), the mirror is the local module `modules/face-tracking` (ARKit) instead of `expo-camera`, and shows a level and

@@ -25,6 +25,7 @@
   },
   "mirrorBigger": "Ver el espejo más grande",
   "figureBigger": "Ver la figura más grande",
+  "mirrorClose": "Cerrar el espejo",
   "moveCheck": {
     "starting": "Buscando tu cara…",
     "noFace": "No se ve tu cara",

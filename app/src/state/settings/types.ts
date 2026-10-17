@@ -3,6 +3,7 @@ import type { GuideId } from '@/constants/guides';
 import type { Reminder } from '@/services/reminders/reminders';
 import type { ThemeMode } from '@/constants/theme';
 import type { ISODate } from '@/utils/dates';
+import type { Spot } from '@/utils/spot';
 
 /** 'HH:mm', 24-hour. */
 export type TimeOfDay = string;
@@ -16,6 +17,9 @@ export interface AskButtonSettings {
   /** App opens that showed the first-time "ask me about…" hint (stops at ASK_HINT.maxShows). */
   hintShows: number;
 }
+
+/** Where the user dragged the workout's small tile (mirror or figure): fractions of the free space, so it fits any screen. */
+export type TileSpot = Spot;
 
 export interface Settings {
   themeMode: ThemeMode;
@@ -34,6 +38,8 @@ export interface Settings {
   mirror: boolean;
   /** In the mirror, Apple's face tracking shows when it sees the move (iPhones that have it). Nothing is recorded or saved. */
   moveCheck: boolean;
+  /** Where the small tile sits in workouts (null = the figure's bottom-right corner, until it's dragged). */
+  tileSpot: TileSpot | null;
   /** Consent to send Coach questions to the AI (null = not asked yet). */
   aiConsent: boolean | null;
   lastReviewPromptOn: ISODate | null;
