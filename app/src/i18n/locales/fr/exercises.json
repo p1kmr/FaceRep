@@ -61,11 +61,11 @@
     },
     "mewing": {
       "name": "Mewing",
-      "cue": "Plaque toute ta langue à plat contre ton palais.",
+      "cue": "Pose doucement toute ta langue contre ton palais, arrière compris.",
       "steps": [
-        "Ferme les lèvres et laisse tes dents se toucher légèrement.",
-        "Place toute ta langue, arrière compris, contre ton palais.",
-        "Respire par le nez et garde la position sans forcer."
+        "Ferme les lèvres et laisse tes dents se toucher légèrement, sans serrer.",
+        "Place le bout de ta langue là où il se met quand tu dis « n », juste derrière tes dents du haut. Puis monte le reste de ta langue, arrière compris, à plat contre ton palais.",
+        "Garde un contact léger et régulier. C'est une position de repos, pas une forte pression. Respire par le nez et maintiens."
       ]
     },
     "neckStretch": {
@@ -133,11 +133,11 @@
     },
     "tonguePress": {
       "name": "Pression de la langue",
-      "cue": "Presse ta langue contre ton palais et fredonne.",
+      "cue": "Pousse fermement l'avant de ta langue derrière tes dents du haut et fredonne.",
       "steps": [
         "Redresse-toi, lèvres fermées et dents légèrement écartées.",
-        "Presse fermement l'avant de ta langue contre ton palais, juste derrière tes dents du haut.",
-        "Fredonne doucement et sens les muscles sous ton menton se contracter. Maintiens, puis relâche ta langue."
+        "Pousse fermement l'avant de ta langue contre ton palais, juste derrière tes dents du haut.",
+        "Fredonne doucement et sens les muscles sous ton menton se contracter. Maintiens, puis laisse retomber ta langue et relâche-la avant la répétition suivante."
       ]
     },
     "smilingFish": {

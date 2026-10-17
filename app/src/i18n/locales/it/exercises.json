@@ -61,11 +61,11 @@
     },
     "mewing": {
       "name": "Mewing",
-      "cue": "Premi tutta la lingua, piatta, contro il palato.",
+      "cue": "Appoggia delicatamente tutta la lingua al palato, compresa la parte posteriore.",
       "steps": [
-        "Chiudi le labbra e fai toccare leggermente i denti.",
-        "Appoggia tutta la lingua, compresa la parte posteriore, contro il palato.",
-        "Respira dal naso e mantieni la posizione senza forzare."
+        "Chiudi le labbra e fai toccare leggermente i denti, senza stringere.",
+        "Metti la punta della lingua dove la appoggi quando dici «n», appena dietro gli incisivi superiori. Poi solleva il resto della lingua, compresa la parte posteriore, piatta contro il palato.",
+        "Mantieni un contatto leggero e uniforme: è una posizione di riposo, non una pressione forte. Respira dal naso e mantieni."
       ]
     },
     "neckStretch": {
@@ -133,11 +133,11 @@
     },
     "tonguePress": {
       "name": "Pressione della lingua",
-      "cue": "Premi la lingua contro il palato e canticchia a bocca chiusa.",
+      "cue": "Spingi con decisione la parte anteriore della lingua dietro i denti superiori e canticchia a bocca chiusa.",
       "steps": [
         "Siediti con la schiena dritta, le labbra chiuse e i denti leggermente separati.",
-        "Premi con decisione la parte anteriore della lingua contro il palato, appena dietro gli incisivi superiori.",
-        "Canticchia piano a bocca chiusa e senti contrarsi i muscoli sotto il mento. Tieni, poi rilassa la lingua."
+        "Spingi con decisione la parte anteriore della lingua contro il palato, appena dietro gli incisivi superiori.",
+        "Canticchia piano a bocca chiusa e senti contrarsi i muscoli sotto il mento. Tieni, poi lascia ricadere la lingua e rilassala prima della ripetizione successiva."
       ]
     },
     "smilingFish": {

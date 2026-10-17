@@ -61,11 +61,11 @@
     },
     "mewing": {
       "name": "Mewing",
-      "cue": "Drück die ganze Zunge flach gegen den Gaumen.",
+      "cue": "Leg die ganze Zunge sanft an den Gaumen, auch den hinteren Teil.",
       "steps": [
-        "Schließ die Lippen und lass die Zähne locker aufeinanderliegen.",
-        "Leg die ganze Zunge, auch den hinteren Teil, an den Gaumen.",
-        "Atme durch die Nase und halte die Position, ohne zu verkrampfen."
+        "Schließ die Lippen und lass die Zähne locker aufeinanderliegen, ohne sie zusammenzubeißen.",
+        "Leg die Zungenspitze dorthin, wo sie beim „n“ liegt, direkt hinter den oberen Schneidezähnen. Dann heb den Rest der Zunge, auch den hinteren Teil, flach an den Gaumen.",
+        "Halte den Kontakt leicht und gleichmäßig: Das ist eine Ruheposition, kein kräftiger Druck. Atme durch die Nase und halte."
       ]
     },
     "neckStretch": {
@@ -133,11 +133,11 @@
     },
     "tonguePress": {
       "name": "Zungendruck",
-      "cue": "Drück die Zunge gegen den Gaumen und summe.",
+      "cue": "Drück den vorderen Teil der Zunge fest hinter die oberen Zähne und summe.",
       "steps": [
         "Setz dich aufrecht hin, Lippen geschlossen, Zähne leicht auseinander.",
         "Drück den vorderen Teil der Zunge fest gegen den Gaumen, direkt hinter den oberen Schneidezähnen.",
-        "Summ leise und spür, wie sich die Muskeln unterm Kinn anspannen. Halten, dann die Zunge entspannen."
+        "Summ leise und spür, wie sich die Muskeln unterm Kinn anspannen. Halten, dann die Zunge sinken lassen und vor der nächsten Wiederholung entspannen."
       ]
     },
     "smilingFish": {

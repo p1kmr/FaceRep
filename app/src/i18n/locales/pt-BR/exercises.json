@@ -61,11 +61,11 @@
     },
     "mewing": {
       "name": "Mewing",
-      "cue": "Pressione a língua inteira, bem apoiada, contra o céu da boca.",
+      "cue": "Apoie a língua inteira de leve no céu da boca, inclusive a parte de trás.",
       "steps": [
-        "Feche os lábios e encoste os dentes de leve.",
-        "Apoie a língua inteira, inclusive a parte de trás, no céu da boca.",
-        "Respire pelo nariz e mantenha a posição sem forçar."
+        "Feche os lábios e deixe os dentes se encostarem de leve, sem apertar.",
+        "Coloque a ponta da língua onde ela fica quando você diz “n”, logo atrás dos dentes da frente de cima. Depois encoste o resto da língua, inclusive a parte de trás, no céu da boca.",
+        "Mantenha um contato leve e uniforme: é uma posição de repouso, não uma pressão forte. Respire pelo nariz e segure."
       ]
     },
     "neckStretch": {
@@ -133,11 +133,11 @@
     },
     "tonguePress": {
       "name": "Pressão da língua",
-      "cue": "Pressione a língua contra o céu da boca e cantarole.",
+      "cue": "Empurre com firmeza a frente da língua para cima, atrás dos dentes de cima, e cantarole.",
       "steps": [
         "Sente-se com a postura ereta, os lábios fechados e os dentes levemente separados.",
-        "Pressione com firmeza a parte da frente da língua contra o céu da boca, logo atrás dos dentes da frente de cima.",
-        "Cantarole baixinho e sinta os músculos embaixo do queixo se contraírem. Segure e depois relaxe a língua."
+        "Empurre com firmeza a parte da frente da língua contra o céu da boca, logo atrás dos dentes da frente de cima.",
+        "Cantarole baixinho e sinta os músculos embaixo do queixo se contraírem. Segure, depois solte a língua e relaxe antes da próxima repetição."
       ]
     },
     "smilingFish": {

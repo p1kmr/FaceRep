@@ -61,11 +61,11 @@
     },
     "mewing": {
       "name": "Mewing",
-      "cue": "Apoya toda la lengua, plana, contra el paladar.",
+      "cue": "Apoya toda la lengua suavemente en el paladar, incluida la parte de atrás.",
       "steps": [
-        "Cierra los labios y junta los dientes suavemente.",
-        "Coloca toda la lengua, incluida la parte de atrás, contra el paladar.",
-        "Respira por la nariz y mantén la posición sin forzar."
+        "Cierra los labios y deja que los dientes se toquen suavemente, sin apretar.",
+        "Coloca la punta de la lengua donde la pones al decir “n”, justo detrás de los dientes superiores delanteros. Luego sube el resto de la lengua, incluida la parte de atrás, plana contra el paladar.",
+        "Mantén un contacto suave y uniforme: es una posición de reposo, no una presión fuerte. Respira por la nariz y mantén."
       ]
     },
     "neckStretch": {
@@ -133,11 +133,11 @@
     },
     "tonguePress": {
       "name": "Presión de lengua",
-      "cue": "Presiona la lengua contra el paladar y tararea.",
+      "cue": "Empuja con firmeza la parte delantera de la lengua detrás de los dientes de arriba y tararea.",
       "steps": [
         "Siéntate con la espalda recta, los labios cerrados y los dientes un poco separados.",
-        "Presiona con firmeza la parte delantera de la lengua contra el paladar, justo detrás de los dientes superiores delanteros.",
-        "Tararea suavemente y siente cómo se tensan los músculos bajo la barbilla. Mantén y luego relaja la lengua."
+        "Empuja con firmeza la parte delantera de la lengua hacia el paladar, justo detrás de los dientes superiores delanteros.",
+        "Tararea suavemente y siente cómo se tensan los músculos bajo la barbilla. Mantén, luego deja caer la lengua y relájala antes de la siguiente repetición."
       ]
     },
     "smilingFish": {
