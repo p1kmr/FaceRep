@@ -51,5 +51,5 @@ cd ../worker && npm test                                     # 34 tests
 - [x] App Store name: `FaceRep: Face Yoga & Jawline` (docs/launch.md §3), store languages: all six. Still: a native speaker should check the five translations and store texts (docs/store-listing.md).
 - [ ] Worker deployed (always before an app release that adds exercises or focus areas): `cd worker && npx wrangler login && npm run deploy` (URL already in `app/eas.json` and `links.ts`; D1 already created). Support email `kindcodelabs@gmail.com` in `links.ts` and `wrangler.jsonc`.
 - [x] RevenueCat project "FaceRep" (entitlement `premium`, products `facerep_premium_weekly` / `facerep_premium_monthly` / `facerep_premium_yearly`, offering with `$rc_weekly`, `$rc_monthly` and `$rc_annual`); public key in `app/eas.json`. App Store Connect keys are in RevenueCat, and the same three product IDs are in App Store Connect ($1.99 weekly, $3.99 monthly, $29.99 yearly with a 7-day trial; docs/premium.md §6).
-- [ ] Worker secrets: `REVENUECAT_SECRET_KEY` (without it Weeks 2–4 stay locked for everyone), `IP_HASH_SECRET`, then DeviceCheck.
+- [ ] Worker secrets: `REVENUECAT_SECRET_KEY` (without it everyone gets unlimited Coach answers), `IP_HASH_SECRET`, then DeviceCheck.
 - [ ] App Privacy answers, review notes (docs/launch.md, docs/publish-todo.md). Every change follows docs/app-review.md.

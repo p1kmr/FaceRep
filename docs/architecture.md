@@ -11,14 +11,14 @@ app/src/
 │   ├── (tabs)/              Today · Exercises · Progress · Settings (native iOS tab bar)
 │   ├── coach.tsx            the AI Coach, a sheet opened by the floating button; ?q= starts a question
 │   ├── exercise/[id].tsx    exercise detail
-│   ├── workout.tsx          the guided player (full-screen modal): a plan day or single exercises
+│   ├── workout.tsx          the guided player (full-screen modal): today's workout or single exercises
 │   └── paywall, ai-consent, safety (modals)
 ├── components/     ui/ (AppText, Button, Card, Chip, Badge, Gradient, IconButton, ProgressRing, Screen, Segmented…),
 │                   exercise/, faceMap/, today/, progress/, coach/, paywall/, onboarding/, settings/
-├── constants/      config.ts, theme/, exercises.ts, faceMap.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
-├── state/          settings/, premium/, progress/, plan/, chat/  (+ AppProviders.tsx)
-├── hooks/          useSettings, usePremium, usePaywall, useProgress*, usePlan, useWorkout, useChat, useTheme…
-├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, plan/, notifications/, workout/ and faceMap/ (pure),
+├── constants/      config.ts, theme/, exercises.ts, weeks.ts, faceMap.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
+├── state/          settings/, premium/, progress/, chat/  (+ AppProviders.tsx)
+├── hooks/          useSettings, usePremium, usePaywall, useProgress*, useTodayWorkout, useWorkout, useChat, useTheme…
+├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, notifications/, workout/ and faceMap/ (pure),
 │                   faceTracking.ts (the only import of modules/face-tracking)
 ├── theme/          ThemeProvider + makeStyles
 ├── i18n/           i18next + locales/en/*.json
@@ -51,8 +51,8 @@ state/progress/
 ## Storage: SQLite (`expo-sqlite`)
 | Table | What | Who writes |
 |---|---|---|
-| `kv` | small JSON values: settings, app ID copy, AI usage, the cached Premium plan days (versioned envelope) | `services/storage/kv.ts` |
-| `sessions` + `session_exercises` | finished workouts (`plan_level`, `plan_day`: which plan day it counted for) | `services/progress/sessionsRepo.ts` |
+| `kv` | small JSON values: settings, app ID copy, AI usage (versioned envelope) | `services/storage/kv.ts` |
+| `sessions` + `session_exercises` | finished workouts; the weeks are counted from them (`plan_level`, `plan_day` are left from the old 28-day plan, unread) | `services/progress/sessionsRepo.ts` |
 | `chat_messages` | Coach history (last 200) | `services/chat/chatRepo.ts` |
 
 Schema changes: append to `services/db/migrations.ts` (tracked with `PRAGMA user_version`); never edit a shipped entry.
@@ -108,42 +108,52 @@ the relaxed face during Get ready / Relax / Next up and counts holds. Face data 
 | `fetch` to your API | same `fetch`, but only to **our** Worker (keys never in the app) |
 | Vercel/Netlify deploy | **EAS Build** (cloud iOS build, no Mac needed) + `eas submit` to App Store Connect |
 
-## The 28-day plan
-Four weeks of seven days, each week harder (Learn 4 exercises at 70% reps → Build 5 at 85% → Strengthen 6 at 100% → Peak 6
-with +2 s holds); days 7, 14 and 21 are short light days, day 28 is one exercise longer. Levels 2 and 3 add 10% reps and
-1 s hold per level; later rounds repeat Level 3. A day is data (`{ day, kind, ids, repPct, holdPlusSec }`); the app turns
-it into reps and holds with `services/plan/plan.ts` → `planItems()`.
+## The weeks
+Today's workout goes on in weeks that never end (`services/workout/weeks.ts` and `today.ts`, pure and tested; the
+numbers are in `constants/weeks.ts`). The exercises are the same every week; the step changes, gently at first, then
+stays at a top:
 
-- **One generator, on the server:** `worker/src/lib/plan.js`. Week 1 of Level 1 (free) is exported into
-  `app/src/constants/planFreeWeek.json` by `cd worker && npm run plan:export`; a Worker test fails if the two differ.
-- **Premium days never ship in the app.** `state/plan/PlanProvider.tsx` asks `POST /plan` (Worker) as soon as the user
-  has Premium, keeps the answer in `kv` (`facerep.planCache`) for offline use and shows it only while Premium is active.
-- **Where you are is derived, not stored:** `planProgress(sessions, today)` reads the plan day saved with each workout. A
-  day moves on only when its workout is finished (a missed day waits), and at most one plan day counts per calendar day.
-- `hooks/usePlan.ts` gives the Today screen everything: header, today's day (ready / locked / loading / error) with its
-  date, and `dayAt(n)` for any day. Only the next day counts for the plan (`countsFor`); any other day is practice. There
-  is no grid of the 28 days (the owner's call): Today shows the day's card, and the plan goes on one day at a time.
-- **Dates:** the plan counts days, not weekdays (install on a Thursday → Day 1 is Thursday; a missed day waits instead of
-  being "missed"). `planDates()` puts a real date on every day: the date it was done, or the date it falls on if the user
-  trains every day from now. The Today card shows it next to "Week 1 · Day 3 of 28".
+| Week | Step (`note` on the Today card) |
+|---|---|
+| 1 | 70% of each exercise's usual reps, no jaw-caution exercises ("Learn the moves") |
+| 2 | 85%; the jaw-caution exercises join |
+| 3 | the usual reps |
+| 4–7 | holds 1 s longer |
+| 8 on | holds 2 s longer: the top, it stays |
+
+- **Day 7 of every week is the easy day:** three gentle exercises (stretches, eyes and massage, `EASY_DAY_IDS`, topped up
+  from the other allowed ones), at 70%, never a jaw-caution one, a different three each week.
+- **Jaw-caution exercises never go above their usual reps or hold** (`dosedItem`), in any week.
+- **Days 1–6:** five exercises of the focus area from a window that moves with every workout day, so each one comes up
+  in turn (an area with fewer is topped up from the others; full face goes through all of them), in catalog order
+  (massage last). Without Premium only the free exercises (`FREE_EXERCISE_IDS`, none loads the jaw).
+- **Where you are is derived, not stored:** `daysDone(sessions, today)` counts the dates before today with a workout
+  (`isDayWorkout`: a finished routine, or a workout saved through the Coach), one per date. A missed date waits and
+  nothing is skipped; a week can't be done in one afternoon. A single exercise from the library doesn't count.
+- The Today card says "Week 6 · Day 3" (never a total, never "of 4") with the step under the title, and when the day
+  is done "Day 3 done. Day 4 is ready tomorrow.", "Week 6 done. …", or at weeks 4, 8, 12, 26 and 52 "12 weeks of
+  practice. …". Nothing promises a result or new content: the week number only says how long someone has practiced.
+- **Nothing is sent:** the weeks are worked out on the iPhone from the saved workouts. The Worker has no plan endpoint.
+- **No exercise counts anywhere** (Today, paywall, store text, screenshots): "every exercise", never a number, so
+  nobody reads the library as small.
 
 ## Exercise catalog and programs
 27 exercises in 5 programs (jawline, cheekbones, lips, eyes, massage) plus the "full face" goal; the order of
 `EXERCISE_IDS` is the order a workout runs in (massage last). Everyone can use every program; `programsFor(guide)` only
 changes the display order (the woman's pictures list lips, cheekbones, eyes and massage first). Exercises done with the
-fingers have `handsOn` and show a clean-hands / recent-treatment note. Adding exercises: give them a new
-`CATALOG_VERSION` in the app and in `worker/src/lib/plan.js` (the test checks both), add pictures for every guide, and
-**deploy the Worker before releasing the app** (an older Worker rejects the new goals and doesn't know the new IDs).
+fingers have `handsOn` and show a clean-hands / recent-treatment note. Adding exercises: add them to
+`worker/src/lib/catalog.js` too (the Coach may only name the exercises in it; a test checks it against the app), add
+pictures for every guide, and **deploy the Worker before releasing the app** (an older Worker drops the new IDs from the
+Coach's answers). A new exercise simply joins its area's mix in the weeks.
 
 ## Exercise pictures (Man / Woman)
-Pictures live in `assets/guides/<man|woman>/` (hero photos + `exercises/<id>/relaxed|exercise|thumb.webp`), never by plan
-day. `scripts/guide-images.js` (`npm run images`) converts new files, cuts thumbnails and writes
+Pictures live in `assets/guides/<man|woman>/` (hero photos + `exercises/<id>/relaxed|exercise|thumb.webp`), never by week
+or day. `scripts/guide-images.js` (`npm run images`) converts new files, cuts thumbnails and writes
 `constants/guideImages.generated.ts`; only complete guides are in it, and a test fails when it's stale (docs/images.md).
 `settings.guide` holds the choice; `useGuide()` falls back to the man when a set isn't in the build and
 `useGuideImages()` gives the pictures. The onboarding step and the Settings row only appear with two complete guides.
-The choice changes pictures and a few words (i18next `context`, e.g. the Coach's face care suggestion), never the plan,
-and it isn't sent to the Worker. `POST /plan` sends `CATALOG_VERSION` instead, so the Worker never plans an exercise
-the installed app doesn't have; the plan cache is dropped when the version changes.
+The choice changes pictures and a few words (i18next `context`, e.g. the Coach's face care suggestion), never the
+workouts, and it isn't sent to the Worker.
 
 ## The look
 Graphite and steel with the muscle red of the drawings (`constants/theme/themes/forge.ts`), plus the brand gradient
@@ -159,9 +169,9 @@ drawing's white plate uses `onPlate` / `onPlateMuted` (the plate is white in bot
 
 **Today** (`app/(tabs)/index.tsx`): greeting and streak, this week (`WeekStrip`, the region's first weekday) with this
 month folded under it (`MonthToggle` "October 2026 ⌄" opens `MonthCard`: the Progress month, days with a workout
-filled; a day opens Progress), today's plan day as the hero (`TodayCard`: the face map with the areas the day works lit
-and slowly breathing, cropped to frame them; tap an area to open it in the library; tap "Week 1 · Day 3 of 28" for the
-28-day plan) and three stat cards. The Coach stays the floating button
+filled; a day opens Progress), today's workout as the hero (`TodayCard`: "Week 6 · Day 3" and the week's step, the face
+map with the areas the day works lit and slowly breathing, cropped to frame them; tap an area to open it in the library)
+and three stat cards. The Coach stays the floating button
 (`AskBubble`, now on the brand gradient): one way in, as before.
 
 ## The face map
@@ -175,8 +185,8 @@ Exercises tab (Face map | Programs): tap an area or its chip to see its muscles,
 photo of the user is taken or analysed: the face is the app's own drawing.
 
 ## Progress calendar (Week / Month / Year)
-The Mon–Sun calendar lives on the Progress tab, separate from the plan: the plan says how far you are, the calendar says
-when you trained. `services/progress/calendar.ts` (pure, tested) does the maths: week start from the iPhone's region
+The Mon–Sun calendar lives on the Progress tab, separate from the weeks: the weeks say how far you are, the calendar
+says when you trained. `services/progress/calendar.ts` (pure, tested) does the maths: week start from the iPhone's region
 settings (`hooks/useFirstWeekday.ts`, expo-localization; Monday when unknown), month grids, per-day and per-period totals,
 paging (never into the future, never before the first workout). `hooks/useProgressCalendar.ts` feeds
 `components/progress/` (`WeekBars`, `MonthCalendar`, `YearMonths`, `PeriodHeader`). The calendar opens on Month: tap a day to see its workouts.
@@ -204,12 +214,11 @@ checks every call against that list and returns them as `actions`; the fallback 
 (`parseChatReply`) and shows `ReminderActionCard`s: nothing changes until the user taps Confirm. Cards live in memory only.
 
 **The Coach can also save or start a workout.** Two more tools (`worker/src/lib/workouts.js`): `log_workout` (a workout the
-user did without the app or forgot to save: 0–6 days back, today's plan day, the exercise ids they named, the minutes they
-said) and `suggest_workout` (2–8 exercise ids to do now, with a short title). The Worker drops unknown ids and anything out
+user did without the app or forgot to save: 0–6 days back, the exercise ids they named, the minutes they said) and `suggest_workout` (2–8 exercise ids to do now, with a short title). The Worker drops unknown ids and anything out
 of range; no new data is sent for this (the question already carries what the user said). In the app,
-`services/progress/log.ts` (pure, tested) turns a proposed log into what is saved, from the app's own data: today's plan
-day counts for the plan only when it is the next day and ready (same as the Start button), an earlier day never counts,
-otherwise the named exercises with their usual reps, and the minutes the user said win over the estimate.
+`services/progress/log.ts` (pure, tested) turns a proposed log into what is saved, from the app's own data: the named
+exercises with their usual reps, and the minutes the user said win over the estimate. A saved workout is that date's
+workout in the weeks (one per date, like any other).
 `WorkoutActionCard` shows exactly that before Save, or the routine before Start (which opens the player with those
 exercises). A saved workout is stored with kind `logged` (no migration) and shows a "Logged" tag in the history. Nothing is
 saved or started until the user taps Save or Start. The iPhone keyboard's dictation mic works in the Coach's text field.

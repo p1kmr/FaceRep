@@ -5,12 +5,23 @@
   "streak_other": "{{count}} day streak",
   "noStreak": "Start your streak today",
   "today": {
-    "header": "Today's workout",
+    "week": "Week {{week}} · Day {{day}}",
+    "weekEasy": "Week {{week}} · Easy day",
+    "notes": {
+      "learn": "Learn the moves: fewer reps",
+      "build": "A few more reps",
+      "full": "Full reps",
+      "hold1": "Holds 1 second longer",
+      "hold2": "Holds 2 seconds longer"
+    },
+    "easy": "A short, gentle workout",
     "meta": "{{exercises}} · {{minutes}}",
     "start": "Start today's workout",
     "again": "Do it again",
-    "done": "Today's workout is done. A new one is ready tomorrow.",
-    "unlock": "Unlock all {{count}} exercises"
+    "doneDay": "Day {{day}} done. Day {{next}} is ready tomorrow.",
+    "doneWeek": "Week {{week}} done. Week {{next}} is ready tomorrow.",
+    "doneMilestone": "{{weeks}} weeks of practice. Week {{next}} is ready tomorrow.",
+    "unlock": "Unlock every exercise"
   },
   "hello": {
     "morning": "Good morning",

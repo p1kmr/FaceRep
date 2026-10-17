@@ -6,12 +6,23 @@
   "streak_zero": "Sequência de {{count}} dias",
   "noStreak": "Comece sua sequência hoje",
   "today": {
-    "header": "Treino de hoje",
+    "week": "Semana {{week}} · Dia {{day}}",
+    "weekEasy": "Semana {{week}} · Dia leve",
+    "notes": {
+      "learn": "Aprenda os movimentos: menos repetições",
+      "build": "Algumas repetições a mais",
+      "full": "Repetições completas",
+      "hold1": "Segure 1 segundo a mais",
+      "hold2": "Segure 2 segundos a mais"
+    },
+    "easy": "Um treino curto e leve",
     "meta": "{{exercises}} · {{minutes}}",
     "start": "Começar o treino de hoje",
     "again": "Fazer de novo",
-    "done": "O treino de hoje está feito. Amanhã tem um novo.",
-    "unlock": "Desbloquear os {{count}} exercícios"
+    "doneDay": "Dia {{day}} concluído. O Dia {{next}} fica pronto amanhã.",
+    "doneWeek": "Semana {{week}} concluída. A Semana {{next}} fica pronta amanhã.",
+    "doneMilestone": "{{weeks}} semanas de prática. A Semana {{next}} fica pronta amanhã.",
+    "unlock": "Desbloquear todos os exercícios"
   },
   "hello": {
     "morning": "Bom dia",

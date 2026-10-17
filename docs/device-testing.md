@@ -5,7 +5,7 @@ them there before every App Store submission:
 
 | Needs an iPhone | Why the browser can't show it |
 |---|---|
-| Purchases, Restore, Weeks 2–4 loading | StoreKit and RevenueCat only run in an iOS build |
+| Purchases, Restore, Premium exercises unlocking | StoreKit and RevenueCat only run in an iOS build |
 | Reminders (notifications) | Local notifications are an iOS service |
 | Haptics, voice cues, keep-screen-on | The browser has no Taptic Engine; its voices and wake lock behave differently |
 | Mirror (camera permission prompt) | The iOS prompt, "Don't Allow" and the Settings-app path only exist on iOS |
@@ -67,7 +67,10 @@ Delete the app first so onboarding and permissions start fresh.
 - [ ] **Languages:** Settings → Language opens FaceRep in the Settings app → Language → Español: the app restarts in
       Spanish (texts, voice, reminder notifications, Coach replies). Check long German words fit (Deutsch).
 - [ ] **Reminders:** add one for 2 minutes from now; the notification arrives; turning it off cancels it.
-- [ ] **Premium (sandbox):** tap a locked day → paywall → buy → Weeks 2–4 load; delete the app, reinstall, Restore.
+- [ ] **Premium (sandbox):** tap a locked exercise in the library → paywall → buy → every exercise opens and Today's workout
+      uses them; delete the app, reinstall, Restore.
+- [ ] **Weeks:** Today says "Week 1 · Day 1" with no jaw exercises; finish it → "Day 1 done. Day 2 is ready tomorrow.";
+      the next day it says Day 2 (a missed day just waits). Day 7 is the easy day.
 - [ ] **Coach:** consent screen first; 3 free answers; a reminder proposal only applies after Confirm. Say "I did my jaw
       exercises this morning, about 5 minutes": a Save workout card shows today, the exercises and the minutes; Save → it
       appears in Progress with a "Logged" tag. Ask "a quick 5-minute jaw routine": Start opens the player with those

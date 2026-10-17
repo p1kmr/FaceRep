@@ -54,7 +54,7 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
   - the App Privacy labels in App Store Connect and `privacyManifests` in `app.json`;
   - the review notes.
 - Send only what the feature needs (5.1.1(iii)). Anything that needs consent can be turned off in Settings (5.1.1(ii)).
-- Paid features don't depend on sharing data: the Premium plan works without AI consent (5.1.1(ii)).
+- Paid features don't depend on sharing data: Premium exercises work without AI consent (5.1.1(ii)).
 - Never: ads, analytics, tracking SDKs, the tracking prompt (ATT), selling data. Never send camera frames or photos
   (2.5.14, 5.1.2(vi)).
 - Health and fitness data is never used for ads or marketing and never stored in iCloud (5.1.3). HealthKit would need
@@ -95,7 +95,7 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
   - the app keeps working without an account unless accounts are the core feature.
 
 **What the server sends** (2.5.2, 2.3.1)
-- The Worker sends data (plan days, exercise IDs), never code that changes features. No hidden switches that change
+- The Worker sends data (Coach answers, exercise IDs), never code that changes features. No hidden switches that change
   the app after review. Every feature must be reachable by the reviewer and described in the review notes.
 
 **New screens and features** (2.1, 2.3.1, 2.3.12, 2.4.1, 2.4.4, 2.5.9, 2.5.16, 4.2)
@@ -158,10 +158,10 @@ just to make a change pass. A new app language needs its own claim words: the te
 | 2.3.7 metadata | no prices in screenshots, no trademarks | "Week 1 free" and "3 free answers a month" say what is free (2.3.2), not a price ✅ |
 | 2.3.9 rights | own the images | AI-generated, fictional people, labelled ✅ |
 | 2.4.1 iPad | runs on iPad | iPhone-only; check in iPad compatibility mode (docs/device-testing.md) ⚠️ |
-| 2.5.2 self-contained | no downloaded code | `/plan` returns JSON data that the app checks ✅ |
+| 2.5.2 self-contained | no downloaded code | The weeks are built on the iPhone; the Worker returns only JSON data that the app checks ✅ |
 | 2.5.14 recording | consent + indicator | The mirror is preview only; iOS asks first and shows the camera dot ✅ |
 | 3.1.1, 3.1.2 subscriptions | IAP only; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`, the Worker re-checks RevenueCat ✅ |
-| 3.1.2(a) ongoing value | keeps giving value | Levels 2–3, new rounds, and the Coach ✅ |
+| 3.1.2(a) ongoing value | keeps giving value | Every exercise in weeks that never end, and the unlimited Coach ✅ |
 | 3.1.2(c) what you get | describe it exactly | "Unlimited" Coach answers; the hidden ceiling (100 a day) only stops abuse, fair use in the Terms ✅ |
 | 4.3 spam | clearly different | Anatomy drawings (man or woman), voice-guided timer, mirror, AI Coach ✅ |
 | 4.5.4 notifications | not required, no marketing | Only the person's reminders; asked when one is turned on ✅ |

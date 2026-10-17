@@ -5,12 +5,23 @@
   "streak_other": "{{count}} Tage in Folge",
   "noStreak": "Starte heute deine Serie",
   "today": {
-    "header": "Training für heute",
+    "week": "Woche {{week}} · Tag {{day}}",
+    "weekEasy": "Woche {{week}} · Leichter Tag",
+    "notes": {
+      "learn": "Übungen kennenlernen: weniger Wiederholungen",
+      "build": "Ein paar Wiederholungen mehr",
+      "full": "Volle Wiederholungen",
+      "hold1": "1 Sekunde länger halten",
+      "hold2": "2 Sekunden länger halten"
+    },
+    "easy": "Ein kurzes, sanftes Training",
     "meta": "{{exercises}} · {{minutes}}",
     "start": "Training für heute starten",
     "again": "Noch mal machen",
-    "done": "Dein Training für heute ist erledigt. Morgen wartet ein neues.",
-    "unlock": "Alle {{count}} Übungen freischalten"
+    "doneDay": "Tag {{day}} erledigt. Tag {{next}} ist morgen bereit.",
+    "doneWeek": "Woche {{week}} erledigt. Woche {{next}} ist morgen bereit.",
+    "doneMilestone": "{{weeks}} Wochen Training. Woche {{next}} ist morgen bereit.",
+    "unlock": "Alle Übungen freischalten"
   },
   "hello": {
     "morning": "Guten Morgen",

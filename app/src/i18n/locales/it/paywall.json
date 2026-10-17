@@ -1,9 +1,9 @@
 {
   "headline": "Sblocca tutti gli esercizi",
-  "subhead": "{{free}} esercizi sono gratis. Premium aggiunge tutti i {{count}} e il Coach IA.",
+  "subhead": "Gli allenamenti settimanali sono gratis con una selezione di esercizi. Premium aggiunge tutti gli esercizi e risposte illimitate del Coach IA.",
   "benefits": {
-    "exercises": "Tutti i {{count}} esercizi per ogni zona del viso",
-    "today": "L'allenamento di oggi con tutti gli esercizi, un mix nuovo ogni giorno",
+    "exercises": "Tutta la libreria di esercizi, per ogni zona del viso",
+    "weeks": "Tutti gli esercizi nei tuoi allenamenti settimanali, un mix nuovo ogni giorno",
     "coach": "Risposte illimitate del Coach IA su tecnica e routine"
   },
   "aiNote": "Alle domande per il Coach risponde un'IA (Cloudflare Workers AI). Ti chiederemo il permesso prima della tua prima domanda.",

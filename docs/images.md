@@ -1,8 +1,7 @@
 # Exercise pictures
 
-Every picture belongs to a **guide** (who the pictures show: `man` or `woman`) and an **exercise**. Never to a plan
-week or weekday: plan days only list exercise IDs, the same exercise comes back in many weeks, and the server can change
-Weeks 2–4 without an app update.
+Every picture belongs to a **guide** (who the pictures show: `man` or `woman`) and an **exercise**. Never to a week or
+weekday: the weeks only pick exercise IDs, and the same exercise comes back in many weeks.
 
 ```
 app/assets/

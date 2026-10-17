@@ -34,7 +34,7 @@ Re-check before acting: from the repo root run
 | TestFlight internal group | "FaceRep Internal" `d5f868e2-03ee-4425-a73a-4164ab2e5a5b` |
 | Expo project | `@p1kmr/facerep`, `b4548307-778f-43c8-bcaa-8ddb0df42673` |
 | RevenueCat | project `proj88dfbdbb`, App Store app `appe9482ca317`, entitlement `premium`, offering `default` |
-| Worker | `facerep-api`, https://facerep-api.elowa-app.workers.dev (`/privacy`, `/terms`, `/support`, `/chat`, `/plan`) |
+| Worker | `facerep-api`, https://facerep-api.elowa-app.workers.dev (`/privacy`, `/terms`, `/support`, `/chat`; `/plan` only until the next deploy) |
 | Apple team | `Z43K3DU9C9` |
 
 ## Already done (verified 2026-10-09)
@@ -94,7 +94,7 @@ Builds 3–6 must not be used.
 - [x] Build 7 VALID, attached to 1.0 in place of build 6; `asc validate`: 0 blocking (2026-10-10).
 - [ ] The owner tests build 7 with the checklist in docs/device-testing.md §3, including the sandbox purchases:
   - buy Weekly, Monthly, and Yearly with the trial;
-  - Weeks 2–4 load from the Worker's `/plan`, and the Coach keeps answering after the 3 free answers;
+  - every exercise opens right after buying (library and Today's workout), and the Coach keeps answering after the 3 free answers;
   - delete the app, reinstall, then Restore works;
   - the purchase shows in RevenueCat → Customers (sandbox).
 - [ ] Compare each store screenshot with the same screen on build 7. The slides come from the web build made to look
@@ -122,13 +122,16 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
       re-export them (store-screenshots/README.md) before submitting.
 - [ ] **Review notes:** use the updated text in docs/launch.md (face map, videos, Coach save / routine, move check).
       The notes in App Store Connect still say "Settings → Mirror in workouts" (that row is gone: the mirror is only
-      the person button in the player) and "tap any locked day in the 28-day grid" (the grid is gone: the plan goes on one day at a time,
-      so Weeks 2–4 can't be opened early). Update them when the new build is attached, not before (they describe the
-      attached build). Without the grid a reviewer can only check the Coach's limit after buying: if App Review says it
-      can't find the Premium content (2.1), the fix is a way to look ahead in the plan.
+      the person button in the player) and "tap any locked day in the 28-day grid" (the 28-day plan is gone: the weeks go
+      on with no end and are free; Premium is every exercise, which a reviewer sees unlocked in the library and in
+      Today's workout right after buying, and the unlimited Coach). Update them when the new build is attached, not
+      before (they describe the attached build).
 - [ ] Build 12 (from `ae2eb2a`) is the first with the move check; on an iPhone 11 its mirror stayed black. The next
-      build adds the plain-camera fallback and its log lines, the draggable mirror tile with ×, the month under the week (no 28-day grid)
-      and the Anton fix: test the mirror again with docs/face-tracking.md §5.
+      build adds the plain-camera fallback and its log lines, the draggable mirror tile with ×, the month under the week,
+      the weeks that never end (no 28-day plan, no exercise counts) and the Anton fix: test the mirror again with
+      docs/face-tracking.md §5, and the weeks with docs/device-testing.md.
+- [ ] Deploy the Worker (it drops `/plan`) only once that build is on TestFlight: build 12 and older still load Weeks 2–4
+      from `/plan`.
 
 ## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real

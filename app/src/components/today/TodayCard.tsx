@@ -3,14 +3,14 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { EXERCISE_IDS, type Goal } from '@/constants/exercises';
+import type { Goal } from '@/constants/exercises';
 import { areasOfAll, type FaceArea } from '@/constants/faceMap';
 import { useGuideImages } from '@/hooks/useGuide';
 import { useTheme } from '@/hooks/useTheme';
 import type { useTodayWorkout } from '@/hooks/useTodayWorkout';
-import { useToday } from '@/hooks/useToday';
+import { isMilestone } from '@/services/workout/weeks';
 import { makeStyles } from '@/theme/makeStyles';
-import { formatDay, toMinutes } from '@/utils/format';
+import { toMinutes } from '@/utils/format';
 
 import { ExerciseAvatars } from '../exercise/ExerciseAvatars';
 import { FaceMap } from '../faceMap/FaceMap';
@@ -33,21 +33,29 @@ interface TodayCardProps {
 const MAP_ASPECT = 720 / 974;
 
 /**
- * Today's workout as the hero: the face with the areas it works lit in red (tap one to learn about it), the areas as
- * the title, the exercises and one big button. Without Premium it says that more exercises come with it.
+ * Today's workout as the hero: where it is in the weeks ("Week 6 · Day 3", never a total), the face with the areas it
+ * works lit in red (tap one to learn about it), the areas as the title with the week's step under them, the exercises
+ * and one big button. Without Premium it says that more exercises come with it.
  */
 export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onArea }: TodayCardProps) {
-  const { t, i18n } = useTranslation(['home', 'common', 'exercises']);
+  const { t } = useTranslation(['home', 'common', 'exercises']);
   const styles = useStyles();
   const { colors } = useTheme();
   const { map } = useGuideImages();
-  const today = useToday();
   const [box, setBox] = useState({ width: 0, height: 0 });
   const ids = workout.items.map((i) => i.id);
   const areas = areasOfAll(ids);
   const areaNames = areas.map((a) => t(`exercises:areas.${a}.name`));
   const title = areas.length && areas.length <= 3 ? areaNames.join(' · ') : t(`common:programs.${goal}`);
   const minutes = t('common:minutes', { count: toMinutes(workout.seconds) });
+  const { week, day, easy } = workout;
+  const where = easy ? t('home:today.weekEasy', { week }) : t('home:today.week', { week, day });
+  const note = easy ? t('home:today.easy') : t(`home:today.notes.${workout.note}`);
+  const doneText = !easy
+    ? t('home:today.doneDay', { day, next: day + 1 })
+    : isMilestone(week)
+      ? t('home:today.doneMilestone', { weeks: week, next: week + 1 })
+      : t('home:today.doneWeek', { week, next: week + 1 });
 
   // Frame the lit areas: the face is cropped to the card, and moved up so a neck day shows the neck.
   const mapHeight = box.width / MAP_ASPECT;
@@ -73,7 +81,7 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onArea 
         <View style={styles.top} pointerEvents="box-none">
           <View style={styles.pill}>
             <AppText variant="caption" style={styles.pillText}>
-              {t('home:today.header').toUpperCase()}
+              {where.toUpperCase()}
             </AppText>
           </View>
           <Badge label={t(`common:programs.${goal}`)} tone="primary" />
@@ -84,7 +92,7 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onArea 
             {title.toUpperCase()}
           </AppText>
           <AppText variant="footnote" style={styles.subtitle}>
-            {formatDay(today, i18n.language)} · {minutes}
+            {note} · {minutes}
           </AppText>
         </View>
       </View>
@@ -92,7 +100,7 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onArea 
         {workout.done ? (
           <View style={styles.row}>
             <SymbolView name="checkmark.circle.fill" size={24} tintColor={colors.success} />
-            <AppText style={styles.flex}>{t('home:today.done')}</AppText>
+            <AppText style={styles.flex}>{doneText}</AppText>
           </View>
         ) : (
           <View style={styles.row}>
@@ -112,7 +120,7 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onArea 
           fullWidth
         />
         {isPremium ? null : (
-          <Button title={t('home:today.unlock', { count: EXERCISE_IDS.length })} variant="ghost" onPress={onUnlock} fullWidth />
+          <Button title={t('home:today.unlock')} variant="ghost" onPress={onUnlock} fullWidth />
         )}
       </View>
     </View>

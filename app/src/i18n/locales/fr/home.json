@@ -5,12 +5,23 @@
   "streak_other": "Série de {{count}} jours",
   "noStreak": "Lance ta série aujourd'hui",
   "today": {
-    "header": "Séance du jour",
+    "week": "Semaine {{week}} · Jour {{day}}",
+    "weekEasy": "Semaine {{week}} · Jour léger",
+    "notes": {
+      "learn": "Apprends les mouvements : moins de répétitions",
+      "build": "Quelques répétitions de plus",
+      "full": "Toutes les répétitions",
+      "hold1": "Tiens 1 seconde de plus",
+      "hold2": "Tiens 2 secondes de plus"
+    },
+    "easy": "Une séance courte et douce",
     "meta": "{{exercises}} · {{minutes}}",
     "start": "Commencer la séance du jour",
     "again": "La refaire",
-    "done": "La séance du jour est faite. Une nouvelle t’attend demain.",
-    "unlock": "Débloquer les {{count}} exercices"
+    "doneDay": "Jour {{day}} terminé. Le jour {{next}} sera prêt demain.",
+    "doneWeek": "Semaine {{week}} terminée. La semaine {{next}} sera prête demain.",
+    "doneMilestone": "{{weeks}} semaines de pratique. La semaine {{next}} sera prête demain.",
+    "unlock": "Débloquer tous les exercices"
   },
   "hello": {
     "morning": "Bonjour",

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { Linking, Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { EXERCISE_IDS, FREE_EXERCISE_IDS } from '@/constants/exercises';
 import { LINKS } from '@/constants/links';
 import { useGuideImages } from '@/hooks/useGuide';
 import type { PlanCard } from '@/hooks/usePaywall';
@@ -28,11 +27,9 @@ interface PaywallViewProps {
 
 const BENEFITS: { key: string; icon: SymbolViewProps['name'] }[] = [
   { key: 'exercises', icon: 'square.grid.2x2.fill' },
-  { key: 'today', icon: 'flame.fill' },
+  { key: 'weeks', icon: 'calendar' },
   { key: 'coach', icon: 'sparkles' },
 ];
-// Counted from the catalog, so the numbers on the paywall are always true.
-const COUNTS = { count: EXERCISE_IDS.length, free: FREE_EXERCISE_IDS.length };
 
 /**
  * Pure UI: knows nothing about RevenueCat. Yearly is pre-selected. Price, period, trial and
@@ -70,14 +67,14 @@ export function PaywallView({ cards, loading, busy, onPurchase, onRestore, onClo
               {t('headline')}
             </AppText>
             <AppText muted center>
-              {t('subhead', COUNTS)}
+              {t('subhead')}
             </AppText>
           </View>
           <View style={styles.benefits}>
             {BENEFITS.map((b) => (
               <View key={b.key} style={styles.benefit}>
                 <SymbolView name={b.icon} size={20} tintColor={colors.primary} />
-                <AppText style={styles.benefitText}>{t(`benefits.${b.key}`, COUNTS)}</AppText>
+                <AppText style={styles.benefitText}>{t(`benefits.${b.key}`)}</AppText>
               </View>
             ))}
           </View>

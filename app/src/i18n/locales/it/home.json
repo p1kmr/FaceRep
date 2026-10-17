@@ -5,12 +5,23 @@
   "streak_other": "Serie di {{count}} giorni",
   "noStreak": "Inizia la tua serie oggi",
   "today": {
-    "header": "Allenamento di oggi",
+    "week": "Settimana {{week}} · Giorno {{day}}",
+    "weekEasy": "Settimana {{week}} · Giorno leggero",
+    "notes": {
+      "learn": "Impara i movimenti: meno ripetizioni",
+      "build": "Qualche ripetizione in più",
+      "full": "Ripetizioni complete",
+      "hold1": "Tieni 1 secondo in più",
+      "hold2": "Tieni 2 secondi in più"
+    },
+    "easy": "Un allenamento breve e leggero",
     "meta": "{{exercises}} · {{minutes}}",
     "start": "Inizia l'allenamento di oggi",
     "again": "Rifallo",
-    "done": "L'allenamento di oggi è fatto. Domani ne trovi uno nuovo.",
-    "unlock": "Sblocca tutti i {{count}} esercizi"
+    "doneDay": "Giorno {{day}} fatto. Il giorno {{next}} sarà pronto domani.",
+    "doneWeek": "Settimana {{week}} fatta. La settimana {{next}} sarà pronta domani.",
+    "doneMilestone": "{{weeks}} settimane di pratica. La settimana {{next}} sarà pronta domani.",
+    "unlock": "Sblocca tutti gli esercizi"
   },
   "hello": {
     "morning": "Buongiorno",
