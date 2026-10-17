@@ -136,8 +136,9 @@ stays at a top:
   practice. …". Nothing promises a result or new content: the week number only says how long someone has practiced.
 - **This week** (`app/week.tsx`, opened by tapping "Week 6 · Day 3"): day 1 to 7 of the current week
   (`weekWorkouts`), today's open with its Start button, a later day opens to show its exercises at that day's reps and
-  hold (tap one for the exercise page). A day done before today only says "Done": it may have been another mix (saved
-  through the Coach, or another focus area). Under the days: what the next week changes, when it changes something
+  hold (tap one for the exercise page). A done day is faded with a check and opens to what was done that date
+  (`weekDone`, from the saved workouts, not the plan: it may have been saved through the Coach, or another focus area
+  then; no reps, they aren't saved). Under the days: what the next week changes, when it changes something
   ("Week 4: Holds 1 second longer"), and that a new day comes the day after a workout. Only this week, never a total.
 - **Nothing is sent:** the weeks are worked out on the iPhone from the saved workouts. The Worker has no plan endpoint.
 - **No exercise counts anywhere** (Today, paywall, store text, screenshots): "every exercise", never a number, so

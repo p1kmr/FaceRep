@@ -19,17 +19,20 @@ interface ExerciseRowProps {
   /** This session's reps and hold (a plan day); the catalog values otherwise. */
   reps?: number;
   holdSec?: number;
+  /** A workout done before: its reps aren't saved, so only the muscle. */
+  hideReps?: boolean;
 }
 
 /** Thumbnail, name, main muscle and reps × hold. */
-export function ExerciseRow({ id, onPress, done, divider, reps, holdSec }: ExerciseRowProps) {
+export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, hideReps }: ExerciseRowProps) {
   const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
   const images = useGuideImages();
   const e = EXERCISES[id];
   const name = t(`exercises:items.${e.key}.name`);
-  const meta = `${t(`exercises:muscles.${e.muscles[0]}`)} · ${t('common:reps', { reps: reps ?? e.reps, hold: holdSec ?? e.holdSec })}`;
+  const muscle = t(`exercises:muscles.${e.muscles[0]}`);
+  const meta = hideReps ? muscle : `${muscle} · ${t('common:reps', { reps: reps ?? e.reps, hold: holdSec ?? e.holdSec })}`;
   return (
     <Pressable
       onPress={onPress}

@@ -2,7 +2,7 @@ import { EXERCISE_IDS, EXERCISES } from '@/constants/exercises';
 import { WEEKS } from '@/constants/weeks';
 import type { SessionSummary } from '@/services/progress/stats';
 
-import { daysDone, dosedItem, isDayWorkout, isMilestone, stepOf, weekDay, workoutsBefore } from '../weeks';
+import { daysDone, dosedItem, isDayWorkout, isMilestone, stepOf, weekDay, weekDone, workoutDates, workoutsBefore } from '../weeks';
 
 const session = (day: string, kind: SessionSummary['kind'] = 'routine', extra: Partial<SessionSummary> = {}): SessionSummary => ({
   id: `${day}-${kind}-${Math.random()}`,
@@ -29,6 +29,11 @@ describe('days done', () => {
     ];
     expect(daysDone(sessions, '2026-10-17')).toBe(4);
     expect(daysDone([], '2026-10-17')).toBe(0);
+  });
+
+  it('lists the dates oldest first, so the n-th date is day n', () => {
+    const sessions = [session('2026-10-05'), session('2026-10-01'), session('2026-10-03'), session('2026-10-03'), session('2026-10-17')];
+    expect(workoutDates(sessions, '2026-10-17')).toEqual(['2026-10-01', '2026-10-03', '2026-10-05']);
   });
 
   it("doesn't count a single exercise from the library as the day's workout", () => {
@@ -94,5 +99,35 @@ describe('dosed exercises', () => {
         expect(item.holdSec).toBe(EXERCISES[id].holdSec);
       }
     }
+  });
+});
+
+describe('this week done', () => {
+  const dates = (n: number) => Array.from({ length: n }, (_, i) => `2026-09-${String(i + 1).padStart(2, '0')}`);
+
+  it("is this week's dates only, day 1 first, with today once it has a workout", () => {
+    const nine = dates(9).map((d) => session(d));
+    expect(weekDone(nine, '2026-10-17').map((d) => d.date)).toEqual(['2026-09-08', '2026-09-09']);
+    expect(weekDone([...nine, session('2026-10-17')], '2026-10-17').map((d) => d.date)).toEqual(['2026-09-08', '2026-09-09', '2026-10-17']);
+    expect(weekDone([...nine, session('2026-10-17', 'single')], '2026-10-17')).toHaveLength(2);
+    expect(weekDone(dates(7).map((d) => session(d)), '2026-10-17')).toEqual([]);
+    expect(weekDone([], '2026-10-17')).toEqual([]);
+  });
+
+  it("is what was done that date: each exercise once in the order done and the minutes, not a library exercise's", () => {
+    const [day] = weekDone(
+      [
+        session('2026-10-01', 'routine', { finishedAt: '2026-10-01T19:00:00.000Z', exerciseIds: ['01-jaw-clench', '02-chin-lift'], durationSec: 120 }),
+        session('2026-10-01', 'routine', { finishedAt: '2026-10-01T08:00:00.000Z', exerciseIds: ['02-chin-lift', '19-pout'], durationSec: 200 }),
+        session('2026-10-01', 'single', { exerciseIds: ['10-eye-squeeze'], durationSec: 60 }),
+      ],
+      '2026-10-17',
+    );
+    expect(day).toEqual({ date: '2026-10-01', ids: ['02-chin-lift', '19-pout', '01-jaw-clench'], seconds: 320 });
+  });
+
+  it('keeps a workout saved through the Coach with only minutes as done, with no exercises', () => {
+    const [day] = weekDone([session('2026-10-01', 'routine', { logged: true, exerciseIds: [], durationSec: 300 })], '2026-10-17');
+    expect(day).toEqual({ date: '2026-10-01', ids: [], seconds: 300 });
   });
 });

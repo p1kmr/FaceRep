@@ -28,20 +28,24 @@ interface WeekDayCardProps {
 
 /**
  * One day of this week: "Day 4" with the areas it works and its minutes; open, its exercises at that day's reps and
- * hold (today's with its Start button). A day done before today only shows that it is done: the exercises it had may
- * have been another mix (a workout saved through the Coach, or another focus area then).
+ * hold (today's with its Start button). A done day is faded with a check and opens to what was done that date (from
+ * the saved workout, so a workout saved through the Coach shows as it was; its reps aren't saved).
  */
 export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: WeekDayCardProps) {
   const { t } = useTranslation(['home', 'common', 'exercises']);
   const styles = useStyles();
   const { colors } = useTheme();
-  const ids = day.items.map((i) => i.id);
+  const ids = day.done ? day.done.ids : day.items.map((i) => i.id);
   const areas = areasOfAll(ids);
-  const what = areas.length && areas.length <= 3 ? areas.map((a) => t(`exercises:areas.${a}.name`)).join(' · ') : t(`common:programs.${goal}`);
+  const what = !ids.length
+    ? t('home:thisWeek.done')
+    : areas.length && areas.length <= 3
+      ? areas.map((a) => t(`exercises:areas.${a}.name`)).join(' · ')
+      : t(`common:programs.${goal}`);
   const title = day.easy ? t('home:thisWeek.easyDay', { day: day.day }) : t('home:thisWeek.day', { day: day.day });
-  const past = day.done && !day.isToday;
-  const subtitle = past ? t('home:thisWeek.done') : `${what} · ${t('common:minutes', { count: toMinutes(day.seconds) })}`;
-  const canOpen = !past && ids.length > 0;
+  const subtitle = `${what} · ${t('common:minutes', { count: toMinutes(day.seconds) })}`;
+  const canOpen = ids.length > 0;
+  const label = [title, day.isToday ? t('home:thisWeek.today') : null, day.done && ids.length ? t('home:thisWeek.done') : null, subtitle];
 
   return (
     <Card style={day.isToday && styles.today}>
@@ -50,10 +54,10 @@ export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: 
         disabled={!canOpen}
         accessibilityRole="button"
         accessibilityState={canOpen ? { expanded: open } : undefined}
-        accessibilityLabel={[title, day.isToday ? t('home:thisWeek.today') : null, subtitle].filter(Boolean).join(', ')}
+        accessibilityLabel={label.filter(Boolean).join(', ')}
         style={({ pressed }) => [styles.head, pressed && styles.pressed]}
       >
-        <View style={styles.text}>
+        <View style={[styles.text, day.done && styles.faded]}>
           <AppText variant="headline">{title}</AppText>
           <AppText variant="footnote" muted numberOfLines={1}>
             {subtitle}
@@ -65,16 +69,24 @@ export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart }: 
       </Pressable>
       {open && canOpen ? (
         <Animated.View entering={FadeIn.duration(MOTION.enterMs)} style={styles.list}>
-          {day.items.map((item, i) => (
-            <ExerciseRow
-              key={item.id}
-              id={item.id}
-              reps={item.reps}
-              holdSec={item.holdSec}
-              onPress={() => onExercise(item.id)}
-              divider={i < day.items.length - 1}
-            />
-          ))}
+          {day.done ? (
+            <View style={styles.faded}>
+              {day.done.ids.map((id, i) => (
+                <ExerciseRow key={id} id={id} hideReps onPress={() => onExercise(id)} divider={i < ids.length - 1} />
+              ))}
+            </View>
+          ) : (
+            day.items.map((item, i) => (
+              <ExerciseRow
+                key={item.id}
+                id={item.id}
+                reps={item.reps}
+                holdSec={item.holdSec}
+                onPress={() => onExercise(item.id)}
+                divider={i < day.items.length - 1}
+              />
+            ))
+          )}
           {day.isToday && !day.done ? (
             <View style={styles.start}>
               <Button title={t('home:today.start')} icon="play.fill" onPress={onStart} fullWidth />
@@ -91,6 +103,8 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   head: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.sm, padding: tokens.space.md, paddingLeft: tokens.space.lg },
   pressed: { backgroundColor: colors.surfaceAlt },
   text: { flex: 1, gap: 2 },
+  // A done day: still readable, but quieter than the days to come.
+  faded: { opacity: 0.55 },
   list: { borderTopWidth: 1, borderTopColor: colors.border },
   start: { padding: tokens.space.md, paddingTop: tokens.space.xs },
 }));

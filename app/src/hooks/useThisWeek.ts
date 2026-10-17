@@ -3,29 +3,36 @@ import { useMemo } from 'react';
 import { isFreeExercise } from '@/constants/exercises';
 import { workoutSeconds } from '@/services/workout/items';
 import { weekWorkouts } from '@/services/workout/today';
-import { stepOf } from '@/services/workout/weeks';
+import { stepOf, weekDone } from '@/services/workout/weeks';
 
 import { usePremium } from './usePremium';
+import { useProgressState } from './useProgress';
 import { useSettings } from './useSettings';
+import { useToday } from './useToday';
 import { useTodayWorkout } from './useTodayWorkout';
 
 /**
- * This week, day 1 to 7, for the page the Today card's "Week · Day" opens (services/workout/today.ts weekWorkouts):
- * each day's workout, whether it is done and which one is today. Today's day is the same workout as the Today card's.
- * `next` is what the next week changes, when it changes something.
+ * This week, day 1 to 7, for the page the Today card's "Week · Day" opens: a day not done yet is its workout
+ * (services/workout/today.ts weekWorkouts; today's is the same as the Today card's), a done day is what was done that
+ * date (services/workout/weeks.ts weekDone), with which one is today. `next` is what the next week changes, when it
+ * changes something.
  */
 export function useThisWeek() {
   const today = useTodayWorkout();
   const { goal } = useSettings();
   const { isPremium } = usePremium();
-  const { daysDone, week, day, done } = today;
+  const date = useToday();
+  const { sessions } = useProgressState();
+  const { daysDone, week, day } = today;
+  const done = useMemo(() => weekDone(sessions, date), [sessions, date]);
   const days = useMemo(
     () =>
-      weekWorkouts(goal, daysDone, isPremium ? () => true : isFreeExercise).map((d) => ({
+      weekWorkouts(goal, daysDone, isPremium ? () => true : isFreeExercise).map((d, i) => ({
         ...d,
-        seconds: workoutSeconds(d.items),
+        seconds: done[i]?.seconds ?? workoutSeconds(d.items),
         isToday: d.day === day,
-        done: d.day < day || (d.day === day && done),
+        /** What was done that date, once the day is done; the workout above is then not shown. */
+        done: done[i] ?? null,
       })),
     [goal, daysDone, isPremium, day, done],
   );
