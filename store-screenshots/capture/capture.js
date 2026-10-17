@@ -90,7 +90,7 @@ async function workout(lang, guide, name, { mirror = false } = {}) {
   const app = await openApp({ lang, seed: { guide, mirror }, height: FULL, ...(mirror ? { camera: makeCamera(guide) } : {}) });
   await go(app, '/', 5000);
   // By its accessible name: the big button shows its label in capitals.
-  await app.page.getByRole('button', { name: t(lang, 'home', 'plan.start').replace('{{day}}', '12'), exact: true }).first().click();
+  await app.page.getByRole('button', { name: t(lang, 'home', 'today.start'), exact: true }).first().click();
   const squeeze = t(lang, 'workout', 'phase.hold').toLowerCase();
   const rep3 = t(lang, 'workout', 'rep').replace('{{rep}}', '3').replace('{{reps}}', '9').toLowerCase();
   let found = false;

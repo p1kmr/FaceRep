@@ -1,6 +1,6 @@
 // Opens the FaceRep web build so it looks and behaves like the iPhone app for a screenshot:
 // fixed date and time, demo data in the app's own SQLite database, Premium on, the iPhone font and
-// SF Symbol look-alikes, and the Coach and the plan answered locally (no Worker, no AI, no RevenueCat).
+// SF Symbol look-alikes, and the Coach answered locally (no Worker, no AI, no RevenueCat).
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 import ICONS from './icons.js';
-import { TODAY, seedSql, planReply } from './seed.js';
+import { TODAY, seedSql } from './seed.js';
 
 const require = createRequire(import.meta.url);
 const font = (file) => fs.readFileSync(require.resolve(`@fontsource-variable/inter/files/${file}`)).toString('base64');
@@ -98,9 +98,6 @@ export async function openApp({ lang = 'en', seed = {}, premium = true, chat, ca
   });
   await ctx.route(`${DEMO_HOST}/**`, async (route) => {
     const body = JSON.parse(route.request().postData() || '{}');
-    if (route.request().url().endsWith('/plan')) {
-      return route.fulfill({ contentType: 'application/json', body: JSON.stringify(planReply(body.goal, body.level)) });
-    }
     const reply = chat ? await chat(body) : { answer: '…', actions: [] };
     return route.fulfill({ contentType: 'application/json', body: JSON.stringify(reply) });
   });

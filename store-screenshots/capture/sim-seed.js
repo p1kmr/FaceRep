@@ -1,5 +1,5 @@
 // Prints the demo data as SQL for the app's database in the iOS Simulator (the web capture seeds it in the browser).
-// The Simulator's clock can't be set, so the demo person's days end yesterday by default: today is the next plan day.
+// The Simulator's clock can't be set, so the demo person's days end yesterday by default: today is the next day.
 // Usage: node sim-seed.js [--guide woman|man] [--goal full|jawline|cheekbones|lips|eyes|massage] [--done 11] [--today YYYY-MM-DD]
 //        node sim-seed.js --onboarding   (a fresh start: onboarding shows, no workouts)
 //        --new-id also forgets the app's random ID (run `xcrun simctl keychain booted reset` too): the next launch makes
@@ -22,7 +22,7 @@ const goal = opt('goal', 'full');
 const done = Number(opt('done', '11'));
 const today = opt('today', local);
 if (!['woman', 'man'].includes(guide)) throw new Error('--guide must be woman or man');
-if (!Number.isInteger(done) || done < 0 || done > 27) throw new Error('--done must be 0 to 27 (finished plan days)');
+if (!Number.isInteger(done) || done < 0) throw new Error('--done must be 0 or more (days with a finished workout)');
 if (!/^\d{4}-\d{2}-\d{2}$/.test(today)) throw new Error('--today must be YYYY-MM-DD');
 
 const onboarded = !args.includes('--onboarding');

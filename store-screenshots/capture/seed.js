@@ -1,10 +1,10 @@
-// Demo data for the screenshots: a person 11 days into the 28-day plan, on Thursday 15 October 2026 at 9:41.
-// Nothing here is real: no names, no health data. The plan days come from the Worker's own plan builder,
-// so the captured workouts match what the app really shows on those days.
-import { buildPlan, premiumDays } from '../../worker/src/lib/plan.js';
+// Demo data for the screenshots: a person with 11 days done, on Thursday 15 October 2026 at 9:41, so Today shows
+// Week 2 · Day 5. Nothing here is real: no names, no health data. Each demo day lists five exercises from a window that
+// moves through the catalog (only the Progress rows show them); Today's workout is the app's own.
+import { CATALOG } from '../../worker/src/lib/catalog.js';
 
 export const TODAY = '2026-10-15';
-const DONE = 11; // Days 1–11 done on 4–14 October, today is Day 12
+const DONE = 11; // Days 1–11 done on 4–14 October, today is the 12th day: Week 2 · Day 5
 // `today` and `done` can change for Simulator captures (sim-seed.js), where the clock can't be set.
 const firstDay = (today, done) => addDays(today, -done);
 
@@ -38,7 +38,7 @@ export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, 
   };
 }
 
-/** SQL that fills a fresh database: settings, the random app ID and 11 finished plan workouts. */
+/** SQL that fills a fresh database: settings, the random app ID and 11 finished workouts, one a day. */
 export function seedSql({ guide, goal = 'full', onboarded = true, sessions = true, mirror = false, theme = 'light', coachButton = false, today = TODAY, done = DONE } = {}) {
   const kv = (key, data) => `INSERT OR REPLACE INTO kv (key, value) VALUES (${q(key)}, ${q(JSON.stringify({ version: 1, data }))});`;
   const lines = [
@@ -46,18 +46,15 @@ export function seedSql({ guide, goal = 'full', onboarded = true, sessions = tru
     `INSERT OR REPLACE INTO kv (key, value) VALUES ('facerep.appUserId', '0d6f3c1e-8a52-4b7e-9c41-5f2a7e9b1c30');`,
   ];
   if (sessions && onboarded) {
-    const plan = buildPlan(goal, 1);
+    const all = CATALOG.map((e) => e.id);
     for (let n = 1; n <= done; n++) {
       const day = addDays(firstDay(today, done), n - 1);
       const id = `demo-${n}`;
-      const ids = plan[n - 1].ids;
+      const ids = Array.from({ length: 5 }, (_, i) => all[((n - 1) * 5 + i) % all.length]);
       const minutes = MINUTES[(n - 1) % MINUTES.length];
-      lines.push(`INSERT OR REPLACE INTO sessions (id, day, finished_at, duration_sec, total_reps, kind, plan_level, plan_day) VALUES (${q(id)}, ${q(day)}, ${q(`${day}T07:${String(minutes).padStart(2, '0')}:00.000Z`)}, ${300 + n * 20}, ${30 + n * 3}, 'routine', 1, ${n});`);
+      lines.push(`INSERT OR REPLACE INTO sessions (id, day, finished_at, duration_sec, total_reps, kind) VALUES (${q(id)}, ${q(day)}, ${q(`${day}T07:${String(minutes).padStart(2, '0')}:00.000Z`)}, ${300 + n * 20}, ${30 + n * 3}, 'routine');`);
       ids.forEach((ex, i) => lines.push(`INSERT OR REPLACE INTO session_exercises (session_id, position, exercise_id, reps) VALUES (${q(id)}, ${i}, ${q(ex)}, 8);`));
     }
   }
   return lines.join('\n');
 }
-
-/** The Worker's answer to POST /plan for this goal and level. */
-export const planReply = (goal, level) => ({ goal, level, days: premiumDays(goal, level) });

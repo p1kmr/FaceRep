@@ -57,7 +57,7 @@ const slides = [
     callout: { focusX: 0.645, focusY: 0.375, zoom: 2.3, shape: 'circle' },
     calloutRect: { x: 760, y: 1240, width: 540, height: 540, rotation: 0, zIndex: 7 },
   }),
-  // 3 Today: the 28-day plan, Day 12 of 28 on the day's card.
+  // 3 Today: the weeks, Week 2 · Day 5 on the day's card.
   slide(2, {
     shot: 'today', device: phone(250, 900, 1000, 3),
   }),
