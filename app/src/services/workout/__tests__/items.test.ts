@@ -1,5 +1,5 @@
 import { AVAILABLE_GUIDES, guideImages } from '@/constants/exerciseImages';
-import { CATALOG_VERSION, EXERCISE_IDS, EXERCISES, GOALS, goalsFor, PROGRAMS, programsFor, WORKOUT } from '@/constants/exercises';
+import { EXERCISE_IDS, EXERCISES, FREE_EXERCISE_IDS, GOALS, goalsFor, PROGRAMS, programsFor, WORKOUT } from '@/constants/exercises';
 import { GUIDE_IDS } from '@/constants/guides';
 
 import { defaultItem, workoutSeconds } from '../items';
@@ -21,7 +21,6 @@ describe('exercise catalog', () => {
 
 describe('programs per guide', () => {
   it('every guide sees every program and goal; only the order changes', () => {
-    expect(CATALOG_VERSION).toBe(2);
     for (const guide of ['man', 'woman'] as const) {
       expect([...programsFor(guide)].sort()).toEqual([...PROGRAMS].sort());
       expect([...goalsFor(guide)].sort()).toEqual([...GOALS].sort());
@@ -35,6 +34,12 @@ describe('programs per guide', () => {
     const hands = EXERCISE_IDS.filter((id) => EXERCISES[id].handsOn);
     expect(hands).toEqual(['21-smile-line-press', '22-forehead-press', '23-v-eyes', '24-jaw-release', '25-jawline-sweep', '26-frown-release', '27-temple-circles']);
     expect(hands.some((id) => EXERCISES[id].jawCaution)).toBe(false);
+  });
+
+  it('the free exercises cover every area and never load the jaw', () => {
+    for (const p of PROGRAMS) expect(FREE_EXERCISE_IDS.some((id) => EXERCISES[id].program === p)).toBe(true);
+    expect(FREE_EXERCISE_IDS.some((id) => EXERCISES[id].jawCaution)).toBe(false);
+    expect(FREE_EXERCISE_IDS.length).toBeLessThan(EXERCISE_IDS.length / 2);
   });
 });
 

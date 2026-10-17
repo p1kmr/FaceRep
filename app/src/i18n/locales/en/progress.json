@@ -35,6 +35,5 @@
     "body": "Finish your first workout and it shows up here."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Day {{day}} · {{exercises}} · {{minutes}}",
   "logged": "Logged"
 }

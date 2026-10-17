@@ -31,7 +31,8 @@
     "jawCaution": "Pule este exercício se você tem dor na mandíbula, estalos ou algum problema de ATM.",
     "handsCaution": "Use as mãos limpas e pressão leve. Evite pele irritada e não pressione áreas tratadas recentemente com Botox ou preenchimento.",
     "playVideo": "Reproduzir vídeo",
-    "pauseVideo": "Pausar vídeo"
+    "pauseVideo": "Pausar vídeo",
+    "unlock": "Desbloquear com o Premium"
   },
   "items": {
     "jawClench": {
@@ -322,5 +323,6 @@
   "view": {
     "map": "Mapa do rosto",
     "programs": "Programas"
-  }
+  },
+  "premium": "Premium"
 }

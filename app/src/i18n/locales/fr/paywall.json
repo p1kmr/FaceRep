@@ -1,9 +1,9 @@
 {
-  "headline": "Débloque le plan complet",
-  "subhead": "La semaine 1 est gratuite. Premium ajoute le reste de ton plan de 28 jours et le Coach IA.",
+  "headline": "Débloque tous les exercices",
+  "subhead": "{{free}} exercices sont gratuits. Premium ajoute les {{count}} et le Coach IA.",
   "benefits": {
-    "plan": "Semaines 2 à 4 : plus d'exercices, de répétitions et de temps de maintien chaque semaine",
-    "levels": "Niveaux 2 et 3 une fois le plan terminé, puis de nouveaux cycles",
+    "exercises": "Les {{count}} exercices pour chaque zone du visage",
+    "today": "La séance du jour avec tous les exercices, un nouveau mélange chaque jour",
     "coach": "Réponses illimitées du Coach IA sur la technique et ta routine"
   },
   "aiNote": "Le Coach répond grâce à une IA (Cloudflare Workers AI). On te demandera ton accord avant ta première question.",

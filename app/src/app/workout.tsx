@@ -13,13 +13,14 @@ import { WorkoutComplete } from '@/components/exercise/WorkoutComplete';
 import { AppText } from '@/components/ui/AppText';
 import { IconButton } from '@/components/ui/IconButton';
 import { ProgressRing } from '@/components/ui/ProgressRing';
-import { isExerciseId } from '@/constants/exercises';
+import { isExerciseId, isFreeExercise } from '@/constants/exercises';
 import { useMirror } from '@/hooks/useMirror';
-import { usePlan } from '@/hooks/usePlan';
+import { usePremium } from '@/hooks/usePremium';
 import { useProgressSummary, useSaveWorkout } from '@/hooks/useProgress';
 import { useReviewPrompt } from '@/hooks/useReviewPrompt';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { useTheme } from '@/hooks/useTheme';
+import { useTodayWorkout } from '@/hooks/useTodayWorkout';
 import { useWorkout } from '@/hooks/useWorkout';
 import { defaultItem, type WorkoutItem } from '@/services/workout/items';
 import { movePhaseOf } from '@/services/workout/moveCheck';
@@ -29,22 +30,20 @@ import { makeStyles } from '@/theme/makeStyles';
 
 /**
  * The guided player: the figure squeezes and relaxes with the timer.
- * ?kind=plan[&day=n] → a plan day (today's by default). It counts for the plan only when it's the next day;
- *   any other day, or today's again, is practice.
- * ?ids=a,b,c&kind=single → exercises from the library with their usual reps.
+ * ?kind=today → today's workout (hooks/useTodayWorkout).
+ * ?ids=a,b,c&kind=single → exercises from the library or the Coach with their usual reps. Without Premium only the free
+ *   ones run; when none of them is free, the paywall opens instead.
  */
 export default function WorkoutScreen() {
-  const params = useLocalSearchParams<{ ids?: string; kind?: string; day?: string }>();
-  const plan = usePlan();
-  // Fixed when the screen opens: saving the workout moves the plan on, the running workout stays as it was.
-  const [setup] = useState<{ items: WorkoutItem[]; kind: 'routine' | 'single'; counts: typeof plan.next }>(() => {
-    if (params.kind === 'plan') {
-      const n = params.day ? Number(params.day) : plan.showing.day;
-      const day = plan.dayAt(n);
-      return { items: day.status === 'ready' ? day.items : [], kind: 'routine', counts: plan.countsFor(n) };
-    }
+  const params = useLocalSearchParams<{ ids?: string; kind?: string }>();
+  const todayWorkout = useTodayWorkout();
+  const { isPremium } = usePremium();
+  // Fixed when the screen opens: the running workout stays as it was.
+  const [setup] = useState<{ items: WorkoutItem[]; kind: 'routine' | 'single'; locked: boolean }>(() => {
+    if (params.kind === 'today') return { items: todayWorkout.items, kind: 'routine', locked: false };
     const ids = (params.ids ?? '').split(',').filter(isExerciseId);
-    return { items: ids.map(defaultItem), kind: 'single', counts: null };
+    const allowed = isPremium ? ids : ids.filter(isFreeExercise);
+    return { items: allowed.map(defaultItem), kind: 'single', locked: ids.length > 0 && !allowed.length };
   });
   const { kind } = setup;
   const { t } = useTranslation(['workout', 'exercises', 'common']);
@@ -77,7 +76,7 @@ export default function WorkoutScreen() {
     saved.current = true;
     const result = workoutResult(state);
     setFinished(result);
-    const session = await saveWorkout(result, kind, setup.counts);
+    const session = await saveWorkout(result, kind);
     if (session && kind === 'routine') askForReview();
   };
 
@@ -85,6 +84,11 @@ export default function WorkoutScreen() {
     if (state.phase === 'done') finish();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- finish runs once, guarded by `saved`
   }, [state.phase]);
+
+  // Only Premium exercises were asked for (from the Coach or a link): the paywall instead of an empty player.
+  useEffect(() => {
+    if (setup.locked) router.replace('/paywall');
+  }, [setup.locked]);
 
   const close = () => (router.canGoBack() ? router.back() : router.replace('/'));
 

@@ -1,9 +1,9 @@
 {
-  "headline": "Den ganzen Plan freischalten",
-  "subhead": "Woche 1 ist kostenlos. Premium bringt den Rest deines 28-Tage-Plans und den KI-Coach.",
+  "headline": "Alle Übungen freischalten",
+  "subhead": "{{free}} Übungen sind kostenlos. Premium bringt alle {{count}} und den KI-Coach.",
   "benefits": {
-    "plan": "Wochen 2 bis 4: jede Woche mehr Übungen, Wiederholungen und Haltezeit",
-    "levels": "Level 2 und 3, wenn du fertig bist, und danach neue Runden",
+    "exercises": "Alle {{count}} Übungen für jeden Bereich des Gesichts",
+    "today": "Das Training für heute mit allen Übungen, jeden Tag neu gemischt",
     "coach": "Unbegrenzte Antworten vom KI-Coach zu Technik und Routine"
   },
   "aiNote": "Coach-Fragen beantwortet eine KI (Cloudflare Workers AI). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.",

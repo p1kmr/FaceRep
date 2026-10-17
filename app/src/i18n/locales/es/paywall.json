@@ -1,9 +1,9 @@
 {
-  "headline": "Desbloquea el plan completo",
-  "subhead": "La semana 1 es gratis. Premium añade el resto de tu plan de 28 días y el Coach con IA.",
+  "headline": "Desbloquea todos los ejercicios",
+  "subhead": "{{free}} ejercicios son gratis. Premium añade los {{count}} y el Coach con IA.",
   "benefits": {
-    "plan": "Semanas 2 a 4: más ejercicios, repeticiones y tiempo de contracción cada semana",
-    "levels": "Niveles 2 y 3 al terminar, y nuevas rondas después",
+    "exercises": "Los {{count}} ejercicios para cada zona de la cara",
+    "today": "El entrenamiento de hoy con todos los ejercicios, una combinación nueva cada día",
     "coach": "Respuestas ilimitadas del Coach con IA sobre técnica y rutina"
   },
   "aiNote": "Las preguntas al Coach las responde una IA (Cloudflare Workers AI). Te pediremos permiso antes de tu primera pregunta.",

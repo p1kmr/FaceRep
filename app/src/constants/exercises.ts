@@ -63,11 +63,6 @@ export const EXERCISE_IDS = [
 
 export type ExerciseId = (typeof EXERCISE_IDS)[number];
 
-/**
- * Version of this catalog. Bump it when exercises are added (and in worker/src/lib/plan.js, whose
- * test checks both). POST /plan sends it, so the Worker never plans an exercise this app doesn't have.
- */
-export const CATALOG_VERSION = 2;
 
 export interface Exercise {
   id: ExerciseId;
@@ -136,8 +131,25 @@ export const isExerciseId = (v: unknown): v is ExerciseId => typeof v === 'strin
 /** Seconds one exercise takes with all its reps (the last relax is skipped). */
 export const exerciseSeconds = (e: Exercise) => e.reps * (e.holdSec + e.relaxSec) - e.relaxSec;
 
+/**
+ * Free without Premium: one or two per area, none that loads the jaw, so the free Today's workout is a safe start
+ * (Temple Circles is the gentle hands-on one, for the massage area). Premium unlocks every exercise.
+ */
+export const FREE_EXERCISE_IDS: readonly ExerciseId[] = [
+  '02-chin-lift',
+  '06-cheek-lift',
+  '07-fish-face',
+  '19-pout',
+  '09-brow-lift',
+  '16-wide-eyes',
+  '27-temple-circles',
+];
+export const isFreeExercise = (id: ExerciseId) => FREE_EXERCISE_IDS.includes(id);
+
 /** Workout pacing between exercises. */
 export const WORKOUT = {
+  /** Exercises in Today's workout. */
+  todayCount: 5,
   /** "Get ready" countdown before the first rep of each exercise. */
   getReadySec: 3,
   /** Short break that previews the next exercise. */

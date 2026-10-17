@@ -1,6 +1,5 @@
 import { createContext, useCallback, useEffect, useReducer, type Dispatch, type ReactNode } from 'react';
 
-import type { PlanRef } from '@/constants/plan';
 import type { LoggedWorkout } from '@/services/progress/log';
 import { insertSession, listSessions } from '@/services/progress/sessionsRepo';
 import type { SessionSummary } from '@/services/progress/stats';
@@ -14,7 +13,7 @@ import type { ProgressState } from './types';
 
 export const ProgressStateContext = createContext<ProgressState | null>(null);
 export const ProgressDispatchContext = createContext<Dispatch<ProgressAction> | null>(null);
-type SaveWorkout = (result: WorkoutResult, kind: SessionSummary['kind'], plan?: PlanRef | null) => Promise<SessionSummary | null>;
+type SaveWorkout = (result: WorkoutResult, kind: SessionSummary['kind']) => Promise<SessionSummary | null>;
 
 /** Saves a finished workout (SQLite first, then state) and returns it, or null when nothing was done. */
 export const SaveWorkoutContext = createContext<SaveWorkout | null>(null);
@@ -33,7 +32,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       .catch(() => dispatch(hydrateProgress([]))); // storage unavailable: start empty, never block the app
   }, []);
 
-  const saveWorkout = useCallback<SaveWorkout>(async (result, kind, plan) => {
+  const saveWorkout = useCallback<SaveWorkout>(async (result, kind) => {
     if (!result.exercises.length) return null;
     const now = new Date();
     const session: SessionSummary = {
@@ -44,7 +43,6 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       totalReps: result.totalReps,
       exerciseIds: result.exercises.map((e) => e.id),
       kind,
-      ...(plan ? { plan } : {}),
     };
     // The streak still counts this session for today if the write fails (it just won't survive a restart).
     await insertSession(session, result.exercises).catch(() => {});
@@ -64,9 +62,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       durationSec: w.durationSec,
       totalReps: w.items.reduce((sum, i) => sum + i.reps, 0),
       exerciseIds: w.items.map((i) => i.id),
-      kind: w.plan || w.items.length > 1 ? 'routine' : 'single',
+      kind: w.items.length > 1 ? 'routine' : 'single',
       logged: true,
-      ...(w.plan ? { plan: w.plan } : {}),
     };
     await insertSession(session, w.items).catch(() => {});
     dispatch(sessionAdded(session));

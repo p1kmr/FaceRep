@@ -12,13 +12,14 @@ import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
 import { Gradient } from '@/components/ui/Gradient';
 import { Screen } from '@/components/ui/Screen';
-import { EXERCISES, isExerciseId, type ExerciseId } from '@/constants/exercises';
+import { EXERCISES, isExerciseId, isFreeExercise, type ExerciseId } from '@/constants/exercises';
 import { areasOf } from '@/constants/faceMap';
 import { useDemoSqueeze } from '@/hooks/useDemoSqueeze';
+import { usePremium } from '@/hooks/usePremium';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
 
-/** One exercise: its clip (or the drawings), muscles, how-to steps, start it on its own. */
+/** One exercise: its clip (or the drawings), muscles, how-to steps, start it on its own (or unlock it with Premium). */
 export default function ExerciseScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   return isExerciseId(id) ? <ExerciseDetail id={id} /> : null;
@@ -28,6 +29,8 @@ function ExerciseDetail({ id }: { id: ExerciseId }) {
   const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
+  const { isPremium } = usePremium();
+  const locked = !isPremium && !isFreeExercise(id);
   const clip = useExerciseClip(id);
   const squeeze = useDemoSqueeze(1800, !clip);
   const e = EXERCISES[id];
@@ -38,13 +41,17 @@ function ExerciseDetail({ id }: { id: ExerciseId }) {
     <Screen
       edges={['bottom']}
       footer={
-        <Button
-          title={t('exercises:detail.start')}
-          onPress={() => router.push({ pathname: '/workout', params: { ids: e.id, kind: 'single' } })}
-          icon="play.fill"
-          size="large"
-          fullWidth
-        />
+        locked ? (
+          <Button title={t('exercises:detail.unlock')} onPress={() => router.push('/paywall')} icon="lock.fill" size="large" fullWidth />
+        ) : (
+          <Button
+            title={t('exercises:detail.start')}
+            onPress={() => router.push({ pathname: '/workout', params: { ids: e.id, kind: 'single' } })}
+            icon="play.fill"
+            size="large"
+            fullWidth
+          />
+        )
       }
     >
       {clip ? <ExerciseClip id={e.id} clip={clip} label={name} controls /> : <ExerciseFrames id={e.id} squeeze={squeeze} label={name} />}

@@ -4,37 +4,13 @@
   "streak_one": "Série de {{count}} jour",
   "streak_other": "Série de {{count}} jours",
   "noStreak": "Lance ta série aujourd'hui",
-  "plan": {
-    "header": "Semaine {{week}} · Jour {{day}} sur {{total}}",
-    "level": "Niveau {{level}}",
-    "weeks": {
-      "learn": "Apprends les mouvements",
-      "build": "Progression",
-      "strengthen": "Renforcement",
-      "peak": "Semaine intense"
-    },
-    "light": "Journée légère : étirements et récupération",
-    "final": "Dernier jour du niveau",
+  "today": {
+    "header": "Séance du jour",
     "meta": "{{exercises}} · {{minutes}}",
-    "start": "Commencer le jour {{day}}",
-    "startLevel": "Commencer le niveau {{level}}",
-    "levelDone": "Niveau {{level}} terminé : 28 jours sur 28.",
-    "practice": "S'entraîner encore",
-    "doneToday": "Jour {{day}} terminé. Le jour {{next}} est disponible demain.",
-    "doneLevelToday": "Niveau {{level}} terminé. Le niveau {{next}} commence demain.",
-    "doneFreeWeek": "Semaine 1 terminée. Les semaines 2 à 4 font partie de Premium.",
-    "locked": {
-      "title": "Les semaines 2 à 4 sont Premium",
-      "body": "Chaque semaine ajoute des exercices, des répétitions et du temps de maintien. La semaine 1 et tous les exercices à l'unité restent gratuits.",
-      "cta": "Débloquer le plan complet"
-    },
-    "loading": "Chargement de la suite de ton plan…",
-    "error": {
-      "offline": "Connecte-toi une fois à Internet pour charger la suite de ton plan. Ensuite, il fonctionne hors ligne.",
-      "premium": "Ton abonnement n'a pas encore pu être confirmé. Réessaie dans une minute, ou utilise Restaurer les achats dans Réglages.",
-      "server": "Impossible de charger le plan. Réessaie dans un moment.",
-      "retry": "Réessayer"
-    }
+    "start": "Commencer la séance du jour",
+    "again": "La refaire",
+    "done": "La séance du jour est faite. Une nouvelle t’attend demain.",
+    "unlock": "Débloquer les {{count}} exercices"
   },
   "hello": {
     "morning": "Bonjour",

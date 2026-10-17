@@ -31,7 +31,8 @@
     "jawCaution": "Skip this one if you have jaw pain, clicking or a TMJ problem.",
     "handsCaution": "Use clean hands and light pressure. Skip irritated skin, and don't press on an area treated with Botox or fillers recently.",
     "playVideo": "Play video",
-    "pauseVideo": "Pause video"
+    "pauseVideo": "Pause video",
+    "unlock": "Unlock with Premium"
   },
   "items": {
     "jawClench": {
@@ -322,5 +323,6 @@
   "view": {
     "map": "Face map",
     "programs": "Programs"
-  }
+  },
+  "premium": "Premium"
 }

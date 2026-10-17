@@ -31,8 +31,6 @@
     "routineTitle": "Ta routine",
     "today": "Aujourd'hui",
     "yesterday": "Hier",
-    "countsFor": "Compte comme le jour {{day}} de ton plan",
-    "extra": "Une séance en plus, qui ne compte pas pour ton plan.",
     "more_one": "+{{count}} autre",
     "more_other": "+{{count}} autres",
     "save": "Enregistrer",

@@ -1,9 +1,8 @@
 import { router } from 'expo-router';
-import { createContext, useCallback, useEffect, useMemo, useReducer, useRef, type ReactNode } from 'react';
+import { createContext, useCallback, useEffect, useReducer, useRef, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { CHAT_LIMITS } from '@/constants/limits';
-import { usePlan } from '@/hooks/usePlan';
 import { usePremium, usePremiumDispatch } from '@/hooks/usePremium';
 import { useReminders } from '@/hooks/useReminders';
 import { useLogWorkout, useProgressSummary } from '@/hooks/useProgress';
@@ -11,7 +10,7 @@ import { useSettings } from '@/hooks/useSettings';
 import { requestChat } from '@/services/ai/client';
 import { AiRequestError, type CoachAction, type LogAction } from '@/services/ai/types';
 import { addMessage, clearMessages, loadMessages } from '@/services/chat/chatRepo';
-import { loggedWorkout, type LoggedWorkout, type PlanToday } from '@/services/progress/log';
+import { loggedWorkout, type LoggedWorkout } from '@/services/progress/log';
 import { aiAnswerUsed, aiFreeUsedUp } from '@/state/premium/actions';
 import { todayISO } from '@/utils/dates';
 import { createId } from '@/utils/ids';
@@ -48,15 +47,9 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   const premiumDispatch = usePremiumDispatch();
   const { streak, workoutsLast7Days } = useProgressSummary();
   const reminderList = useReminders();
-  const { next: nextPlanDay, today: planDay } = usePlan();
   const logWorkout = useLogWorkout();
   const lastQuestion = useRef('');
-  // A workout saved today counts for the plan only as the next plan day, when it is ready (same as the Start button).
-  const planToday = useMemo<PlanToday | null>(
-    () => (nextPlanDay && planDay.status === 'ready' ? { ref: nextPlanDay, items: planDay.items } : null),
-    [nextPlanDay, planDay],
-  );
-  const previewLog = useCallback((action: LogAction) => loggedWorkout(action, todayISO(), planToday), [planToday]);
+  const previewLog = useCallback((action: LogAction) => loggedWorkout(action, todayISO()), []);
   const thinking = state.pending !== null;
 
   useEffect(() => {

@@ -31,7 +31,8 @@
     "jawCaution": "Lass diese Übung weg, wenn du Kieferschmerzen, Kieferknacken oder Kiefergelenkprobleme (CMD) hast.",
     "handsCaution": "Mit sauberen Händen und leichtem Druck. Lass gereizte Haut aus und drück nicht auf Stellen, die kürzlich mit Botox oder Fillern behandelt wurden.",
     "playVideo": "Video abspielen",
-    "pauseVideo": "Video pausieren"
+    "pauseVideo": "Video pausieren",
+    "unlock": "Mit Premium freischalten"
   },
   "items": {
     "jawClench": {
@@ -322,5 +323,6 @@
   "view": {
     "map": "Gesichtskarte",
     "programs": "Programme"
-  }
+  },
+  "premium": "Premium"
 }

@@ -31,8 +31,6 @@
     "routineTitle": "La tua routine",
     "today": "Oggi",
     "yesterday": "Ieri",
-    "countsFor": "Conta come giorno {{day}} del tuo piano",
-    "extra": "Un allenamento in più: non conta per il tuo piano.",
     "more_one": "+{{count}} altro",
     "more_other": "+{{count}} altri",
     "save": "Salva",

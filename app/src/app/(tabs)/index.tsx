@@ -11,20 +11,20 @@ import { WeekStrip } from '@/components/today/WeekStrip';
 import { Screen } from '@/components/ui/Screen';
 import type { FaceArea } from '@/constants/faceMap';
 import { useFirstWeekday } from '@/hooks/useFirstWeekday';
-import { usePlan } from '@/hooks/usePlan';
 import { usePremium } from '@/hooks/usePremium';
 import { useProgressState, useProgressSummary } from '@/hooks/useProgress';
 import { useSettings } from '@/hooks/useSettings';
 import { useToday } from '@/hooks/useToday';
+import { useTodayWorkout } from '@/hooks/useTodayWorkout';
 import { minutesBetween } from '@/services/progress/stats';
 import { weekStart } from '@/utils/dates';
 
 /**
- * Today: greeting and streak, this week (with this month folded under it), today's plan day on the face (the areas it
+ * Today: greeting and streak, this week (with this month folded under it), today's workout on the face (the areas it
  * works lit) and the numbers. The Coach is the floating button.
  */
 export default function TodayScreen() {
-  const plan = usePlan();
+  const workout = useTodayWorkout();
   const { goal } = useSettings();
   const { isPremium } = usePremium();
   const summary = useProgressSummary();
@@ -33,7 +33,7 @@ export default function TodayScreen() {
   const firstWeekday = useFirstWeekday();
   const [monthOpen, setMonthOpen] = useState(false);
 
-  const startPlan = () => router.push({ pathname: '/workout', params: { kind: 'plan' } });
+  const start = () => router.push({ pathname: '/workout', params: { kind: 'today' } });
   const unlock = () => router.push('/paywall');
   const learnArea = (area: FaceArea) => router.navigate({ pathname: '/exercises', params: { area } });
 
@@ -48,11 +48,10 @@ export default function TodayScreen() {
         </Animated.View>
       ) : null}
       <TodayCard
-        plan={plan}
+        workout={workout}
         goal={goal}
         isPremium={isPremium}
-        onStart={startPlan}
-        onPractice={startPlan}
+        onStart={start}
         onUnlock={unlock}
         onArea={learnArea}
       />

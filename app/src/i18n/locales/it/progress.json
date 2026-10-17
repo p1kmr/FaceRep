@@ -35,6 +35,5 @@
     "body": "Completa il tuo primo allenamento e lo vedrai qui."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Giorno {{day}} · {{exercises}} · {{minutes}}",
   "logged": "Registrato"
 }

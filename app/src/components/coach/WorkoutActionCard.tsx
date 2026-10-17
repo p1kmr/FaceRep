@@ -108,15 +108,6 @@ export function WorkoutActionCard({ proposed, onResolve }: WorkoutActionCardProp
         </AppText>
       </View>
       {title ? <AppText variant="headline">{title}</AppText> : null}
-      {saving?.plan ? (
-        <AppText variant="footnote" style={styles.done}>
-          {t('coach:actions.countsFor', { day: saving.plan.day })}
-        </AppText>
-      ) : log?.plan && saving ? (
-        <AppText variant="footnote" muted>
-          {t('coach:actions.extra')}
-        </AppText>
-      ) : null}
       {ids.length ? (
         <View style={styles.exercises}>
           <ExerciseAvatars ids={ids} />

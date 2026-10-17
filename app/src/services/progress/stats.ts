@@ -1,5 +1,4 @@
 import type { ExerciseId } from '@/constants/exercises';
-import type { PlanRef } from '@/constants/plan';
 import { addDays, diffInDays, type ISODate } from '@/utils/dates';
 
 export interface SessionSummary {
@@ -11,8 +10,6 @@ export interface SessionSummary {
   totalReps: number;
   exerciseIds: ExerciseId[];
   kind: 'routine' | 'single';
-  /** The plan day this workout counted for (routines only). */
-  plan?: PlanRef;
   /** Saved from a Coach proposal the user confirmed (done without the app), not finished in the player. */
   logged?: boolean;
 }

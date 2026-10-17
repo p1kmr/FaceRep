@@ -33,11 +33,10 @@ function parseWorkoutAction(a: Record<string, unknown>): LogAction | RoutineActi
   }
   const daysAgo = a.daysAgo;
   if (typeof daysAgo !== 'number' || !Number.isInteger(daysAgo) || daysAgo < 0 || daysAgo > L.daysBack) return null;
-  const plan = a.plan === true && daysAgo === 0;
   const exercises = exerciseIds(a.exercises, L.logMax);
   const m = a.minutes;
   const minutes = typeof m === 'number' && Number.isInteger(m) && m >= 1 && m <= L.maxMinutes ? m : null;
-  return plan || exercises.length || minutes ? { type: 'log', daysAgo, plan, exercises, minutes } : null;
+  return exercises.length || minutes ? { type: 'log', daysAgo, exercises, minutes } : null;
 }
 
 /** One proposed action, checked like everything else from the server; null when malformed. */

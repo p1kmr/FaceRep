@@ -15,10 +15,12 @@ interface ExerciseTileProps {
   onPress: () => void;
   /** Done today: a check on the picture. */
   done?: boolean;
+  /** Needs Premium: a lock on the picture. */
+  locked?: boolean;
 }
 
-/** A grid tile: the exercise drawing (muscle in red), name, main muscle and reps × hold. */
-export function ExerciseTile({ id, onPress, done }: ExerciseTileProps) {
+/** A grid tile: the exercise drawing (muscle in red), name, main muscle and reps × hold; a lock when it needs Premium. */
+export function ExerciseTile({ id, onPress, done, locked }: ExerciseTileProps) {
   const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
@@ -30,7 +32,7 @@ export function ExerciseTile({ id, onPress, done }: ExerciseTileProps) {
     <Pressable
       onPress={onPress}
       accessibilityRole="button"
-      accessibilityLabel={`${name}, ${meta}`}
+      accessibilityLabel={locked ? `${name}, ${meta}, ${t('exercises:premium')}` : `${name}, ${meta}`}
       style={({ pressed }) => [styles.tile, pressed && styles.pressed]}
     >
       <View style={styles.picture}>
@@ -38,6 +40,10 @@ export function ExerciseTile({ id, onPress, done }: ExerciseTileProps) {
         {done ? (
           <View style={styles.done}>
             <SymbolView name="checkmark.circle.fill" size={22} tintColor={colors.success} />
+          </View>
+        ) : locked ? (
+          <View style={styles.lock}>
+            <SymbolView name="lock.fill" size={12} tintColor={colors.onImage} />
           </View>
         ) : null}
       </View>
@@ -67,6 +73,17 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   picture: { aspectRatio: 0.86, backgroundColor: colors.plate },
   image: { width: '100%', height: '100%' },
   done: { position: 'absolute', top: tokens.space.sm, right: tokens.space.sm, borderRadius: tokens.radius.pill, backgroundColor: colors.surface },
+  lock: {
+    position: 'absolute',
+    top: tokens.space.sm,
+    right: tokens.space.sm,
+    width: 26,
+    height: 26,
+    borderRadius: tokens.radius.pill,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.overlay,
+  },
   text: { padding: tokens.space.md, gap: 2 },
   name: { fontSize: tokens.font.size.body, fontWeight: tokens.font.weight.semibold },
 }));

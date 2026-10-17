@@ -31,7 +31,8 @@
     "jawCaution": "Passe cet exercice si tu as mal à la mâchoire, des craquements ou un problème d'articulation de la mâchoire (ATM).",
     "handsCaution": "Mains propres et pression légère. Évite la peau irritée, et n'appuie pas sur une zone traitée récemment (Botox ou injections de comblement).",
     "playVideo": "Lire la vidéo",
-    "pauseVideo": "Mettre la vidéo en pause"
+    "pauseVideo": "Mettre la vidéo en pause",
+    "unlock": "Débloquer avec Premium"
   },
   "items": {
     "jawClench": {
@@ -322,5 +323,6 @@
   "view": {
     "map": "Carte du visage",
     "programs": "Programmes"
-  }
+  },
+  "premium": "Premium"
 }

@@ -4,37 +4,13 @@
   "streak_one": "Racha de {{count}} día",
   "streak_other": "Racha de {{count}} días",
   "noStreak": "Empieza tu racha hoy",
-  "plan": {
-    "header": "Semana {{week}} · Día {{day}} de {{total}}",
-    "level": "Nivel {{level}}",
-    "weeks": {
-      "learn": "Aprende los movimientos",
-      "build": "Progresa",
-      "strengthen": "Fortalece",
-      "peak": "Semana cumbre"
-    },
-    "light": "Día suave: estira y recupérate",
-    "final": "Último día del nivel",
+  "today": {
+    "header": "Entrenamiento de hoy",
     "meta": "{{exercises}} · {{minutes}}",
-    "start": "Empezar día {{day}}",
-    "startLevel": "Empezar nivel {{level}}",
-    "levelDone": "Nivel {{level}} completado: terminaste los 28 días.",
-    "practice": "Practicar de nuevo",
-    "doneToday": "Día {{day}} completado. El día {{next}} se abre mañana.",
-    "doneLevelToday": "Nivel {{level}} completado. El nivel {{next}} empieza mañana.",
-    "doneFreeWeek": "Semana 1 completada. Las semanas 2 a 4 son parte de Premium.",
-    "locked": {
-      "title": "Las semanas 2 a 4 son Premium",
-      "body": "Cada semana suma ejercicios, repeticiones y tiempo de contracción. La semana 1 y cada ejercicio por separado siguen siendo gratis.",
-      "cta": "Desbloquea el plan completo"
-    },
-    "loading": "Cargando el resto de tu plan…",
-    "error": {
-      "offline": "Conéctate a internet una vez para cargar el resto de tu plan. Después funciona sin conexión.",
-      "premium": "Aún no se pudo confirmar tu suscripción. Inténtalo de nuevo en un minuto o usa Restaurar compras en Ajustes.",
-      "server": "No se pudo cargar el plan. Inténtalo de nuevo en un momento.",
-      "retry": "Reintentar"
-    }
+    "start": "Empezar el entrenamiento de hoy",
+    "again": "Hacerlo otra vez",
+    "done": "El entrenamiento de hoy está hecho. Mañana tendrás uno nuevo.",
+    "unlock": "Desbloquea los {{count}} ejercicios"
   },
   "hello": {
     "morning": "Buenos días",

@@ -41,6 +41,5 @@
     "body": "Termine seu primeiro treino e ele aparece aqui."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Dia {{day}} · {{exercises}} · {{minutes}}",
   "logged": "Registrado"
 }

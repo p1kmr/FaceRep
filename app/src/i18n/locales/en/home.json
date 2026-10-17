@@ -4,37 +4,13 @@
   "streak_one": "{{count}} day streak",
   "streak_other": "{{count}} day streak",
   "noStreak": "Start your streak today",
-  "plan": {
-    "header": "Week {{week}} · Day {{day}} of {{total}}",
-    "level": "Level {{level}}",
-    "weeks": {
-      "learn": "Learn the moves",
-      "build": "Build",
-      "strengthen": "Strengthen",
-      "peak": "Peak week"
-    },
-    "light": "Light day: stretch and recover",
-    "final": "Final day of the level",
+  "today": {
+    "header": "Today's workout",
     "meta": "{{exercises}} · {{minutes}}",
-    "start": "Start Day {{day}}",
-    "startLevel": "Start Level {{level}}",
-    "levelDone": "Level {{level}} complete: all 28 days done.",
-    "practice": "Practice again",
-    "doneToday": "Day {{day}} done. Day {{next}} opens tomorrow.",
-    "doneLevelToday": "Level {{level}} complete. Level {{next}} starts tomorrow.",
-    "doneFreeWeek": "Week 1 done. Weeks 2 to 4 are part of Premium.",
-    "locked": {
-      "title": "Weeks 2 to 4 are Premium",
-      "body": "Each week adds exercises, reps and hold time. Week 1 and every single exercise stay free.",
-      "cta": "Unlock the full plan"
-    },
-    "loading": "Loading the rest of your plan…",
-    "error": {
-      "offline": "Connect to the internet once to load the rest of your plan. After that it works offline.",
-      "premium": "Your subscription couldn't be confirmed yet. Try again in a minute, or use Restore purchases in Settings.",
-      "server": "The plan couldn't be loaded. Try again in a moment.",
-      "retry": "Try again"
-    }
+    "start": "Start today's workout",
+    "again": "Do it again",
+    "done": "Today's workout is done. A new one is ready tomorrow.",
+    "unlock": "Unlock all {{count}} exercises"
   },
   "hello": {
     "morning": "Good morning",

@@ -34,13 +34,12 @@ export type ReminderAction =
   | { type: 'delete'; id: string };
 
 /**
- * A workout the user says they did without the app (or forgot to save), to save on a day 0–6 days back. plan: they did
- * today's plan day. exercises: the ones they named (may be empty). minutes: only when they said. Saved only on Confirm.
+ * A workout the user says they did without the app (or forgot to save), to save on a day 0–6 days back. exercises: the
+ * ones they named (may be empty). minutes: only when they said. Saved only on Confirm.
  */
 export interface LogAction {
   type: 'log';
   daysAgo: number;
-  plan: boolean;
   exercises: ExerciseId[];
   minutes: number | null;
 }

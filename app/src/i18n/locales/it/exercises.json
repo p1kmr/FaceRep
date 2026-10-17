@@ -31,7 +31,8 @@
     "jawCaution": "Salta questo esercizio se hai dolore alla mascella, schiocchi o un problema all'ATM.",
     "handsCaution": "Usa mani pulite e una pressione leggera. Evita la pelle irritata e non premere su zone trattate di recente con Botox o filler.",
     "playVideo": "Riproduci il video",
-    "pauseVideo": "Metti in pausa il video"
+    "pauseVideo": "Metti in pausa il video",
+    "unlock": "Sblocca con Premium"
   },
   "items": {
     "jawClench": {
@@ -322,5 +323,6 @@
   "view": {
     "map": "Mappa del viso",
     "programs": "Programmi"
-  }
+  },
+  "premium": "Premium"
 }

@@ -35,6 +35,5 @@
     "body": "Schließ dein erstes Training ab, dann erscheint es hier."
   },
   "session": "{{exercises}} · {{minutes}}",
-  "sessionPlan": "Tag {{day}} · {{exercises}} · {{minutes}}",
   "logged": "Nachgetragen"
 }

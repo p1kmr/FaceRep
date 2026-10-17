@@ -31,7 +31,8 @@ export const MIGRATIONS: string[] = [
     created_at TEXT NOT NULL
   );
   `,
-  // 2: which 28-day plan day a workout counted for (NULL for single exercises and older workouts).
+  // 2: which 28-day plan day a workout counted for (NULL for single exercises and older workouts). The plan is gone;
+  // the columns stay (a shipped migration never changes) and are no longer written or read.
   `
   ALTER TABLE sessions ADD COLUMN plan_level INTEGER;
   ALTER TABLE sessions ADD COLUMN plan_day INTEGER;
