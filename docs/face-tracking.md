@@ -97,7 +97,9 @@ eight exercises done with the hands (they cover the face). A test keeps hands-on
 - **Every iPhone keeps the app.** No `UIRequiredDeviceCapabilities` for ARKit: without face tracking the mirror is the
   plain camera and the Settings row is hidden.
 - **Native code.** `services/faceTracking.ts` is the only import of the module. A change in `modules/face-tracking` needs
-  a new build; changing `constants/moves.ts` doesn't.
+  a new build; changing `constants/moves.ts` doesn't. The mirror is an `ARSCNView` (SceneKit), which Apple
+  soft-deprecated in 2025: it keeps working and builds for the Simulator too. If a later Xcode drops it, move the view to
+  RealityKit's `ARView`; the events stay the same.
 
 ## 5. Testing on an iPhone
 
