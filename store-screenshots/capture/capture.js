@@ -133,9 +133,8 @@ async function workout(lang, guide, name, { mirror = false } = {}) {
 async function today(app, lang) {
   await go(app, '/', 5000);
   await save(app, lang, 'today');
-  // The 28-day grid is folded under the week strip: open it, then a second shot, and cut weeks 1–2 out of that one.
-  await app.page.getByRole('button', { name: t(lang, 'home', 'plan.grid.title'), exact: true }).first().click();
-  await settle(app, 1200);
+  // The 28-day grid has its own page (from the week and day on Today's card): a second shot, and cut weeks 1–2 out of it.
+  await go(app, '/plan', 3000);
   await save(app, lang, 'today-grid');
   const grid = await gridRegion(app);
   if (!grid) throw new Error(`${lang}: the 28-day grid wasn't found on Today`);

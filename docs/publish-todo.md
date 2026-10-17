@@ -122,10 +122,10 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
       re-export them (store-screenshots/README.md) before submitting.
 - [ ] **Review notes:** use the updated text in docs/launch.md (face map, videos, Coach save / routine, move check).
       The notes in App Store Connect still say "Settings → Mirror in workouts" (that row is gone: the mirror is only
-      the person button in the player) and "tap any locked day in the 28-day grid" (the grid is now under "Your 28-day
-      plan" on Today). Update them when the new build is attached, not before (they describe the attached build).
+      the person button in the player) and "tap any locked day in the 28-day grid" (the grid is now its own page, opened by
+      tapping "WEEK 1 · DAY 1 OF 28" on Today's card). Update them when the new build is attached, not before (they describe the attached build).
 - [ ] Build 12 (from `ae2eb2a`) is the first with the move check; on an iPhone 11 its mirror stayed black. The next
-      build adds the plain-camera fallback and its log lines, the draggable mirror tile with ×, the folded 28-day plan
+      build adds the plain-camera fallback and its log lines, the draggable mirror tile with ×, the month under the week and the 28-day plan page
       and the Anton fix: test the mirror again with docs/face-tracking.md §5.
 
 ## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)

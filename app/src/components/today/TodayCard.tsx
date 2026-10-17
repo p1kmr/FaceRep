@@ -1,7 +1,7 @@
 import { SymbolView } from 'expo-symbols';
 import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Pressable, View } from 'react-native';
 
 import { EXERCISE_IDS, EXERCISES, type ExerciseId, type Goal } from '@/constants/exercises';
 import { areasOfAll, type FaceArea } from '@/constants/faceMap';
@@ -30,6 +30,8 @@ interface TodayCardProps {
   onUnlock: () => void;
   /** A tap on an area of the face: learn about it in the library's face map. */
   onArea: (area: FaceArea) => void;
+  /** A tap on the week and day: the 28-day plan. */
+  onPlan: () => void;
 }
 
 /** Placeholder thumbnails for a locked day (the real Premium days aren't on the device). */
@@ -43,7 +45,7 @@ const MAP_ASPECT = 720 / 974;
  * Today's plan day as the hero: the face with the areas this day works lit in red (tap one to learn about it), the
  * areas as the title, the exercises and one big button. Also the done, locked, loading and error states.
  */
-export function TodayCard({ plan, goal, isPremium, onStart, onPractice, onUnlock, onArea }: TodayCardProps) {
+export function TodayCard({ plan, goal, isPremium, onStart, onPractice, onUnlock, onArea, onPlan }: TodayCardProps) {
   const { t, i18n } = useTranslation(['home', 'common', 'exercises']);
   const styles = useStyles();
   const { colors } = useTheme();
@@ -152,11 +154,18 @@ export function TodayCard({ plan, goal, isPremium, onStart, onPractice, onUnlock
           />
         ) : null}
         <View style={styles.top} pointerEvents="box-none">
-          <View style={styles.pill}>
+          <Pressable
+            onPress={onPlan}
+            accessibilityRole="button"
+            accessibilityHint={t('home:plan.grid.title')}
+            hitSlop={8}
+            style={({ pressed }) => [styles.pill, pressed && styles.pressed]}
+          >
             <AppText variant="caption" style={styles.pillText}>
               {t('home:plan.header', { week: showing.week, day: showing.day, total: PLAN.days }).toUpperCase()}
             </AppText>
-          </View>
+            <SymbolView name="chevron.right" size={10} weight="bold" tintColor={colors.onImage} />
+          </Pressable>
           <View style={styles.badges}>
             <Badge label={t(`common:programs.${goal}`)} tone="primary" />
             {showing.level > 1 ? <Badge label={t('home:plan.level', { level: showing.level })} /> : null}
@@ -188,7 +197,16 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   },
   mapBox: { aspectRatio: 1.08, overflow: 'hidden', backgroundColor: colors.plate },
   top: { position: 'absolute', top: 0, left: 0, right: 0, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', padding: tokens.space.md },
-  pill: { paddingHorizontal: tokens.space.sm + 2, paddingVertical: 5, borderRadius: tokens.radius.pill, backgroundColor: colors.overlay },
+  pill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: tokens.space.xs,
+    paddingHorizontal: tokens.space.sm + 2,
+    paddingVertical: 5,
+    borderRadius: tokens.radius.pill,
+    backgroundColor: colors.overlay,
+  },
+  pressed: { opacity: 0.7 },
   pillText: { color: colors.onImage, fontWeight: tokens.font.weight.bold, letterSpacing: 0.6 },
   badges: { alignItems: 'flex-end', gap: tokens.space.xs },
   caption: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingTop: 48, paddingHorizontal: tokens.space.lg, paddingBottom: tokens.space.md },
