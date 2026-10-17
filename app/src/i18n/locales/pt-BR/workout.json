@@ -36,7 +36,8 @@
     "streak_other": "Sequência de {{count}} dias",
     "streak_zero": "Sequência de {{count}} dias",
     "nothing": "Nenhuma repetição concluída desta vez. Tente de novo.",
-    "done": "Concluir"
+    "done": "Concluir",
+    "worked": "Áreas trabalhadas"
   },
   "a11y": {
     "timer": "{{phase}}, faltam {{seconds}} segundos"

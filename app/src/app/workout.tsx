@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { ExerciseStrip } from '@/components/exercise/ExerciseStrip';
 import { MirrorView } from '@/components/exercise/MirrorView';
 import { PlayerFigure } from '@/components/exercise/PlayerFigure';
 import { RepPips } from '@/components/exercise/RepPips';
@@ -44,7 +45,7 @@ export default function WorkoutScreen() {
     return { items: ids.map(defaultItem), kind: 'single', counts: null };
   });
   const { kind } = setup;
-  const { t } = useTranslation(['workout', 'exercises']);
+  const { t } = useTranslation(['workout', 'exercises', 'common']);
   const { colors, tokens } = useTheme();
   const styles = useStyles();
   // Insets from the app root, not SafeAreaView: inside this full-screen modal SafeAreaView gave no top inset on notch
@@ -117,8 +118,8 @@ export default function WorkoutScreen() {
     <View style={[styles.root, safe]}>
       <View style={styles.top}>
         <IconButton icon="xmark" onPress={confirmEnd} accessibilityLabel={t('end')} />
-        <AppText variant="footnote" muted>
-          {t('exerciseOf', { index: state.index + 1, total: state.queue.length })}
+        <AppText variant="caption" muted style={styles.where} numberOfLines={1}>
+          {`${t(`common:programs.${e.program}`)} · ${t('exerciseOf', { index: state.index + 1, total: state.queue.length })}`.toUpperCase()}
         </AppText>
         <View style={styles.actions}>
           <IconButton
@@ -132,7 +133,9 @@ export default function WorkoutScreen() {
         </View>
       </View>
 
-      <View style={styles.frames}>
+      {state.queue.length > 1 ? <ExerciseStrip ids={state.queue.map((q) => q.id)} index={state.index} /> : null}
+
+      <View style={[styles.frames, squeeze && !state.paused && styles.glow]}>
         <PlayerFigure
           id={e.id}
           squeeze={squeeze}
@@ -144,8 +147,8 @@ export default function WorkoutScreen() {
       </View>
 
       <View style={styles.info}>
-        <AppText variant="title" center>
-          {name}
+        <AppText variant="brand" center numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.6} style={styles.name}>
+          {name.toUpperCase()}
         </AppText>
         <AppText muted={!caution} center numberOfLines={2} style={caution ? styles.caution : undefined}>
           {caution ? t('exercises:detail.jawCaution') : t(`exercises:items.${e.key}.cue`)}
@@ -162,7 +165,8 @@ export default function WorkoutScreen() {
           progress={duration ? 1 - state.remaining / duration : 0}
           size={112}
           stroke={8}
-          color={squeeze ? colors.primary : colors.textMuted}
+          color={colors.textMuted}
+          gradient={squeeze}
         >
           <View accessible accessibilityLiveRegion="polite" accessibilityLabel={t('a11y.timer', { phase: phaseLabel, seconds: state.remaining })}>
             <AppText style={styles.seconds} center>
@@ -206,7 +210,11 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     paddingVertical: tokens.space.sm,
   },
   actions: { flexDirection: 'row', gap: tokens.space.sm },
-  frames: { flex: 1, marginHorizontal: tokens.space.lg },
+  frames: { flex: 1, marginHorizontal: tokens.space.lg, marginTop: tokens.space.md, borderRadius: tokens.radius.xl },
+  // The figure glows in the brand red while the muscle works.
+  glow: { boxShadow: `0px 0px 36px ${colors.glow}` },
+  where: { fontWeight: tokens.font.weight.bold, letterSpacing: 0.8, flexShrink: 1, textAlign: 'center' },
+  name: { fontSize: 34, lineHeight: 40 },
   mirror: { position: 'absolute', right: tokens.space.md, bottom: tokens.space.md, width: '38%' },
   info: { paddingHorizontal: tokens.space.xl, paddingTop: tokens.space.lg, gap: tokens.space.xs },
   caution: { fontWeight: tokens.font.weight.bold },

@@ -35,7 +35,8 @@
     "streak_one": "{{count}} day streak",
     "streak_other": "{{count}} day streak",
     "nothing": "No reps finished this time. Give it another go.",
-    "done": "Done"
+    "done": "Done",
+    "worked": "Areas worked"
   },
   "a11y": {
     "timer": "{{phase}}, {{seconds}} seconds left"

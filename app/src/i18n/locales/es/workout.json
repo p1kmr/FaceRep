@@ -35,7 +35,8 @@
     "streak_one": "Racha de {{count}} día",
     "streak_other": "Racha de {{count}} días",
     "nothing": "Esta vez no completaste ninguna repetición. Vuelve a intentarlo.",
-    "done": "Listo"
+    "done": "Listo",
+    "worked": "Zonas trabajadas"
   },
   "a11y": {
     "timer": "{{phase}}, quedan {{seconds}} segundos"

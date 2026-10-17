@@ -35,7 +35,8 @@
     "streak_one": "{{count}} Tag in Folge",
     "streak_other": "{{count}} Tage in Folge",
     "nothing": "Diesmal keine Wiederholung geschafft. Probier's gleich noch mal.",
-    "done": "Fertig"
+    "done": "Fertig",
+    "worked": "Trainierte Bereiche"
   },
   "a11y": {
     "timer": "{{phase}}, noch {{seconds}} Sekunden"

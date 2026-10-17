@@ -35,7 +35,8 @@
     "streak_one": "Série de {{count}} jour",
     "streak_other": "Série de {{count}} jours",
     "nothing": "Aucune répétition terminée cette fois. Retente le coup !",
-    "done": "OK"
+    "done": "OK",
+    "worked": "Zones travaillées"
   },
   "a11y": {
     "timer": "{{phase}}, {{seconds}} secondes restantes"

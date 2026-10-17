@@ -1,9 +1,11 @@
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
-import { Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/hooks/useTheme';
 import { haptics } from '@/services/haptics';
 import { makeStyles } from '@/theme/makeStyles';
+
+import { Gradient } from './Gradient';
 
 interface IconButtonProps {
   icon: SymbolViewProps['name'];
@@ -31,14 +33,22 @@ export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', 
       aria-checked={toggled}
       accessibilityLabel={accessibilityLabel}
       hitSlop={8}
-      style={({ pressed }) => [styles.base, large && styles.large, tone === 'primary' && styles.primary, pressed && styles.pressed]}
+      style={({ pressed }) => [styles.base, large && styles.large, tone === 'primary' && styles.primary, large && tone === 'primary' && styles.glow, pressed && styles.pressed]}
     >
-      <SymbolView
-        name={icon}
-        size={large ? 26 : 17}
-        weight="semibold"
-        tintColor={tone === 'primary' ? colors.onPrimary : colors.text}
-      />
+      {tone === 'primary' ? (
+        <View style={styles.fill}>
+          <Gradient colors={[colors.primaryEnd, colors.primary]} />
+        </View>
+      ) : null}
+      {/* In its own view: the web build paints a bare icon under the gradient. */}
+      <View>
+        <SymbolView
+          name={icon}
+          size={large ? 26 : 17}
+          weight="semibold"
+          tintColor={tone === 'primary' ? colors.onPrimary : colors.text}
+        />
+      </View>
     </Pressable>
   );
 }
@@ -52,7 +62,10 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     justifyContent: 'center',
     backgroundColor: colors.surfaceAlt,
   },
+  // The gradient in its own clipped circle, so the button's glow can spread outside it.
+  fill: { position: 'absolute', top: 0, right: 0, bottom: 0, left: 0, borderRadius: tokens.radius.pill, overflow: 'hidden' },
   large: { width: 72, height: 72 },
   primary: { backgroundColor: colors.primary },
+  glow: { boxShadow: `${tokens.elevation.glow} ${colors.glow}` },
   pressed: { opacity: 0.8, transform: [{ scale: 0.96 }] },
 }));

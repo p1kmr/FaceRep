@@ -9,8 +9,11 @@ import { MuscleBadges } from '@/components/exercise/MuscleBadges';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { Chip } from '@/components/ui/Chip';
+import { Gradient } from '@/components/ui/Gradient';
 import { Screen } from '@/components/ui/Screen';
 import { EXERCISES, isExerciseId, type ExerciseId } from '@/constants/exercises';
+import { areasOf } from '@/constants/faceMap';
 import { useDemoSqueeze } from '@/hooks/useDemoSqueeze';
 import { useTheme } from '@/hooks/useTheme';
 import { makeStyles } from '@/theme/makeStyles';
@@ -22,39 +25,50 @@ export default function ExerciseScreen() {
 }
 
 function ExerciseDetail({ id }: { id: ExerciseId }) {
-  const { t } = useTranslation('exercises');
+  const { t } = useTranslation(['exercises', 'common']);
   const { colors } = useTheme();
   const styles = useStyles();
   const clip = useExerciseClip(id);
   const squeeze = useDemoSqueeze(1800, !clip);
   const e = EXERCISES[id];
-  const name = t(`items.${e.key}.name`);
-  const steps = t(`items.${e.key}.steps`, { returnObjects: true }) as string[];
+  const name = t(`exercises:items.${e.key}.name`);
+  const steps = t(`exercises:items.${e.key}.steps`, { returnObjects: true }) as string[];
 
   return (
     <Screen
       edges={['bottom']}
       footer={
         <Button
-          title={t('detail.start')}
+          title={t('exercises:detail.start')}
           onPress={() => router.push({ pathname: '/workout', params: { ids: e.id, kind: 'single' } })}
+          icon="play.fill"
+          size="large"
           fullWidth
         />
       }
     >
       {clip ? <ExerciseClip id={e.id} clip={clip} label={name} controls /> : <ExerciseFrames id={e.id} squeeze={squeeze} label={name} />}
       <View style={styles.titles}>
-        <AppText variant="title" accessibilityRole="header">
-          {name}
+        <AppText variant="caption" style={styles.program}>
+          {t(`common:programs.${e.program}`).toUpperCase()}
         </AppText>
-        <AppText muted>{t('detail.plan', { reps: e.reps, hold: e.holdSec, relax: e.relaxSec })}</AppText>
+        <AppText variant="brand" accessibilityRole="header" style={styles.name}>
+          {name.toUpperCase()}
+        </AppText>
+        <AppText muted>{t('exercises:detail.plan', { reps: e.reps, hold: e.holdSec, relax: e.relaxSec })}</AppText>
         <MuscleBadges muscles={e.muscles} />
+        {/* The areas it works: open them in the library's face map. */}
+        <View style={styles.areas}>
+          {areasOf(e.id).map((a) => (
+            <Chip key={a} label={`${t(`exercises:areas.${a}.name`)} ›`} onPress={() => router.navigate({ pathname: '/exercises', params: { area: a } })} />
+          ))}
+        </View>
       </View>
       {e.jawCaution ? (
         <Card style={styles.caution}>
           <SymbolView name="exclamationmark.triangle.fill" size={18} tintColor={colors.warning} />
           <AppText variant="footnote" style={styles.flex}>
-            {t('detail.jawCaution')}
+            {t('exercises:detail.jawCaution')}
           </AppText>
         </Card>
       ) : null}
@@ -62,15 +76,16 @@ function ExerciseDetail({ id }: { id: ExerciseId }) {
         <Card style={styles.caution}>
           <SymbolView name="hand.raised.fill" size={18} tintColor={colors.primary} />
           <AppText variant="footnote" style={styles.flex}>
-            {t('detail.handsCaution')}
+            {t('exercises:detail.handsCaution')}
           </AppText>
         </Card>
       ) : null}
       <Card style={styles.steps}>
-        <AppText variant="headline">{t('detail.how')}</AppText>
+        <AppText variant="headline">{t('exercises:detail.how')}</AppText>
         {steps.map((step, i) => (
           <View key={i} style={styles.step}>
             <View style={styles.number}>
+              <Gradient colors={[colors.primaryEnd, colors.primary]} />
               <AppText variant="caption" style={styles.numberText}>
                 {i + 1}
               </AppText>
@@ -85,17 +100,20 @@ function ExerciseDetail({ id }: { id: ExerciseId }) {
 
 const useStyles = makeStyles(({ colors, tokens }) => ({
   titles: { gap: tokens.space.sm },
+  program: { color: colors.primary, fontWeight: tokens.font.weight.bold, letterSpacing: 0.8 },
+  name: { fontSize: 36, lineHeight: 42 },
+  areas: { flexDirection: 'row', flexWrap: 'wrap', gap: tokens.space.sm },
   caution: { flexDirection: 'row', gap: tokens.space.md, padding: tokens.space.md, alignItems: 'center' },
   steps: { padding: tokens.space.lg, gap: tokens.space.md },
   step: { flexDirection: 'row', gap: tokens.space.md, alignItems: 'flex-start' },
   number: {
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
     borderRadius: tokens.radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.primarySoft,
+    overflow: 'hidden',
   },
-  numberText: { color: colors.primary, fontWeight: tokens.font.weight.bold },
+  numberText: { color: colors.onPrimary, fontWeight: tokens.font.weight.bold },
   flex: { flex: 1 },
 }));

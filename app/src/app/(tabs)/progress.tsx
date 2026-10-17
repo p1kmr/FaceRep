@@ -1,4 +1,3 @@
-import { SymbolView } from 'expo-symbols';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -6,7 +5,7 @@ import { View } from 'react-native';
 import { MonthCalendar } from '@/components/progress/MonthCalendar';
 import { PeriodHeader } from '@/components/progress/PeriodHeader';
 import { SessionRow } from '@/components/progress/SessionRow';
-import { StatTile } from '@/components/progress/StatTile';
+import { StreakHero } from '@/components/progress/StreakHero';
 import { WeekBars } from '@/components/progress/WeekBars';
 import { YearMonths } from '@/components/progress/YearMonths';
 import { AppText } from '@/components/ui/AppText';
@@ -14,6 +13,7 @@ import { Card } from '@/components/ui/Card';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Segmented } from '@/components/ui/Segmented';
+import { StatCard } from '@/components/ui/StatCard';
 import { useProgressCalendar } from '@/hooks/useProgressCalendar';
 import { useProgressState, useProgressSummary } from '@/hooks/useProgress';
 import { useTheme } from '@/hooks/useTheme';
@@ -77,25 +77,32 @@ export default function ProgressScreen() {
       <AppText variant="title" accessibilityRole="header">
         {t('progress:title')}
       </AppText>
-      <Card style={styles.streakCard}>
-        <SymbolView name="flame.fill" size={34} tintColor={colors.streak} />
-        <View style={styles.streakText}>
-          <AppText variant="caption" muted>
-            {t('progress:streak')}
-          </AppText>
-          <AppText variant="title">{t('progress:days', { count: streak })}</AppText>
-        </View>
-        <View style={styles.best}>
-          <AppText variant="caption" muted>
-            {t('progress:best')}
-          </AppText>
-          <AppText variant="headline">{t('progress:days', { count: best })}</AppText>
-        </View>
-      </Card>
+      <StreakHero streak={streak} best={best} />
       <View style={styles.tiles}>
-        <StatTile label={t('progress:workouts')} value={String(totals.workouts)} />
-        <StatTile label={t('progress:minutes')} value={String(toMinutes(totals.seconds))} />
-        <StatTile label={t('progress:reps')} value={String(totals.reps)} />
+        <StatCard
+          icon="checkmark.seal.fill"
+          tint={colors.success}
+          soft={colors.successSoft}
+          value={totals.workouts}
+          label={t('progress:workouts')}
+          a11y={`${t('progress:workouts')}: ${totals.workouts}`}
+        />
+        <StatCard
+          icon="clock.fill"
+          tint={colors.info}
+          soft={colors.infoSoft}
+          value={toMinutes(totals.seconds)}
+          label={t('progress:minutes')}
+          a11y={`${t('progress:minutes')}: ${toMinutes(totals.seconds)}`}
+        />
+        <StatCard
+          icon="chart.bar.fill"
+          tint={colors.primary}
+          soft={colors.primarySoft}
+          value={totals.reps}
+          label={t('progress:reps')}
+          a11y={`${t('progress:reps')}: ${totals.reps}`}
+        />
       </View>
 
       <SectionHeader title={t('progress:calendar')} />
@@ -162,10 +169,7 @@ export default function ProgressScreen() {
 }
 
 const useStyles = makeStyles(({ tokens }) => ({
-  streakCard: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.lg, padding: tokens.space.lg },
-  streakText: { flex: 1 },
-  best: { alignItems: 'flex-end' },
-  tiles: { flexDirection: 'row', gap: tokens.space.sm },
+  tiles: { flexDirection: 'row', gap: tokens.space.md },
   calendar: { padding: tokens.space.lg, gap: tokens.space.lg },
   dayEmpty: { padding: tokens.space.lg, gap: tokens.space.xs },
   empty: { padding: tokens.space.lg, gap: tokens.space.xs },
