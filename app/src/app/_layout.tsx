@@ -1,6 +1,7 @@
 // First import: initialises i18n before any screen renders.
 import '@/i18n';
 
+import { useFonts } from 'expo-font';
 import { Stack, ThemeProvider as NavigationThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -23,18 +24,21 @@ configureNotifications();
 
 function RootNavigator() {
   const hydrated = useHydration();
+  // The brand font (Anton, for headlines and numbers). If it fails to load, text falls back to the system font.
+  const [fontLoaded, fontError] = useFonts({ Anton: require('@/assets/fonts/Anton-Regular.ttf') });
+  const ready = hydrated && (fontLoaded || !!fontError);
   const { onboardingDone } = useSettings();
   const { isDark } = useTheme();
   const navigationTheme = useNavigationTheme();
   const { t } = useTranslation(['settings', 'exercises', 'reminders']);
   useReminderSync();
 
-  // Keep the splash until every store is loaded: no flash of the wrong theme or screen.
+  // Keep the splash until every store and the font are loaded: no flash of the wrong theme, screen or font.
   useEffect(() => {
-    if (hydrated) SplashScreen.hideAsync();
-  }, [hydrated]);
+    if (ready) SplashScreen.hideAsync();
+  }, [ready]);
 
-  if (!hydrated) return null;
+  if (!ready) return null;
 
   return (
     <NavigationThemeProvider value={navigationTheme}>

@@ -1,22 +1,33 @@
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 
-import { HeroBanner } from '@/components/today/HeroBanner';
-import { PlanCard } from '@/components/today/PlanCard';
+import { AskBar } from '@/components/today/AskBar';
 import { PlanGrid } from '@/components/today/PlanGrid';
 import { PlanGridTip } from '@/components/today/PlanGridTip';
+import { StatCards } from '@/components/today/StatCards';
+import { TodayCard } from '@/components/today/TodayCard';
+import { TodayHeader } from '@/components/today/TodayHeader';
+import { WeekStrip } from '@/components/today/WeekStrip';
 import { Card } from '@/components/ui/Card';
 import { Screen } from '@/components/ui/Screen';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import type { FaceArea } from '@/constants/faceMap';
+import { useFirstWeekday } from '@/hooks/useFirstWeekday';
 import { usePlan } from '@/hooks/usePlan';
 import { usePremium } from '@/hooks/usePremium';
-import { useProgressSummary } from '@/hooks/useProgress';
+import { useProgressState, useProgressSummary } from '@/hooks/useProgress';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
+import { useToday } from '@/hooks/useToday';
 import type { PlanCellStatus } from '@/services/plan/plan';
+import { minutesBetween } from '@/services/progress/stats';
 import { planGridTipSeen as tipSeen } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
+import { weekStart } from '@/utils/dates';
 
-/** Today: hero + streak, today's plan day, the 28-day grid (with a first-use tip). The Coach is the floating button. */
+/**
+ * Today: greeting and streak, this week, today's plan day on the face (the areas it works lit), the Coach bar, the
+ * numbers, and the 28-day grid (with a first-use tip). The Coach is also the floating button.
+ */
 export default function TodayScreen() {
   const { t } = useTranslation('home');
   const styles = useStyles();
@@ -24,10 +35,14 @@ export default function TodayScreen() {
   const { goal, planGridTipSeen } = useSettings();
   const settingsDispatch = useSettingsDispatch();
   const { isPremium } = usePremium();
-  const { streak, doneToday } = useProgressSummary();
+  const summary = useProgressSummary();
+  const { sessions } = useProgressState();
+  const today = useToday();
+  const firstWeekday = useFirstWeekday();
 
   const startPlan = () => router.push({ pathname: '/workout', params: { kind: 'plan' } });
   const unlock = () => router.push('/paywall');
+  const learnArea = (area: FaceArea) => router.navigate({ pathname: '/exercises', params: { area } });
   const closeTip = () => settingsDispatch(tipSeen());
   const openDay = (day: number, status: PlanCellStatus) => {
     if (!planGridTipSeen) closeTip();
@@ -37,8 +52,19 @@ export default function TodayScreen() {
 
   return (
     <Screen>
-      <HeroBanner streak={streak} doneToday={doneToday} />
-      <PlanCard plan={plan} goal={goal} isPremium={isPremium} onStart={startPlan} onPractice={startPlan} onUnlock={unlock} />
+      <TodayHeader streak={summary.streak} />
+      <WeekStrip />
+      <TodayCard
+        plan={plan}
+        goal={goal}
+        isPremium={isPremium}
+        onStart={startPlan}
+        onPractice={startPlan}
+        onUnlock={unlock}
+        onArea={learnArea}
+      />
+      <AskBar />
+      <StatCards summary={summary} weekMinutes={minutesBetween(sessions, weekStart(today, firstWeekday), today)} />
       <SectionHeader title={t('plan.grid.title')} />
       {planGridTipSeen ? null : <PlanGridTip onDone={closeTip} />}
       <Card style={styles.grid}>

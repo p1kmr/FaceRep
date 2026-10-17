@@ -277,5 +277,50 @@
         "Riposa le mani, poi ripeti."
       ]
     }
+  },
+  "areas": {
+    "forehead": {
+      "name": "Fronte",
+      "about": "Il muscolo frontale solleva le sopracciglia. Il corrugatore, tra le sopracciglia, le avvicina quando aggrotti la fronte."
+    },
+    "temples": {
+      "name": "Tempie",
+      "about": "Il temporale è un muscolo masticatorio a forma di ventaglio sul lato della testa. Lavora con il massetere quando mordi."
+    },
+    "eyes": {
+      "name": "Occhi",
+      "about": "L'orbicolare dell'occhio è l'anello di muscolo intorno a ogni occhio. Chiude le palpebre e ti fa strizzare gli occhi. Piccoli muscoli delle palpebre superiori le sollevano."
+    },
+    "cheeks": {
+      "name": "Guance",
+      "about": "I muscoli zigomatici sollevano gli angoli della bocca quando sorridi. Il buccinatore, più profondo, tiene le guance contro i denti."
+    },
+    "lips": {
+      "name": "Labbra",
+      "about": "L'orbicolare della bocca è l'anello di muscolo intorno alla bocca. Chiude, preme e arriccia le labbra."
+    },
+    "jaw": {
+      "name": "Mascella",
+      "about": "Il massetere è un forte muscolo masticatorio nella parte posteriore della mascella. Vai piano e salta gli esercizi per la mascella se ti fa male o scrocchia."
+    },
+    "chin": {
+      "name": "Mento",
+      "about": "Il muscolo mentale corruga il mento e spinge in su il labbro inferiore. Sotto il mento, il pavimento della bocca lavora con la lingua quando deglutisci o la premi contro il palato."
+    },
+    "neck": {
+      "name": "Collo",
+      "about": "Il platisma è una sottile lamina di muscolo nella parte anteriore del collo. Muscoli più profondi sostengono la testa, quindi qui conta la postura."
+    }
+  },
+  "map": {
+    "title": "Mappa del viso",
+    "hint": "Tocca una zona per vedere i suoi muscoli e gli esercizi che li allenano.",
+    "muscles": "Muscoli",
+    "exercises": "Esercizi per questa zona",
+    "a11y": "Mappa del viso, {{area}} in rosso. Scegli una zona con i pulsanti qui sotto."
+  },
+  "view": {
+    "map": "Mappa del viso",
+    "programs": "Programmi"
   }
 }

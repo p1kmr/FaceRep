@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
+import { useId, type ReactNode } from 'react';
 import { View } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
+import Svg, { Circle, Defs, LinearGradient, Stop } from 'react-native-svg';
 
 import { useTheme } from '@/hooks/useTheme';
 
@@ -10,24 +10,35 @@ interface ProgressRingProps {
   size: number;
   stroke?: number;
   color?: string;
+  /** Brand gradient stroke (primary → primaryEnd) instead of `color`. */
+  gradient?: boolean;
   children?: ReactNode;
 }
 
 /** Circular progress (timer, streak). Content in the middle via children. */
-export function ProgressRing({ progress, size, stroke = 8, color, children }: ProgressRingProps) {
+export function ProgressRing({ progress, size, stroke = 8, color, gradient, children }: ProgressRingProps) {
   const { colors } = useTheme();
+  const id = `ring${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
   const r = (size - stroke) / 2;
   const circumference = 2 * Math.PI * r;
   const p = Math.min(1, Math.max(0, progress));
   return (
     <View style={{ width: size, height: size, alignItems: 'center', justifyContent: 'center' }}>
       <Svg width={size} height={size} style={{ position: 'absolute', transform: [{ rotate: '-90deg' }] }}>
+        {gradient ? (
+          <Defs>
+            <LinearGradient id={id} x1={0} y1={0} x2={1} y2={1}>
+              <Stop offset={0} stopColor={colors.primaryEnd} />
+              <Stop offset={1} stopColor={colors.primary} />
+            </LinearGradient>
+          </Defs>
+        ) : null}
         <Circle cx={size / 2} cy={size / 2} r={r} stroke={colors.surfaceAlt} strokeWidth={stroke} fill="none" />
         <Circle
           cx={size / 2}
           cy={size / 2}
           r={r}
-          stroke={color ?? colors.primary}
+          stroke={gradient ? `url(#${id})` : (color ?? colors.primary)}
           strokeWidth={stroke}
           strokeLinecap="round"
           fill="none"

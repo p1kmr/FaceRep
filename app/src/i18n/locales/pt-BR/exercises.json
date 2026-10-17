@@ -277,5 +277,50 @@
         "Descanse as mãos e repita."
       ]
     }
+  },
+  "areas": {
+    "forehead": {
+      "name": "Testa",
+      "about": "O frontal levanta as sobrancelhas. O corrugador, entre as sobrancelhas, aproxima as duas quando você franze a testa."
+    },
+    "temples": {
+      "name": "Têmporas",
+      "about": "O temporal é um músculo da mastigação em forma de leque na lateral da cabeça. Ele trabalha com o masseter quando você morde."
+    },
+    "eyes": {
+      "name": "Olhos",
+      "about": "O orbicular dos olhos é o anel de músculo ao redor de cada olho. Ele fecha as pálpebras e faz você apertar os olhos. Pequenos músculos das pálpebras superiores as levantam."
+    },
+    "cheeks": {
+      "name": "Bochechas",
+      "about": "Os músculos zigomáticos puxam os cantos da boca para cima quando você sorri. O bucinador fica mais fundo e mantém as bochechas junto aos dentes."
+    },
+    "lips": {
+      "name": "Lábios",
+      "about": "O orbicular da boca é o anel de músculo ao redor da boca. Ele fecha, pressiona e franze os lábios."
+    },
+    "jaw": {
+      "name": "Mandíbula",
+      "about": "O masseter é um músculo forte da mastigação na parte de trás da mandíbula. Vá com calma e pule os exercícios de mandíbula se ela doer ou estalar."
+    },
+    "chin": {
+      "name": "Queixo",
+      "about": "O mentual enruga o queixo e empurra o lábio inferior para cima. Embaixo do queixo, o assoalho da boca trabalha com a língua quando você engole ou a apoia no céu da boca."
+    },
+    "neck": {
+      "name": "Pescoço",
+      "about": "O platisma é uma lâmina fina de músculo na frente do pescoço. Músculos mais profundos sustentam a cabeça, então aqui a postura conta."
+    }
+  },
+  "map": {
+    "title": "Mapa do rosto",
+    "hint": "Toque em uma área para ver os músculos e os exercícios que os trabalham.",
+    "muscles": "Músculos",
+    "exercises": "Exercícios para esta área",
+    "a11y": "Mapa do rosto, {{area}} em vermelho. Escolha uma área com os botões abaixo."
+  },
+  "view": {
+    "map": "Mapa do rosto",
+    "programs": "Programas"
   }
 }

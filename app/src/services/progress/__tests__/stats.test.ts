@@ -1,4 +1,6 @@
-import { bestStreak, currentStreak, totals, workoutDays, type SessionSummary } from '../stats';
+import { weekStart } from '@/utils/dates';
+
+import { bestStreak, currentStreak, minutesBetween, totals, workoutDays, type SessionSummary } from '../stats';
 
 const s = (day: string, durationSec = 300, totalReps = 40): SessionSummary => ({
   id: day + durationSec,
@@ -32,5 +34,20 @@ describe('streaks', () => {
 describe('totals', () => {
   it('adds up workouts, seconds and reps', () => {
     expect(totals([s('2026-10-05', 60, 10), s('2026-10-06', 120, 20)])).toEqual({ workouts: 2, seconds: 180, reps: 30 });
+  });
+});
+
+describe('this week', () => {
+  it('starts the week on the region\'s first weekday', () => {
+    expect(weekStart('2026-10-15', 1)).toBe('2026-10-12'); // Thursday → Monday
+    expect(weekStart('2026-10-15', 0)).toBe('2026-10-11'); // → Sunday
+    expect(weekStart('2026-10-12', 1)).toBe('2026-10-12');
+    expect(weekStart('2026-10-11', 1)).toBe('2026-10-05'); // a Sunday belongs to the week before
+  });
+
+  it('adds up whole minutes between two days, both included', () => {
+    const sessions = [s('2026-10-15', 300), s('2026-10-15', 90), s('2026-10-12', 240), s('2026-10-11', 600)];
+    expect(minutesBetween(sessions, '2026-10-12', '2026-10-15')).toBe(11); // 630 s
+    expect(minutesBetween(sessions, '2026-10-16', '2026-10-20')).toBe(0);
   });
 });

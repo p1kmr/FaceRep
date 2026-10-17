@@ -47,6 +47,11 @@ export interface DayBar {
   seconds: number;
 }
 
+/** Whole minutes trained from `from` to `to` (both days included). */
+export function minutesBetween(sessions: readonly SessionSummary[], from: ISODate, to: ISODate): number {
+  return Math.round(sessions.filter((s) => s.day >= from && s.day <= to).reduce((sum, s) => sum + s.durationSec, 0) / 60);
+}
+
 export function totals(sessions: readonly SessionSummary[]) {
   return sessions.reduce(
     (t, s) => ({ workouts: t.workouts + 1, seconds: t.seconds + s.durationSec, reps: t.reps + s.totalReps }),

@@ -58,5 +58,29 @@
         "done": "Compris"
       }
     }
+  },
+  "hello": {
+    "morning": "Bonjour",
+    "afternoon": "Bon après-midi",
+    "evening": "Bonsoir"
+  },
+  "ask": "Pose ta question au Coach",
+  "week": {
+    "done": "{{date}}, séance faite",
+    "today": "Aujourd'hui, {{date}}"
+  },
+  "stats": {
+    "streak": "Jours d'affilée",
+    "minutes": "Min cette semaine",
+    "workouts": "Séances",
+    "streakA11y_one": "{{count}} jour d'affilée",
+    "streakA11y_other": "{{count}} jours d'affilée",
+    "minutesA11y_one": "{{count}} minute cette semaine",
+    "minutesA11y_other": "{{count}} minutes cette semaine",
+    "workoutsA11y_one": "{{count}} séance au total",
+    "workoutsA11y_other": "{{count}} séances au total"
+  },
+  "focus": {
+    "a11y": "Zones du jour : {{areas}}. Touche une zone du visage pour en savoir plus."
   }
 }

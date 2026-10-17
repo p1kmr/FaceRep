@@ -14,12 +14,12 @@ app/src/
 │   ├── workout.tsx          the guided player (full-screen modal): a plan day or single exercises
 │   ├── plan-day.tsx         one day of the 28-day plan, opened from the grid (start it or practice it)
 │   └── paywall, ai-consent, safety (modals)
-├── components/     ui/ (AppText, Button, Card, Chip, Badge, IconButton, ProgressRing, Screen, Segmented…),
-│                   exercise/, today/, progress/, coach/, paywall/, onboarding/, settings/
-├── constants/      config.ts, theme/, exercises.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
+├── components/     ui/ (AppText, Button, Card, Chip, Badge, Gradient, IconButton, ProgressRing, Screen, Segmented…),
+│                   exercise/, faceMap/, today/, progress/, coach/, paywall/, onboarding/, settings/
+├── constants/      config.ts, theme/, exercises.ts, faceMap.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
 ├── state/          settings/, premium/, progress/, plan/, chat/  (+ AppProviders.tsx)
 ├── hooks/          useSettings, usePremium, usePaywall, useProgress*, usePlan, useWorkout, useChat, useTheme…
-├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, plan/, notifications/, workout/ (pure)
+├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, plan/, notifications/, workout/ and faceMap/ (pure)
 ├── theme/          ThemeProvider + makeStyles
 ├── i18n/           i18next + locales/en/*.json
 └── utils/          dates, format, ids
@@ -140,6 +140,29 @@ day. `scripts/guide-images.js` (`npm run images`) converts new files, cuts thumb
 The choice changes pictures and a few words (i18next `context`, e.g. the Coach's face care suggestion), never the plan,
 and it isn't sent to the Worker. `POST /plan` sends `CATALOG_VERSION` instead, so the Worker never plans an exercise
 the installed app doesn't have; the plan cache is dropped when the version changes.
+
+## The look
+Graphite and steel with the muscle red of the drawings (`constants/theme/themes/forge.ts`), plus the brand gradient
+(`primary` → `primaryEnd`) on the main button, the timer ring and the week strip, soft card shadows (`boxShadow`,
+`tokens.elevation`; a hairline edge in light, a border in dark) and **Anton** (SIL OFL, `assets/fonts/`, loaded before the
+splash hides) for headlines and big numbers: `AppText variant="brand"`, in capitals, as in the store screenshots.
+Gradients are drawn with react-native-svg (`components/ui/Gradient.tsx`): React Native has no CSS gradients. Text on a
+drawing's white plate uses `onPlate` / `onPlateMuted` (the plate is white in both themes).
+
+**Today** (`app/(tabs)/index.tsx`): greeting and streak, this week (`WeekStrip`, the region's first weekday), today's
+plan day as the hero (`TodayCard`: the face map with the areas the day works lit and slowly breathing, cropped to frame
+them; tap an area to open it in the library), the Coach bar (`AskBar`, a second way into the Coach), three stat cards
+and the 28-day grid.
+
+## The face map
+`constants/faceMap.ts`: eight areas (forehead, temples, eyes, cheeks, lips, jaw, chin, neck), which muscle lies in
+which (`MUSCLE_AREA`), and from that which exercises work each area. The pictures come from the drawings
+(`videos/tools/facemap.py`, docs/images.md): per guide a grey face and one red layer per area, cut to its box, with each
+area's outline in `areas.json`. `components/faceMap/FaceMap.tsx` stacks them (Reanimated fades; `mixBlendMode` doesn't
+work on iOS, so the red is baked into each layer) and turns a tap into an area with `services/faceMap/hit.ts` (pure,
+tested: inside an outline, the smallest wins; a near miss still counts). Used on Today (the day's areas) and in the
+Exercises tab (Face map | Programs): tap an area or its chip to see its muscles, a short note and its exercises. No
+photo of the user is taken or analysed: the face is the app's own drawing.
 
 ## Progress calendar (Week / Month / Year)
 The Mon–Sun calendar lives on the Progress tab, separate from the plan: the plan says how far you are, the calendar says

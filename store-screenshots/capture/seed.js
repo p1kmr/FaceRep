@@ -17,9 +17,9 @@ const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
 const MINUTES = [8, 12, 7, 19, 21, 18, 8, 7, 20, 13, 8];
 
 /** Settings as the app saves them (kv 'facerep.settings', envelope version 1). */
-export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, mirror = false, today = TODAY, done = DONE } = {}) {
+export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, mirror = false, theme = 'light', today = TODAY, done = DONE } = {}) {
   return {
-    themeMode: 'light',
+    themeMode: theme,
     themeId: 'forge',
     onboardingDone: onboarded,
     onboardedOn: onboarded ? firstDay(today, done) : null,
@@ -40,10 +40,10 @@ export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, 
 }
 
 /** SQL that fills a fresh database: settings, the random app ID and 11 finished plan workouts. */
-export function seedSql({ guide, goal = 'full', onboarded = true, sessions = true, mirror = false, today = TODAY, done = DONE } = {}) {
+export function seedSql({ guide, goal = 'full', onboarded = true, sessions = true, mirror = false, theme = 'light', today = TODAY, done = DONE } = {}) {
   const kv = (key, data) => `INSERT OR REPLACE INTO kv (key, value) VALUES (${q(key)}, ${q(JSON.stringify({ version: 1, data }))});`;
   const lines = [
-    kv('facerep.settings', settingsFor({ guide, goal, onboarded, mirror, today, done })),
+    kv('facerep.settings', settingsFor({ guide, goal, onboarded, mirror, theme, today, done })),
     `INSERT OR REPLACE INTO kv (key, value) VALUES ('facerep.appUserId', '0d6f3c1e-8a52-4b7e-9c41-5f2a7e9b1c30');`,
   ];
   if (sessions && onboarded) {

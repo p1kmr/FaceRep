@@ -58,5 +58,29 @@
         "done": "Capito"
       }
     }
+  },
+  "hello": {
+    "morning": "Buongiorno",
+    "afternoon": "Buon pomeriggio",
+    "evening": "Buonasera"
+  },
+  "ask": "Chiedi al Coach quello che vuoi",
+  "week": {
+    "done": "{{date}}, allenamento fatto",
+    "today": "Oggi, {{date}}"
+  },
+  "stats": {
+    "streak": "Giorni di fila",
+    "minutes": "Min questa settimana",
+    "workouts": "Allenamenti",
+    "streakA11y_one": "{{count}} giorno di fila",
+    "streakA11y_other": "{{count}} giorni di fila",
+    "minutesA11y_one": "{{count}} minuto questa settimana",
+    "minutesA11y_other": "{{count}} minuti questa settimana",
+    "workoutsA11y_one": "{{count}} allenamento in tutto",
+    "workoutsA11y_other": "{{count}} allenamenti in tutto"
+  },
+  "focus": {
+    "a11y": "Zone di oggi: {{areas}}. Tocca una zona del viso per saperne di più."
   }
 }

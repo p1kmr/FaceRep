@@ -2,6 +2,7 @@
  * Keeps the exercise pictures manageable (docs/images.md). One folder per guide and exercise:
  *
  *   assets/guides/<man|woman>/hero/home.webp, paywall.webp
+ *   assets/guides/<man|woman>/map/base.webp, areas.json, <area>.webp   (the face map, made by videos/tools/facemap.py)
  *   assets/guides/<man|woman>/exercises/<exercise id>/relaxed.webp, exercise.webp, thumb.webp[, clip.mp4]
  *
  * clip.mp4 is optional: the exercise's clip, copied in by videos/tools/app.py (docs/videos.md). Without one the
@@ -46,6 +47,8 @@ const CLIP_MAX_BYTES = 1_200_000;
 /** The thumbnail is a full-width square of the exercise frame, this far from the top (the face). */
 const THUMB_TOP = 62 / 1024;
 const SOURCE_EXTS = ['.webp', '.png', '.jpg', '.jpeg'];
+/** The face map's grey face; its area layers are cut to their boxes, so any size. */
+const MAP_BASE = { width: 720, height: 974, minWidth: 700, maxWidth: 760 };
 const WEBP = { quality: 82, effort: 6 };
 
 const listDir = (dir) => (fs.existsSync(dir) ? fs.readdirSync(dir).filter((n) => !n.startsWith('.')).sort() : []);
@@ -53,6 +56,34 @@ const rel = (root, file) => path.relative(root, file).split(path.sep).join('/');
 const fits = (actual, size) =>
   !!actual && actual.height === size.height && actual.width >= (size.minWidth ?? size.width) && actual.width <= (size.maxWidth ?? size.width);
 const sizeText = (size) => (size.minWidth ? `${size.minWidth}–${size.maxWidth}×${size.height}` : `${size.width}×${size.height}`);
+
+/** FACE_AREAS from src/constants/faceMap.ts, in its order. */
+function readFaceAreas(root) {
+  const source = fs.readFileSync(path.join(root, 'src/constants/faceMap.ts'), 'utf8');
+  const block = source.match(/FACE_AREAS = \[([\s\S]*?)\] as const/);
+  if (!block) throw new Error('FACE_AREAS not found in src/constants/faceMap.ts');
+  return [...block[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+}
+
+/** Problems with a face map's areas.json: every area with a box and outlines (shares of the picture, 0–1). */
+function layoutProblems(file, areas) {
+  let layout;
+  try {
+    layout = JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch {
+    return ['not valid JSON'];
+  }
+  const share = (v) => typeof v === 'number' && v >= 0 && v <= 1;
+  const problems = [];
+  for (const area of areas) {
+    const a = layout?.areas?.[area];
+    if (!a) problems.push(`no ${area}`);
+    else if (!Array.isArray(a.box) || a.box.length !== 4 || !a.box.every(share)) problems.push(`${area}: box must be 4 shares`);
+    else if (!Array.isArray(a.shapes) || !a.shapes.length || !a.shapes.every((sh) => Array.isArray(sh) && sh.length >= 3 && sh.every((p) => p.length === 2 && p.every(share))))
+      problems.push(`${area}: shapes must be outlines of at least 3 points`);
+  }
+  return problems;
+}
 
 /** EXERCISE_IDS from src/constants/exercises.ts (the catalog), in its order. */
 function readExerciseIds(root) {
@@ -94,6 +125,7 @@ function isMp4(file) {
  */
 function scan(root = ROOT) {
   const ids = readExerciseIds(root);
+  const areas = readFaceAreas(root);
   const base = path.join(root, GUIDES_DIR);
   const problems = [];
   const notes = [];
@@ -132,11 +164,23 @@ function scan(root = ROOT) {
     const missing = [];
     clips[guide] = [];
     for (const name of listDir(dir)) {
-      if (name !== 'hero' && name !== 'exercises') problems.push(`${rel(root, path.join(dir, name))}: unexpected (only hero/ and exercises/)`);
+      if (!['hero', 'exercises', 'map'].includes(name)) problems.push(`${rel(root, path.join(dir, name))}: unexpected (only hero/, exercises/ and map/)`);
     }
     const heroDir = path.join(dir, 'hero');
     for (const hero of HEROES) expect(path.join(heroDir, `${hero}.webp`), SIZES[hero], missing);
     extras(heroDir, HEROES.map((h) => `${h}.webp`));
+
+    const mapDir = path.join(dir, 'map');
+    expect(path.join(mapDir, 'base.webp'), MAP_BASE, missing);
+    for (const area of areas) {
+      const file = path.join(mapDir, `${area}.webp`);
+      if (!fs.existsSync(file)) missing.push(rel(base, file));
+      else if (!webpSize(file)) problems.push(`${rel(root, file)}: not a WebP file`);
+    }
+    const layout = path.join(mapDir, 'areas.json');
+    if (!fs.existsSync(layout)) missing.push(rel(base, layout));
+    else for (const p of layoutProblems(layout, areas)) problems.push(`${rel(root, layout)}: ${p}`);
+    extras(mapDir, ['base.webp', 'areas.json', ...areas.map((a) => `${a}.webp`)]);
 
     const exDir = path.join(dir, 'exercises');
     for (const id of ids) {
@@ -161,11 +205,11 @@ function scan(root = ROOT) {
     guides[guide] = { complete: missing.length === 0, missing };
   }
   if (!guides[DEFAULT_GUIDE].complete) problems.push(`The default guide (${DEFAULT_GUIDE}) must be complete; missing: ${guides[DEFAULT_GUIDE].missing.join(', ')}`);
-  return { ids, guides, clips, problems, notes };
+  return { ids, areas, guides, clips, problems, notes };
 }
 
 /** The generated TypeScript: static require()s for every complete guide. */
-function render({ ids, guides, clips = {} }) {
+function render({ ids, areas = [], guides, clips = {} }) {
   const req = (guide, file) => `require('@/${GUIDES_DIR}/${guide}/${file}')`;
   const lines = [
     '// Generated by `npm run images` (scripts/guide-images.js) from assets/guides/. Don\'t edit by hand.',
@@ -177,7 +221,9 @@ function render({ ids, guides, clips = {} }) {
   for (const guide of GUIDE_IDS.filter((g) => guides[g].complete)) {
     lines.push(`  ${guide}: {`, '    hero: {');
     for (const hero of HEROES) lines.push(`      ${hero}: ${req(guide, `hero/${hero}.webp`)},`);
-    lines.push('    },', '    exercises: {');
+    lines.push('    },', '    map: {', `      base: ${req(guide, 'map/base.webp')},`, `      layout: ${req(guide, 'map/areas.json')},`, '      areas: {');
+    for (const area of areas) lines.push(`        ${area}: ${req(guide, `map/${area}.webp`)},`);
+    lines.push('      },', '    },', '    exercises: {');
     for (const id of ids) {
       lines.push(`      '${id}': {`);
       for (const frame of EXERCISE_FILES) lines.push(`        ${frame}: ${req(guide, `exercises/${id}/${frame}.webp`)},`);
@@ -271,4 +317,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { scan, render, webpSize, readExerciseIds, prepare, SIZES, OUTPUT, GUIDES_DIR, GUIDE_IDS, DEFAULT_GUIDE, ROOT };
+module.exports = { scan, render, webpSize, readExerciseIds, readFaceAreas, prepare, SIZES, OUTPUT, GUIDES_DIR, GUIDE_IDS, DEFAULT_GUIDE, ROOT };

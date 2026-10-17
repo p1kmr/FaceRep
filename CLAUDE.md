@@ -23,6 +23,7 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
 - **Images:** pictures live in `app/assets/guides/<man|woman>/` by exercise ID (never by plan week or day; see docs/images.md). Add files and run `npm run images`; never edit `constants/guideImages.generated.ts` by hand. Components get pictures from `useGuideImages()`. The Man/Woman choice is display-only and never leaves the device.
   Exercise clips: `videos/` (README there), made only by `videos/tools/make.py` from these drawings; never AI video (it changes the face; docs/videos.md).
   In the app they are `clip.mp4` in the exercise folders, copied by `videos/tools/app.py`; `ExerciseClip` plays them (expo-video), the drawings stay the cover and the Reduce Motion fallback.
+  The face map (`map/` per guide: grey face + one red layer per area) is made by `videos/tools/facemap.py` from the drawings; never by hand, never AI, and never from a photo of the user.
 - **Dates:** `'YYYY-MM-DD'` strings, math via `utils/dates.ts`. Reducers never call `Date.now()`.
 - **Health/safety claims:** never promise results, never claim bone/face-shape changes, never medical claims (App Store 1.4.1, 2.3.1). Keep the safety points (welcome line, Settings → Exercise safety) and the jaw caution (exercise page, and in the workout player before a jaw exercise starts). Onboarding has no blocking safety or reminder step.
 - **AI:** no Coach question goes to the Worker before AI consent (guideline 5.1.2(i)). The model and its keys live only in `worker/`.
@@ -40,6 +41,7 @@ Expo (React Native) + Expo Router + TypeScript (strict). Same architecture as th
   matching the Worker, the "unlimited" Coach staying true (a hidden fair-use ceiling of 100+ a day), no tracking SDKs. Never weaken it to make a change pass.
 
 ## Brand
+- Headlines and big numbers use Anton (SIL OFL, `app/assets/fonts/`) via `AppText variant="brand"`; the main button is the brand gradient (`primary` → `primaryEnd`). docs/architecture.md "The look".
 - The logo is the barbell smile. `brand/logo.mjs` makes every icon file (README there); never edit the PNGs in
   `app/assets/brand/` by hand. No text, Apple artwork or other apps' look in the icon. A new icon needs a new build.
 

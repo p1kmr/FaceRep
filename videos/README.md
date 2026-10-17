@@ -80,6 +80,8 @@ python3 -m venv .venv
   is pink and the outline is used as traced). Several moving parts go in `pieces`, drawn in order.
 - Timing is `TIMING` in `make.py`: hold 0.4 s, move 1.2 s, hold 1.0 s, release 1.0 s, rest 0.3 s.
 - Into the app: `python3 app.py` (all) or `python3 app.py 06-cheek-lift` (needs only `ffmpeg`), then `npm run images`.
+- The face map pictures (`app/assets/guides/<guide>/map/`, docs/images.md) come from the same drawings:
+  `.venv/bin/python facemap.py` (`--preview <dir>` writes a contact sheet of every area), then `npm run images`.
 
 ## Check every clip
 

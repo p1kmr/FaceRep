@@ -8,6 +8,20 @@ export const GUIDE_IMAGES = {
       home: require('@/assets/guides/man/hero/home.webp'),
       paywall: require('@/assets/guides/man/hero/paywall.webp'),
     },
+    map: {
+      base: require('@/assets/guides/man/map/base.webp'),
+      layout: require('@/assets/guides/man/map/areas.json'),
+      areas: {
+        forehead: require('@/assets/guides/man/map/forehead.webp'),
+        temples: require('@/assets/guides/man/map/temples.webp'),
+        eyes: require('@/assets/guides/man/map/eyes.webp'),
+        cheeks: require('@/assets/guides/man/map/cheeks.webp'),
+        lips: require('@/assets/guides/man/map/lips.webp'),
+        jaw: require('@/assets/guides/man/map/jaw.webp'),
+        chin: require('@/assets/guides/man/map/chin.webp'),
+        neck: require('@/assets/guides/man/map/neck.webp'),
+      },
+    },
     exercises: {
       '01-jaw-clench': {
         relaxed: require('@/assets/guides/man/exercises/01-jaw-clench/relaxed.webp'),
@@ -176,6 +190,20 @@ export const GUIDE_IMAGES = {
     hero: {
       home: require('@/assets/guides/woman/hero/home.webp'),
       paywall: require('@/assets/guides/woman/hero/paywall.webp'),
+    },
+    map: {
+      base: require('@/assets/guides/woman/map/base.webp'),
+      layout: require('@/assets/guides/woman/map/areas.json'),
+      areas: {
+        forehead: require('@/assets/guides/woman/map/forehead.webp'),
+        temples: require('@/assets/guides/woman/map/temples.webp'),
+        eyes: require('@/assets/guides/woman/map/eyes.webp'),
+        cheeks: require('@/assets/guides/woman/map/cheeks.webp'),
+        lips: require('@/assets/guides/woman/map/lips.webp'),
+        jaw: require('@/assets/guides/woman/map/jaw.webp'),
+        chin: require('@/assets/guides/woman/map/chin.webp'),
+        neck: require('@/assets/guides/woman/map/neck.webp'),
+      },
     },
     exercises: {
       '01-jaw-clench': {

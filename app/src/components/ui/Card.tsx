@@ -13,7 +13,8 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     backgroundColor: colors.surface,
     borderRadius: tokens.radius.lg,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.cardBorder,
+    boxShadow: `${tokens.elevation.card} ${colors.shadow}`,
     overflow: 'hidden',
   },
 }));

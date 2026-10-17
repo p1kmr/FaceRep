@@ -277,5 +277,50 @@
         "Lass die Hände kurz ruhen und wiederhole dann."
       ]
     }
+  },
+  "areas": {
+    "forehead": {
+      "name": "Stirn",
+      "about": "Der Stirnmuskel hebt die Augenbrauen. Der Muskel zwischen den Brauen zieht sie zusammen, wenn du die Stirn runzelst."
+    },
+    "temples": {
+      "name": "Schläfen",
+      "about": "Der Schläfenmuskel ist ein fächerförmiger Kaumuskel an der Seite des Kopfes. Beim Zubeißen arbeitet er mit dem Kaumuskel am Kiefer zusammen."
+    },
+    "eyes": {
+      "name": "Augen",
+      "about": "Der Augenringmuskel umgibt jedes Auge. Er schließt die Lider und lässt dich die Augen zusammenkneifen. Kleine Muskeln in den Oberlidern heben sie an."
+    },
+    "cheeks": {
+      "name": "Wangen",
+      "about": "Die Jochbeinmuskeln ziehen beim Lächeln die Mundwinkel nach oben. Der Wangenmuskel liegt tiefer und hält die Wangen an den Zähnen."
+    },
+    "lips": {
+      "name": "Lippen",
+      "about": "Der Mundringmuskel umgibt den Mund. Er schließt die Lippen, presst sie zusammen und spitzt sie."
+    },
+    "jaw": {
+      "name": "Kiefer",
+      "about": "Der Kaumuskel ist ein kräftiger Muskel hinten am Kiefer. Geh es sanft an und lass Kieferübungen weg, wenn dein Kiefer schmerzt oder knackt."
+    },
+    "chin": {
+      "name": "Kinn",
+      "about": "Der Kinnmuskel runzelt das Kinn und schiebt die Unterlippe nach oben. Unter dem Kinn arbeitet der Mundboden mit der Zunge, wenn du schluckst oder sie an den Gaumen drückst."
+    },
+    "neck": {
+      "name": "Hals",
+      "about": "Der Halshautmuskel ist eine dünne Muskelschicht vorne am Hals. Tiefere Muskeln halten den Kopf, deshalb zählt hier die Haltung."
+    }
+  },
+  "map": {
+    "title": "Gesichtskarte",
+    "hint": "Tippe auf einen Bereich, um seine Muskeln und die Übungen dafür zu sehen.",
+    "muscles": "Muskeln",
+    "exercises": "Übungen für diesen Bereich",
+    "a11y": "Gesichtskarte, {{area}} rot markiert. Wähle unten einen Bereich."
+  },
+  "view": {
+    "map": "Gesichtskarte",
+    "programs": "Programme"
   }
 }

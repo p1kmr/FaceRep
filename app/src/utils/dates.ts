@@ -40,3 +40,6 @@ export const monthOf = (date: ISODate) => date.slice(0, 7);
 
 /** 0 = Sunday … 6 = Saturday. */
 export const weekdayOf = (iso: ISODate) => fromISODate(iso).getDay();
+
+/** The first day of `iso`'s week, for a week that starts on `firstWeekday` (0 = Sunday … 6 = Saturday). */
+export const weekStart = (iso: ISODate, firstWeekday: number): ISODate => addDays(iso, -((weekdayOf(iso) - firstWeekday + 7) % 7));

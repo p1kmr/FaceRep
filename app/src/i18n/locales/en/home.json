@@ -58,5 +58,29 @@
         "done": "Got it"
       }
     }
+  },
+  "hello": {
+    "morning": "Good morning",
+    "afternoon": "Good afternoon",
+    "evening": "Good evening"
+  },
+  "ask": "Ask the Coach anything",
+  "week": {
+    "done": "{{date}}, workout done",
+    "today": "Today, {{date}}"
+  },
+  "stats": {
+    "streak": "Day streak",
+    "minutes": "Min this week",
+    "workouts": "Workouts",
+    "streakA11y_one": "{{count}} day streak",
+    "streakA11y_other": "{{count}} day streak",
+    "minutesA11y_one": "{{count}} minute this week",
+    "minutesA11y_other": "{{count}} minutes this week",
+    "workoutsA11y_one": "{{count}} workout in total",
+    "workoutsA11y_other": "{{count}} workouts in total"
+  },
+  "focus": {
+    "a11y": "Today's areas: {{areas}}. Tap an area of the face to learn about it."
   }
 }

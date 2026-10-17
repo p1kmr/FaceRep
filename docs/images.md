@@ -11,6 +11,8 @@ app/assets/
   guides/
     man/
       hero/                      home.webp (1200×675), paywall.webp (762×1024)
+      map/                       base.webp (≈720×974), areas.json, forehead|temples|eyes|cheeks|lips|jaw|chin|neck.webp
+                                 (the face map, made by videos/tools/facemap.py; see below)
       exercises/01-jaw-clench/   relaxed.webp, exercise.webp (≈757×1024), thumb.webp (240×240),
                                  clip.mp4 (optional: the exercise's clip, copied in by videos/tools/app.py)
       …
@@ -36,6 +38,16 @@ Man/Woman question in onboarding and the "Exercise pictures" row in Settings app
 complete. A folder for an exercise that isn't in the catalog yet is fine: it's reported as a note and not bundled.
 
 Components never `require` pictures themselves: `useGuideImages()` gives the chosen guide's `hero` and `exercises[id]`.
+
+## The face map (`map/`)
+
+Made by `videos/tools/facemap.py` from the drawings (same Python setup as the clips, videos/README.md), never by hand
+and never with AI. Per guide: `base.webp`, one relaxed front drawing in grey (`BASE` in the tool: the one with the
+least red of its own); for each area a layer with that area's red muscle shading from the exercise drawings that train
+it (`SOURCES`), moved onto the base face with the face points and drawn as a red tint of the base's own pencil lines,
+cut to its box; and `areas.json`, each area's box and tap outline as shares of the picture. Re-run it after replacing a
+drawing it uses, then `npm run images`. The check fails when a layer, the base or an area in `areas.json` is missing
+(the areas are `FACE_AREAS` in `src/constants/faceMap.ts`).
 
 ## How the woman set was made (repeat this for new exercises)
 

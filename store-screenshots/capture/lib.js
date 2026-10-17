@@ -81,7 +81,7 @@ export async function openApp({ lang = 'en', seed = {}, premium = true, chat, ca
     };
     const style = document.createElement('style');
     style.textContent = `${fontCss}
-      *:not([class*=material]){font-family:SFLike,sans-serif!important;font-feature-settings:'cv11','ss03';}
+      *:not([class*=material]):not([data-font=brand]){font-family:SFLike,sans-serif!important;font-feature-settings:'cv11','ss03';}
       [class*=navigationMenuRoot]{display:none!important} html,body{scrollbar-width:none} ::-webkit-scrollbar{display:none} *{caret-color:transparent}`;
     const add = () => document.head && !style.isConnected && document.head.appendChild(style);
     add(); document.addEventListener('DOMContentLoaded', add);

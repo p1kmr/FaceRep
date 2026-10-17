@@ -277,5 +277,50 @@
         "Descansa las manos y repite."
       ]
     }
+  },
+  "areas": {
+    "forehead": {
+      "name": "Frente",
+      "about": "El frontal levanta las cejas. El corrugador, entre las cejas, las junta cuando frunces el ceño."
+    },
+    "temples": {
+      "name": "Sienes",
+      "about": "El temporal es un músculo de la masticación con forma de abanico a cada lado de la cabeza. Trabaja con el masetero al morder."
+    },
+    "eyes": {
+      "name": "Ojos",
+      "about": "El orbicular de los ojos es el anillo de músculo que rodea cada ojo. Cierra los párpados y te hace entrecerrar los ojos. Unos músculos pequeños de los párpados superiores los levantan."
+    },
+    "cheeks": {
+      "name": "Mejillas",
+      "about": "Los músculos cigomáticos suben las comisuras de la boca cuando sonríes. El buccinador está más adentro y mantiene las mejillas contra los dientes."
+    },
+    "lips": {
+      "name": "Labios",
+      "about": "El orbicular de los labios es el anillo de músculo que rodea la boca. Cierra, aprieta y frunce los labios."
+    },
+    "jaw": {
+      "name": "Mandíbula",
+      "about": "El masetero es un músculo fuerte de la masticación en la parte de atrás de la mandíbula. Ve con suavidad y sáltate los ejercicios de mandíbula si te duele o te cruje."
+    },
+    "chin": {
+      "name": "Barbilla",
+      "about": "El mentoniano arruga la barbilla y empuja hacia arriba el labio inferior. Bajo la barbilla, el suelo de la boca trabaja con la lengua cuando tragas o la apoyas en el paladar."
+    },
+    "neck": {
+      "name": "Cuello",
+      "about": "El platisma es una lámina fina de músculo en la parte delantera del cuello. Músculos más profundos sostienen la cabeza, así que aquí la postura cuenta."
+    }
+  },
+  "map": {
+    "title": "Mapa facial",
+    "hint": "Toca una zona para ver sus músculos y los ejercicios que los trabajan.",
+    "muscles": "Músculos",
+    "exercises": "Ejercicios para esta zona",
+    "a11y": "Mapa facial, {{area}} en rojo. Elige una zona con los botones de abajo."
+  },
+  "view": {
+    "map": "Mapa facial",
+    "programs": "Programas"
   }
 }

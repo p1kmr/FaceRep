@@ -4,7 +4,11 @@ export const tokens = {
   font: {
     size: { caption: 13, footnote: 15, body: 17, headline: 20, title: 28, display: 40 },
     weight: { regular: '400', medium: '500', semibold: '600', bold: '700', heavy: '800' },
+    /** Anton (SIL OFL, assets/fonts): big condensed capitals for headlines and numbers, as in the store screenshots. */
+    brand: 'Anton',
   },
+  /** boxShadow offsets and blur; the color comes from the palette (shadow, glow). */
+  elevation: { card: '0px 4px 18px', raised: '0px 10px 28px', glow: '0px 8px 22px' },
   /** Minimum touch target (Apple HIG). */
   hitSize: 44,
 } as const;

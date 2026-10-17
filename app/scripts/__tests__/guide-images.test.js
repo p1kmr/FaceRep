@@ -23,6 +23,11 @@ function fakeMp4(bytes = 64) {
   return buf;
 }
 
+/** Face map areas of the tiny test projects, and a valid areas.json for them. */
+const AREAS = ['jaw', 'lips'];
+const layout = (areas = AREAS) =>
+  JSON.stringify({ width: 720, height: 974, areas: Object.fromEntries(areas.map((a) => [a, { box: [0.1, 0.2, 0.3, 0.2], shapes: [[[0.1, 0.2], [0.4, 0.2], [0.2, 0.4]]] }])) });
+
 const roots = [];
 afterAll(() => roots.forEach((root) => fs.rmSync(root, { recursive: true, force: true })));
 
@@ -32,6 +37,7 @@ function project(ids, files) {
   roots.push(root);
   fs.mkdirSync(path.join(root, 'src/constants'), { recursive: true });
   fs.writeFileSync(path.join(root, 'src/constants/exercises.ts'), `export const EXERCISE_IDS = [${ids.map((id) => `'${id}'`).join(', ')}] as const;`);
+  fs.writeFileSync(path.join(root, 'src/constants/faceMap.ts'), `export const FACE_AREAS = [${AREAS.map((a) => `'${a}'`).join(', ')}] as const;`);
   for (const [file, content] of Object.entries(files)) {
     const full = path.join(root, 'assets/guides', file);
     fs.mkdirSync(path.dirname(full), { recursive: true });
@@ -43,6 +49,9 @@ function project(ids, files) {
 const fullSet = (guide, ids) => ({
   [`${guide}/hero/home.webp`]: fakeWebp(1200, 675),
   [`${guide}/hero/paywall.webp`]: fakeWebp(762, 1024),
+  [`${guide}/map/base.webp`]: fakeWebp(720, 974),
+  [`${guide}/map/areas.json`]: layout(),
+  ...Object.fromEntries(AREAS.map((a) => [`${guide}/map/${a}.webp`, fakeWebp(120, 80)])),
   ...Object.fromEntries(
     ids.flatMap((id) => [
       [`${guide}/exercises/${id}/relaxed.webp`, fakeWebp(758, 1024)],
@@ -65,6 +74,25 @@ describe('guide images (npm run images)', () => {
     const expected = ids.filter((id) => id !== '02-chin-lift');
     expect(clips.man).toEqual(expected);
     expect(clips.woman).toEqual(expected);
+  });
+
+  it('the face map: every area has its layer and its place in areas.json', () => {
+    const ids = ['01-a'];
+    const man = fullSet('man', ids);
+    man['man/map/areas.json'] = layout(['jaw']);
+    const woman = fullSet('woman', ids);
+    delete woman['woman/map/lips.webp'];
+    woman['woman/map/nose.webp'] = fakeWebp(10, 10);
+    const result = scan(project(ids, { ...man, ...woman }));
+    expect(result.areas).toEqual(AREAS);
+    expect(result.guides.woman).toEqual({ complete: false, missing: ['woman/map/lips.webp'] });
+    expect(result.problems).toEqual([
+      'assets/guides/man/map/areas.json: no lips',
+      'assets/guides/woman/map/nose.webp: unexpected file (expected base.webp, areas.json, jaw.webp, lips.webp; run npm run images to convert PNG/JPG)',
+    ]);
+    const out = render({ ...result, guides: { man: { complete: true }, woman: { complete: false } } });
+    expect(out).toContain("layout: require('@/assets/guides/man/map/areas.json')");
+    expect(out).toContain("lips: require('@/assets/guides/man/map/lips.webp')");
   });
 
   it('lists clips where they are; a clip that is not an MP4 or too big is a problem', () => {

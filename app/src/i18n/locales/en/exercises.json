@@ -277,5 +277,50 @@
         "Rest your hands, then repeat."
       ]
     }
+  },
+  "areas": {
+    "forehead": {
+      "name": "Forehead",
+      "about": "The frontalis raises your eyebrows. The corrugator, between the brows, draws them together when you frown."
+    },
+    "temples": {
+      "name": "Temples",
+      "about": "The temporalis is a fan-shaped chewing muscle at the side of your head. It works with the masseter when you bite."
+    },
+    "eyes": {
+      "name": "Eyes",
+      "about": "The orbicularis oculi is the ring of muscle around each eye. It closes the lids and makes you squint. Small muscles in the upper lids lift them."
+    },
+    "cheeks": {
+      "name": "Cheeks",
+      "about": "The zygomaticus muscles pull the corners of your mouth up when you smile. The buccinator lies deeper and holds your cheeks against your teeth."
+    },
+    "lips": {
+      "name": "Lips",
+      "about": "The orbicularis oris is the ring of muscle around your mouth. It closes, presses and puckers your lips."
+    },
+    "jaw": {
+      "name": "Jaw",
+      "about": "The masseter is a strong chewing muscle at the back of your jaw. Go gently, and skip jaw exercises if your jaw hurts or clicks."
+    },
+    "chin": {
+      "name": "Chin",
+      "about": "The mentalis wrinkles your chin and pushes up your lower lip. Under the chin, the floor of your mouth works with your tongue when you swallow or press it to the palate."
+    },
+    "neck": {
+      "name": "Neck",
+      "about": "The platysma is a thin sheet of muscle at the front of your neck. Deeper muscles hold your head up, so posture matters here."
+    }
+  },
+  "map": {
+    "title": "Face map",
+    "hint": "Tap an area to see its muscles and the exercises that work them.",
+    "muscles": "Muscles",
+    "exercises": "Exercises for this area",
+    "a11y": "Face map, {{area}} in red. Pick an area with the buttons below."
+  },
+  "view": {
+    "map": "Face map",
+    "programs": "Programs"
   }
 }

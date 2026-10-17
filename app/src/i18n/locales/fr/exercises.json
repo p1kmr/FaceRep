@@ -277,5 +277,50 @@
         "Repose tes mains, puis recommence."
       ]
     }
+  },
+  "areas": {
+    "forehead": {
+      "name": "Front",
+      "about": "Le muscle frontal lève les sourcils. Le corrugateur, entre les sourcils, les rapproche quand tu fronces les sourcils."
+    },
+    "temples": {
+      "name": "Tempes",
+      "about": "Le temporal est un muscle masticateur en forme d'éventail sur le côté de la tête. Il travaille avec le masséter quand tu mords."
+    },
+    "eyes": {
+      "name": "Yeux",
+      "about": "L'orbiculaire de l'œil est l'anneau de muscle autour de chaque œil. Il ferme les paupières et te fait plisser les yeux. De petits muscles des paupières supérieures les relèvent."
+    },
+    "cheeks": {
+      "name": "Joues",
+      "about": "Les muscles zygomatiques remontent les coins de la bouche quand tu souris. Le buccinateur, plus profond, maintient les joues contre les dents."
+    },
+    "lips": {
+      "name": "Lèvres",
+      "about": "L'orbiculaire de la bouche est l'anneau de muscle autour de la bouche. Il ferme, presse et avance les lèvres."
+    },
+    "jaw": {
+      "name": "Mâchoire",
+      "about": "Le masséter est un muscle masticateur puissant à l'arrière de la mâchoire. Vas-y doucement et saute les exercices de mâchoire si elle te fait mal ou craque."
+    },
+    "chin": {
+      "name": "Menton",
+      "about": "Le muscle mentonnier plisse le menton et pousse la lèvre inférieure vers le haut. Sous le menton, le plancher de la bouche travaille avec la langue quand tu avales ou que tu la presses contre le palais."
+    },
+    "neck": {
+      "name": "Cou",
+      "about": "Le platysma est une fine couche de muscle à l'avant du cou. Des muscles plus profonds tiennent la tête, alors la posture compte ici."
+    }
+  },
+  "map": {
+    "title": "Carte du visage",
+    "hint": "Touche une zone pour voir ses muscles et les exercices qui les font travailler.",
+    "muscles": "Muscles",
+    "exercises": "Exercices pour cette zone",
+    "a11y": "Carte du visage, {{area}} en rouge. Choisis une zone avec les boutons ci-dessous."
+  },
+  "view": {
+    "map": "Carte du visage",
+    "programs": "Programmes"
   }
 }
