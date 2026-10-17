@@ -40,6 +40,7 @@
     "end": "Encerrar",
     "keep": "Continuar treinando"
   },
+  "dayWaits": "O dia {{day}} conta quando você faz pelo menos a metade. O que você terminou fica salvo de qualquer forma.",
   "complete": {
     "title": "Treino concluído",
     "body": "{{reps}} repetições em {{time}}.",

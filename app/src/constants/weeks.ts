@@ -20,6 +20,11 @@ export const WEEKS = {
   ],
   /** The last day of every week: a few gentle exercises, lighter, nothing that loads the jaw. */
   easy: { count: 3, repPct: 70 },
+  /**
+   * Share of Today's workout that makes it the day's workout: exercises with all their reps done. Ended sooner (or
+   * skipped through), it is saved and in Progress, but the day waits.
+   */
+  minShare: 0.5,
   /** A share of the usual reps never goes below this. */
   minReps: 3,
   /** Weeks whose end gets its own line on Today ("12 weeks of practice"). */

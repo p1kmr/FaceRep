@@ -2,7 +2,7 @@ import { EXERCISE_IDS, EXERCISES } from '@/constants/exercises';
 import { WEEKS } from '@/constants/weeks';
 import type { SessionSummary } from '@/services/progress/stats';
 
-import { daysDone, dosedItem, isDayWorkout, isMilestone, stepOf, weekDay, weekDone, workoutDates, workoutsBefore } from '../weeks';
+import { countsAsDay, daysDone, dosedItem, isDayWorkout, isMilestone, stepOf, weekDay, weekDone, workoutDates, workoutsBefore } from '../weeks';
 
 const session = (day: string, kind: SessionSummary['kind'] = 'routine', extra: Partial<SessionSummary> = {}): SessionSummary => ({
   id: `${day}-${kind}-${Math.random()}`,
@@ -39,6 +39,22 @@ describe('days done', () => {
   it("doesn't count a single exercise from the library as the day's workout", () => {
     expect(isDayWorkout(session('2026-10-04', 'single'))).toBe(false);
     expect(isDayWorkout(session('2026-10-04', 'single', { logged: true }))).toBe(true);
+  });
+
+  it("doesn't count Today's workout ended before half of it: the day waits", () => {
+    expect(isDayWorkout(session('2026-10-04', 'routine', { short: true }))).toBe(false);
+    expect(daysDone([session('2026-10-01'), session('2026-10-02', 'routine', { short: true })], '2026-10-17')).toBe(1);
+    // A full one the same date still makes it that date's workout.
+    expect(daysDone([session('2026-10-02', 'routine', { short: true }), session('2026-10-02')], '2026-10-17')).toBe(1);
+  });
+
+  it('counts a workout as the day once at least half of its exercises are done', () => {
+    expect(countsAsDay({ finished: 3, planned: 5 })).toBe(true);
+    expect(countsAsDay({ finished: 2, planned: 5 })).toBe(false);
+    expect(countsAsDay({ finished: 2, planned: 3 })).toBe(true);
+    expect(countsAsDay({ finished: 1, planned: 3 })).toBe(false);
+    expect(countsAsDay({ finished: 1, planned: 1 })).toBe(true);
+    expect(countsAsDay({ finished: 0, planned: 0 })).toBe(false);
   });
 });
 
@@ -110,6 +126,7 @@ describe('this week done', () => {
     expect(weekDone(nine, '2026-10-17').map((d) => d.date)).toEqual(['2026-09-08', '2026-09-09']);
     expect(weekDone([...nine, session('2026-10-17')], '2026-10-17').map((d) => d.date)).toEqual(['2026-09-08', '2026-09-09', '2026-10-17']);
     expect(weekDone([...nine, session('2026-10-17', 'single')], '2026-10-17')).toHaveLength(2);
+    expect(weekDone([...nine, session('2026-10-17', 'routine', { short: true })], '2026-10-17')).toHaveLength(2);
     expect(weekDone(dates(7).map((d) => session(d)), '2026-10-17')).toEqual([]);
     expect(weekDone([], '2026-10-17')).toEqual([]);
   });

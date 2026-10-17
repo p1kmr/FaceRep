@@ -129,8 +129,12 @@ stays at a top:
   in turn (an area with fewer is topped up from the others; full face goes through all of them), in catalog order
   (massage last). Without Premium only the free exercises (`FREE_EXERCISE_IDS`, none loads the jaw).
 - **Where you are is derived, not stored:** `daysDone(sessions, today)` counts the dates before today with a workout
-  (`isDayWorkout`: a finished routine, or a workout saved through the Coach), one per date. A missed date waits and
-  nothing is skipped; a week can't be done in one afternoon. A single exercise from the library doesn't count.
+  (`isDayWorkout`: Today's workout with at least half of it done, or a workout saved through the Coach), one per date.
+  A missed date waits and nothing is skipped; a week can't be done in one afternoon. A single exercise from the library
+  doesn't count.
+- **At least half:** Today's workout is the day's workout once `WEEKS.minShare` (half) of its exercises have all their
+  reps done (`countsAsDay`). Ended or skipped through sooner, it is saved (Progress, streak) with kind `short` and the
+  day waits; the End alert and the Workout complete screen say "Day 3 counts once at least half of it is done."
 - The Today card says "Week 6 · Day 3" (never a total, never "of 4") with the step under the title, and when the day
   is done "Day 3 done. Day 4 is ready tomorrow.", "Week 6 done. …", or at weeks 4, 8, 12, 26 and 52 "12 weeks of
   practice. …". Nothing promises a result or new content: the week number only says how long someone has practiced.

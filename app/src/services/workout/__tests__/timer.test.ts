@@ -42,6 +42,8 @@ describe('workout timer', () => {
       ],
       totalReps: brow.reps + EXERCISES['10-eye-squeeze'].reps,
       durationSec: total,
+      finished: 2,
+      planned: 2,
     });
   });
 
@@ -67,6 +69,8 @@ describe('workout timer', () => {
     s = workoutReducer(s, { type: 'skip' });
     expect(s.phase).toBe('done');
     expect(workoutResult(s).exercises).toEqual([{ id: '09-brow-lift', reps: 1 }]);
+    // Started, not finished: an exercise is done once all its reps are.
+    expect(workoutResult(s)).toMatchObject({ finished: 0, planned: 2 });
   });
 
   it("uses the session's reps and hold time (a plan day changes them)", () => {

@@ -16,10 +16,14 @@ export interface WeekDay {
 }
 
 /**
- * A date's workout: a finished routine, or a workout saved through the Coach (done without the app). A single exercise
- * from the library isn't.
+ * A date's workout: Today's workout with at least half of it done (countsAsDay), or a workout saved through the Coach
+ * (done without the app). A single exercise from the library isn't, nor Today's workout ended sooner.
  */
-export const isDayWorkout = (s: SessionSummary) => s.kind === 'routine' || !!s.logged;
+export const isDayWorkout = (s: SessionSummary) => (s.kind === 'routine' && !s.short) || !!s.logged;
+
+/** Whether Today's workout, as far as it got, is the day's workout: WEEKS.minShare of its exercises done. */
+export const countsAsDay = ({ finished, planned }: { finished: number; planned: number }) =>
+  planned > 0 && finished >= planned * WEEKS.minShare;
 
 /** The dates with a workout before today, oldest first: the first is day 1, the eighth week 2's day 1. */
 export function workoutDates(sessions: readonly SessionSummary[], today: ISODate): ISODate[] {

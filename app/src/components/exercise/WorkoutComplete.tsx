@@ -13,8 +13,16 @@ import { AppText } from '../ui/AppText';
 import { Button } from '../ui/Button';
 import { Gradient } from '../ui/Gradient';
 
+interface WorkoutCompleteProps {
+  result: WorkoutResult;
+  streak: number;
+  /** Today's workout ended before half of it: its day, which still waits (saved, but not the day's workout yet). */
+  waitingDay?: number;
+  onDone: () => void;
+}
+
 /** After a workout: the face with the areas just worked lit, reps and time, the streak. */
-export function WorkoutComplete({ result, streak, onDone }: { result: WorkoutResult; streak: number; onDone: () => void }) {
+export function WorkoutComplete({ result, streak, waitingDay, onDone }: WorkoutCompleteProps) {
   const { t } = useTranslation(['workout', 'exercises']);
   const { colors } = useTheme();
   const styles = useStyles();
@@ -43,6 +51,11 @@ export function WorkoutComplete({ result, streak, onDone }: { result: WorkoutRes
         <AppText muted center>
           {any ? t('workout:complete.body', { reps: result.totalReps, time: formatClock(result.durationSec) }) : t('workout:complete.nothing')}
         </AppText>
+        {any && waitingDay ? (
+          <AppText variant="footnote" muted center>
+            {t('workout:dayWaits', { day: waitingDay })}
+          </AppText>
+        ) : null}
         {areas.length ? (
           <AppText variant="footnote" center style={styles.areas}>
             {`${t('workout:complete.worked')}: ${areaNames.join(' · ')}`.toUpperCase()}

@@ -26,8 +26,10 @@ function toSummary(row: SessionRow): SessionSummary {
     totalReps: row.total_reps,
     exerciseIds: (row.exercise_ids ?? '').split(',').filter(isExerciseId),
     kind: row.kind === 'single' ? 'single' : 'routine',
-    // A workout saved from the Coach is stored with kind 'logged' (no migration: kind is free text).
+    // A workout saved from the Coach is stored with kind 'logged', Today's workout ended short with 'short' (no
+    // migration: kind is free text).
     ...(row.kind === 'logged' ? { logged: true } : {}),
+    ...(row.kind === 'short' ? { short: true } : {}),
   };
 }
 
@@ -48,7 +50,7 @@ export async function insertSession(s: SessionSummary, reps: { id: ExerciseId; r
       s.finishedAt,
       s.durationSec,
       s.totalReps,
-      s.logged ? 'logged' : s.kind,
+      s.logged ? 'logged' : s.short ? 'short' : s.kind,
     );
     for (const [position, e] of reps.entries()) {
       await db.runAsync(

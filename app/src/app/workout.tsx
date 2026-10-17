@@ -25,6 +25,7 @@ import { useWorkout } from '@/hooks/useWorkout';
 import { defaultItem, type WorkoutItem } from '@/services/workout/items';
 import { movePhaseOf } from '@/services/workout/moveCheck';
 import { currentExercise, phaseDuration, workoutResult, type WorkoutResult } from '@/services/workout/timer';
+import { countsAsDay } from '@/services/workout/weeks';
 import { setVoiceCues } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
@@ -91,10 +92,13 @@ export default function WorkoutScreen() {
   }, [setup.locked]);
 
   const close = () => (router.canGoBack() ? router.back() : router.replace('/'));
+  // Today's workout, not done yet today, stopping before half of it: saved, but the day waits (weeks.ts countsAsDay).
+  const dayWaits = (r: WorkoutResult) => kind === 'routine' && !todayWorkout.done && !countsAsDay(r);
 
   const confirmEnd = () => {
     pause();
-    Alert.alert(t('endConfirm.title'), t('endConfirm.body'), [
+    const body = dayWaits(workoutResult(state)) ? t('dayWaits', { day: todayWorkout.day }) : t('endConfirm.body');
+    Alert.alert(t('endConfirm.title'), body, [
       { text: t('endConfirm.keep'), style: 'cancel', onPress: resume },
       {
         text: t('endConfirm.end'),
@@ -109,7 +113,12 @@ export default function WorkoutScreen() {
   if (finished) {
     return (
       <View style={[styles.root, safe]}>
-        <WorkoutComplete result={finished} streak={streak} onDone={close} />
+        <WorkoutComplete
+          result={finished}
+          streak={streak}
+          waitingDay={dayWaits(finished) ? todayWorkout.day : undefined}
+          onDone={close}
+        />
       </View>
     );
   }

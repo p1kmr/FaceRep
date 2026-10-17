@@ -12,6 +12,8 @@ export interface SessionSummary {
   kind: 'routine' | 'single';
   /** Saved from a Coach proposal the user confirmed (done without the app), not finished in the player. */
   logged?: boolean;
+  /** Today's workout ended before half of it was done (services/workout/weeks.ts countsAsDay): not the day's workout. */
+  short?: boolean;
 }
 
 export const workoutDays = (sessions: readonly SessionSummary[]) => new Set(sessions.map((s) => s.day));

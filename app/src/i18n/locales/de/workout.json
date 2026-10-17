@@ -40,6 +40,7 @@
     "end": "Beenden",
     "keep": "Weitermachen"
   },
+  "dayWaits": "Tag {{day}} zählt, sobald mindestens die Hälfte geschafft ist. Was du geschafft hast, wird trotzdem gespeichert.",
   "complete": {
     "title": "Training geschafft",
     "body": "{{reps}} Wiederholungen in {{time}}.",

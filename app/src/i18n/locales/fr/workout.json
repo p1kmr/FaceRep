@@ -40,6 +40,7 @@
     "end": "Terminer",
     "keep": "Continuer"
   },
+  "dayWaits": "Le jour {{day}} compte dès que tu en as fait au moins la moitié. Ce que tu as terminé est enregistré quand même.",
   "complete": {
     "title": "Séance terminée",
     "body": "{{reps}} rép. en {{time}}.",

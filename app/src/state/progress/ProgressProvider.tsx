@@ -4,6 +4,7 @@ import type { LoggedWorkout } from '@/services/progress/log';
 import { insertSession, listSessions } from '@/services/progress/sessionsRepo';
 import type { SessionSummary } from '@/services/progress/stats';
 import type { WorkoutResult } from '@/services/workout/timer';
+import { countsAsDay } from '@/services/workout/weeks';
 import { fromISODate, todayISO } from '@/utils/dates';
 import { createId } from '@/utils/ids';
 
@@ -43,6 +44,8 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       totalReps: result.totalReps,
       exerciseIds: result.exercises.map((e) => e.id),
       kind,
+      // Ended before half of it was done: saved, but the day waits.
+      ...(kind === 'routine' && !countsAsDay(result) ? { short: true } : {}),
     };
     // The streak still counts this session for today if the write fails (it just won't survive a restart).
     await insertSession(session, result.exercises).catch(() => {});

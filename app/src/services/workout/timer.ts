@@ -98,10 +98,19 @@ export interface WorkoutResult {
   exercises: { id: ExerciseId; reps: number }[];
   totalReps: number;
   durationSec: number;
+  /** Exercises with all their reps done, of the `planned` ones (whether Today's workout counts: weeks.ts countsAsDay). */
+  finished: number;
+  planned: number;
 }
 
 /** What gets saved: only exercises with at least one finished rep. */
 export function workoutResult(s: WorkoutState): WorkoutResult {
   const exercises = s.queue.map(({ id }, i) => ({ id, reps: s.completedReps[i] })).filter((e) => e.reps > 0);
-  return { exercises, totalReps: exercises.reduce((n, e) => n + e.reps, 0), durationSec: s.elapsedSec };
+  return {
+    exercises,
+    totalReps: exercises.reduce((n, e) => n + e.reps, 0),
+    durationSec: s.elapsedSec,
+    finished: s.queue.filter((e, i) => s.completedReps[i] >= e.reps).length,
+    planned: s.queue.length,
+  };
 }
