@@ -153,6 +153,8 @@ Graphite and steel with the muscle red of the drawings (`constants/theme/themes/
 (`primary` → `primaryEnd`) on the main button, the timer ring and the week strip, soft card shadows (`boxShadow`,
 `tokens.elevation`; a hairline edge in light, a border in dark) and **Anton** (SIL OFL, `assets/fonts/`, loaded before the
 splash hides) for headlines and big numbers: `AppText variant="brand"`, in capitals, as in the store screenshots.
+Anton is taller than the `lineHeight` we give it (fontSize + 6) and iOS cuts the top of a short line, so `AppText` adds
+the missing room on top as padding and takes it back as a negative margin: set fontSize and lineHeight as designed.
 Gradients are drawn with react-native-svg (`components/ui/Gradient.tsx`): React Native has no CSS gradients. A fade
 uses a see-through theme color (`plateFade`); `Gradient` moves its alpha into `stopOpacity`, because on the iPhone the
 alpha inside a stop color is ignored. The web preview draws both right, so check a new fade in the Simulator. Text on a
