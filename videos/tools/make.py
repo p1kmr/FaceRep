@@ -41,7 +41,7 @@ SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
     # gaze: the eyes look up in the exercise drawing; one iris slides there instead of two blending.
     "17-lower-lid-lift": {"gaze": True},
-    "23-v-eyes": {"gaze": True},
+    "23-v-eyes": {"gaze": True, "spread": True},
     "11-chin-tuck": {"glide": 0.13},
     "05-neck-stretch": {"tilt": 0.85, "both": True},
     # hands: the hands move; each is cut out along its outline in hands.json and slides as one piece (see hands.py).
@@ -133,9 +133,19 @@ def closed(img, p):
     return p
 
 
-def morpher(A, B, pa, pb, sharp, layer=None, gaze=False):
+def reds(img):
+    # The red muscle highlight: how red each pixel is (0-1).
+    lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB).astype(np.float32)
+    chroma = np.hypot(lab[..., 1] - 128, lab[..., 2] - 128)
+    return np.clip((chroma - 8) / 12, 0, 1) * (lab[..., 1] > 132)
+
+
+def morpher(A, B, pa, pb, sharp, layer=None, gaze=False, spread=False):
     # layer: optional (image, alpha, show) in B's shape, drawn on top and slid out from its top edge as show(t) goes
     # 0 -> 1 (the tongue in Lion Face, which only the exercise drawing has).
+    # spread: the red highlight has another shape and other lines in the two drawings (V Eyes: a pale ring around the
+    # eye, then a full patch); blended, both showed at once. Inside the red, the exercise drawing takes over from the
+    # eye outward instead, so each spot shows one drawing's red.
     # Below the chin the face points stop, so the outline of the neck and shoulders is paired row by row in both
     # drawings: a wider or narrower neck then moves smoothly instead of fading in as a grey smudge.
     # When an eye opens or closes by a fifth or more (Eye Squeeze, Wide Eyes, Brow Lift), the lid moves over a still
@@ -263,10 +273,15 @@ def morpher(A, B, pa, pb, sharp, layer=None, gaze=False):
         # A pixel inside the lid line, so the lid's own dark edge stays on top of the eye.
         return cv2.GaussianBlur(cv2.erode(m, np.ones((3, 3), np.uint8)).astype(np.float32) / 255, (0, 0), 1.0)[..., None]
 
+    red_a, red_b = reds(A), reds(B)
+
     def frame(t):
         pts = (1 - t) * pa + t * pb
         a = t if sharp >= 1 else min(1.0, max(0.0, (t - 0.5) / sharp + 0.5))
         wa, wb = warp(A, pa, pts), warp(B, pb, pts)
+        if spread and 0 < a < 1:
+            red = np.maximum(warp(np.dstack([red_a] * 3), pa, pts)[..., 0], warp(np.dstack([red_b] * 3), pb, pts)[..., 0])
+            red = cv2.GaussianBlur(cv2.dilate(red, np.ones((15, 15), np.uint8)), (0, 0), 5)[..., None]
         if 0 < a < 1:
             # The face points don't cover every line (face edge, ears, chin), so what is left over would show twice.
             # Match it pixel by pixel and move both drawings to meet, so each line shows once.
@@ -286,6 +301,10 @@ def morpher(A, B, pa, pb, sharp, layer=None, gaze=False):
                 calm = cv2.dilate(calm, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (41, 41)))
                 keep = 1 - cv2.GaussianBlur(calm.astype(np.float32) / 255, (0, 0), 6)[..., None]
                 f, g = f * keep, g * keep
+            if spread:
+                # Inside the red each spot shows one drawing (see spread), so nothing there is matched (matching the
+                # ring's lines to the patch's tore a notch into it).
+                f, g = f * (1 - red), g * (1 - red)
             wa = cv2.remap(wa, grid[0] - a * f[..., 0], grid[1] - a * f[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
             wb = cv2.remap(wb, grid[0] - (1 - a) * g[..., 0], grid[1] - (1 - a) * g[..., 1], cv2.INTER_LINEAR,
                            borderMode=cv2.BORDER_REPLICATE)
@@ -296,6 +315,16 @@ def morpher(A, B, pa, pb, sharp, layer=None, gaze=False):
             m = cv2.GaussianBlur(m, (0, 0), 2)
             a_map = a + (1 - a) * m if opens > 0 else a * (1 - m)
             a_map = a_map[..., None]
+        if spread and 0 < a < 1:
+            # Distance from the nearer eye, as a share of how far that eye's red reaches.
+            rho = np.full((H, W), np.inf, np.float32)
+            for eye in EYES:
+                c = pts[eye].mean(0)
+                d = np.hypot(grid[0] - c[0], grid[1] - c[1])
+                reach = max(float(np.percentile(d[(red[..., 0] > 0.5) & (d < 0.25 * W)], 99)), 1.0)
+                rho = np.minimum(rho, d / reach)
+            wipe = smooth((1.3 * a - rho) / 0.3)[..., None]
+            a_map = (1 - red) * a_map + red * wipe
         out = (1 - a_map) * wa + a_map * wb
         for eye, closing in blinks if 0 < a < 1 else []:
             src, img = (pa, A) if closing else (pb, B)
@@ -540,7 +569,7 @@ def main():
                 frame = tilter(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings["tilt"])
             else:
                 frame = morpher(A, B, find(A, f"{guide} relaxed"), find(B, f"{guide} exercise"), settings.get("sharp", 1.0),
-                                gaze=settings.get("gaze", False))
+                                gaze=settings.get("gaze", False), spread=settings.get("spread", False))
         except NoFace as e:
             print(e)
             stale = os.path.join(VIDEOS, guide, f"{args.id}.mp4")

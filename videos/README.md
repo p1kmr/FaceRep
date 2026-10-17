@@ -43,7 +43,7 @@ Not in the app yet. These files are the source; playing them in the app is a sep
 | 18-lip-press | ✓ | ✓ | the face finder saw an opening in her pressed lips (lower inner lip on the middle of the lower lip), which tore the lip line; closed lips now keep one lip line |
 | 19-pout | ✓ | ✓ | |
 | 20-lip-corner-lift | ✓ | ✓ | |
-| 23-v-eyes | ✓ | ✓ | `gaze` (looks up, as in 17); the hands are in both drawings in nearly the same place, so the morph keeps them solid |
+| 23-v-eyes | ✓ | ✓ | `gaze` (looks up, as in 17); the hands are in both drawings in nearly the same place, so the morph keeps them solid. `spread`: the red is a pale ring in the relaxed drawing and a full patch with other lines in the exercise drawing, so blended both showed at once (doubled lines, a ghost ring); now the exercise red takes over from the eye outward |
 | 25-jawline-sweep | ✓ | ✓ | `hands`: the fists sweep from under the chin up to the ears and the forearms swing up from the bottom edge; past the drawing's edge each forearm goes on along its own slant, and hers fades out where her drawing fades. The shade the forearms cast on the chest goes with them (left behind, it outlined where the arms had been) |
 | 26-frown-release | ✓ | ✓ | `hands`: the hands slide from between the brows to the temples as solid pieces over the morphing face (outlines traced by hand in `tools/hands.json`); on the last part of the move the relaxed hand turns into the exercise hand, both lined up pixel by pixel. Hers turns quickly at the very end (`swap`): her relaxed hand has two fingers curled and the exercise hand none, so a slow change showed both. A plain morph showed both pairs of hands at once, and a quick swap of the drawings flashed |
 
@@ -67,7 +67,7 @@ python3 -m venv .venv
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
 - Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` / `tilt` for a
   head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out, `gaze` for eyes that
-  look somewhere else, `hands` for hands that move, with `swap` when one guide's hands change shape a lot).
+  look somewhere else, `spread` for a red highlight that changes shape, `hands` for hands that move, with `swap` when one guide's hands change shape a lot).
 - Hands that move need their outlines in `tools/hands.json`: per exercise and guide, one entry per hand with a rough
   outline on each drawing in page pixels (720×1280), starting at the fingertip; the tool snaps it onto the drawn edge. An
   arm that runs off the drawing is traced a little past its edge (y 1145), so the cut-out is solid up to the edge.
