@@ -45,10 +45,14 @@ const CARD_OF = `(el) => { while (el && el.parentElement) { const cs = getComput
 async function gridRegion(app) {
   return app.page.evaluate((cardOf) => {
     const card = eval(cardOf);
-    const days = [...document.querySelectorAll('div')].filter((e) => !e.childElementCount && /^(?:[4-9]|1[0-7])$/.test(e.textContent.trim()))
+    const cells = [...document.querySelectorAll('div')].filter((e) => !e.childElementCount && /^(?:[4-9]|1[0-7])$/.test(e.textContent.trim()))
       .filter((e) => e.getBoundingClientRect().width > 0); // other tabs stay in the page, hidden
-    if (days.length < 14) return null;
-    const box = card(days[0]).getBoundingClientRect();
+    // The grid is the card holding most of these numbers (not the week strip's dates or a stat card's "11").
+    const cards = new Map();
+    for (const e of cells) { const c = card(e); if (c) cards.set(c, [...(cards.get(c) ?? []), e]); }
+    const [grid, days] = [...cards].sort((a, b) => b[1].length - a[1].length)[0] ?? [];
+    if (!days || days.length < 14) return null;
+    const box = grid.getBoundingClientRect();
     const top = Math.min(...days.map((d) => d.getBoundingClientRect().top));
     const bottom = Math.max(...days.map((d) => d.getBoundingClientRect().bottom));
     return [box.left, top - 14, box.width, bottom - top + 44].map((v) => Math.round(v));
@@ -103,7 +107,8 @@ const saveRegions = (lang, add) => {
 async function workout(lang, guide, name, { mirror = false } = {}) {
   const app = await openApp({ lang, seed: { guide, mirror }, height: FULL, ...(mirror ? { camera: makeCamera(guide) } : {}) });
   await go(app, '/', 5000);
-  await app.page.getByText(t(lang, 'home', 'plan.start').replace('{{day}}', '12'), { exact: true }).first().click();
+  // By its accessible name: the big button shows its label in capitals.
+  await app.page.getByRole('button', { name: t(lang, 'home', 'plan.start').replace('{{day}}', '12'), exact: true }).first().click();
   const squeeze = t(lang, 'workout', 'phase.hold').toLowerCase();
   const rep3 = t(lang, 'workout', 'rep').replace('{{rep}}', '3').replace('{{reps}}', '9').toLowerCase();
   let found = false;
@@ -128,6 +133,11 @@ async function workout(lang, guide, name, { mirror = false } = {}) {
 async function today(app, lang) {
   await go(app, '/', 5000);
   await save(app, lang, 'today');
+  // The 28-day grid sits below today's card: scroll to it for a second shot, and cut weeks 1–2 out of that one.
+  await app.page.mouse.move(220, 500);
+  await app.page.mouse.wheel(0, 2000);
+  await settle(app, 1200);
+  await save(app, lang, 'today-grid');
   const grid = await gridRegion(app);
   if (!grid) throw new Error(`${lang}: the 28-day grid wasn't found on Today`);
   saveRegions(lang, { grid });

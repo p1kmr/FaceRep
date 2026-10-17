@@ -84,7 +84,7 @@ for (const lang of LANGS) {
   const sim = useSim ? simRegions(lang) : {};
   // [file, screen, raw top in the framed screen, region, canvas pixels per point, points cut off each side]
   // (the mirror's box has a white rounded border: cut inside it, so only the camera picture is lifted out)
-  for (const [name, screen, rawTop, key, scale, inset] of [['pop-grid.png', 'today', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
+  for (const [name, screen, rawTop, key, scale, inset] of [['pop-grid.png', 'today-grid', 62, 'grid', 2.3, 0], ['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
     // A Simulator screen is the whole screen, so its boxes are measured from the top (no offset).
     const fromSim = useSim && simShot(lang, screen);
     if (fromSim && !sim[key]) { console.warn(`  ${lang}: ${screen} is a Simulator shot but sim/${lang}/regions.json has no "${key}" box: ${name} skipped`); continue; }

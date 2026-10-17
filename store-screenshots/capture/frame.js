@@ -26,6 +26,8 @@ const TINT = '#E5322D';
 /** How each screen is presented on the iPhone. */
 export const SCREENS = {
   today: { kind: 'tab', tab: 0 },
+  // Today scrolled down to the 28-day grid: only for cutting the grid out (art.js), not a slide of its own.
+  'today-grid': { kind: 'tab', tab: 0 },
   exercises: { kind: 'tab', tab: 1 },
   'exercises-man': { kind: 'tab', tab: 1 },
   progress: { kind: 'tab', tab: 2 },
