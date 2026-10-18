@@ -141,6 +141,13 @@ new drawing changed the person, so don't. The window's originals and the generat
 her `exercise.webp` window has the man's pressed tongue in it (scaled 0.95, tip behind her upper front teeth, colours
 matched, her rim and teeth kept). A tongue must taper to a tip that touches the palate behind the upper front teeth.
 
+**V Eyes fingertips (Oct 2026).** Her two V Eyes drawings had an extra fingertip beside the nose at the inner end of
+each eyebrow, joined to no hand (her fingers are at the outer end of the eyebrow and under the eye, as in his drawings):
+faint in `relaxed.webp`, solid in `exercise.webp`, so in the clip a finger seemed to appear. At the owner's request both
+were painted out with the drawing's own colours: the skin and the highlight around them (pale pink or red) continued in
+smoothly (OpenCV's FSR inpainting, with the hair and lashes next to them kept out) and her forehead's pencil grain on top;
+nothing else changed. The thumbnail was cut again (`npm run images`) and the clip re-made.
+
 **Heroes** (photorealistic, same features, plain black crew-neck t-shirt, near-black low-key studio background):
 home 1536×1024, three-quarter view facing left, in the right third with the left two thirds empty for text (then cut to
 1200×675 keeping the hair); paywall 1024×1536, three-quarter view facing right, head and shoulders.

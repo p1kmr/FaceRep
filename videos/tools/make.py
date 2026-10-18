@@ -51,15 +51,7 @@ SETTINGS = {
     "03-jaw-jut": {"sharp": 0.08},
     # gaze: the eyes look up in the exercise drawing; one iris slides there instead of two blending.
     "17-lower-lid-lift": {"gaze": True},
-    # keep: outlines (page pixels, on the exercise drawing as lined up) of parts that don't move but are drawn clearly
-    # only in the exercise drawing; its pixels inside them stay in every frame. Her middle fingertips at the inner
-    # ends of the eyebrows are faint in her relaxed drawing (part of the pale ring) and solid in the exercise one, so
-    # a finger seemed to appear on every rep and the red spread over it.
-    "23-v-eyes": {"gaze": True, "spread": True, "keep": {"woman": [
-        [(300, 506), (308, 494), (316, 482), (322, 475), (330, 472), (338, 474), (344, 481), (346, 490), (346, 502),
-         (344, 512), (340, 520), (334, 527), (322, 524)],
-        [(426, 506), (416, 494), (406, 482), (398, 475), (390, 472), (382, 474), (376, 481), (373, 490), (373, 502),
-         (375, 512), (379, 520), (385, 527), (398, 522)]]}},
+    "23-v-eyes": {"gaze": True, "spread": True},
     "11-chin-tuck": {"glide": 0.13},
     "05-neck-stretch": {"tilt": 0.85, "both": True},
     # hands: the hands move; each is cut out along its outline in hands.json and slides as one piece (see hands.py).
@@ -540,18 +532,6 @@ def swell(B, rows, px):
     return bulge
 
 
-def keeper(B, outlines):
-    # Parts that don't move but are drawn clearly only in B (her V Eyes fingertips): B's pixels inside the outlines go
-    # on top of every frame, except where B is red (the red around them still spreads as before).
-    mask = np.zeros((H, W), np.uint8)
-    for o in outlines:
-        cv2.fillPoly(mask, [np.int32(np.round(o))], 255)
-    alpha = cv2.GaussianBlur(mask.astype(np.float32) / 255, (0, 0), 1.5)
-    alpha = (alpha * (1 - np.clip(cv2.GaussianBlur(reds(B), (0, 0), 1.5) * 3, 0, 1)))[..., None]
-    top = B.astype(np.float32) * alpha
-    return lambda img: np.clip(img * (1 - alpha) + top, 0, 255).astype(np.uint8)
-
-
 def glider(A, B, pa, glide):
     # Chin tuck, one drawing so nothing can wobble: the head (down to the chin) slides straight back by `glide` of the
     # face height, eyes level; the neck shears smoothly down to the shoulders, which stay put.
@@ -682,9 +662,6 @@ def main():
                     spec = settings["swell"][guide]
                     morph, bulge = frame, swell(B, spec["rows"], spec["px"])
                     frame = lambda t: bulge(morph(t), t)
-                if guide in settings.get("keep", {}):
-                    moving, keep = frame, keeper(B, settings["keep"][guide])
-                    frame = lambda t: keep(moving(t))
         except NoFace as e:
             print(e)
             stale = os.path.join(VIDEOS, guide, f"{args.id}.mp4")

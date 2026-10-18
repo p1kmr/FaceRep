@@ -46,7 +46,7 @@ docs/videos.md, "In the app"): run it, then `npm run images` in `app/`, after re
 | 20-lip-corner-lift | ✓ | ✓ | |
 | 21-smile-line-press | ✓ | ✓ | the fingertips stay on the smile lines in both drawings, so the morph keeps them solid while the smile forms |
 | 22-forehead-press | ✓ | ✓ | the hands rest on the forehead in nearly the same place in both drawings, so the morph keeps them solid while the brows push up against them |
-| 23-v-eyes | ✓ | ✓ | `gaze` (looks up, as in 17); the hands are in both drawings in nearly the same place, so the morph keeps them solid. `spread`: the red is a pale ring in the relaxed drawing and a full patch with other lines in the exercise drawing, so blended both showed at once (doubled lines, a ghost ring); now the exercise red takes over from the eye outward. `keep` (her): her middle fingertips at the inner ends of the eyebrows are faint in her relaxed drawing (part of the pale ring) and solid in the exercise one, so a finger seemed to appear on every rep; the exercise drawing's fingertips stay in every frame |
+| 23-v-eyes | ✓ | ✓ | `gaze` (looks up, as in 17); the hands are in both drawings in nearly the same place, so the morph keeps them solid. `spread`: the red is a pale ring in the relaxed drawing and a full patch with other lines in the exercise drawing, so blended both showed at once (doubled lines, a ghost ring); now the exercise red takes over from the eye outward. Her drawings had an extra fingertip beside the nose at the inner end of each eyebrow, joined to no hand (faint in the relaxed drawing, so a finger seemed to appear): painted out of both drawings (docs/images.md), so her V matches his |
 | 24-jaw-release | ✓ | ✓ | the lips part and the eyes half-close (eye rule); the hands rest on the jaw in nearly the same place in both drawings, so they stay solid. The white circling marker is only in the exercise drawing and fades in like the arrows |
 | 25-jawline-sweep | ✓ | ✓ | `hands`: the fists sweep from under the chin up to the ears and the forearms swing up from the bottom edge; past the drawing's edge each forearm goes on along its own slant, and hers fades out where her drawing fades. The shade the forearms cast on the chest goes with them (left behind, it outlined where the arms had been) |
 | 26-frown-release | ✓ | ✓ | `hands`: the hands slide from between the brows to the temples as solid pieces over the morphing face (outlines traced by hand in `tools/hands.json`); on the last part of the move the relaxed hand turns into the exercise hand, both lined up pixel by pixel. Hers turns quickly at the very end (`swap`): her relaxed hand has two fingers curled and the exercise hand none, so a slow change showed both. A plain morph showed both pairs of hands at once, and a quick swap of the drawings flashed |
@@ -72,7 +72,7 @@ python3 -m venv .venv
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
 - Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` / `tilt` for a
   head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out, `gaze` for eyes that
-  look somewhere else, `spread` for a red highlight that changes shape, `window` for a side view where the tongue moves inside a see-through window, `hands` for hands that move, with `swap` when one guide's hands change shape a lot, `swell` for a muscle that bulges as it works but is drawn bulging hardly or not at all: the rows and the push in page pixels, per guide, `keep` for a part that doesn't move but is drawn clearly only in the exercise drawing: its outlines in page pixels, per guide).
+  look somewhere else, `spread` for a red highlight that changes shape, `window` for a side view where the tongue moves inside a see-through window, `hands` for hands that move, with `swap` when one guide's hands change shape a lot, `swell` for a muscle that bulges as it works but is drawn bulging hardly or not at all: the rows and the push in page pixels, per guide).
 - Hands that move need their outlines in `tools/hands.json`: per exercise and guide, one entry per hand with a rough
   outline on each drawing in page pixels (720×1280), starting at the fingertip; the tool snaps it onto the drawn edge. An
   arm that runs off the drawing is traced a little past its edge (y 1145), so the cut-out is solid up to the edge.
@@ -90,7 +90,8 @@ python3 -m venv .venv
 - Jaw Clench: the jaw muscles fill out at the sides (the cue says they bulge), not only turn red, in both guides.
 - Cheek Puff: the cheeks round out, not only the lips purse, so it doesn't look like Pout.
 - Mewing and Tongue Press: the lips stay closed (the steps say so); only the tongue moves.
-- Nothing appears or disappears that doesn't move (V Eyes: her fingertips beside the nose stay solid).
+- Nothing appears or disappears that doesn't move. Something drawn in only one of the two drawings shows up mid-move:
+  fix the drawing (her extra V Eyes fingertips were painted out, docs/images.md).
 - Nothing slides sideways: the hair and shoulders stay where they are (only the head of 05 and 11 moves, on purpose).
 - Same face from start to end; no double face, smear or warped edges (look at the middle frames in the contact sheet).
 - The face is not slimmer, smoother or sharper at the end.
