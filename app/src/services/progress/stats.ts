@@ -9,6 +9,8 @@ export interface SessionSummary {
   durationSec: number;
   totalReps: number;
   exerciseIds: ExerciseId[];
+  /** Reps done of each exercise, in the order of exerciseIds (the hold isn't saved). */
+  exerciseReps?: number[];
   kind: 'routine' | 'single';
   /** Saved from a Coach proposal the user confirmed (done without the app), not finished in the player. */
   logged?: boolean;

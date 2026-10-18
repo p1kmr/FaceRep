@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -36,6 +37,8 @@ export default function ProgressScreen() {
   const [view, setView] = useState<CalendarView>('month');
   const [anchor, setAnchor] = useState<ISODate>(today);
   const [selected, setSelected] = useState<ISODate | null>(null);
+  // One workout open at a time (the selected day's and History's), as the week page opens one day.
+  const [openRow, setOpenRow] = useState<string | null>(null);
   const cal = useProgressCalendar(view, anchor);
   const recent = sessions.slice(0, HISTORY_ROWS);
   const onSelected = selected ? sessions.filter((s) => s.day === selected) : [];
@@ -66,6 +69,8 @@ export default function ProgressScreen() {
     setAnchor(shiftAnchor(anchor, view, by));
     setSelected(null);
   };
+  const toggle = (row: string) => setOpenRow(openRow === row ? null : row);
+  const showExercise = (id: string) => router.push({ pathname: '/exercise/[id]', params: { id } });
   const openMonth = (month: ISODate) => {
     setView('month');
     setAnchor(month);
@@ -136,7 +141,16 @@ export default function ProgressScreen() {
           <Card>
             {onSelected.length ? (
               // Each row already starts with the date.
-              onSelected.map((s, i) => <SessionRow key={s.id} session={s} divider={i < onSelected.length - 1} />)
+              onSelected.map((s, i) => (
+                <SessionRow
+                  key={s.id}
+                  session={s}
+                  open={openRow === `day:${s.id}`}
+                  onToggle={() => toggle(`day:${s.id}`)}
+                  onExercise={showExercise}
+                  divider={i < onSelected.length - 1}
+                />
+              ))
             ) : (
               <View style={styles.dayEmpty}>
                 <AppText variant="headline">{formatDay(selected, lang)}</AppText>
@@ -155,7 +169,14 @@ export default function ProgressScreen() {
       {recent.length ? (
         <Card>
           {recent.map((s, i) => (
-            <SessionRow key={s.id} session={s} divider={i < recent.length - 1} />
+            <SessionRow
+              key={s.id}
+              session={s}
+              open={openRow === `history:${s.id}`}
+              onToggle={() => toggle(`history:${s.id}`)}
+              onExercise={showExercise}
+              divider={i < recent.length - 1}
+            />
           ))}
         </Card>
       ) : (

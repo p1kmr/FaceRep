@@ -149,7 +149,8 @@ stays at a top:
   hold (tap one for the exercise page). A done day is green ("Done", a check, a soft green head; no fading or
   strikethrough, so it stays easy to read) and opens to what was done that date, each with a check
   (`weekDone`, from the saved workouts, not the plan: it may have been saved through the Coach, or another focus area
-  then; no reps, they aren't saved). Under the days: what the next week changes, when it changes something
+  then; no reps: a date can have several workouts, History on Progress shows each one's). Under the days: what the
+  next week changes, when it changes something
   ("Week 4: Holds 1 second longer"), and that a new day comes the day after a workout. Only this week, never a total.
   Without Premium a day after the free ones is locked ("Premium" in its head, a lock): open, it names one free
   exercise (tap for its page) and shows the others as "Premium exercise" on the locked card (tap: the paywall),
@@ -238,6 +239,12 @@ paging (never into the future, never before the first workout). `hooks/useProgre
 Year: 12 small months like Elowa's Year view, a red dot on every training day and the number of training days per month;
 tap a month to open it. No calendar library (Elowa uses react-native-calendars for its scrolling month list; FaceRep's
 calendar sits inside the scrolling Progress page, so it pages with ‹ › instead).
+
+**History** (under the calendar, and the day tapped in Month): each saved workout as a row with its date, exercises,
+minutes and reps (`components/progress/SessionRow.tsx`). Tap one to see what was done, one open at a time as on the week
+page: each exercise with the reps it did and a check (tap one for its page; a Premium one shows locked without
+Premium). The reps come from `session_exercises.reps`, read with each workout as "id:reps" so they can't come apart
+from their exercise (`services/progress/sessionRows.ts`, tested); the hold isn't saved, so it isn't shown.
 
 ## Floating Coach button (same as Elowa's Ask button)
 `components/coach/AskBubble.tsx`, rendered once in the root layout over every main screen (hidden on the Coach itself,

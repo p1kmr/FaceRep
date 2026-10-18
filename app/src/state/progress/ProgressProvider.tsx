@@ -43,6 +43,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       durationSec: result.durationSec,
       totalReps: result.totalReps,
       exerciseIds: result.exercises.map((e) => e.id),
+      exerciseReps: result.exercises.map((e) => e.reps),
       kind,
       // Ended before half of it was done: saved, but the day waits.
       ...(kind === 'routine' && !countsAsDay(result) ? { short: true } : {}),
@@ -65,6 +66,7 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
       durationSec: w.durationSec,
       totalReps: w.items.reduce((sum, i) => sum + i.reps, 0),
       exerciseIds: w.items.map((i) => i.id),
+      exerciseReps: w.items.map((i) => i.reps),
       kind: w.items.length > 1 ? 'routine' : 'single',
       logged: true,
     };

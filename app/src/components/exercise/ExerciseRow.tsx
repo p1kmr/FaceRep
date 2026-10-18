@@ -21,7 +21,9 @@ interface ExerciseRowProps {
   /** This session's reps and hold (a plan day); the catalog values otherwise. */
   reps?: number;
   holdSec?: number;
-  /** A workout done before: its reps aren't saved, so only the muscle. */
+  /** A workout done before: the reps it did (its hold isn't saved). */
+  repsDone?: number;
+  /** A workout done before, without its reps (a date of the week page can have several workouts): only the muscle. */
   hideReps?: boolean;
 }
 
@@ -29,8 +31,8 @@ interface ExerciseRowProps {
  * Thumbnail, name, main muscle and reps × hold. A locked exercise (Premium, or not on this iPhone yet) shows only that
  * it's a Premium exercise and its program, on the locked card (LockedPicture): its name and picture aren't in the app.
  */
-export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, hideReps }: ExerciseRowProps) {
-  const { t } = useTranslation(['exercises', 'common']);
+export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, repsDone, hideReps }: ExerciseRowProps) {
+  const { t } = useTranslation(['exercises', 'common', 'progress']);
   const { colors } = useTheme();
   const styles = useStyles();
   const images = useGuideImages();
@@ -62,7 +64,11 @@ export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, hideRep
   }
   const name = t(`exercises:items.${e.key}.name`);
   const muscle = t(`exercises:muscles.${e.muscles[0]}`);
-  const meta = hideReps ? muscle : `${muscle} · ${t('common:reps', { reps: reps ?? e.reps, hold: holdSec ?? e.holdSec })}`;
+  const meta = hideReps
+    ? muscle
+    : repsDone !== undefined
+      ? `${muscle} · ${t('progress:repsCount', { count: repsDone })}`
+      : `${muscle} · ${t('common:reps', { reps: reps ?? e.reps, hold: holdSec ?? e.holdSec })}`;
   return (
     <Pressable
       onPress={onPress}

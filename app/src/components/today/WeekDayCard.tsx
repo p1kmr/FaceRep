@@ -33,9 +33,9 @@ interface WeekDayCardProps {
  * One day of this week: "Day 4" with the areas it works and its minutes; open, its exercises at that day's reps and
  * hold (today's with its Start button). A done day is green ("Done" and a check, on a soft green head; no fading or
  * strikethrough, it stays easy to read) and opens to what was done that date, each with a check (from the saved
- * workout, so a workout saved through the Coach shows as it was; its reps aren't saved). Without Premium a day after
- * the free ones is locked ("Premium" and a lock): open, it names one free exercise and shows the others locked
- * (ExerciseRow), with Unlock.
+ * workout, so a workout saved through the Coach shows as it was; no reps, a date can have several workouts: History on
+ * Progress shows each one's). Without Premium a day after the free ones is locked ("Premium" and a lock): open, it
+ * names one free exercise and shows the others locked (ExerciseRow), with Unlock.
  */
 export function WeekDayCard({ day, goal, open, onToggle, onExercise, onStart, onUnlock }: WeekDayCardProps) {
   const { t } = useTranslation(['home', 'common', 'exercises']);

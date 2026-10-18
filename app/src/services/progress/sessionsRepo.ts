@@ -1,37 +1,13 @@
-import { isExerciseId, type ExerciseId } from '@/constants/exercises';
+import type { ExerciseId } from '@/constants/exercises';
 import { getDatabase } from '@/services/db/database';
 
+import { toSummary, type SessionRow } from './sessionRows';
 import type { SessionSummary } from './stats';
 
-interface SessionRow {
-  id: string;
-  day: string;
-  finished_at: string;
-  duration_sec: number;
-  total_reps: number;
-  kind: string;
-  exercise_ids: string | null;
-}
-
+// Each exercise as "id:reps" in one list, so the reps can't come apart from their exercise.
 const LIST = `SELECT s.id, s.day, s.finished_at, s.duration_sec, s.total_reps, s.kind,
-    (SELECT group_concat(exercise_id, ',') FROM (SELECT exercise_id FROM session_exercises WHERE session_id = s.id ORDER BY position)) AS exercise_ids
+    (SELECT group_concat(exercise_id || ':' || reps, ',') FROM (SELECT exercise_id, reps FROM session_exercises WHERE session_id = s.id ORDER BY position)) AS exercises
   FROM sessions s ORDER BY s.finished_at DESC LIMIT ?`;
-
-function toSummary(row: SessionRow): SessionSummary {
-  return {
-    id: row.id,
-    day: row.day,
-    finishedAt: row.finished_at,
-    durationSec: row.duration_sec,
-    totalReps: row.total_reps,
-    exerciseIds: (row.exercise_ids ?? '').split(',').filter(isExerciseId),
-    kind: row.kind === 'single' ? 'single' : 'routine',
-    // A workout saved from the Coach is stored with kind 'logged', Today's workout ended short with 'short' (no
-    // migration: kind is free text).
-    ...(row.kind === 'logged' ? { logged: true } : {}),
-    ...(row.kind === 'short' ? { short: true } : {}),
-  };
-}
 
 /** Most recent first. A year of daily workouts is ~365 small rows: fine to keep in memory. */
 export async function listSessions(limit = 1000): Promise<SessionSummary[]> {

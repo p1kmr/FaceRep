@@ -52,8 +52,11 @@ export function seedSql({ guide, goal = 'full', onboarded = true, sessions = tru
       const id = `demo-${n}`;
       const ids = Array.from({ length: 5 }, (_, i) => all[((n - 1) * 5 + i) % all.length]);
       const minutes = MINUTES[(n - 1) % MINUTES.length];
-      lines.push(`INSERT OR REPLACE INTO sessions (id, day, finished_at, duration_sec, total_reps, kind) VALUES (${q(id)}, ${q(day)}, ${q(`${day}T07:${String(minutes).padStart(2, '0')}:00.000Z`)}, ${300 + n * 20}, ${30 + n * 3}, 'routine');`);
-      ids.forEach((ex, i) => lines.push(`INSERT OR REPLACE INTO session_exercises (session_id, position, exercise_id, reps) VALUES (${q(id)}, ${i}, ${q(ex)}, 8);`));
+      // The workout's reps, shared out over its exercises so they add up (History shows each exercise's reps).
+      const total = 30 + n * 3;
+      const reps = (i) => Math.floor(total / ids.length) + (i < total % ids.length ? 1 : 0);
+      lines.push(`INSERT OR REPLACE INTO sessions (id, day, finished_at, duration_sec, total_reps, kind) VALUES (${q(id)}, ${q(day)}, ${q(`${day}T07:${String(minutes).padStart(2, '0')}:00.000Z`)}, ${300 + n * 20}, ${total}, 'routine');`);
+      ids.forEach((ex, i) => lines.push(`INSERT OR REPLACE INTO session_exercises (session_id, position, exercise_id, reps) VALUES (${q(id)}, ${i}, ${q(ex)}, ${reps(i)});`));
     }
   }
   return lines.join('\n');
