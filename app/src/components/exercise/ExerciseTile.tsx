@@ -21,7 +21,7 @@ interface ExerciseTileProps {
 
 /**
  * A grid tile: the exercise drawing (muscle in red), name, main muscle and reps × hold. A locked one (Premium, or not
- * on this iPhone yet) shows a blurred stand-in with a lock and only "Premium exercise" and its area.
+ * on this iPhone yet) shows the locked card (LockedPicture) and only "Premium exercise" and its program.
  */
 export function ExerciseTile({ id, onPress, done }: ExerciseTileProps) {
   const { t } = useTranslation(['exercises', 'common']);
@@ -40,7 +40,7 @@ export function ExerciseTile({ id, onPress, done }: ExerciseTileProps) {
         accessibilityLabel={`${title}, ${meta}`}
         style={({ pressed }) => [styles.tile, pressed && styles.pressed]}
       >
-        <LockedPicture id={id} lock={lock} kind="exercise" iconSize={18} style={styles.picture} />
+        <LockedPicture lock={lock} kind="exercise" iconSize={18} style={styles.picture} />
         <View style={styles.text}>
           <AppText variant="headline" muted numberOfLines={1} style={styles.name}>
             {title}

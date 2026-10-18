@@ -44,15 +44,16 @@ iPhone app ── purchase/restore (react-native-purchases, public appl_ key) �
 Rules
 - `isPremium` is only written from RevenueCat results.
 - Without a RevenueCat key (web, Expo Go) everything works, as Free.
-- **(FaceRep)** Free: **days 1 to 3 of the weekly workouts** (`WEEKS.freeDays`), made from the free exercises (`FREE_EXERCISE_IDS`: one or two per area, none that loads the jaw), those exercises on their own in the library, streaks and progress, 3 Coach answers a month. From day 4 the weeks need Premium: a locked day names one of its free exercises and shows the others blurred. Premium: **every day and every exercise**, in the weeks and in the library, and **unlimited AI Coach answers** (the Worker's `LIMITS` stop only abuse: 100 a day per app ID, far beyond normal use; the Terms mention fair use, the app never shows the number). The app says "Days 1 to 3 are free", never "trial".
+- **(FaceRep)** Free: **days 1 to 3 of the weekly workouts** (`WEEKS.freeDays`), made from the free exercises (`FREE_EXERCISE_IDS`: one or two per area, none that loads the jaw), those exercises on their own in the library, streaks and progress, 3 Coach answers a month. From day 4 the weeks need Premium: a locked day names one of its free exercises and shows the others locked. Premium: **every day and every exercise**, in the weeks and in the library, and **unlimited AI Coach answers** (the Worker's `LIMITS` stop only abuse: 100 a day per app ID, far beyond normal use; the Terms mention fair use, the app never shows the number). The app says "Days 1 to 3 are free", never "trial".
 - `FREE_LIMITS.aiPerMonth = 3` (`constants/limits.ts`), refilled on the 1st. The app's count is for display and to open the paywall early; the Worker is the authority. A 402 `freeUsed` syncs the app to "all used".
 - **(FaceRep)** AI consent (guideline 5.1.2(i)) comes before the first question, and the paywall also says the Coach uses Cloudflare Workers AI, so nobody pays before knowing where questions go.
 
 ## 2b. Premium exercises come only from the Worker
 The Premium exercises' texts (every language), drawings and clips are **not in the app**: a patched app that flips
 `isPremium` gets their IDs and reps (the weeks need them) but no name, step, picture or video. Free users see them only
-as "Premium exercise" with their area and a blurred stand-in (a free exercise's picture, `standInFor`), never their
-muscles either (a muscle like "Tongue posture" would name the exercise). The Coach names only the free ones to them.
+as "Premium exercise" with their area on the locked card (`LockedPicture`: the app's mark and a lock, the same for
+every one; a free exercise's picture blurred in their place made them look like copies of it), never their muscles
+either (a muscle like "Tongue posture" would name the exercise). The Coach names only the free ones to them.
 
 | Step | Where |
 |---|---|

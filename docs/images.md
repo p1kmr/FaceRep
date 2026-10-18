@@ -5,8 +5,9 @@ weekday: the weeks only pick exercise IDs, and the same exercise comes back in m
 
 ```
 app/assets/
-  brand/                         icon.png, icon-dark.png, icon-tinted.png, splash-icon.png, favicon.png (all made by
-                                 brand/logo.mjs, see brand/README.md), welcome.webp (first screen, before the choice)
+  brand/                         icon.png, icon-dark.png, icon-tinted.png, splash-icon.png, favicon.png, mark.png (all
+                                 made by brand/logo.mjs, see brand/README.md; mark.png is on the locked Premium card),
+                                 welcome.webp (first screen, before the choice)
   guides/
     man/
       hero/                      home.webp (1200×675), paywall.webp (762×1024)

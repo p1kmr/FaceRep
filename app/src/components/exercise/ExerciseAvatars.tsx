@@ -11,7 +11,7 @@ import { LockedPicture } from './LockedPicture';
 
 /**
  * Up to five exercise thumbnails as overlapping circles, then "+n" (Today's card, the Coach's workout cards). A locked
- * one is a blurred stand-in (LockedPicture), never its own picture.
+ * one is the locked card (LockedPicture: the app's mark), never its own picture.
  */
 export function ExerciseAvatars({ ids }: { ids: readonly ExerciseId[] }) {
   const styles = useStyles();
@@ -23,7 +23,7 @@ export function ExerciseAvatars({ ids }: { ids: readonly ExerciseId[] }) {
       {shown.map((id, i) => {
         const lock = lockOf(id);
         return lock ? (
-          <LockedPicture key={id} id={id} lock={lock} iconSize={0} style={[styles.avatar, i > 0 && styles.overlap]} />
+          <LockedPicture key={id} lock={lock} iconSize={0} style={[styles.avatar, i > 0 && styles.overlap]} />
         ) : (
           <Image key={id} source={images.exercises[id]?.thumb} style={[styles.avatar, i > 0 && styles.overlap]} contentFit="cover" />
         );

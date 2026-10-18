@@ -130,7 +130,7 @@ stays at a top:
   (massage last).
 - **Days 1 to 3 are free** (`WEEKS.freeDays`, `isFreeDay`): without Premium they are made from the free exercises
   (`FREE_EXERCISE_IDS`, none loads the jaw). A later day is made as Premium makes it (`dayAllowed`) and shows locked:
-  the Today card names its first free exercise (`previewOf`), shows the others blurred and has "Unlock Day 4"; the
+  the Today card names its first free exercise (`previewOf`), shows the others locked and has "Unlock Day 4"; the
   workout screen opens the paywall instead. Week 1's easy day has no free exercise, so it shows all of them hidden.
   After the last free day the done line says "Day 3 done. Day 4 comes with Premium." The free exercises stay in the
   library to do on their own.
@@ -152,7 +152,7 @@ stays at a top:
   then; no reps, they aren't saved). Under the days: what the next week changes, when it changes something
   ("Week 4: Holds 1 second longer"), and that a new day comes the day after a workout. Only this week, never a total.
   Without Premium a day after the free ones is locked ("Premium" in its head, a lock): open, it names one free
-  exercise (tap for its page) and shows the others as "Premium exercise" with a blurred picture (tap: the paywall),
+  exercise (tap for its page) and shows the others as "Premium exercise" on the locked card (tap: the paywall),
   with "Unlock Day 5"; under the days, "Days 1 to 3 are free. Premium unlocks every day after them."
 - **Nothing is sent:** the weeks are worked out on the iPhone from the saved workouts. The Worker has no plan endpoint.
   It only sends the Premium exercises themselves (below), which the weeks then use.
@@ -171,8 +171,11 @@ after its RevenueCat check and are kept in Caches (docs/premium.md §2b has the 
   the user has Premium (after a purchase or restore, for another guide, on Try again).
 - `useGuideImages()` adds the Premium pictures that are on the device; `useExerciseAccess()` tells a screen whether it
   may show an exercise (`canUse`) or why it shows locked (`lockOf`: premium, downloading, failed). `ExerciseRow`,
-  `ExerciseTile`, `ExerciseAvatars` and the exercise page draw a locked one as "Premium exercise" with its program and a
-  blurred stand-in (`LockedPicture`, a free exercise of the same area): never its name, picture, muscles or steps.
+  `ExerciseTile`, `ExerciseAvatars` and the exercise page draw a locked one as "Premium exercise" with its program on
+  the locked card (`LockedPicture`): the app's mark (`assets/brand/mark.png`, made by brand/logo.mjs) and a lock on the
+  dark icon's graphite (`locked` → `lockedEnd`), the same for every locked exercise and in both themes. Never its name,
+  picture, muscles or steps, and never another exercise's picture in its place: a free one's, blurred (until Oct
+  2026), made the locked ones look like copies of the free exercise next to them, as if Premium had nothing new.
 - With Premium, until today's exercises are on the iPhone the Today card shows the download's progress (or Try again)
   instead of Start.
 

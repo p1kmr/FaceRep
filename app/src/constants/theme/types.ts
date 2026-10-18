@@ -32,6 +32,9 @@ export interface Palette {
   /** Second accent (time, minutes) and its soft background. */
   info: string;
   infoSoft: string;
+  /** A locked Premium exercise's card, top to bottom, under the app's mark (same in both themes: the dark icon's graphite). */
+  locked: string;
+  lockedEnd: string;
   /** Behind and on top of the dark hero photos (same in both themes: the photos are dark). */
   heroBackground: string;
   onImage: string;

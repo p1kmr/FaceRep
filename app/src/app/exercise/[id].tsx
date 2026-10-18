@@ -48,7 +48,7 @@ function LockedExercise({ id, lock }: { id: ExerciseId; lock: ExerciseLock }) {
     );
   return (
     <Screen edges={['bottom']} footer={footer}>
-      <LockedPicture id={id} lock={lock} kind="exercise" iconSize={28} style={styles.lockedPicture} />
+      <LockedPicture lock={lock} kind="exercise" iconSize={28} style={styles.lockedPicture} />
       <View style={styles.titles}>
         <AppText variant="caption" style={styles.program}>
           {t(`common:programs.${e.program}`).toUpperCase()}

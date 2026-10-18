@@ -135,7 +135,7 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
 
 ## 1c. Next build: days 1–3 free, Premium exercises only from the Worker
 The next build (13) changes what's free and where the Premium exercises come from (docs/premium.md §2b): days 1 to 3
-are free; from day 4 the weeks need Premium (a locked day names one free exercise, the others are blurred); the Premium
+are free; from day 4 the weeks need Premium (a locked day names one free exercise, the others are locked); the Premium
 exercises' texts, drawings and clips are no longer in the app, the Worker sends them after its RevenueCat check.
 - [ ] **Owner: deploy the Worker as soon as build 13 is on TestFlight**, the same day: build 13 gets its Premium
       exercises only from `POST /content`, which the deployed Worker doesn't have yet. In `worker/`: `npm install`, then

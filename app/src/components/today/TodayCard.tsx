@@ -40,7 +40,7 @@ const MAP_ASPECT = 720 / 974;
  * Today's workout as the hero: where it is in the weeks ("Week 6 · Day 3", never a total), the face with the areas it
  * works lit in red (tap one to learn about it; tap "Week · Day" for the whole week), the areas as the title with the
  * week's step under them, the exercises and one big button. Without Premium it says that more exercises come with it,
- * and a day after the free ones is locked: its free exercise shows, the others are blurred, and the button unlocks.
+ * and a day after the free ones is locked: its free exercise shows, the others are locked, and the button unlocks.
  * With Premium, until the Premium exercises are on the iPhone, it shows the download instead of Start.
  */
 export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek, onArea }: TodayCardProps) {

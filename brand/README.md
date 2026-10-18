@@ -22,6 +22,7 @@ It writes:
 | `brand/svg/icon*.svg` | Vector versions of the three icons |
 | `brand/svg/layer-background.svg`, `layer-glyph.svg` | Layers for Apple's Icon Composer (Liquid Glass) |
 | `brand/svg/mark-red.svg` | The mark alone in brand red, for light backgrounds (web pages, documents) |
+| `brand/svg/mark-hot.svg`, `app/assets/brand/mark.png` | The mark alone in the dark icon's colors on transparent (the PNG cut to its edges): the app's locked Premium card (`LockedPicture`) |
 
 ## Rules
 - **A new icon needs a new build.** The App Store shows the icon from the binary; after Submit it can only change

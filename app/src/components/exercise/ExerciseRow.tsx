@@ -27,7 +27,7 @@ interface ExerciseRowProps {
 
 /**
  * Thumbnail, name, main muscle and reps × hold. A locked exercise (Premium, or not on this iPhone yet) shows only that
- * it's a Premium exercise and its area, with a blurred stand-in picture: its name and picture aren't in the app.
+ * it's a Premium exercise and its program, on the locked card (LockedPicture): its name and picture aren't in the app.
  */
 export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, hideReps }: ExerciseRowProps) {
   const { t } = useTranslation(['exercises', 'common']);
@@ -47,7 +47,7 @@ export function ExerciseRow({ id, onPress, done, divider, reps, holdSec, hideRep
         accessibilityLabel={`${title}, ${meta}`}
         style={({ pressed }) => [styles.row, divider && styles.divider, pressed && styles.pressed]}
       >
-        <LockedPicture id={id} lock={lock} style={styles.thumb} />
+        <LockedPicture lock={lock} iconSize={9} style={styles.thumb} />
         <View style={styles.text}>
           <AppText variant="headline" muted numberOfLines={1}>
             {title}

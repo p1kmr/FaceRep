@@ -63,6 +63,8 @@ export const SOURCES = {
   'layer-glyph.svg': svg(glyph(WHITE)),
   // The mark alone in brand red, for light backgrounds (web pages, documents).
   'mark-red.svg': svg(glyph('#E5322D')),
+  // The mark alone in the dark icon's colors, on transparent: the app's locked Premium card (LockedPicture).
+  'mark-hot.svg': svg(glyph('url(#ink)'), hotFill),
 };
 
 /** iOS-like continuous-corner tile (superellipse), used for the splash and favicon. */
@@ -97,5 +99,8 @@ await opaquePng(SOURCES['icon-tinted.svg'], S, path.join(assets, 'icon-tinted.pn
 // Splash (shown on light and dark backgrounds) and web favicon: the rounded tile.
 await tilePng(SOURCES['icon.svg'], S, path.join(assets, 'splash-icon.png'));
 await tilePng(SOURCES['icon.svg'], 48, path.join(assets, 'favicon.png'));
+// The locked Premium card's mark: cut to its edges, transparent around it.
+await sharp(await sharp(Buffer.from(SOURCES['mark-hot.svg'])).png().toBuffer()).trim().png({ compressionLevel: 9 })
+  .toFile(path.join(assets, 'mark.png'));
 
-console.log('Wrote brand/svg/*.svg and app/assets/brand/{icon,icon-dark,icon-tinted,splash-icon,favicon}.png');
+console.log('Wrote brand/svg/*.svg and app/assets/brand/{icon,icon-dark,icon-tinted,splash-icon,favicon,mark}.png');

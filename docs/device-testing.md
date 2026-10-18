@@ -68,8 +68,9 @@ Delete the app first so onboarding and permissions start fresh.
       Spanish (texts, voice, reminder notifications, Coach replies). Check long German words fit (Deutsch).
 - [ ] **Reminders:** add one for 2 minutes from now; the notification arrives; turning it off cancels it.
 - [ ] **Free days and Premium download (sandbox):** without Premium, days 1–3 work; the library shows the Premium
-      exercises only as "Premium exercise" with a blurred picture and a lock (no names). After day 3, Today shows Day 4
-      locked: one exercise named, the others blurred, "Unlock Day 4"; the week page shows days 4–7 the same way. Unlock →
+      exercises only as "Premium exercise" on the dark card with the app's mark and a lock (no names, no pictures).
+      After day 3, Today shows Day 4 locked: one exercise named, the others as that card, "Unlock Day 4"; the week
+      page shows days 4–7 the same way. Unlock →
       buy → Today shows "Getting your Premium exercises… %", then Start; every exercise opens in the library with its
       name, steps and video. Turn on Airplane Mode and force-quit: everything still works. Delete the app, reinstall,
       Restore: the Premium exercises download again. With the Worker unreachable (Wi-Fi off before buying), Today says
