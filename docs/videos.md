@@ -18,7 +18,10 @@ moves over it instead of the other drawing's lid and lashes fading in over the i
 iris slides up instead of two irises blending; when the red highlight changes shape (V Eyes) it spreads from the eye outward
 instead of two red patterns blending. A muscle that bulges as it works must show it: the man's Jaw Clench drawing has it
 bulging out, but the woman's two drawings have the same jaw outline (only the red deepened), so her outline beside the
-muscle is pushed out a little (`swell`, the drawing's own pixels) while it turns red, and goes back on the release. Hands that move (Frown Release, Jawline Sweep) are cut out along outlines traced by hand and
+muscle is pushed out a little (`swell`, the drawing's own pixels) while it turns red, and goes back on the release; her Cheek
+Puff drawing puffs the cheeks out only a little (with her lips pursed, her clip looked like Pout), so her cheeks swell the
+same way. Something that doesn't move but is drawn clearly in only one drawing stays as that drawing in every frame
+(`keep`): her V Eyes middle fingertips beside the nose are faint in her relaxed drawing, so a finger seemed to appear. Hands that move (Frown Release, Jawline Sweep) are cut out along outlines traced by hand and
 slide over the morphing face as solid pieces, so two pairs of hands never show at once. In the side views with a see-through
 window (Mewing, Tongue Press) the head stays and one tongue rises to the palate, its outline changing from the one drawing's to
 the other's. Because every frame is made of the approved drawings, the face, the pencil style and the
@@ -44,7 +47,9 @@ artifact (https://claude.ai/artifact/Nbert5f5PApgezCxiMwWP2) still has the 9:16 
 ## Review list (every clip)
 
 - The movement matches the exercise's steps in the app (`exercises.json`), including what must **not** move
-  (eyebrows in 16, cheeks in 19, shoulders in 02/05/11). In 01 the jaw muscles fill out at the sides, not only turn red.
+  (eyebrows in 16, cheeks in 19, shoulders in 02/05/11). In 01 the jaw muscles fill out at the sides, not only turn red;
+  in 08 the cheeks round out, so it doesn't look like 19; in 04 and 12 the lips stay closed and only the tongue moves.
+- Nothing appears or disappears that doesn't move (23: her fingertips beside the nose).
 - Nothing slides sideways: the hair and shoulders stay where they are (only the head of 05 and 11 moves, on purpose).
 - Same face from start to end; no double face in the middle frames, no smear.
 - **No before/after look**: the face is not smoother, slimmer or "sharper" at the end. If in doubt, reject it.

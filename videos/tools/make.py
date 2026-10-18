@@ -43,12 +43,23 @@ SETTINGS = {
     # deepens; his exercise drawing has the bulge drawn in), so the outline beside the muscle is pushed out by up to
     # px between these page rows (below the earlobe down to the angle of the jaw); measure again if the drawing changes.
     "01-jaw-clench": {"swell": {"woman": {"rows": (662, 774), "px": 8}}},
+    # Her exercise drawing puffs her cheeks out only about 3 px a side (his about 7, with round shading), so with her
+    # lips pursed her Cheek Puff looked like Pout; her cheeks swell too, from below the cheekbone down to the jaw.
+    "08-cheek-puff": {"swell": {"woman": {"rows": (620, 765), "px": 10}}},
     # crossfade: no clip; the app keeps its crossfade (why in the text).
     "02-chin-lift": {"crossfade": "the head tips back, a 3D turn two flat drawings can't show"},
     "03-jaw-jut": {"sharp": 0.08},
     # gaze: the eyes look up in the exercise drawing; one iris slides there instead of two blending.
     "17-lower-lid-lift": {"gaze": True},
-    "23-v-eyes": {"gaze": True, "spread": True},
+    # keep: outlines (page pixels, on the exercise drawing as lined up) of parts that don't move but are drawn clearly
+    # only in the exercise drawing; its pixels inside them stay in every frame. Her middle fingertips at the inner
+    # ends of the eyebrows are faint in her relaxed drawing (part of the pale ring) and solid in the exercise one, so
+    # a finger seemed to appear on every rep and the red spread over it.
+    "23-v-eyes": {"gaze": True, "spread": True, "keep": {"woman": [
+        [(300, 506), (308, 494), (316, 482), (322, 475), (330, 472), (338, 474), (344, 481), (346, 490), (346, 502),
+         (344, 512), (340, 520), (334, 527), (322, 524)],
+        [(426, 506), (416, 494), (406, 482), (398, 475), (390, 472), (382, 474), (376, 481), (373, 490), (373, 502),
+         (375, 512), (379, 520), (385, 527), (398, 522)]]}},
     "11-chin-tuck": {"glide": 0.13},
     "05-neck-stretch": {"tilt": 0.85, "both": True},
     # hands: the hands move; each is cut out along its outline in hands.json and slides as one piece (see hands.py).
@@ -487,11 +498,11 @@ def muscle(A, B, pa, side=None):
 
 
 def swell(B, rows, px):
-    # A muscle that bulges when it works but is drawn bulging in neither drawing (her Jaw Clench). The face outline
-    # beside the red muscle of B is pushed out by up to px, most a little below the middle of rows and not at all at
-    # their ends, so the ear above and the neck below stay. The push fades out over the muscle inward (it fills out)
-    # and outside over three times px of blank page (her hair hangs further out and stays). bulge(img, t) swells img
-    # by t (0-1).
+    # A muscle that bulges when it works but is drawn bulging in neither drawing (her Jaw Clench), or only a little
+    # (her Cheek Puff). The face outline beside the red muscle of B is pushed out by up to px, most a little below the
+    # middle of rows and not at all at their ends, so the ear above and the neck below stay. The push fades out over
+    # the muscle inward (it fills out) and outside over three times px of blank page (her hair hangs further out and
+    # stays). bulge(img, t) swells img by t (0-1).
     g = cv2.cvtColor(B, cv2.COLOR_BGR2GRAY)
     face = cv2.morphologyEx((g < 245).astype(np.uint8), cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9)))
     red = reds(B) > 0.5
@@ -501,14 +512,15 @@ def swell(B, rows, px):
     xs = np.arange(W, dtype=np.float32)
     push = np.zeros((len(ys), W), np.float32)
     for side in (-1, 1):
-        # The outline: from the muscle's outer end out to the page (the opening above leaves out strands of hair),
-        # smoothed along the rows.
+        # The outline: from the muscle's outer end out to the page (the opening above leaves out strands of hair) or
+        # to hair darker than the face's own pencil line (below grey 90; her pencil line is 97 and up, and her bun
+        # touches her cheek), smoothed along the rows.
         at, edge = [], []
         for y in ys:
             cols = np.nonzero(red[y, :W // 2] if side < 0 else red[y, W // 2:])[0]
             if len(cols):
                 x = cols.min() if side < 0 else W // 2 + cols.max()
-                while 0 < x < W - 1 and face[y, x + side]:
+                while 0 < x < W - 1 and face[y, x + side] and g[y, x + side] >= 90:
                     x += side
                 at.append(y)
                 edge.append(x)
@@ -526,6 +538,18 @@ def swell(B, rows, px):
         out[ys[0]:ys[-1] + 1] = cv2.remap(img, mx, my, cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
         return out
     return bulge
+
+
+def keeper(B, outlines):
+    # Parts that don't move but are drawn clearly only in B (her V Eyes fingertips): B's pixels inside the outlines go
+    # on top of every frame, except where B is red (the red around them still spreads as before).
+    mask = np.zeros((H, W), np.uint8)
+    for o in outlines:
+        cv2.fillPoly(mask, [np.int32(np.round(o))], 255)
+    alpha = cv2.GaussianBlur(mask.astype(np.float32) / 255, (0, 0), 1.5)
+    alpha = (alpha * (1 - np.clip(cv2.GaussianBlur(reds(B), (0, 0), 1.5) * 3, 0, 1)))[..., None]
+    top = B.astype(np.float32) * alpha
+    return lambda img: np.clip(img * (1 - alpha) + top, 0, 255).astype(np.uint8)
 
 
 def glider(A, B, pa, glide):
@@ -658,6 +682,9 @@ def main():
                     spec = settings["swell"][guide]
                     morph, bulge = frame, swell(B, spec["rows"], spec["px"])
                     frame = lambda t: bulge(morph(t), t)
+                if guide in settings.get("keep", {}):
+                    moving, keep = frame, keeper(B, settings["keep"][guide])
+                    frame = lambda t: keep(moving(t))
         except NoFace as e:
             print(e)
             stale = os.path.join(VIDEOS, guide, f"{args.id}.mp4")
