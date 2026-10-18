@@ -16,7 +16,9 @@ see-through: Lion Face's tongue is cut out (outline measured by hand)
 and slides out of the mouth solid, and when the eyes close or open wider (Eye Squeeze, Wide Eyes) the more open eye stays still and the lid
 moves over it instead of the other drawing's lid and lashes fading in over the iris; when the eyes look up (Lower Lid Lift) one
 iris slides up instead of two irises blending; when the red highlight changes shape (V Eyes) it spreads from the eye outward
-instead of two red patterns blending. Hands that move (Frown Release, Jawline Sweep) are cut out along outlines traced by hand and
+instead of two red patterns blending. A muscle that bulges as it works must show it: the man's Jaw Clench drawing has it
+bulging out, but the woman's two drawings have the same jaw outline (only the red deepened), so her outline beside the
+muscle is pushed out a little (`swell`, the drawing's own pixels) while it turns red, and goes back on the release. Hands that move (Frown Release, Jawline Sweep) are cut out along outlines traced by hand and
 slide over the morphing face as solid pieces, so two pairs of hands never show at once. In the side views with a see-through
 window (Mewing, Tongue Press) the head stays and one tongue rises to the palate, its outline changing from the one drawing's to
 the other's. Because every frame is made of the approved drawings, the face, the pencil style and the
@@ -42,7 +44,7 @@ artifact (https://claude.ai/artifact/Nbert5f5PApgezCxiMwWP2) still has the 9:16 
 ## Review list (every clip)
 
 - The movement matches the exercise's steps in the app (`exercises.json`), including what must **not** move
-  (eyebrows in 16, cheeks in 19, shoulders in 02/05/11).
+  (eyebrows in 16, cheeks in 19, shoulders in 02/05/11). In 01 the jaw muscles fill out at the sides, not only turn red.
 - Nothing slides sideways: the hair and shoulders stay where they are (only the head of 05 and 11 moves, on purpose).
 - Same face from start to end; no double face in the middle frames, no smear.
 - **No before/after look**: the face is not smoother, slimmer or "sharper" at the end. If in doubt, reject it.

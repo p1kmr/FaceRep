@@ -24,7 +24,7 @@ docs/videos.md, "In the app"): run it, then `npm run images` in `app/`, after re
 
 | Exercise | Man | Woman | Note |
 |---|---|---|---|
-| 01-jaw-clench | ✓ | ✓ | small move by nature: the muscle builds up |
+| 01-jaw-clench | ✓ | ✓ | small move by nature: the muscle builds up. His exercise drawing has it bulging out; her two drawings have the same jaw outline (only the red deepened), so `swell` pushes her outline out beside the muscle (up to 8 px, from below the earlobe to the angle of the jaw) while it turns red |
 | 02-chin-lift | — | — | front view, head tips back (a 3D turn): the morph shows two faces and `tilt` can't turn a flat drawing that way; keeps the app's crossfade |
 | 03-jaw-jut | ✓ | ✓ | side view; `sharp` 0.08 swaps the drawings in a few frames (no double outline) |
 | 04-mewing | ✓ | ✓ | `window`: side view with a see-through window and no face found, and a plain blend showed two tongues. The exercise drawing is lined up onto the relaxed one, the tongue is cut out of both (outlines in `tools/window.json`) and one tongue rises to the palate, its outline paired from the tip, with the red spreading from the tip back. A thin line where his tongue's base lifts off the floor of the mouth shows briefly |
@@ -72,7 +72,7 @@ python3 -m venv .venv
 - `--guide man` makes only one guide. `--preview <dir>` also writes a GIF and a 5-frame contact sheet there.
 - Per-exercise settings are in `SETTINGS` at the top of `make.py` (`sharp` for big pose changes, `glide` / `tilt` for a
   head that slides or tilts, `both` for one rep to each side, `tongue` for a tongue that comes out, `gaze` for eyes that
-  look somewhere else, `spread` for a red highlight that changes shape, `window` for a side view where the tongue moves inside a see-through window, `hands` for hands that move, with `swap` when one guide's hands change shape a lot).
+  look somewhere else, `spread` for a red highlight that changes shape, `window` for a side view where the tongue moves inside a see-through window, `hands` for hands that move, with `swap` when one guide's hands change shape a lot, `swell` for a muscle that bulges as it works but isn't drawn bulging: the rows and the push in page pixels, per guide).
 - Hands that move need their outlines in `tools/hands.json`: per exercise and guide, one entry per hand with a rough
   outline on each drawing in page pixels (720×1280), starting at the fingertip; the tool snaps it onto the drawn edge. An
   arm that runs off the drawing is traced a little past its edge (y 1145), so the cut-out is solid up to the edge.
@@ -87,6 +87,7 @@ python3 -m venv .venv
 ## Check every clip
 
 - The move matches the exercise and what must stay still stays still.
+- Jaw Clench: the jaw muscles fill out at the sides (the cue says they bulge), not only turn red, in both guides.
 - Nothing slides sideways: the hair and shoulders stay where they are (only the head of 05 and 11 moves, on purpose).
 - Same face from start to end; no double face, smear or warped edges (look at the middle frames in the contact sheet).
 - The face is not slimmer, smoother or sharper at the end.
