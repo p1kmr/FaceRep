@@ -18,6 +18,7 @@ const MEDICAL = 'medical claim (1.4.1)';
 const PROOF = 'proof claim nobody can back up (2.3.1)';
 const RESULTS = 'question or promise about seeing results (2.3.1)';
 const KIDS = '"for kids" is reserved for the Kids Category (2.3.8)';
+const LOOKS = 'looks or attractiveness rating: the face scan reads movement only (1.4.1, 2.3.1; docs/face-scan.md)';
 
 /** Checked in every language: other platforms (2.3.10) and rank claims. */
 const ANY = [
@@ -36,6 +37,7 @@ const CLAIMS = {
     rule(/\b(best (app|face|jawline|workout))\b/, PROOF),
     rule(/\bsee\b[^.?!]{0,20}\bresults?\b|\b(results?|difference) (in|within) (just )?\d+ (days?|weeks?)\b/, RESULTS),
     rule(/\bfor (kids|children)\b/, KIDS),
+    rule(/\b(attractive(ness)?|beauty (score|rating)|looks? (score|rating)|rate (your|my) (face|looks)|face (rating|score)|golden ratio|symmetry score|facial harmony|looksmax\w*)\b/, LOOKS),
   ],
   es: [
     rule(/\b(más joven|rejuvenec\w*|antiedad|antiarrugas|adelgaz\w*|más definid[oa]s?)\b/, RESULT),
@@ -44,6 +46,7 @@ const CLAIMS = {
     rule(/\b(garantiz\w*|clínicamente|científicamente|probad[oa] científicamente)\b/, PROOF),
     rule(/\bver resultados\b/, RESULTS),
     rule(/\bpara niños\b/, KIDS),
+    rule(/\b(atractiv[oa]s?|puntuaci[oó]n de belleza|nota de belleza|proporci[oó]n [aá]urea|armon[ií]a facial)\b/, LOOKS),
   ],
   'pt-BR': [
     rule(/\b(mais jovem|rejuvenesc\w*|antienvelhecimento|antirrugas|emagrec\w*|mais definid[oa]s?)\b/, RESULT),
@@ -52,6 +55,7 @@ const CLAIMS = {
     rule(/\b(garant\w*|clinicamente|cientificamente|comprovad[oa]s?)\b/, PROOF),
     rule(/\bver resultados\b/, RESULTS),
     rule(/\bpara crianças\b/, KIDS),
+    rule(/\b(atraente|nota de beleza|propor[cç][aã]o [aá]urea|harmonia facial)\b/, LOOKS),
   ],
   de: [
     rule(/\b(jünger\w*|straffer\w*|schlanker\w*|markanter\w*|definierter\w*|vollere lippen|faltenfrei)\b/, RESULT),
@@ -60,6 +64,7 @@ const CLAIMS = {
     rule(/\b(garantiert|klinisch|wissenschaftlich (bewiesen|belegt)|nachweislich)\b/, PROOF),
     rule(/\bseh\w*\b[^.?!]{0,15}\bergebnisse?\b/, RESULTS),
     rule(/\bfür kinder\b/, KIDS),
+    rule(/\b(attraktiv\w*|schönheits(score|bewertung|note)|goldene[nr]? schnitt\w*|gesichtsharmonie)\b/, LOOKS),
   ],
   fr: [
     rule(/\b(plus jeune|rajeuni\w*|antiâge|anti-âge|antirides|amincir|plus nette|plus défini\w*|plus pulpeuses?)\b/, RESULT),
@@ -68,6 +73,7 @@ const CLAIMS = {
     rule(/\b(garanti\w*|cliniquement|scientifiquement|prouvé\w*)\b/, PROOF),
     rule(/\bvoir des résultats\b/, RESULTS),
     rule(/\bpour (les )?enfants\b/, KIDS),
+    rule(/\b(attirant\w*|séduisant\w*|note de beauté|nombre d['’]or|harmonie du visage)\b/, LOOKS),
   ],
   it: [
     rule(/\b(più giovane|ringiovan\w*|antietà|anti-età|antirughe|snell\w*|più definit[oa])\b/, RESULT),
@@ -76,6 +82,7 @@ const CLAIMS = {
     rule(/\b(garantit\w*|clinicamente|scientificamente|dimostrat\w*)\b/, PROOF),
     rule(/\bvedere (i )?risultati\b/, RESULTS),
     rule(/\bper bambini\b/, KIDS),
+    rule(/\b(attraent[ei]|punteggio di bellezza|sezione aurea|armonia del viso)\b/, LOOKS),
   ],
 };
 
@@ -245,6 +252,10 @@ function check() {
     for (const id of premium) {
       if (items[keyOf(id)]) problems.push(`app/src/i18n/locales/${lang}/exercises.json has the Premium exercise "${keyOf(id)}": its texts belong in ${PREMIUM_LOCALES}`);
     }
+  }
+  // The free face scans the app gives are the ones the Terms promise (2.3.1, 3.1.2).
+  if (number('app/src/constants/limits.ts', /scans:\s*(\d+)/) !== number('worker/src/pages.js', /FREE_SCANS\s*=\s*(\d+)/)) {
+    problems.push('FREE_LIMITS.scans (app/src/constants/limits.ts) differs from FREE_SCANS in the Terms (worker/src/pages.js)');
   }
   // The free days the app gives are the ones the Terms promise (2.3.1).
   if (number('app/src/constants/weeks.ts', /freeDays:\s*(\d+)/) !== number('worker/src/pages.js', /FREE_DAYS\s*=\s*(\d+)/)) {

@@ -30,6 +30,7 @@ const BENEFITS: { key: string; icon: SymbolViewProps['name'] }[] = [
   { key: 'exercises', icon: 'square.grid.2x2.fill' },
   { key: 'weeks', icon: 'calendar' },
   { key: 'coach', icon: 'sparkles' },
+  { key: 'scans', icon: 'faceid' },
 ];
 
 /**

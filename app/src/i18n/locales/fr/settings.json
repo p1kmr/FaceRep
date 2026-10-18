@@ -17,6 +17,8 @@
   "voiceCuesHint": "Annonce « Contracte », « Relâche » et l'exercice suivant, pour que tu puisses suivre les yeux fermés.",
   "moveCheck": "Suivi du mouvement dans le miroir",
   "moveCheckHint": "Indique quand la caméra voit le mouvement de l'exercice. Tout se passe sur ton iPhone : rien n'est enregistré, sauvegardé ni envoyé.",
+  "scanPhotos": "Photos du scan du visage",
+  "scanPhotosHint": "Une photo à chaque scan, seulement sur cet iPhone",
   "theme": {
     "title": "Thème",
     "system": "Système",
@@ -42,7 +44,7 @@
   "delete": {
     "row": "Supprimer toutes les données",
     "title": "Supprimer toutes les données ?",
-    "body": "Tes séances, ta discussion et tes réglages seront supprimés de cet iPhone. Ton abonnement n'est pas concerné.",
+    "body": "Tes séances, ta discussion, tes scans du visage avec leurs photos et tes réglages seront supprimés de cet iPhone. Ton abonnement n'est pas concerné.",
     "confirm": "Supprimer"
   },
   "deleted": "Toutes les données ont été supprimées",

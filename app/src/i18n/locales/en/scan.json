@@ -1,0 +1,155 @@
+{
+  "title": "Face scan",
+  "intro": {
+    "body": "About 30 seconds, 6 moves. See how far your face moves and how evenly both sides move.",
+    "light": "Face a window or a lamp, hair off your forehead.",
+    "hold": "Hold your iPhone at eye level, about a forearm away.",
+    "private": "The scan runs on this iPhone. Nothing is sent.",
+    "start": "Start scan",
+    "freeLeft_one": "{{count}} free scan left",
+    "freeLeft_other": "{{count}} free scans left",
+    "note": "It reads movement, not face shape or looks. Not a medical test."
+  },
+  "photo": {
+    "askTitle": "Save a progress photo?",
+    "askBody": "{{app}} can take one photo of your relaxed face at the start of each scan, so you can compare over time. It stays in {{app}} on this iPhone: never uploaded and not in backups. Delete it anytime.",
+    "yes": "Save photos",
+    "no": "No thanks",
+    "toggle": "Save a progress photo",
+    "toggleHint": "Only in {{app}} on this iPhone",
+    "saved": "Photo saved on this iPhone"
+  },
+  "steps": {
+    "rest": {
+      "title": "Relax your face",
+      "hint": "Lips together, eyes on the screen"
+    },
+    "browRaise": {
+      "title": "Raise your eyebrows",
+      "hint": "As high as you can"
+    },
+    "eyeSquint": {
+      "title": "Squint your eyes",
+      "hint": "Narrow them, keep looking at the screen"
+    },
+    "smile": {
+      "title": "Big smile",
+      "hint": "Wide, show your teeth"
+    },
+    "lipPucker": {
+      "title": "Pucker your lips",
+      "hint": "Push them forward, like a kiss"
+    },
+    "mouthOpen": {
+      "title": "Open your mouth",
+      "hint": "As wide as is comfortable. Don't force it."
+    },
+    "cheekPuff": {
+      "title": "Puff your cheeks",
+      "hint": "Fill them with air, lips closed"
+    }
+  },
+  "moves": {
+    "browRaise": "Brow raise",
+    "eyeSquint": "Eye squint",
+    "smile": "Smile",
+    "lipPucker": "Lip pucker",
+    "mouthOpen": "Mouth open",
+    "cheekPuff": "Cheek puff"
+  },
+  "status": {
+    "find": "Looking for your face…",
+    "noFace": "Face not in view",
+    "turned": "Look straight at the screen",
+    "tooFar": "Move a little closer",
+    "tooClose": "Hold the iPhone a bit farther away",
+    "ready": "Get ready",
+    "hold": "Hold it…",
+    "relax": "Relax",
+    "done": "Done!",
+    "saving": "Saving…"
+  },
+  "stepOf": "Step {{step}} of {{count}}",
+  "cancel": "Stop the scan",
+  "simulator": "Simulator: a pretend face does the moves",
+  "noCamera": {
+    "title": "Camera needed",
+    "body": "Allow camera access for {{app}} in the Settings app to scan your face.",
+    "open": "Open Settings",
+    "cancel": "Not now"
+  },
+  "failed": {
+    "title": "The camera stopped",
+    "body": "The front camera couldn't start. Try again in a moment. (Error {{code}})",
+    "retry": "Try again",
+    "close": "Close"
+  },
+  "noTracking": {
+    "title": "Face tracking isn't working",
+    "body": "The face scan uses the front TrueDepth camera, the same one as Face ID. If Face ID doesn't work on this iPhone, the scan can't run on it either. (Error {{code}})"
+  },
+  "tooFew": {
+    "title": "Not enough moves read",
+    "body": "Try again with more light on your face, looking straight at the screen.",
+    "retry": "Try again",
+    "close": "Close"
+  },
+  "result": {
+    "movement": "Movement",
+    "balance": "Balance",
+    "movementHint": "How far your face moves",
+    "balanceHint": "Left and right side alike",
+    "first": "Your first scan: this is your starting point. Scan again in about a week, in the same light.",
+    "since": "{{change}} since {{date}}",
+    "same": "Same as {{date}}",
+    "moves": "Moves",
+    "sides": "Left {{left}} · Right {{right}}",
+    "notRead": "Not read this time",
+    "smallest": "Smallest move",
+    "practice": "Exercises for this area",
+    "photo": "Photo saved on this iPhone",
+    "how": "How it's measured",
+    "howBody": "Apple's face tracking on this iPhone reads how far each part of your face moves while you hold each move, compared with your own relaxed face. 100 is a big, full move. Movement is the average of the six moves. Balance compares your left and right side in the brow raise, eye squint and smile (100: both moved the same). Light, distance and effort change the numbers a little, so scan the same way each time. It reads movement only, not face shape, looks or age. Not a medical test.",
+    "done": "Done",
+    "delete": "Delete scan",
+    "deleteTitle": "Delete this scan?",
+    "deleteBody": "Its numbers and photo are deleted from this iPhone. It still counts as one of your free scans.",
+    "deleteConfirm": "Delete",
+    "notFound": "This scan was deleted."
+  },
+  "card": {
+    "emptyTitle": "Face scan",
+    "emptyBody": "30 seconds, 6 moves: see how far your face moves and how evenly both sides move. Everything stays on this iPhone.",
+    "start": "Start your first scan",
+    "new": "New scan",
+    "unlock": "Unlimited scans with Premium",
+    "last": "Last scan {{date}}",
+    "freeLeft_one": "{{count}} free scan left",
+    "freeLeft_other": "{{count}} free scans left",
+    "photos": "Progress photos",
+    "photosCount_one": "{{count}} photo",
+    "photosCount_other": "{{count}} photos",
+    "history": "Show all {{count}} scans",
+    "fewer": "Show fewer",
+    "chartA11y": "Chart of your last {{count}} scans. Latest: Movement {{movement}}, Balance {{balance}}."
+  },
+  "today": {
+    "title": "Face scan",
+    "first": "30 seconds to see how your face moves",
+    "due": "It's been a week: time for your face scan",
+    "start": "Scan"
+  },
+  "photos": {
+    "title": "Progress photos",
+    "first": "First",
+    "latest": "Latest",
+    "empty": "No photos yet. With progress photos on, one is taken at the start of each scan.",
+    "note": "Photos stay in {{app}} on this iPhone. Never uploaded, not in backups. Deleting the app deletes them.",
+    "delete": "Delete photo",
+    "deleteAll": "Delete all photos",
+    "deleteAllTitle": "Delete all progress photos?",
+    "deleteAllBody": "The photos are deleted from this iPhone. Your scans' numbers stay.",
+    "deleteConfirm": "Delete",
+    "close": "Close"
+  }
+}

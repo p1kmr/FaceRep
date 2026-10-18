@@ -82,6 +82,17 @@ Re-check before acting: from the repo root run
   publicly on EU store pages. Until it is declared, App Store Connect marks the **27 EU countries "TRADER_STATUS_NOT_PROVIDED"**,
   and the app is not sold there (Spain, Germany, France, Italy and the rest of the EU). It is an account-wide setting
   (Business → Compliance), shared with Elowa. Don't change it without the owner.
+- **Coach AI: Google Gemini API, decided by the owner on 2026-10-18** (`gemini-3.5-flash-lite`; Workers AI Gemma answers
+  when Gemini fails; worker/README.md). Google's Gemini API terms say it isn't for apps "likely to be accessed by
+  individuals under the age of 18" and FaceRep is rated 13+: the owner accepted that risk. Owner steps:
+  - [x] `GEMINI_API_KEY` secret on `facerep-api` (2026-10-18).
+  - [ ] **Billing on** for the key's Google project (Google AI Studio → the key's project → Billing). Required: the free
+        tier lets Google use the questions to improve its products and isn't allowed for EEA, Swiss and UK users, and
+        the consent screen and privacy page say Google doesn't use them.
+  - [ ] Deploy the Worker (`npm --prefix worker run deploy`), then the AI checks the live Coach.
+  - The consent screen and paywall texts naming Google ship with the next build (build 13).
+- **Cloudflare Workers Paid ($5 a month)** (optional now). Workers AI is only the backup, so its 10,000 free neurons a
+  day are plenty; Workers Paid still lifts the 100,000 requests a day (docs/premium.md).
 
 ## 1. Build 7 and device test (AI builds, owner tests)
 Build 1.0.0 (7) is attached to version 1.0: built from `63d80f7`. It has the App Review fixes of 2026-10-09
@@ -127,7 +138,8 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
       on with no end and are free; Premium is every exercise, which a reviewer sees unlocked in the library and in
       Today's workout right after buying, and the unlimited Coach). Update them when the new build is attached, not
       before (they describe the attached build).
-- [ ] Build 12 (from `ae2eb2a`) is the first with the move check; on an iPhone 11 its mirror stayed black. The next
+- [ ] Build 12 (from `ae2eb2a`) is the first with the move check; on an iPhone 11 its mirror stayed black (cause found
+      2026-10-19: that iPhone's Face ID / TrueDepth camera is broken, so ARKit can't run; not an app bug). The next
       build adds the plain-camera fallback and its log lines, the draggable mirror tile with ×, the month under the week,
       the weeks that never end (no 28-day plan, no exercise counts) and the Anton fix: test the mirror again with
       docs/face-tracking.md §5, and the weeks with docs/device-testing.md.
@@ -155,6 +167,30 @@ exercises' texts, drawings and clips are no longer in the app, the Worker sends 
 - [ ] App Privacy needs no change: the download sends only the random app ID, already declared as User ID (App
       Functionality, not linked).
 
+## 1e. Face scan (added 2026-10-19, goes into build 13; docs/face-scan.md)
+Six guided moves with Apple's face tracking on the iPhone give Movement and Balance, saved on the iPhone with a chart in
+Progress; 3 free scans, then Premium; an optional progress photo that stays on the iPhone (not in backups).
+- [x] Code, tests (engine, scores, Simulator face, state), six languages, camera purpose string, privacy policy and
+      Terms text, review-check (free scans = Terms; looks-rating words banned in all six languages), docs.
+- [x] Tried in the iOS Simulator with the pretend face (2026-10-19, Release build, iPhone 17e): intro and photo
+      question, a full run (ring, steps, photo chip), save, results (rings, change, moves, smallest move), Progress
+      (numbers, chart, history), photos (first vs latest, grid, switch), Settings row, and after 3 scans the paywall.
+- [ ] **Owner: Worker deploy** (`cd worker && npm run deploy`): the privacy policy's "Face data (face scan)" paragraph
+      and the Terms' "3 face scans are free". Must be live before submitting (the app links to them).
+- [ ] **Build 13 has native code for this** (the photo and the camera angle): it can't come as a JS-only update.
+- [ ] **Owner device test** (docs/face-scan.md §5), including the left/right check (squint only the left eye).
+      Best on a development build, so tuning (§6) needs no new build: `npx eas-cli@latest build --profile development
+      --platform ios`, then `npx expo start --dev-client`.
+- [ ] **Tune** `SCAN_MOVES[].full` after 2–3 people's scans (docs/face-scan.md §6). Before launch only: later changes
+      re-score old scans.
+- [ ] **Store text** (owner's OK first): add the face scan to the description and the Premium list in all locales
+      ("3 face scans free", "unlimited face scans"); no looks words.
+- [ ] **Screenshots:** a face scan slide (results with the chart). The results and Progress screens can be captured in
+      the Simulator (`facerep://scan?start=1` runs a pretend scan there); a slide showing the camera screen needs a
+      real iPhone screenshot.
+- [ ] **Review notes:** the new text in docs/launch.md §6 (it covers the face scan and Apple's face-data questions).
+- [ ] App Privacy: no change (scan numbers and photos never leave the iPhone, so they aren't "collected").
+
 ## 1d. Before submitting: App Review audit of 2026-10-18 (docs/app-review.md §3)
 Read from App Store Connect with `./.tools/asc` (read-only) on 2026-10-18. `asc validate` shows 0 blocking issues, but
 it can't see agreements, App Privacy or whether the text is out of date. **One build only:** finish everything that goes
@@ -171,15 +207,19 @@ inside the app first, then build 13, then the screenshots from that same code, t
 **Step 1: changes inside the app (all before build 13):**
 - [x] Consent screen: a Privacy Policy link (5.1.2(i), 2026-10-18).
 - [x] The "Every 2 hours" reminder button is gone; a new reminder starts with one time (2026-10-18).
-- [ ] **Simulator check before building:** an iPad (the iPhone window, 2.4.1), Larger Text, and VoiceOver labels in
-      Accessibility Inspector. Fix what's broken now, not after the build.
-- [ ] `npm run lint && npm run typecheck && npm test` (app), `npm test` (worker), then commit and push: build 13 is made
-      from `main`.
+- [x] **Simulator check before building (2026-10-18):** on iPad (A16), iPadOS 26.5, FaceRep opens in an iPhone-sized
+      window, and onboarding and Today look right (2.4.1). At the largest Larger Text size, Today's text grows and wraps
+      with nothing cut off, also when the size changes while the app is open. Every icon-only button has a VoiceOver
+      label (`IconButton` requires one; the Coach button, streak, week strip and day cards have theirs). The owner hears
+      VoiceOver for real on the iPhone in Step 2.
+- [ ] `npm run lint && npm run typecheck && npm test` (app), `npm test` (worker): pass, committed as a838531. Push
+      before build 13: it's made from `main`.
 
 **Step 2: build 13 and the device test:**
 - [ ] **Build 13** from `app/` (EAS production profile, auto-submit), when the owner says go.
 - [ ] **Owner tests build 13** (§1c, docs/device-testing.md, docs/face-tracking.md §5): mirror on the iPhone 11 (black on
-      build 12), days 1–3 free, Day 4 locked, sandbox purchase, Premium download, Restore, airplane mode, Dark Mode.
+      build 12), days 1–3 free, Day 4 locked, sandbox purchase, Premium download, Restore, airplane mode, Dark Mode,
+      VoiceOver on Today and in a workout.
       Only a failure here means another build.
 
 **Step 3: screenshots (Simulator, same code as build 13; can run while EAS builds):**
@@ -200,9 +240,10 @@ inside the app first, then build 13, then the screenshots from that same code, t
       to Weekly and Monthly, and change Yearly from 1 week to 3 days, in every territory. The paywall reads the trial
       from the App Store, so the app needs no change. Needs the agreement first.
 - [ ] **Screenshots:** upload the 7 locales from Step 3.
-- [ ] **Review notes for 1.0**: the weeks (no grid), how to reach a locked day, the Premium download, the mirror's
-      person button, the move check and Apple's face-data questions (docs/launch.md).
-- [ ] App Privacy: no change needed. Check it still shows as published.
+- [ ] **Review notes for 1.0**: paste the ready text in docs/launch.md §6 (free and Premium, the Coach's AI, the
+      mirror, the move check, the face scan with Apple's face-data answers).
+- [ ] App Privacy: no change needed (the Coach's data is already declared, Not linked; the provider isn't part of the
+      labels). Check it still shows as published.
 - Optional: **App Accessibility** (Accessibility Nutrition Labels) is still voluntary. Fill it in from the Step 1 and
   Step 2 checks; claim only what really works.
 - [ ] **Subscriptions on the 1.0 page** (§3b): select all three. Recheck the website's MISSING_METADATA after the new

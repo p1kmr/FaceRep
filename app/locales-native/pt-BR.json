@@ -1,5 +1,5 @@
 {
   "CFBundleDisplayName": "FaceRep",
-  "NSCameraUsageDescription": "O FaceRep usa a câmera frontal como espelho durante os treinos, para você conferir sua execução. A checagem do movimento lê os movimentos do seu rosto no iPhone para mostrar quando vê o exercício. Nada é gravado, salvo ou enviado.",
+  "NSCameraUsageDescription": "O FaceRep usa a câmera frontal como espelho durante os treinos e para o escaneamento facial. Ele lê os movimentos do seu rosto no iPhone para mostrar quando vê um movimento e até onde ele vai. Nada é gravado ou enviado. Uma foto do escaneamento é salva, só no iPhone, se você ativar.",
   "NSMicrophoneUsageDescription": "O FaceRep não usa o microfone. O espelho do treino mostra só a imagem da câmera e nunca grava som."
 }

@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
+import { ScanTodayCard } from '@/components/scan/ScanTodayCard';
 import { MonthCard } from '@/components/today/MonthCard';
 import { MonthToggle } from '@/components/today/MonthToggle';
 import { StatCards } from '@/components/today/StatCards';
@@ -21,7 +22,7 @@ import { weekStart } from '@/utils/dates';
 
 /**
  * Today: greeting and streak, this week (with this month folded under it), today's workout on the face (the areas it
- * works lit) and the numbers. The Coach is the floating button.
+ * works lit), the weekly face scan when one is due, and the numbers. The Coach is the floating button.
  */
 export default function TodayScreen() {
   const workout = useTodayWorkout();
@@ -57,6 +58,7 @@ export default function TodayScreen() {
         onWeek={showWeek}
         onArea={learnArea}
       />
+      <ScanTodayCard />
       <StatCards summary={summary} weekMinutes={minutesBetween(sessions, weekStart(today, firstWeekday), today)} />
     </Screen>
   );

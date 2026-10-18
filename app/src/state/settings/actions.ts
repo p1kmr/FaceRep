@@ -20,6 +20,7 @@ export const MIRROR_SET = 'settings/mirrorSet';
 export const MOVE_CHECK_SET = 'settings/moveCheckSet';
 export const TILE_SPOT_SET = 'settings/tileSpotSet';
 export const AI_CONSENT_SET = 'settings/aiConsentSet';
+export const SCAN_PHOTOS_SET = 'settings/scanPhotosSet';
 export const REVIEW_PROMPTED = 'settings/reviewPrompted';
 export const ASK_BUTTON_SET = 'settings/askButtonSet';
 export const SETTINGS_RESET = 'settings/reset';
@@ -38,6 +39,7 @@ export type SettingsAction =
   | { type: typeof MOVE_CHECK_SET; payload: boolean }
   | { type: typeof TILE_SPOT_SET; payload: TileSpot | null }
   | { type: typeof AI_CONSENT_SET; payload: boolean }
+  | { type: typeof SCAN_PHOTOS_SET; payload: boolean }
   | { type: typeof REVIEW_PROMPTED; payload: ISODate }
   | { type: typeof ASK_BUTTON_SET; payload: Partial<AskButtonSettings> }
   | { type: typeof SETTINGS_RESET };
@@ -58,6 +60,8 @@ export const setMoveCheck = (on: boolean): SettingsAction => ({ type: MOVE_CHECK
 /** Where the workout's small tile was dragged (null: back to the corner). Odd values are kept within 0–1 or dropped. */
 export const setTileSpot = (spot: TileSpot | null): SettingsAction => ({ type: TILE_SPOT_SET, payload: spot });
 export const setAiConsent = (consent: boolean): SettingsAction => ({ type: AI_CONSENT_SET, payload: consent });
+/** The user's answer to saving a progress photo with each face scan (on this iPhone only). */
+export const setScanPhotos = (on: boolean): SettingsAction => ({ type: SCAN_PHOTOS_SET, payload: on });
 export const reviewPrompted = (today: ISODate): SettingsAction => ({ type: REVIEW_PROMPTED, payload: today });
 /** Show/hide, move (side + height) or count a hint of the floating Coach button. */
 export const setAskButton = (patch: Partial<AskButtonSettings>): SettingsAction => ({ type: ASK_BUTTON_SET, payload: patch });

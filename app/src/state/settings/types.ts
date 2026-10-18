@@ -42,6 +42,11 @@ export interface Settings {
   tileSpot: TileSpot | null;
   /** Consent to send Coach questions to the AI (null = not asked yet). */
   aiConsent: boolean | null;
+  /**
+   * Save a progress photo with each face scan, only in the app on this iPhone (null = not asked yet, so no photo).
+   * docs/face-scan.md.
+   */
+  scanPhotos: boolean | null;
   lastReviewPromptOn: ISODate | null;
   askButton: AskButtonSettings;
 }

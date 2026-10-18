@@ -52,6 +52,9 @@ function RootNavigator() {
           <Stack.Screen name="exercise/[id]" options={{ title: '', headerTransparent: true }} />
           <Stack.Screen name="week" options={{ title: '' }} />
           <Stack.Screen name="workout" options={{ presentation: 'fullScreenModal', headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="scan" options={{ presentation: 'fullScreenModal', headerShown: false, gestureEnabled: false }} />
+          <Stack.Screen name="scan-result" options={{ presentation: 'modal', headerShown: false }} />
+          <Stack.Screen name="scan-photos" options={{ presentation: 'modal', headerShown: false }} />
           <Stack.Screen name="paywall" options={{ presentation: 'modal', headerShown: false }} />
           <Stack.Screen name="ai-consent" options={{ presentation: 'modal', title: '' }} />
           <Stack.Screen name="coach" options={{ presentation: 'modal', headerShown: false }} />

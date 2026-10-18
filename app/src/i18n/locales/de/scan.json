@@ -1,0 +1,155 @@
+{
+  "title": "Gesichtsscan",
+  "intro": {
+    "body": "Etwa 30 Sekunden, 6 Bewegungen. Sieh, wie weit sich dein Gesicht bewegt und wie gleichmäßig beide Seiten mitgehen.",
+    "light": "Schau zu einem Fenster oder einer Lampe, Haare aus der Stirn.",
+    "hold": "Halte dein iPhone auf Augenhöhe, etwa eine Unterarmlänge entfernt.",
+    "private": "Der Scan läuft auf diesem iPhone. Es wird nichts gesendet.",
+    "start": "Scan starten",
+    "freeLeft_one": "Noch {{count}} kostenloser Scan",
+    "freeLeft_other": "Noch {{count}} kostenlose Scans",
+    "note": "Er misst Bewegung, nicht Gesichtsform oder Aussehen. Kein medizinischer Test."
+  },
+  "photo": {
+    "askTitle": "Ein Fortschrittsfoto speichern?",
+    "askBody": "{{app}} kann zu Beginn jedes Scans ein Foto deines entspannten Gesichts machen, damit du über die Zeit vergleichen kannst. Es bleibt in {{app}} auf diesem iPhone: Es wird nie hochgeladen und ist nicht in Backups. Du kannst es jederzeit löschen.",
+    "yes": "Fotos speichern",
+    "no": "Nein, danke",
+    "toggle": "Ein Fortschrittsfoto speichern",
+    "toggleHint": "Nur in {{app}} auf diesem iPhone",
+    "saved": "Foto auf diesem iPhone gespeichert"
+  },
+  "steps": {
+    "rest": {
+      "title": "Entspann dein Gesicht",
+      "hint": "Lippen zusammen, Blick auf den Bildschirm"
+    },
+    "browRaise": {
+      "title": "Augenbrauen hoch",
+      "hint": "So hoch du kannst"
+    },
+    "eyeSquint": {
+      "title": "Augen zusammenkneifen",
+      "hint": "Mach sie schmal und schau weiter auf den Bildschirm"
+    },
+    "smile": {
+      "title": "Breites Lächeln",
+      "hint": "Weit, zeig die Zähne"
+    },
+    "lipPucker": {
+      "title": "Lippen spitzen",
+      "hint": "Schieb sie nach vorn, wie zum Kuss"
+    },
+    "mouthOpen": {
+      "title": "Mund öffnen",
+      "hint": "So weit es angenehm ist. Nicht forcieren."
+    },
+    "cheekPuff": {
+      "title": "Backen aufblasen",
+      "hint": "Mit Luft füllen, Lippen geschlossen"
+    }
+  },
+  "moves": {
+    "browRaise": "Brauen heben",
+    "eyeSquint": "Augen zusammenkneifen",
+    "smile": "Lächeln",
+    "lipPucker": "Lippen spitzen",
+    "mouthOpen": "Mund öffnen",
+    "cheekPuff": "Backen aufblasen"
+  },
+  "status": {
+    "find": "Suche dein Gesicht…",
+    "noFace": "Gesicht nicht im Bild",
+    "turned": "Schau direkt auf den Bildschirm",
+    "tooFar": "Komm etwas näher",
+    "tooClose": "Halte das iPhone etwas weiter weg",
+    "ready": "Mach dich bereit",
+    "hold": "Halten…",
+    "relax": "Entspannen",
+    "done": "Fertig!",
+    "saving": "Wird gespeichert…"
+  },
+  "stepOf": "Schritt {{step}} von {{count}}",
+  "cancel": "Scan beenden",
+  "simulator": "Simulator: Ein Testgesicht macht die Bewegungen",
+  "noCamera": {
+    "title": "Kamera nötig",
+    "body": "Um dein Gesicht zu scannen, erlaube {{app}} in den Einstellungen den Zugriff auf die Kamera.",
+    "open": "Einstellungen öffnen",
+    "cancel": "Nicht jetzt"
+  },
+  "failed": {
+    "title": "Die Kamera wurde gestoppt",
+    "body": "Die Frontkamera konnte nicht starten. Versuch es gleich noch einmal. (Fehler {{code}})",
+    "retry": "Noch einmal",
+    "close": "Schließen"
+  },
+  "noTracking": {
+    "title": "Die Gesichtsverfolgung funktioniert nicht",
+    "body": "Der Gesichtsscan nutzt die TrueDepth-Frontkamera, dieselbe wie Face ID. Wenn Face ID auf diesem iPhone nicht funktioniert, kann der Scan hier auch nicht laufen. (Fehler {{code}})"
+  },
+  "tooFew": {
+    "title": "Zu wenige Bewegungen erkannt",
+    "body": "Versuch es noch einmal mit mehr Licht im Gesicht und schau direkt auf den Bildschirm.",
+    "retry": "Noch einmal",
+    "close": "Schließen"
+  },
+  "result": {
+    "movement": "Bewegung",
+    "balance": "Balance",
+    "movementHint": "Wie weit sich dein Gesicht bewegt",
+    "balanceHint": "Linke und rechte Seite gleich",
+    "first": "Dein erster Scan: Das ist dein Ausgangspunkt. Scanne in etwa einer Woche wieder, bei gleichem Licht.",
+    "since": "{{change}} seit {{date}}",
+    "same": "Gleich wie am {{date}}",
+    "moves": "Bewegungen",
+    "sides": "Links {{left}} · Rechts {{right}}",
+    "notRead": "Diesmal nicht erkannt",
+    "smallest": "Kleinste Bewegung",
+    "practice": "Übungen für diesen Bereich",
+    "photo": "Foto auf diesem iPhone gespeichert",
+    "how": "So wird gemessen",
+    "howBody": "Apples Face Tracking auf diesem iPhone misst, wie weit sich jeder Teil deines Gesichts bewegt, während du jede Bewegung hältst, im Vergleich zu deinem eigenen entspannten Gesicht. 100 ist eine große, volle Bewegung. Bewegung ist der Durchschnitt der sechs Bewegungen. Balance vergleicht deine linke und rechte Seite beim Brauenheben, Augenzusammenkneifen und Lächeln (100: beide haben sich gleich bewegt). Licht, Abstand und Einsatz verändern die Zahlen ein wenig, also scanne jedes Mal gleich. Gemessen wird nur Bewegung, nicht Gesichtsform, Aussehen oder Alter. Kein medizinischer Test.",
+    "done": "Fertig",
+    "delete": "Scan löschen",
+    "deleteTitle": "Diesen Scan löschen?",
+    "deleteBody": "Seine Zahlen und sein Foto werden von diesem iPhone gelöscht. Er zählt weiter als einer deiner kostenlosen Scans.",
+    "deleteConfirm": "Löschen",
+    "notFound": "Dieser Scan wurde gelöscht."
+  },
+  "card": {
+    "emptyTitle": "Gesichtsscan",
+    "emptyBody": "30 Sekunden, 6 Bewegungen: Sieh, wie weit sich dein Gesicht bewegt und wie gleichmäßig beide Seiten mitgehen. Alles bleibt auf diesem iPhone.",
+    "start": "Ersten Scan starten",
+    "new": "Neuer Scan",
+    "unlock": "Unbegrenzte Scans mit Premium",
+    "last": "Letzter Scan: {{date}}",
+    "freeLeft_one": "Noch {{count}} kostenloser Scan",
+    "freeLeft_other": "Noch {{count}} kostenlose Scans",
+    "photos": "Fortschrittsfotos",
+    "photosCount_one": "{{count}} Foto",
+    "photosCount_other": "{{count}} Fotos",
+    "history": "Alle {{count}} Scans zeigen",
+    "fewer": "Weniger zeigen",
+    "chartA11y": "Diagramm deiner letzten {{count}} Scans. Zuletzt: Bewegung {{movement}}, Balance {{balance}}."
+  },
+  "today": {
+    "title": "Gesichtsscan",
+    "first": "30 Sekunden: Sieh, wie sich dein Gesicht bewegt",
+    "due": "Eine Woche ist um: Zeit für deinen Gesichtsscan",
+    "start": "Scannen"
+  },
+  "photos": {
+    "title": "Fortschrittsfotos",
+    "first": "Erstes",
+    "latest": "Neuestes",
+    "empty": "Noch keine Fotos. Wenn Fortschrittsfotos an sind, wird zu Beginn jedes Scans eins gemacht.",
+    "note": "Die Fotos bleiben in {{app}} auf diesem iPhone. Nie hochgeladen, nicht in Backups. Wenn du die App löschst, werden sie gelöscht.",
+    "delete": "Foto löschen",
+    "deleteAll": "Alle Fotos löschen",
+    "deleteAllTitle": "Alle Fortschrittsfotos löschen?",
+    "deleteAllBody": "Die Fotos werden von diesem iPhone gelöscht. Die Zahlen deiner Scans bleiben.",
+    "deleteConfirm": "Löschen",
+    "close": "Schließen"
+  }
+}

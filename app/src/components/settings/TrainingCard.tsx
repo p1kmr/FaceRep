@@ -10,6 +10,7 @@ import { Segmented } from '@/components/ui/Segmented';
 import { AVAILABLE_GUIDES } from '@/constants/exerciseImages';
 import { goalsFor } from '@/constants/exercises';
 import { useGuide } from '@/hooks/useGuide';
+import { useScanPhotosSetting } from '@/hooks/useScanPhotosSetting';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { faceTrackingSupported } from '@/services/faceTracking';
 import { setGoal, setGuide, setHaptics, setMoveCheck, setVoiceCues } from '@/state/settings/actions';
@@ -18,9 +19,9 @@ import { makeStyles } from '@/theme/makeStyles';
 import { ToggleRow } from './ToggleRow';
 
 /**
- * Settings → Training: focus, exercise pictures, reminders, and how workouts guide you (haptics, voice, move check).
- * The mirror itself is turned on and off in the workout (the person button). The move check row only shows on iPhones
- * with Apple's face tracking (docs/face-tracking.md).
+ * Settings → Training: focus, exercise pictures, reminders, how workouts guide you (haptics, voice, move check) and the
+ * face scan's progress photos. The mirror itself is turned on and off in the workout (the person button). The move
+ * check and scan photo rows only show on iPhones with Apple's face tracking (docs/face-tracking.md, docs/face-scan.md).
  */
 export function TrainingCard() {
   const { t } = useTranslation(['settings', 'common']);
@@ -28,6 +29,7 @@ export function TrainingCard() {
   const settings = useSettings();
   const dispatch = useSettingsDispatch();
   const guide = useGuide();
+  const scanPhotos = useScanPhotosSetting();
   return (
     <Card>
       <View style={styles.block}>
@@ -66,7 +68,7 @@ export function TrainingCard() {
         subtitle={t('settings:voiceCuesHint')}
         value={settings.voiceCues}
         onValueChange={(on) => dispatch(setVoiceCues(on))}
-        divider={faceTrackingSupported}
+        divider={faceTrackingSupported || scanPhotos.available}
       />
       {faceTrackingSupported ? (
         <ToggleRow
@@ -74,7 +76,11 @@ export function TrainingCard() {
           subtitle={t('settings:moveCheckHint')}
           value={settings.moveCheck}
           onValueChange={(on) => dispatch(setMoveCheck(on))}
+          divider={scanPhotos.available}
         />
+      ) : null}
+      {scanPhotos.available ? (
+        <ToggleRow title={t('settings:scanPhotos')} subtitle={t('settings:scanPhotosHint')} value={scanPhotos.on} onValueChange={scanPhotos.set} />
       ) : null}
     </Card>
   );

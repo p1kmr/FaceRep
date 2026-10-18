@@ -1,12 +1,13 @@
 {
   "headline": "Alle Übungen freischalten",
-  "subhead": "Tag 1 bis {{free}} des Wochentrainings sind mit einer Auswahl an Übungen kostenlos. Premium schaltet alle Tage danach frei, dazu alle Übungen und unbegrenzte Antworten vom KI-Coach.",
+  "subhead": "Tag 1 bis {{free}} des Wochentrainings sind mit einer Auswahl an Übungen kostenlos. Premium schaltet alle Tage danach frei, dazu alle Übungen, unbegrenzte Antworten vom KI-Coach und unbegrenzte Gesichtsscans.",
   "benefits": {
     "exercises": "Die ganze Übungsbibliothek, für jeden Bereich des Gesichts",
     "weeks": "Jeder Tag deines Wochentrainings, jeden Tag neu gemischt",
-    "coach": "Unbegrenzte Antworten vom KI-Coach zu Technik und Routine"
+    "coach": "Unbegrenzte Antworten vom KI-Coach zu Technik und Routine",
+    "scans": "Unbegrenzte Gesichtsscans: Verfolge, wie sich dein Gesicht mit der Zeit bewegt"
   },
-  "aiNote": "Coach-Fragen beantwortet eine KI (Cloudflare Workers AI). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.",
+  "aiNote": "Coach-Fragen beantwortet eine KI (Google Gemini, als Reserve Cloudflare Workers AI). Vor deiner ersten Frage wirst du um Erlaubnis gebeten.",
   "plans": {
     "weekly": "Wöchentlich",
     "monthly": "Monatlich",

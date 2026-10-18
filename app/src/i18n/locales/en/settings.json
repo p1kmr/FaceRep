@@ -17,6 +17,8 @@
   "voiceCuesHint": "Says Squeeze, Relax and what's next, so you can follow along with your eyes closed.",
   "moveCheck": "Move check in the mirror",
   "moveCheckHint": "Shows when the camera sees the exercise move. It runs on your iPhone: nothing is recorded, saved or sent.",
+  "scanPhotos": "Face scan photos",
+  "scanPhotosHint": "A photo with each scan, only on this iPhone",
   "theme": {
     "title": "Theme",
     "system": "System",
@@ -42,7 +44,7 @@
   "delete": {
     "row": "Delete all data",
     "title": "Delete all data?",
-    "body": "This deletes your workouts, chat and settings from this iPhone. Your subscription is not affected.",
+    "body": "This deletes your workouts, chat, face scans with their photos and settings from this iPhone. Your subscription is not affected.",
     "confirm": "Delete"
   },
   "deleted": "All data deleted",

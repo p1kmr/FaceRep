@@ -1,5 +1,5 @@
 {
   "CFBundleDisplayName": "FaceRep",
-  "NSCameraUsageDescription": "FaceRep nutzt die Frontkamera beim Training als Spiegel, damit du deine Ausführung prüfen kannst. Der Bewegungscheck liest deine Gesichtsbewegungen auf dem iPhone, um zu zeigen, wann er die Übung erkennt. Es wird nichts aufgenommen, gespeichert oder gesendet.",
+  "NSCameraUsageDescription": "FaceRep nutzt die Frontkamera beim Training als Spiegel und für den Gesichtsscan. Es liest deine Gesichtsbewegungen auf dem iPhone, um zu zeigen, wann es eine Bewegung erkennt und wie weit sie geht. Es wird nichts aufgenommen oder gesendet. Ein Scan-Foto wird nur auf dem iPhone gespeichert, wenn du es einschaltest.",
   "NSMicrophoneUsageDescription": "FaceRep nutzt das Mikrofon nicht. Der Trainingsspiegel zeigt nur das Kamerabild und nimmt nie Ton auf."
 }

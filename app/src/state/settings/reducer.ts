@@ -16,6 +16,7 @@ import {
   REMINDER_DELETED,
   REMINDER_SAVED,
   REVIEW_PROMPTED,
+  SCAN_PHOTOS_SET,
   SETTINGS_HYDRATE,
   SETTINGS_RESET,
   THEME_MODE_SET,
@@ -39,6 +40,7 @@ export const DEFAULT_SETTINGS: Settings = {
   moveCheck: true,
   tileSpot: null,
   aiConsent: null,
+  scanPhotos: null,
   lastReviewPromptOn: null,
   askButton: { visible: true, side: 'right', y: 1, hintShows: 0 },
 };
@@ -101,6 +103,7 @@ export function sanitizeSettings(saved: SavedSettings | null): Settings {
     moveCheck: s.moveCheck !== false,
     tileSpot: sanitizeTileSpot(s.tileSpot),
     aiConsent: typeof s.aiConsent === 'boolean' ? s.aiConsent : null,
+    scanPhotos: typeof s.scanPhotos === 'boolean' ? s.scanPhotos : null,
     lastReviewPromptOn: typeof s.lastReviewPromptOn === 'string' ? s.lastReviewPromptOn : null,
     askButton: sanitizeAskButton(s.askButton, d.askButton),
   };
@@ -143,6 +146,8 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { tileSpot: sanitizeTileSpot(action.payload) });
     case AI_CONSENT_SET:
       return update(state, { aiConsent: action.payload });
+    case SCAN_PHOTOS_SET:
+      return update(state, { scanPhotos: action.payload === true });
     case REVIEW_PROMPTED:
       return update(state, { lastReviewPromptOn: action.payload });
     case ASK_BUTTON_SET:

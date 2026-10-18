@@ -1,0 +1,155 @@
+{
+  "title": "Scansione del viso",
+  "intro": {
+    "body": "Circa 30 secondi, 6 movimenti. Scopri quanto si muove il tuo viso e se i due lati si muovono allo stesso modo.",
+    "light": "Mettiti davanti a una finestra o a una lampada, capelli lontani dalla fronte.",
+    "hold": "Tieni l’iPhone all’altezza degli occhi, a circa un avambraccio di distanza.",
+    "private": "La scansione avviene su questo iPhone. Non viene inviato nulla.",
+    "start": "Avvia la scansione",
+    "freeLeft_one": "Ti resta {{count}} scansione gratuita",
+    "freeLeft_other": "Ti restano {{count}} scansioni gratuite",
+    "note": "Legge il movimento, non la forma del viso né l’aspetto. Non è un test medico."
+  },
+  "photo": {
+    "askTitle": "Salvare una foto dei progressi?",
+    "askBody": "{{app}} può scattare una foto del tuo viso rilassato all’inizio di ogni scansione, così puoi fare un confronto nel tempo. Resta in {{app}} su questo iPhone: mai caricata e non nei backup. Eliminala quando vuoi.",
+    "yes": "Salva le foto",
+    "no": "No, grazie",
+    "toggle": "Salva una foto dei progressi",
+    "toggleHint": "Solo in {{app}} su questo iPhone",
+    "saved": "Foto salvata su questo iPhone"
+  },
+  "steps": {
+    "rest": {
+      "title": "Rilassa il viso",
+      "hint": "Labbra unite, occhi sullo schermo"
+    },
+    "browRaise": {
+      "title": "Alza le sopracciglia",
+      "hint": "Più in alto che puoi"
+    },
+    "eyeSquint": {
+      "title": "Stringi gli occhi",
+      "hint": "Socchiudili continuando a guardare lo schermo"
+    },
+    "smile": {
+      "title": "Grande sorriso",
+      "hint": "Ampio, mostra i denti"
+    },
+    "lipPucker": {
+      "title": "Arriccia le labbra",
+      "hint": "Spingile in avanti, come per un bacio"
+    },
+    "mouthOpen": {
+      "title": "Apri la bocca",
+      "hint": "Quanto ti è comodo. Non forzare."
+    },
+    "cheekPuff": {
+      "title": "Gonfia le guance",
+      "hint": "Riempile d’aria, labbra chiuse"
+    }
+  },
+  "moves": {
+    "browRaise": "Sopracciglia alzate",
+    "eyeSquint": "Occhi socchiusi",
+    "smile": "Sorriso",
+    "lipPucker": "Labbra arricciate",
+    "mouthOpen": "Bocca aperta",
+    "cheekPuff": "Guance gonfie"
+  },
+  "status": {
+    "find": "Cerco il tuo viso…",
+    "noFace": "Viso non inquadrato",
+    "turned": "Guarda lo schermo di fronte",
+    "tooFar": "Avvicinati un po’",
+    "tooClose": "Allontana un po’ l’iPhone",
+    "ready": "Preparati",
+    "hold": "Mantieni…",
+    "relax": "Rilassa",
+    "done": "Fatto!",
+    "saving": "Salvataggio…"
+  },
+  "stepOf": "Passo {{step}} di {{count}}",
+  "cancel": "Interrompi la scansione",
+  "simulator": "Simulatore: un viso di prova fa i movimenti",
+  "noCamera": {
+    "title": "Serve la fotocamera",
+    "body": "Per scansionare il viso, consenti l’accesso alla fotocamera a {{app}} in Impostazioni.",
+    "open": "Apri Impostazioni",
+    "cancel": "Non ora"
+  },
+  "failed": {
+    "title": "La fotocamera si è fermata",
+    "body": "La fotocamera anteriore non è riuscita ad avviarsi. Riprova tra un momento. (Errore {{code}})",
+    "retry": "Riprova",
+    "close": "Chiudi"
+  },
+  "noTracking": {
+    "title": "Il tracciamento del viso non funziona",
+    "body": "La scansione del viso usa la fotocamera anteriore TrueDepth, la stessa di Face ID. Se Face ID non funziona su questo iPhone, nemmeno la scansione può funzionare. (Errore {{code}})"
+  },
+  "tooFew": {
+    "title": "Non abbastanza movimenti letti",
+    "body": "Riprova con più luce sul viso, guardando lo schermo di fronte.",
+    "retry": "Riprova",
+    "close": "Chiudi"
+  },
+  "result": {
+    "movement": "Movimento",
+    "balance": "Equilibrio",
+    "movementHint": "Quanto si muove il tuo viso",
+    "balanceHint": "Lato sinistro e destro uguali",
+    "first": "La tua prima scansione: è il tuo punto di partenza. Ripeti la scansione tra circa una settimana, con la stessa luce.",
+    "since": "{{change}} dal {{date}}",
+    "same": "Come il {{date}}",
+    "moves": "Movimenti",
+    "sides": "Sin. {{left}} · Des. {{right}}",
+    "notRead": "Non letto questa volta",
+    "smallest": "Movimento più piccolo",
+    "practice": "Esercizi per questa zona",
+    "photo": "Foto salvata su questo iPhone",
+    "how": "Come si misura",
+    "howBody": "Il tracciamento del viso di Apple su questo iPhone legge quanto si muove ogni parte del tuo viso mentre mantieni ogni movimento, rispetto al tuo viso rilassato. 100 è un movimento ampio e completo. Movimento è la media dei sei movimenti. Equilibrio confronta il lato sinistro e destro quando alzi le sopracciglia, stringi gli occhi e sorridi (100: si sono mossi allo stesso modo). Luce, distanza e impegno cambiano un po’ i numeri, quindi fai la scansione sempre allo stesso modo. Legge solo il movimento, non la forma del viso, l’aspetto o l’età. Non è un test medico.",
+    "done": "Fatto",
+    "delete": "Elimina la scansione",
+    "deleteTitle": "Eliminare questa scansione?",
+    "deleteBody": "I suoi numeri e la sua foto vengono eliminati da questo iPhone. Conta comunque come una delle tue scansioni gratuite.",
+    "deleteConfirm": "Elimina",
+    "notFound": "Questa scansione è stata eliminata."
+  },
+  "card": {
+    "emptyTitle": "Scansione del viso",
+    "emptyBody": "30 secondi, 6 movimenti: scopri quanto si muove il tuo viso e se i due lati si muovono allo stesso modo. Tutto resta su questo iPhone.",
+    "start": "Avvia la prima scansione",
+    "new": "Nuova scansione",
+    "unlock": "Scansioni illimitate con Premium",
+    "last": "Ultima scansione: {{date}}",
+    "freeLeft_one": "Ti resta {{count}} scansione gratuita",
+    "freeLeft_other": "Ti restano {{count}} scansioni gratuite",
+    "photos": "Foto dei progressi",
+    "photosCount_one": "{{count}} foto",
+    "photosCount_other": "{{count}} foto",
+    "history": "Mostra tutte le {{count}} scansioni",
+    "fewer": "Mostra meno",
+    "chartA11y": "Grafico delle tue ultime {{count}} scansioni. La più recente: Movimento {{movement}}, Equilibrio {{balance}}."
+  },
+  "today": {
+    "title": "Scansione del viso",
+    "first": "30 secondi per vedere come si muove il tuo viso",
+    "due": "È passata una settimana: è ora della scansione del viso",
+    "start": "Scansiona"
+  },
+  "photos": {
+    "title": "Foto dei progressi",
+    "first": "Prima",
+    "latest": "Ultima",
+    "empty": "Ancora nessuna foto. Con le foto dei progressi attive, ne viene scattata una all’inizio di ogni scansione.",
+    "note": "Le foto restano in {{app}} su questo iPhone. Mai caricate, non nei backup. Eliminando l’app vengono eliminate.",
+    "delete": "Elimina la foto",
+    "deleteAll": "Elimina tutte le foto",
+    "deleteAllTitle": "Eliminare tutte le foto dei progressi?",
+    "deleteAllBody": "Le foto vengono eliminate da questo iPhone. I numeri delle scansioni restano.",
+    "deleteConfirm": "Elimina",
+    "close": "Chiudi"
+  }
+}

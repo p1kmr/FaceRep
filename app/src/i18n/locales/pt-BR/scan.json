@@ -1,0 +1,155 @@
+{
+  "title": "Escaneamento facial",
+  "intro": {
+    "body": "Cerca de 30 segundos, 6 movimentos. Veja o quanto seu rosto se move e se os dois lados se movem por igual.",
+    "light": "Fique de frente para uma janela ou uma luminária, sem cabelo na testa.",
+    "hold": "Segure o iPhone na altura dos olhos, a um antebraço de distância.",
+    "private": "O escaneamento acontece neste iPhone. Nada é enviado.",
+    "start": "Começar escaneamento",
+    "freeLeft_one": "Resta {{count}} escaneamento grátis",
+    "freeLeft_other": "Restam {{count}} escaneamentos grátis",
+    "note": "Ele lê o movimento, não o formato do rosto nem a aparência. Não é um exame médico."
+  },
+  "photo": {
+    "askTitle": "Salvar uma foto de progresso?",
+    "askBody": "O {{app}} pode tirar uma foto do seu rosto relaxado no início de cada escaneamento, para você comparar com o tempo. Ela fica no {{app}} neste iPhone: nunca é enviada e não vai para os backups. Apague quando quiser.",
+    "yes": "Salvar fotos",
+    "no": "Não, obrigado",
+    "toggle": "Salvar uma foto de progresso",
+    "toggleHint": "Só no {{app}} neste iPhone",
+    "saved": "Foto salva neste iPhone"
+  },
+  "steps": {
+    "rest": {
+      "title": "Relaxe o rosto",
+      "hint": "Lábios juntos, olhos na tela"
+    },
+    "browRaise": {
+      "title": "Levante as sobrancelhas",
+      "hint": "O mais alto que puder"
+    },
+    "eyeSquint": {
+      "title": "Aperte os olhos",
+      "hint": "Estreite-os sem parar de olhar a tela"
+    },
+    "smile": {
+      "title": "Sorriso largo",
+      "hint": "Bem aberto, mostre os dentes"
+    },
+    "lipPucker": {
+      "title": "Faça biquinho",
+      "hint": "Projete os lábios para a frente, como um beijo"
+    },
+    "mouthOpen": {
+      "title": "Abra a boca",
+      "hint": "O quanto for confortável. Não force."
+    },
+    "cheekPuff": {
+      "title": "Encha as bochechas",
+      "hint": "Encha de ar, lábios fechados"
+    }
+  },
+  "moves": {
+    "browRaise": "Sobrancelhas para cima",
+    "eyeSquint": "Olhos apertados",
+    "smile": "Sorriso",
+    "lipPucker": "Biquinho",
+    "mouthOpen": "Boca aberta",
+    "cheekPuff": "Bochechas cheias"
+  },
+  "status": {
+    "find": "Procurando seu rosto…",
+    "noFace": "Rosto fora da imagem",
+    "turned": "Olhe de frente para a tela",
+    "tooFar": "Chegue um pouco mais perto",
+    "tooClose": "Afaste um pouco o iPhone",
+    "ready": "Prepare-se",
+    "hold": "Segure…",
+    "relax": "Relaxe",
+    "done": "Pronto!",
+    "saving": "Salvando…"
+  },
+  "stepOf": "Etapa {{step}} de {{count}}",
+  "cancel": "Parar o escaneamento",
+  "simulator": "Simulador: um rosto de teste faz os movimentos",
+  "noCamera": {
+    "title": "Câmera necessária",
+    "body": "Para escanear seu rosto, permita o acesso à Câmera para o {{app}} em Ajustes.",
+    "open": "Abrir Ajustes",
+    "cancel": "Agora não"
+  },
+  "failed": {
+    "title": "A câmera parou",
+    "body": "A câmera frontal não conseguiu iniciar. Tente de novo em um instante. (Erro {{code}})",
+    "retry": "Tentar de novo",
+    "close": "Fechar"
+  },
+  "noTracking": {
+    "title": "O rastreamento facial não está funcionando",
+    "body": "O escaneamento facial usa a câmera frontal TrueDepth, a mesma do Face ID. Se o Face ID não funciona neste iPhone, o escaneamento também não funciona nele. (Erro {{code}})"
+  },
+  "tooFew": {
+    "title": "Não deu para ler movimentos suficientes",
+    "body": "Tente de novo com mais luz no rosto, olhando de frente para a tela.",
+    "retry": "Tentar de novo",
+    "close": "Fechar"
+  },
+  "result": {
+    "movement": "Movimento",
+    "balance": "Equilíbrio",
+    "movementHint": "O quanto seu rosto se move",
+    "balanceHint": "Lado esquerdo e direito por igual",
+    "first": "Seu primeiro escaneamento: este é seu ponto de partida. Escaneie de novo em cerca de uma semana, com a mesma luz.",
+    "since": "{{change}} desde {{date}}",
+    "same": "Igual a {{date}}",
+    "moves": "Movimentos",
+    "sides": "Esq. {{left}} · Dir. {{right}}",
+    "notRead": "Não lido desta vez",
+    "smallest": "Menor movimento",
+    "practice": "Exercícios para esta área",
+    "photo": "Foto salva neste iPhone",
+    "how": "Como é medido",
+    "howBody": "O rastreamento facial da Apple neste iPhone lê o quanto cada parte do seu rosto se move enquanto você segura cada movimento, comparado com o seu próprio rosto relaxado. 100 é um movimento grande e completo. Movimento é a média dos seis movimentos. Equilíbrio compara seu lado esquerdo e direito ao levantar as sobrancelhas, apertar os olhos e sorrir (100: os dois se moveram igual). Luz, distância e esforço mudam um pouco os números, então escaneie sempre do mesmo jeito. Ele lê só o movimento, não o formato do rosto, a aparência nem a idade. Não é um exame médico.",
+    "done": "Concluir",
+    "delete": "Apagar escaneamento",
+    "deleteTitle": "Apagar este escaneamento?",
+    "deleteBody": "Os números e a foto dele são apagados deste iPhone. Ele continua contando como um dos seus escaneamentos grátis.",
+    "deleteConfirm": "Apagar",
+    "notFound": "Este escaneamento foi apagado."
+  },
+  "card": {
+    "emptyTitle": "Escaneamento facial",
+    "emptyBody": "30 segundos, 6 movimentos: veja o quanto seu rosto se move e se os dois lados se movem por igual. Tudo fica neste iPhone.",
+    "start": "Comece seu primeiro escaneamento",
+    "new": "Novo escaneamento",
+    "unlock": "Escaneamentos ilimitados com o Premium",
+    "last": "Último escaneamento: {{date}}",
+    "freeLeft_one": "Resta {{count}} escaneamento grátis",
+    "freeLeft_other": "Restam {{count}} escaneamentos grátis",
+    "photos": "Fotos de progresso",
+    "photosCount_one": "{{count}} foto",
+    "photosCount_other": "{{count}} fotos",
+    "history": "Ver os {{count}} escaneamentos",
+    "fewer": "Ver menos",
+    "chartA11y": "Gráfico dos seus últimos {{count}} escaneamentos. O mais recente: Movimento {{movement}}, Equilíbrio {{balance}}."
+  },
+  "today": {
+    "title": "Escaneamento facial",
+    "first": "30 segundos para ver como seu rosto se move",
+    "due": "Já faz uma semana: hora do seu escaneamento facial",
+    "start": "Escanear"
+  },
+  "photos": {
+    "title": "Fotos de progresso",
+    "first": "Primeira",
+    "latest": "Última",
+    "empty": "Ainda não há fotos. Com as fotos de progresso ativadas, uma é tirada no início de cada escaneamento.",
+    "note": "As fotos ficam no {{app}} neste iPhone. Nunca são enviadas e não vão para os backups. Apagar o app apaga as fotos.",
+    "delete": "Apagar foto",
+    "deleteAll": "Apagar todas as fotos",
+    "deleteAllTitle": "Apagar todas as fotos de progresso?",
+    "deleteAllBody": "As fotos são apagadas deste iPhone. Os números dos seus escaneamentos continuam.",
+    "deleteConfirm": "Apagar",
+    "close": "Fechar"
+  }
+}

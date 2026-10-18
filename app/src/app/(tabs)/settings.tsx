@@ -20,6 +20,7 @@ import { useProgressDispatch } from '@/hooks/useProgress';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { useToast } from '@/hooks/useToast';
 import { useChat } from '@/hooks/useChat';
+import { useFaceScanActions } from '@/hooks/useFaceScans';
 import { wipeDatabase } from '@/services/db/database';
 import { openSystemSettings } from '@/services/notifications/reminder';
 import { hasPurchasesKey, restorePurchases } from '@/services/purchases/purchases';
@@ -39,6 +40,7 @@ export default function SettingsScreen() {
   const { isPremium } = usePremium();
   const premiumDispatch = usePremiumDispatch();
   const chat = useChat();
+  const faceScans = useFaceScanActions();
   const toast = useToast();
   const open = (url: string) => () => WebBrowser.openBrowserAsync(url).catch(() => {});
 
@@ -64,6 +66,7 @@ export default function SettingsScreen() {
         onPress: async () => {
           await wipeDatabase().catch(() => {});
           chat.deleteAll();
+          await faceScans.reset();
           progressDispatch(resetProgress());
           dispatch(resetSettings()); // onboarding starts again
           toast({ message: t('settings:deleted') });

@@ -18,6 +18,8 @@
   "voiceCuesHint": "Diz Contraia, Relaxe e o que vem a seguir, para você acompanhar de olhos fechados.",
   "moveCheck": "Checagem do movimento no espelho",
   "moveCheckHint": "Mostra quando a câmera vê o movimento do exercício. Funciona no seu iPhone: nada é gravado, salvo ou enviado.",
+  "scanPhotos": "Fotos do escaneamento facial",
+  "scanPhotosHint": "Uma foto a cada escaneamento, só neste iPhone",
   "theme": {
     "title": "Tema",
     "system": "Sistema",
@@ -43,7 +45,7 @@
   "delete": {
     "row": "Apagar todos os dados",
     "title": "Apagar todos os dados?",
-    "body": "Isso apaga seus treinos, a conversa com o Coach e os ajustes deste iPhone. Sua assinatura não é afetada.",
+    "body": "Isso apaga seus treinos, a conversa com o Coach, os escaneamentos faciais com as fotos e os ajustes deste iPhone. Sua assinatura não é afetada.",
     "confirm": "Apagar"
   },
   "deleted": "Todos os dados foram apagados",

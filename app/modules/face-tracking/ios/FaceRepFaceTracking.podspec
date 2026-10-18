@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
   s.name           = 'FaceRepFaceTracking'
   s.version        = '1.0.0'
-  s.summary        = 'Apple face tracking (ARKit) for the FaceRep workout mirror'
-  s.description    = 'Shows the front camera as a mirror and reads face movements on the iPhone. Nothing is recorded, saved or sent.'
+  s.summary        = 'Apple face tracking (ARKit) for the FaceRep workout mirror and face scan'
+  s.description    = 'Shows the front camera and reads face movements on the iPhone. Only the face scan progress photos the user turns on are saved, on the iPhone. Nothing is sent.'
   s.author         = ''
   s.homepage       = 'https://docs.expo.dev/modules/'
   s.platforms      = { :ios => '16.4' }

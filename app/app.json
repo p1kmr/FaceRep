@@ -132,7 +132,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "FaceRep uses the front camera as a mirror during workouts, so you can check your form. The move check reads your face movements on the iPhone to show when it sees the exercise. Nothing is recorded, saved or sent.",
+          "cameraPermission": "FaceRep uses the front camera as a mirror during workouts and for the face scan. It reads your face movements on the iPhone to show when it sees a move and how far it goes. Nothing is recorded or sent. A scan photo is saved, only on the iPhone, if you turn it on.",
           "microphonePermission": "FaceRep doesn't use the microphone. The workout mirror shows the camera picture only and never records sound.",
           "recordAudioAndroid": false,
           "barcodeScannerEnabled": false

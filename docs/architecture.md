@@ -17,7 +17,7 @@ app/src/
 ├── components/     ui/ (AppText, Button, Card, Chip, Badge, Gradient, IconButton, ProgressRing, Screen, Segmented…),
 │                   exercise/, faceMap/, today/, progress/, coach/, paywall/, onboarding/, settings/
 ├── constants/      config.ts, theme/, exercises.ts, weeks.ts, faceMap.ts, guides.ts, exerciseImages.ts (+ guideImages.generated.ts), limits.ts…
-├── state/          settings/, premium/, progress/, chat/  (+ AppProviders.tsx)
+├── state/          settings/, premium/, progress/, faceScan/, content/, chat/  (+ AppProviders.tsx)
 ├── hooks/          useSettings, usePremium, usePaywall, useProgress*, useTodayWorkout, useThisWeek, useWorkout, useChat, useTheme…
 ├── services/       db/ (SQLite), storage/kv.ts, progress/, chat/, purchases/, ai/, notifications/, workout/ and faceMap/ (pure),
 │                   faceTracking.ts (the only import of modules/face-tracking)
@@ -265,15 +265,13 @@ The Worker gives the main model three tools (`create_reminder`, `update_reminder
 checks every call against that list and returns them as `actions`; the fallback model gets no tools. The app checks them again
 (`parseChatReply`) and shows `ReminderActionCard`s: nothing changes until the user taps Confirm. Cards live in memory only.
 
-**The Coach can also save or start a workout.** Two more tools (`worker/src/lib/workouts.js`): `log_workout` (a workout the
-user did without the app or forgot to save: 0–6 days back, the exercise ids they named, the minutes they said) and `suggest_workout` (2–8 exercise ids to do now, with a short title). The Worker drops unknown ids and anything out
-of range; no new data is sent for this (the question already carries what the user said). In the app,
-`services/progress/log.ts` (pure, tested) turns a proposed log into what is saved, from the app's own data: the named
-exercises with their usual reps, and the minutes the user said win over the estimate. A saved workout is that date's
-workout in the weeks (one per date, like any other).
-`WorkoutActionCard` shows exactly that before Save, or the routine before Start (which opens the player with those
-exercises). A saved workout is stored with kind `logged` (no migration) and shows a "Logged" tag in the history. Nothing is
-saved or started until the user taps Save or Start. The iPhone keyboard's dictation mic works in the Coach's text field.
+**The Coach can also start a workout.** One more tool (`worker/src/lib/workouts.js`): `suggest_workout` (2–8 exercise ids
+to do now, with a short title). The Worker drops unknown ids and anything out of range (an id's number alone, which the
+model sometimes sends, is read as that id); no new data is sent for this. `WorkoutActionCard` shows the routine with the
+app's own reps and time before Start, which opens the player with those exercises; nothing starts until the user taps
+Start. The Coach never saves a workout: a workout is saved when it's finished in the app. Rows of kind `logged` (saved by
+an earlier build's Coach) still show a "Logged" tag in the history and count in the weeks. The iPhone keyboard's
+dictation mic works in the Coach's text field.
 
 **Chats (History).** The Coach keeps several chats on the iPhone (`chat_messages.chat_id`, migration 3: the one
 conversation before it became the first chat) and opens the most recent one. The pencil starts a new chat (saved only with

@@ -1,3 +1,4 @@
+import { useFaceScanState } from './useFaceScans';
 import { useProgressState } from './useProgress';
 import { useSettingsState } from './useSettings';
 
@@ -5,5 +6,6 @@ import { useSettingsState } from './useSettings';
 export function useHydration(): boolean {
   const { hydrated: settings } = useSettingsState();
   const { hydrated: progress } = useProgressState();
-  return settings && progress;
+  const { hydrated: scans } = useFaceScanState();
+  return settings && progress && scans;
 }

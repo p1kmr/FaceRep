@@ -43,4 +43,16 @@ export const MIGRATIONS: string[] = [
   UPDATE chat_messages SET chat_id = 'first-chat';
   CREATE INDEX IF NOT EXISTS chat_messages_chat ON chat_messages (chat_id, created_at);
   `,
+  // 4: face scans (docs/face-scan.md): how far each move rose above the relaxed face (JSON) and the progress photo's
+  // file name, if one was saved. Only on this iPhone.
+  `
+  CREATE TABLE IF NOT EXISTS face_scans (
+    id TEXT PRIMARY KEY NOT NULL,
+    taken_at TEXT NOT NULL,
+    day TEXT NOT NULL,
+    moves TEXT NOT NULL,
+    photo TEXT
+  );
+  CREATE INDEX IF NOT EXISTS face_scans_taken ON face_scans (taken_at);
+  `,
 ];

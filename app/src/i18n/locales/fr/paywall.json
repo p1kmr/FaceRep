@@ -1,12 +1,13 @@
 {
   "headline": "Débloque tous les exercices",
-  "subhead": "Les jours 1 à {{free}} des séances hebdomadaires sont gratuits, avec une sélection d’exercices. Premium débloque tous les jours suivants, tous les exercices et des réponses illimitées du Coach IA.",
+  "subhead": "Les jours 1 à {{free}} des séances hebdomadaires sont gratuits, avec une sélection d’exercices. Premium débloque tous les jours suivants, tous les exercices, des réponses illimitées du Coach IA et des scans du visage illimités.",
   "benefits": {
     "exercises": "Toute la bibliothèque d’exercices, pour chaque zone du visage",
     "weeks": "Toutes tes séances hebdomadaires, un nouveau mélange chaque jour",
-    "coach": "Réponses illimitées du Coach IA sur la technique et ta routine"
+    "coach": "Réponses illimitées du Coach IA sur la technique et ta routine",
+    "scans": "Scans du visage illimités : suis comment ton visage bouge au fil du temps"
   },
-  "aiNote": "Le Coach répond grâce à une IA (Cloudflare Workers AI). On te demandera ton accord avant ta première question.",
+  "aiNote": "Le Coach répond grâce à une IA (Google Gemini, ou Cloudflare Workers AI en secours). On te demandera ton accord avant ta première question.",
   "plans": {
     "weekly": "Hebdomadaire",
     "monthly": "Mensuel",

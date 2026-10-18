@@ -37,6 +37,8 @@ export function getDatabase(): Promise<SQLite.SQLiteDatabase> {
 export async function wipeDatabase(): Promise<void> {
   const db = await getDatabase();
   await db.withTransactionAsync(async () => {
-    await db.execAsync('DELETE FROM session_exercises; DELETE FROM sessions; DELETE FROM chat_messages; DELETE FROM kv;');
+    await db.execAsync(
+      'DELETE FROM session_exercises; DELETE FROM sessions; DELETE FROM chat_messages; DELETE FROM face_scans; DELETE FROM kv;',
+    );
   });
 }

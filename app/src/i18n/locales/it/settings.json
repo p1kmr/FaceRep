@@ -17,6 +17,8 @@
   "voiceCuesHint": "Dice Contrai, Rilassati e cosa viene dopo, così puoi seguire anche a occhi chiusi.",
   "moveCheck": "Controllo del movimento nello specchio",
   "moveCheckHint": "Mostra quando la fotocamera vede il movimento dell'esercizio. Funziona sul tuo iPhone: non viene registrato, salvato o inviato nulla.",
+  "scanPhotos": "Foto della scansione del viso",
+  "scanPhotosHint": "Una foto a ogni scansione, solo su questo iPhone",
   "theme": {
     "title": "Tema",
     "system": "Sistema",
@@ -42,7 +44,7 @@
   "delete": {
     "row": "Elimina tutti i dati",
     "title": "Eliminare tutti i dati?",
-    "body": "Verranno eliminati allenamenti, chat e impostazioni da questo iPhone. Il tuo abbonamento non cambia.",
+    "body": "Verranno eliminati allenamenti, chat, scansioni del viso con le foto e impostazioni da questo iPhone. Il tuo abbonamento non cambia.",
     "confirm": "Elimina"
   },
   "deleted": "Tutti i dati sono stati eliminati",

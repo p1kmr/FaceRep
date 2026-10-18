@@ -4,6 +4,9 @@ The workout mirror can show when it sees the exercise's move: a level on the edg
 and a line counts the holds it saw ("Seen 3 of 10"). It uses Apple's face tracking (ARKit) on the iPhone. Nothing is
 recorded, saved or sent. Tapping the small tile swaps the figure and the mirror, so the mirror can be big; it can be dragged anywhere and × closes the mirror.
 
+The face scan uses the same module (the view's `turn` and `distance`, and the progress photo functions): see
+[face-scan.md](face-scan.md). This page is about the move check.
+
 Status: an experiment on `main` as one commit ("Mirror move check with Apple face tracking…", from the branch
 `feat/openCV`), **not yet tried on an iPhone**. It needs a new build (build 8; an over-the-air update can't add native
 code), §5. The numbers in `constants/moves.ts` are first guesses to tune on a device. If it doesn't work out, revert that
@@ -55,8 +58,10 @@ ARKit face anchor (60/s)
 - The camera stops in the background (the view's `active` prop) and when the mirror closes. When the move check is off
   or the iPhone can't track faces, the mirror is the plain camera (`expo-camera`) as before. Only one of them uses the
   camera at a time.
-- **If ARKit stops** with an error, the mirror switches to the plain camera for the rest of that workout (no level),
-  so it never stays black. After an interruption (a call, Control Center) tracking starts again. The device log has
+- **If ARKit stops** with an error, the view starts it again twice (0.7 s, then 1.4 s later; at once when the app is
+  active again). A session also waits for the app to be active before it starts, so a system alert still on screen
+  (the camera permission) can't make it fail. If it still fails, the mirror switches to the plain camera for the rest
+  of that workout (no level), so it never stays black. After an interruption (a call, Control Center) tracking starts again. The device log has
   `FaceRep face tracking …` lines (started, first camera frame, interrupted, failed with Apple's error code; never
   anything about the face): Console app on a Mac with the iPhone connected, search "FaceRep face".
 
@@ -84,8 +89,8 @@ eight exercises done with the hands (they cover the face). A test keeps hands-on
 
 ## 4. Rules
 
-- **Privacy (5.1.1, 5.1.2(vi)).** Face data stays on the iPhone: read, used for the level and dropped. No frames, images,
-  face meshes or numbers are stored or sent; never used to identify anyone, for marketing or for data mining. App
+- **Privacy (5.1.1, 5.1.2(vi)).** The move check's face data stays on the iPhone: read, used for the level and dropped.
+  No frames, images, face meshes or numbers are stored or sent (the face scan's own storage is in face-scan.md §3); never used to identify anyone, for marketing or for data mining. App
   Privacy labels don't change (data that never leaves the device isn't "collected").
 - **Say it where Apple looks.** App Review asks apps that use face tracking what face data they use, why, whether it is
   shared and where it is kept, and wants the privacy policy to say it. The policy has a "Face data (move check)"
@@ -96,8 +101,9 @@ eight exercises done with the hands (they cover the face). A test keeps hands-on
   > rotation) is processed on the iPhone in real time and discarded: it is not stored, not sent to our server or any
   > third party, and not used for identification, advertising or data mining. To see it: start Brow Lift from the Exercises
   > tab and tap the person button at the top of the workout player (the mirror). It can be turned off in Settings → Move check in the mirror.
-- **No claims (1.4.1, 2.3.1).** It reads movement now, never face shape, symmetry, "progress" or a score. No "AI face
-  scan" wording, and no "beta" label in the app (2.2).
+- **No claims (1.4.1, 2.3.1).** The move check reads movement now, never face shape, symmetry of the face or a score.
+  The face scan's numbers (movement and left/right balance of movement) follow face-scan.md §4. No "AI face scan"
+  wording, and no "beta" label in the app (2.2).
 - **Safety.** No jaw-caution exercise is followed, and the level is full as soon as the move counts: it never asks for
   more. The jaw caution and the safety texts stay as they are.
 - **Every iPhone keeps the app.** No `UIRequiredDeviceCapabilities` for ARKit: without face tracking the mirror is the

@@ -4,4 +4,6 @@ export const STORAGE_KEYS = {
   appUserId: 'facerep.appUserId',
   /** Free AI answers used this month: { month, count } only. */
   aiUsage: 'facerep.aiUsage',
+  /** Face scans finished on this iPhone: { used } only (the scans themselves are in the face_scans table). */
+  faceScans: 'facerep.faceScans',
 } as const;

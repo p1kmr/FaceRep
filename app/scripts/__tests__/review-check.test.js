@@ -31,6 +31,13 @@ describe('App Review check (docs/app-review.md)', () => {
     ['fr', 'Pour une mâchoire à l’allure plus nette.'],
     ['it', 'Quanto ci vuole per vedere risultati?'],
     ['it', 'Per una mascella dall’aspetto più definito.'],
+    ['en', 'Rate your face: get your attractiveness score'],
+    ['en', 'Golden ratio face analysis'],
+    ['es', 'Descubre lo atractivo que eres'],
+    ['pt-BR', 'Sua nota de beleza'],
+    ['de', 'Wie attraktiv bist du?'],
+    ['fr', 'Ton visage et le nombre d’or'],
+    ['it', 'Quanto sei attraente?'],
   ])('catches %s: %s', (lang, text) => {
     expect(findClaims(lang, text)).not.toEqual([]);
   });
@@ -47,6 +54,8 @@ describe('App Review check (docs/app-review.md)', () => {
     ['de', 'Können Übungen bei einem Doppelkinn helfen?'],
     ['fr', 'Les exercices peuvent-ils aider pour le double menton ?'],
     ['it', 'Non perdere la serie'],
+    ['en', 'Balance compares your left and right side in the brow raise, eye squint and smile.'],
+    ['en', 'It reads movement only, not face shape, looks or age. Not a medical test.'],
   ])('leaves honest text alone (%s): %s', (lang, text) => {
     expect(findClaims(lang, text)).toEqual([]);
   });

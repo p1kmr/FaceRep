@@ -17,6 +17,8 @@
   "voiceCuesHint": "Dice “Aprieta”, “Relaja” y qué viene después, para que puedas seguir el ejercicio con los ojos cerrados.",
   "moveCheck": "Control del movimiento en el espejo",
   "moveCheckHint": "Muestra cuándo la cámara ve el movimiento del ejercicio. Funciona en tu iPhone: no se graba, guarda ni envía nada.",
+  "scanPhotos": "Fotos del escaneo facial",
+  "scanPhotosHint": "Una foto con cada escaneo, solo en este iPhone",
   "theme": {
     "title": "Tema",
     "system": "Sistema",
@@ -42,7 +44,7 @@
   "delete": {
     "row": "Eliminar todos los datos",
     "title": "¿Eliminar todos los datos?",
-    "body": "Esto elimina tus entrenamientos, el chat y los ajustes de este iPhone. Tu suscripción no se ve afectada.",
+    "body": "Esto elimina tus entrenamientos, el chat, los escaneos faciales con sus fotos y los ajustes de este iPhone. Tu suscripción no se ve afectada.",
     "confirm": "Eliminar"
   },
   "deleted": "Todos los datos eliminados",

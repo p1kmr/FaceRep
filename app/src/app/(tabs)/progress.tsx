@@ -9,6 +9,7 @@ import { SessionRow } from '@/components/progress/SessionRow';
 import { StreakHero } from '@/components/progress/StreakHero';
 import { WeekBars } from '@/components/progress/WeekBars';
 import { YearMonths } from '@/components/progress/YearMonths';
+import { ScanProgressSection } from '@/components/scan/ScanProgressSection';
 import { AppText } from '@/components/ui/AppText';
 import { Card } from '@/components/ui/Card';
 import { Screen } from '@/components/ui/Screen';
@@ -109,6 +110,8 @@ export default function ProgressScreen() {
           a11y={`${t('progress:reps')}: ${totals.reps}`}
         />
       </View>
+
+      <ScanProgressSection />
 
       <SectionHeader title={t('progress:calendar')} />
       <Card style={styles.calendar}>

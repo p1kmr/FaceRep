@@ -56,7 +56,8 @@ updated by Apple on **October 16, 2026**, checked against FaceRep on 2026-10-18.
 - Send only what the feature needs (5.1.1(iii)). Anything that needs consent can be turned off in Settings (5.1.1(ii)).
 - Paid features don't depend on sharing data: Premium exercises work without AI consent (5.1.1(ii)).
 - Never: ads, analytics, tracking SDKs, the tracking prompt (ATT), selling data. Never send camera frames or photos
-  (2.5.14, 5.1.2(vi)).
+  (2.5.14, 5.1.2(vi)). The face scan's progress photos are taken only after a yes, stay in the app on the iPhone and are
+  excluded from backups (docs/face-scan.md).
 - Health and fitness data is never used for ads or marketing and never stored in iCloud (5.1.3). HealthKit would need
   real Health app integration, its own purpose strings and new labels (2.5.1).
 
@@ -67,10 +68,15 @@ updated by Apple on **October 16, 2026**, checked against FaceRep on 2026-10-18.
 - Never require notifications, location or tracking to use the app or to get something (5.1.2(i)).
 - Recording anything (camera, microphone, screen) needs consent and a visible sign that it is on (2.5.14). The mirror
   is a live preview only.
-- Face tracking (ARKit, the mirror's move check; docs/face-tracking.md) (5.1.1, 5.1.2(vi)): face data stays on the
-  iPhone and is never stored, sent, used to identify anyone, or used for marketing or data mining. The privacy policy's
-  "Face data" paragraph, the camera purpose string and the review notes say so; keep all three true when the feature
-  changes. It reads movement only: no face shape, symmetry or score (1.4.1, 2.3.1), and no jaw-caution exercise.
+- Face tracking (ARKit: the mirror's move check, docs/face-tracking.md, and the face scan, docs/face-scan.md) (5.1.1,
+  5.1.2(vi)): face data stays on the iPhone and is never sent, used to identify anyone, or used for marketing or data
+  mining. The move check stores nothing. The face scan stores only its readings (how far each move went, per side) and,
+  after a yes, a progress photo, both on the iPhone. The privacy policy's two "Face data" paragraphs, the camera purpose
+  string and the review notes say so; keep all of them true when a feature changes.
+- Face tracking reads movement only (1.4.1, 2.3.1): how far each part moves and how evenly the two sides move. Never
+  face shape, looks, attractiveness, age, a "symmetry score" or a promise that the numbers rise (`review:check` has
+  the looks words in all six languages). "Not a medical test", and the method is explained in the app ("How it's
+  measured"). No jaw-caution exercise is followed, and the scan's mouth move never asks for more than comfortable.
 - Prefer Apple's pickers to full access (the photo picker instead of the whole library, 5.1.1(iii)).
 
 **Notifications** (4.5.3, 4.5.4, 2.5.16)
@@ -78,13 +84,14 @@ updated by Apple on **October 16, 2026**, checked against FaceRep on 2026-10-18.
   them off. Nothing sensitive in the text.
 
 **AI Coach** (5.1.2(i), 1.4.1, 4.7, 1.2)
-- No question leaves the iPhone before consent, and the consent screen names who processes it (Cloudflare Workers AI).
+- No question leaves the iPhone before consent, and the consent screen names who processes it (Google Gemini, with
+  Cloudflare Workers AI as a backup), and that Google keeps questions only for a limited time against abuse.
   A new AI provider means updating the consent screen, privacy policy and review notes.
 - The system prompt (`worker/src/lib/prompt.js`) keeps the safety rules: no diagnosis, no result promises, no looks
   ratings, kind help and a pointer to support when someone sounds distressed.
 - "AI answers can be wrong. Not medical advice." stays visible, and long-press → report stays.
-- The Coach only proposes: reminder changes, a workout to save (done without the app), a routine to start. Nothing is
-  changed, saved or started until the person taps Confirm, Save or Start on its card, and the card shows what will happen.
+- The Coach only proposes: reminder changes (create, change, pause, delete) and a routine to start. Nothing is changed or
+  started until the person taps Confirm or Start on its card, and the card shows what will happen.
 - If people could ever see each other's content (sharing, groups, public chats), that is user-generated content (1.2):
   filtering, report, block and published contact details first.
 - Since October 2026, 1.2 also names "AI content creation apps", and 4.7 counts chatbots that aren't in the binary. The
@@ -166,7 +173,7 @@ read with `./.tools/asc` in read-only mode. What the owner still has to do, in o
 | Rule | What it needs | FaceRep |
 |---|---|---|
 | 1.2, 4.7 AI content | topic filter, report path, contact | The Coach keeps to the topic and never rates looks; long-press → report; the support page has the email ✅ |
-| 1.4.1, 2.3.1 health and claims | no medical or result claims; "check with a doctor" | Safety line on the welcome screen, Settings → Exercise safety, jaw caution; the word check passes in all six languages ✅ |
+| 1.4.1, 2.3.1 health and claims | no medical or result claims; "check with a doctor" | Safety line on the welcome screen, Settings → Exercise safety, jaw caution; the word check passes in all six languages ✅. The face scan reads movement only, says "Not a medical test" and explains its method ✅ |
 | 2.1 completeness | final build, backend live, IAP reachable | ❌ Version 1.0 still has build 7, which has the 28-day plan; build 13 is needed. The live Worker has no `/content` yet, so a reviewer's Premium download would fail |
 | 2.3.1(a), 2.3.2, 3.1.2(c) metadata | store text, review notes and subscription texts match the app | ❌ All seven locales still describe the 28-day plan ("27 exercises", "Week 1 free", every exercise free). The review notes point to the removed grid and Settings row, and the subscription descriptions say "Weeks 2 to 4" |
 | 2.3.3, 2.3.7 screenshots | the current app, no prices | ❌ All 8 slides in seven locales show the old Today; slide 3 says "28-day plan · Week 1 free" |
@@ -174,15 +181,15 @@ read with `./.tools/asc` in read-only mode. What the owner still has to do, in o
 | 2.3.14 creative assets | Asset Library rules | None used ✅ |
 | 2.4.1 iPad | works in an iPhone window | iPhone-only; still to check on an iPad ⚠️ |
 | 2.5.2, 2.5.19 downloads, hidden features | media only, nothing hidden | The Premium download is texts, drawings and clips; there are no debug menus or server switches ✅ |
-| 2.5.14 recording | consent and an indicator | The mirror is a preview only; iOS asks first and shows the camera dot ✅ |
+| 2.5.14 recording | consent and an indicator | The mirror is a preview only; iOS asks first and shows the camera dot ✅. The scan's photo needs a yes first and shows "Photo saved on this iPhone" when taken ✅ |
 | 3.1.1, 3.1.2 subscriptions | in-app purchase; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`. Its trial line comes from the App Store offer, so it follows App Store Connect ✅ |
-| 3.1.2(a) ongoing value | keeps giving value | Every day and exercise, and the unlimited Coach ✅ |
-| 4.2.1 ARKit | rich AR, not a model in a view | ARKit only reads movement for the move check; FaceRep isn't an AR app. Say so in the review notes ✅ |
+| 3.1.2(a) ongoing value | keeps giving value | Every day and exercise, the unlimited Coach and unlimited face scans ✅ |
+| 4.2.1 ARKit | rich AR, not a model in a view | ARKit only reads movement, for the move check and the face scan; FaceRep isn't an AR app. Say so in the review notes ✅ |
 | 4.2.3 downloads | nothing required at first launch | The free part is in the app; the Premium download (about 9 MB) comes after purchase ✅ |
-| 4.10 built-in capabilities | the camera isn't sold | The mirror is free for everyone ✅ |
+| 4.10 built-in capabilities | the camera isn't sold | The mirror is free for everyone. Premium sells unlimited face scans (the guided moves, the numbers and their history), not camera access; 3 scans are free ✅ |
 | 5.1.1(i) privacy policy | in the app and in App Store Connect; data, retention, deletion | `/privacy` from Settings, the paywall and the consent screen ✅ |
-| 5.1.2(i) third-party AI | say who gets the data, ask first | The consent screen names Cloudflare Workers AI; switch in Settings ✅ |
-| 5.1.2(vi) face data | never for marketing; explain its use | "Face data" paragraph, camera purpose string, Settings → Move check in the mirror ✅. The review notes must answer Apple's face-data questions (docs/launch.md) |
+| 5.1.2(i) third-party AI | say who gets the data, ask first | The consent screen and paywall name Google Gemini (backup Cloudflare Workers AI); switch in Settings ✅ |
+| 5.1.2(vi) face data | never for marketing; explain its use | "Face data" paragraphs (move check, face scan), camera purpose string, Settings → Move check in the mirror and Face scan photos ✅. The review notes must answer Apple's face-data questions (docs/launch.md) |
 | 5.6.1 ratings | Apple's prompt only | `expo-store-review` ✅ |
 
 **Judgment calls (kept, low risk):**
@@ -190,8 +197,9 @@ read with `./.tools/asc` in read-only mode. What the owner still has to do, in o
   microphone (docs/architecture.md).
 - The keywords "glow" and "skincare": the app calls the topic "face care", but people search for "skincare", and the
   Coach does give basic face care tips. Drop them if a reviewer objects.
-- The English keywords "double" and "chin": the chin and neck exercises work that area, and the Coach answers "Can
-  exercises help a double chin?" honestly. Nothing promises a result. Drop them if a reviewer objects.
+- The English keywords "double" and "chin": the chin and neck exercises work that area, and the Coach answers a double
+  chin question honestly (mostly body fat, genetics and posture). It isn't one of the Coach's suggested questions, and
+  nothing promises a result. Drop them if a reviewer objects.
 - The privacy and support URLs are on the `elowa-app.workers.dev` subdomain. They work; a FaceRep domain would look
   more professional later (5.6.2).
 - The EU trader status (DSA) is undeclared, so the app isn't sold in the EU. This is the owner's choice, not a

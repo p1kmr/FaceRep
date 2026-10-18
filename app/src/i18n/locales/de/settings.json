@@ -17,6 +17,8 @@
   "voiceCuesHint": "Sagt „Anspannen“, „Locker lassen“ und die nächste Übung an, damit du mit geschlossenen Augen mitmachen kannst.",
   "moveCheck": "Bewegungscheck im Spiegel",
   "moveCheckHint": "Zeigt, wann die Kamera die Übungsbewegung erkennt. Läuft auf deinem iPhone: Es wird nichts aufgenommen, gespeichert oder gesendet.",
+  "scanPhotos": "Fotos beim Gesichtsscan",
+  "scanPhotosHint": "Ein Foto bei jedem Scan, nur auf diesem iPhone",
   "theme": {
     "title": "Design",
     "system": "System",
@@ -42,7 +44,7 @@
   "delete": {
     "row": "Alle Daten löschen",
     "title": "Alle Daten löschen?",
-    "body": "Das löscht deine Trainings, den Chat und deine Einstellungen von diesem iPhone. Dein Abo ist davon nicht betroffen.",
+    "body": "Das löscht deine Trainings, den Chat, deine Gesichtsscans mit Fotos und deine Einstellungen von diesem iPhone. Dein Abo ist davon nicht betroffen.",
     "confirm": "Löschen"
   },
   "deleted": "Alle Daten gelöscht",

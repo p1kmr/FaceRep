@@ -109,7 +109,7 @@ Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Ch
 
 ## 5. What competitors get wrong (and FaceRep already does differently)
 Reviews complain about: price jumps and web-checkout funnels, charges after cancelling, AI avatar demos, paywalls right after onboarding, ads mid-workout, login failures, "random scores", can't delete photos, repetitive programs, joint/ear pain.
-FaceRep: free exercises, in-app pricing only, real anatomy visuals, no login, no ads, no scores, on-device data, safety + jaw caution.
+FaceRep: free exercises, in-app pricing only, real anatomy visuals, no login, no ads, no looks scores (the face scan measures movement and explains how), progress photos that stay on the iPhone and can be deleted, on-device data, safety + jaw caution.
 Done since: voice cues, keep-screen-on, camera mirror, five languages. Next idea: a home-screen widget for the streak.
 
 ## 6. App Store rules: status
@@ -117,7 +117,41 @@ The rule-by-rule status, the checklist for every new feature and the automatic c
 
 **App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe), Fitness (the streak and workouts in the last 7 days sent with each Coach question; same reason). All Not linked, App Functionality. Workout history and reminders stay on device → not "collected". The mirror's camera picture is shown live and never stored or sent → not "collected". No tracking.
 
-**Review notes:** describe the Coach (AI, Workers AI, consent screen, 3 free answers then paywall) and give the steps to reach it; mention DeviceCheck is on. The app is in English, Spanish, Portuguese (Brazil), German, French and Italian (it follows the iPhone's language; Settings → Language opens the per-app language page). Mention the mirror: the person button in the workout player shows the front camera next to the drawing (drag it anywhere, × closes it); the camera permission is asked only then, and nothing is recorded, saved or sent. Mention the move check (the paragraph in docs/face-tracking.md §4): on iPhones with face tracking, the mirror uses ARKit on the device to show whether it sees the exercise's movement and how many holds it saw; face data is processed in real time and discarded (not stored, not sent to our server or anyone, not used for identification, advertising or data mining); to see it, start Brow Lift and tap the person button in the player; Settings → Move check in the mirror turns it off. Mention the picture choice: onboarding asks whether the exercise pictures show a man or a woman (display only, stays on the device; Settings → Exercise pictures). Mention reminders: Settings → Reminders (local notifications the user sets up; permission is asked when one is turned on), and the Coach can propose reminder changes that only apply after the user taps Confirm. The Coach can also propose saving a workout the user did without the app, or a short routine; nothing is saved or started until the user taps Save or Start on its card. Mention the face map: Exercises tab → Face map (or tap the face on Today); it is the app's own drawing with the muscle areas, the camera is not used and no photo of the user is taken or analysed. Mention the exercise videos: the exercise page and the start of each exercise in the player; they are made from the exercise drawings (no recording, no sound). Explain the plan, because a reviewer can't wait 7 days to reach Week 2: "Week 1 is free. Weeks 2–4 and Levels 2–3 are Premium; the plan goes on one day per calendar day, so Week 2 starts on the 8th day. Buy with the sandbox account from Settings → Premium or the Coach's limit; right away the Coach's 3-answer limit is lifted (unlimited answers) and the Premium days are downloaded from our server for when the plan reaches them. Settings → Restore restores the purchase."
+**Review notes** (App Store Connect → the version → App Review Information → Notes; ready to paste, about 2,600
+characters of the 4,000 allowed):
+
+> FaceRep is a facial exercise app with no account. It follows the iPhone's language (English, Spanish, Portuguese
+> (Brazil), German, French, Italian); Settings > Language opens the per-app language page.
+>
+> FREE AND PREMIUM: a set of exercises, days 1 to 3 of the weekly workouts, 3 AI Coach answers a month and 3 face scans
+> are free. Premium (weekly, monthly or yearly; only yearly has a 1-week free trial) unlocks every exercise, every day of
+> the weekly workouts, unlimited Coach answers and unlimited face scans. The paywall opens from Settings > Get Premium,
+> from a locked exercise (Exercises tab), from the Coach after its free answers, and from Progress > Face scan after 3
+> scans. Restore is on the paywall and in Settings.
+>
+> AI COACH: answers come from the Google Gemini API, with Cloudflare Workers AI as a backup. A consent screen names both
+> before the first question; Settings > Allow AI Coach turns it off. No account, name or IP address goes to the AI.
+>
+> CAMERA (front camera; iOS asks only when the user first opens the workout mirror or starts a face scan):
+> - Workout mirror: the person button in the workout player shows the camera next to the exercise drawing. Live preview.
+> - Move check: on iPhones with face tracking, the mirror uses ARKit on the device to show whether it sees the
+>   exercise's movement (try Brow Lift). Face data is processed in real time and discarded.
+> - Face scan (Progress > Face scan, or the card on Today): a 35-second guided scan with ARKit face tracking on the
+>   device. It measures how far six facial movements go (raise eyebrows, squint, smile, pucker, open mouth, puff cheeks)
+>   and how evenly the left and right side move, compared with the user's own relaxed face. It does not measure face
+>   shape, looks or age and is not a medical test; "How it's measured" explains the method. Only these numbers are
+>   saved, on the iPhone. Optional progress photo: asked once with its own buttons; if allowed, one photo of the relaxed
+>   face is saved in the app's storage on the iPhone (not the photo library, excluded from backups) and the screen
+>   shows "Photo saved on this iPhone". Scans and photos can be deleted in the app; Settings > Delete all data deletes
+>   everything.
+> Face data (ARKit blend shapes, head angle and distance) is never sent to our server or anyone else, never used to
+> identify anyone, and never used for advertising, marketing or data mining. FaceRep is not an AR app: ARKit only reads
+> movement. In the Simulator the scan plays a pretend face; on an iPhone it uses the camera.
+>
+> OTHER: the face map (Exercises tab > Face map) is the app's own drawing; no photo of the user is used. Exercise videos
+> are made from the drawings. Reminders are local notifications (Settings > Reminders; permission is asked when one is
+> turned on). The Coach can propose a reminder change or a short routine; nothing changes or starts until the user taps
+> Confirm or Start. The exercise pictures can show a man or a woman (display only, Settings > Exercise pictures).
 
 ## 7. Keeping the developer account safe
 Accounts get terminated for: hidden features or server switches that change the app after review, fake reviews or rating manipulation, bait-and-switch or confusing subscriptions, copying other apps or names, misleading health claims.

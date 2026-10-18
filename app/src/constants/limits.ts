@@ -5,6 +5,11 @@ export const FREE_LIMITS = {
    * value before paying. Must match FREE_PER_MONTH in worker/src/lib/access.js.
    */
   aiPerMonth: 3,
+  /**
+   * Face scans in all (not per month) on the free plan. The scan runs only on the iPhone, so this is the one limit the
+   * app itself keeps (docs/face-scan.md). Must match FREE_SCANS in worker/src/pages.js (the Terms).
+   */
+  scans: 3,
 } as const;
 
 // Premium Coach answers are unlimited. The Worker's daily ceiling (LIMITS in worker/src/lib/ratelimit.js) only stops
