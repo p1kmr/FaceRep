@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Je suis ton Coach {{app}}. Pose-moi tes questions sur les exercices du visage, la technique, la posture ou une routine simple de soins du visage. Je peux aussi te préparer une routine rapide, enregistrer une séance faite sans l'app ou créer des rappels.",
-  "placeholder": "Pose une question ou raconte ce que tu as fait",
+  "intro": "Je suis ton Coach {{app}}. Pose-moi tes questions sur les exercices du visage, la technique, la posture ou une routine simple de soins du visage. Je peux aussi te préparer une routine rapide et créer, modifier ou supprimer tes rappels.",
+  "placeholder": "Pose une question ou crée un rappel",
   "send": "Envoyer",
   "newChat": "Nouvelle discussion",
   "history": {
@@ -36,19 +36,13 @@
     "declined": "Non enregistré",
     "open": "Voir les rappels",
     "missing": "Ce rappel n'existe plus.",
-    "log": "Enregistrer la séance",
     "routine": "Séance pour toi",
     "routineTitle": "Ta routine",
-    "today": "Aujourd'hui",
-    "yesterday": "Hier",
     "more_one": "+{{count}} autre",
     "more_other": "+{{count}} autres",
-    "save": "Enregistrer",
     "start": "Commencer",
     "started": "Commencée",
-    "notStarted": "Pas commencée",
-    "openProgress": "Voir les progrès",
-    "nothing": "Rien à enregistrer pour l'instant. Dis au Coach quels exercices tu as faits ou pendant combien de temps."
+    "notStarted": "Pas commencée"
   },
   "bubble": {
     "open": "Demander au Coach",
@@ -56,7 +50,7 @@
   },
   "hint": {
     "title": "Demande au Coach",
-    "body": "Technique, mewing, posture ou soins du visage : demande-moi ce que tu veux. Je peux aussi enregistrer tes séances, te préparer une routine et créer des rappels.",
+    "body": "Technique, mewing, posture ou soins du visage : demande-moi ce que tu veux. Je peux aussi te préparer une routine et créer ou modifier tes rappels.",
     "technique": "Vérifier ma technique",
     "remind": "Créer un rappel",
     "ask": "Poser une question",
@@ -66,14 +60,12 @@
   },
   "suggestions": {
     "jawline": "Que peuvent changer les exercices pour la mâchoire ?",
-    "mewing": "Est-ce que je fais bien le mewing ?",
+    "mewing": "Comment bien faire le mewing ?",
     "reminder": "Rappelle-moi de vérifier mon mewing toutes les 2 heures en semaine",
     "skincare": "Une routine simple de soins du visage ?",
     "skincare_man": "Une routine simple de soins du visage pour homme ?",
     "skincare_woman": "Une routine simple de soins du visage pour femme ?",
-    "doubleChin": "Les exercices peuvent-ils aider pour le double menton ?",
-    "routine": "Prépare-moi une routine rapide de 5 minutes pour la mâchoire",
-    "log": "J'ai fait mes exercices de mâchoire ce matin. Tu peux les enregistrer ?"
+    "routine": "Prépare-moi une routine rapide de 5 minutes pour la mâchoire"
   },
   "errors": {
     "notConfigured": "Le Coach n'est pas encore configuré dans cette version.",
@@ -86,10 +78,10 @@
   },
   "consent": {
     "title": "Avant de poser ta question au Coach",
-    "what": "Le Coach est une IA. Pour te répondre, ta question est envoyée à notre serveur et traitée par un modèle d'IA (Cloudflare Workers AI).",
+    "what": "Le Coach est une IA. Pour te répondre, ta question est envoyée à notre serveur et traitée par un modèle d'IA : Google Gemini, ou Cloudflare Workers AI quand Gemini n'est pas disponible.",
     "sent": "Envoyé : ta question, les derniers messages de cette discussion, ton objectif, ta série en cours, le nombre de séances faites cette semaine, ainsi que les noms et horaires de tes rappels (pour que le Coach puisse proposer des modifications que tu confirmes).",
     "notSent": "Non envoyé : ton nom, tes photos, tes contacts ou ta position. Tu n'as pas de compte chez nous.",
-    "storage": "Notre serveur ne conserve pas tes questions. L'historique de la discussion reste sur cet iPhone, et tu peux le supprimer à tout moment.",
+    "storage": "Notre serveur ne conserve pas tes questions. Google les conserve seulement pour une durée limitée afin d'éviter les abus et ne les utilise pas pour améliorer ses produits. L'historique de la discussion reste sur cet iPhone, et tu peux le supprimer à tout moment.",
     "medical": "Le Coach donne des conseils généraux de fitness et de soins du visage, pas des avis médicaux.",
     "allow": "Accepter et continuer",
     "notNow": "Plus tard",

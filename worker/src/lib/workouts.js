@@ -1,13 +1,13 @@
 /**
- * Workout actions the Coach can PROPOSE, as Workers AI function calling (like the reminder tools): save a workout the
- * user did without the app, or a short routine to start now. The app shows each as a card and saves or starts nothing
- * until the user taps Confirm or Start. Everything the model returns is checked here (and again in the app): unknown
+ * The workout the Coach can PROPOSE, as function calling (like the reminder tools): a short routine to start
+ * now. The app shows it as a card and starts nothing until the user taps Start. It doesn't save workouts: a workout is
+ * saved when it's finished in the app. Everything the model returns is checked here (and again in the app): unknown
  * exercise ids and anything out of range are dropped, never "fixed up" into something the user didn't ask for.
  * Without Premium the Coach gets only the free exercise ids, so it never names a Premium one (catalog.js idsFor).
  */
 import { idsFor } from './catalog.js';
 
-export const WORKOUT_LIMITS = { daysBack: 6, maxMinutes: 120, logMax: 12, routineMin: 2, routineMax: 8, titleChars: 40 };
+export const WORKOUT_LIMITS = { routineMin: 2, routineMax: 8, titleChars: 40 };
 
 /** English names of the catalog's exercises, for the prompt (the model answers in the user's language). */
 export const EXERCISE_NAMES = {
@@ -42,25 +42,8 @@ export const EXERCISE_NAMES = {
 
 const idsSchema = (premium) => ({ type: 'array', items: { type: 'string', enum: idsFor(premium) } });
 
-/** Function definitions for Workers AI (OpenAI-style "tools"), with the exercise ids this user may get. */
+/** Function definitions for the models (OpenAI-style "tools", taken by Gemini and Workers AI), with the exercise ids this user may get. */
 export const workoutTools = (premium) => [
-  {
-    type: 'function',
-    function: {
-      name: 'log_workout',
-      description:
-        'Propose saving a workout the user says they did without the app, or forgot to save: today or up to 6 days ago. Only when they clearly say they did it. The user confirms it in the app.',
-      parameters: {
-        type: 'object',
-        properties: {
-          days_ago: { type: 'integer', description: '0 = today, 1 = yesterday, up to 6.' },
-          exercises: { ...idsSchema(premium), description: "Exercise ids from the list that they say they did. Empty when they don't say which." },
-          minutes: { type: 'integer', description: 'How many minutes, only when they say. 1 to 120.' },
-        },
-        required: ['days_ago'],
-      },
-    },
-  },
   {
     type: 'function',
     function: {
@@ -79,26 +62,21 @@ export const workoutTools = (premium) => [
   },
 ];
 
-const cleanIds = (v, max, ids) =>
-  Array.isArray(v) ? [...new Set(v.filter((id) => typeof id === 'string' && ids.includes(id)))].slice(0, max) : [];
+/** An id from the list, or null. The model sometimes sends only an id's number (4 for '04-mewing'): that is the same exercise. */
+const toId = (v, ids) => {
+  if (typeof v === 'string' && ids.includes(v)) return v;
+  const n = typeof v === 'number' ? v : typeof v === 'string' && /^\d{1,2}$/.test(v) ? Number(v) : NaN;
+  return Number.isInteger(n) ? (ids.find((id) => id.startsWith(`${String(n).padStart(2, '0')}-`)) ?? null) : null;
+};
+const cleanIds = (v, max, ids) => (Array.isArray(v) ? [...new Set(v.map((x) => toId(x, ids)).filter(Boolean))].slice(0, max) : []);
 const cleanTitle = (v) => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim().slice(0, WORKOUT_LIMITS.titleChars) : '');
 
-/**
- * Proposed workout actions the app can show: a log needs a day 0–6 and something to save (exercises or minutes); a
- * routine needs 2–8 known exercises (without Premium, free ones). At most one of each per answer.
- */
+/** A proposed routine the app can show: 2–8 known exercises (without Premium, free ones). At most one per answer. */
 export function sanitizeWorkoutCalls(toolCalls, premium = false) {
   const ids = idsFor(premium);
   const out = [];
   for (const { name, args } of toolCalls) {
-    if (name === 'log_workout' && !out.some((a) => a.type === 'log')) {
-      const daysAgo = args.days_ago;
-      if (!Number.isInteger(daysAgo) || daysAgo < 0 || daysAgo > WORKOUT_LIMITS.daysBack) continue;
-      const exercises = cleanIds(args.exercises, WORKOUT_LIMITS.logMax, ids);
-      const minutes = Number.isInteger(args.minutes) && args.minutes >= 1 && args.minutes <= WORKOUT_LIMITS.maxMinutes ? args.minutes : null;
-      if (!exercises.length && !minutes) continue;
-      out.push({ type: 'log', daysAgo, exercises, minutes });
-    } else if (name === 'suggest_workout' && !out.some((a) => a.type === 'routine')) {
+    if (name === 'suggest_workout' && !out.some((a) => a.type === 'routine')) {
       const exercises = cleanIds(args.exercises, WORKOUT_LIMITS.routineMax, ids);
       if (exercises.length < WORKOUT_LIMITS.routineMin) continue;
       out.push({ type: 'routine', title: cleanTitle(args.title), exercises });

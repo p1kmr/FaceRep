@@ -1,4 +1,5 @@
 import { CATALOG, idsFor } from './catalog.js';
+import { jawCautionIn, namesIn, preparedIn } from './names.js';
 import { EXERCISE_NAMES } from './workouts.js';
 
 /** What each exercise is, for the prompt (the app's own names; the model answers in the user's language). */
@@ -63,7 +64,7 @@ export function exerciseInfo(premium) {
 
 export const coachSystemPrompt = (appName = 'FaceRep', premium = false) => `You are the ${appName} Coach, a friendly, knowledgeable facial-fitness coach inside an iPhone app where people train jawline, cheekbone and eye-area muscles with short guided exercises.
 Style:
-- Reply ONLY in the language given by the locale.
+- Reply ONLY in the language given by the locale, talking to the user informally like the app does (tu in French, du in German, tú in Spanish, tu in Italian, você in Portuguese).
 - Calm, encouraging, practical. At most about 120 words. Plain text only: no markdown, no headings, no bullet symbols. At most one emoji.
 Topics:
 - The app's exercises and technique, posture, tongue posture (mewing), neck posture, building a routine and staying consistent, sleep, hydration, and basic face care and grooming (cleanser, moisturizer, sunscreen, gentle exfoliation, common ingredients like niacinamide; patch-test new products). Call this topic face care (in the user's language), not skincare.
@@ -88,32 +89,52 @@ export const reminderRules = (canPropose) =>
   canPropose
     ? `Reminders:
 - The app has reminders: workout, mewing (tongue posture check), posture (chin tuck / neck) and custom, each with 1 to 6 times a day and weekdays.
-- Only when the user clearly asks to add, change, pause, resume or delete a reminder, call create_reminder, update_reminder or delete_reminder. Never invent reminders otherwise. For "every 2 hours" use times like 10:00, 12:00, 14:00, 16:00, 18:00.
-- The user must confirm every change in the app, so in your text say briefly what you prepared and ask them to confirm below. Never claim it is already done.
+- When the user asks to add, change, pause, resume or delete a reminder, in any language, call create_reminder, update_reminder or delete_reminder. Calling it is the only way to prepare a change: text alone changes nothing. Never invent reminders the user didn't ask for. For "every 2 hours" use times like 10:00, 12:00, 14:00, 16:00, 18:00.
+- The app shows each change you propose as a card with Confirm, under its own line about it, so write nothing about the change yourself: just call the tool (add text only to answer something else they asked). Never claim it is already done, and never say you prepared something without calling a tool.
 - Use the ids from the user's reminders below. Times are 24-hour 'HH:mm' in the user's local time.`
-    : `Reminders: you can't change reminders right now. If asked, tell the user to set them in Settings, Reminders.`;
+    : `Reminders: you can't change reminders right now. If asked, tell the user to set them in this app: Settings, Reminders (not the iPhone's Settings or Reminders app).`;
 
 /**
- * Workout rules: with tools the Coach proposes saving or starting a workout (the user confirms); without, it says how.
- * The ids are the ones this user may get (catalog.js idsFor).
+ * Workout rules: with tools the Coach proposes a routine to start (the user taps Start); without, it says how. It never
+ * saves a workout: one is saved when it's finished in the app. The ids are the ones this user may get (catalog.js idsFor).
  */
 export const workoutRules = (canPropose, premium = false) =>
   canPropose
     ? `Workouts:
-- When the user clearly says they did face exercises without the app, or forgot to save a workout ("I did my jaw exercises this morning", "log yesterday's workout"), call log_workout: days_ago 0 for today, 1 for yesterday, up to 6; the exercise ids they name (none when they don't say which); minutes only when they say. Never log a workout they only plan to do.
 - When the user asks for a workout or routine to do now ("a quick jaw routine", "5 minutes for my eyes"), call suggest_workout with 2 to 8 exercise ids from the list, in the order to do them (about a minute each), and a short title in the user's language.${premium ? ' Leave out Jaw Clench, Jaw Jut and Lion Face when they mention jaw pain, clicking or TMJ.' : ''}
-- The user confirms in the app. In your text say briefly what you prepared and ask them to check it below. Never claim it is already saved or started.
+- The app shows the routine as a card with Start, under its own line about it, so write nothing about it yourself: just call suggest_workout (add text only to answer something else they asked). Never claim it is already started, and never say you prepared something without calling a tool.
+- You can't save workouts: a workout is saved when they finish it in the app. If they say they did exercises without the app, say that kindly.
 - Exercise ids: ${idsFor(premium)
         .map((id) => `${id} ${EXERCISE_NAMES[id]}`)
         .join(', ')}.`
     : `Workouts: you can't save or start workouts right now. If asked, say a workout saves itself when they finish it in the app, and they can start any exercise from the Exercises tab.`;
+
+/**
+ * The app saves its own line under a card as the Coach's answer, and sends it back in the chat history: without this
+ * the model sees itself answering a reminder request with that line alone, and copies it without calling a tool.
+ */
+export const cardRule = (locale) =>
+  `\nCards: in the chat below, "${preparedIn(locale)}" is the app's own line under a card, shown only after you called a tool. Every new change or routine needs a new tool call; never write that line yourself.`;
+
+/**
+ * The app's own words in the user's language: the names of the exercises this user may get (never a Premium name to a
+ * free user) and the jaw caution, so an answer says them the way the app shows them.
+ */
+export function languageRules(locale, premium = false) {
+  const names = locale === 'en' ? null : namesIn(locale);
+  if (!names) return '';
+  const pairs = idsFor(premium)
+    .filter((id) => names[id])
+    .map((id) => `${EXERCISE_NAMES[id]} = ${names[id]}`);
+  return `\nExercise names: in this language the app calls them ${pairs.join(', ')}. Always use these names in your answers, never the English ones.\nJaw caution: when you warn about jaw problems, use the app's words in this language: "${jawCautionIn(locale)}" Never write the English abbreviation TMJ.`;
+}
 
 export function buildMessages({ locale, context, history, question, appName, reminders = [], canPropose = false, premium = false }) {
   const reminderInfo = canPropose ? `\nThe user's reminders (JSON): ${JSON.stringify(reminders)}` : '';
   return [
     {
       role: 'system',
-      content: `${coachSystemPrompt(appName, premium)}\n${reminderRules(canPropose)}\n${workoutRules(canPropose, premium)}\nLocale: ${locale}\nTraining context (JSON): ${JSON.stringify(context)}${reminderInfo}`,
+      content: `${coachSystemPrompt(appName, premium)}${languageRules(locale, premium)}\n${reminderRules(canPropose)}\n${workoutRules(canPropose, premium)}${canPropose ? cardRule(locale) : ''}\nLocale: ${locale}\nTraining context (JSON): ${JSON.stringify(context)}${reminderInfo}`,
     },
     ...history.map((t) => ({ role: t.role, content: t.text })),
     { role: 'user', content: question },

@@ -56,8 +56,8 @@ A 28-DAY PLAN
 • Light days to recover, and a day only moves on when you've done it
 • Hold and relax timer with voice cues and haptics
 • Streaks and a week, month and year calendar of your workouts
-• Reminders for workouts, mewing checks and posture breaks, on your days and times (or ask the Coach to set them)
-• Tell the Coach what you did without the app and it saves the workout once you confirm, or ask it for a quick routine
+• Reminders for workouts, mewing checks and posture breaks, on your days and times (or ask the Coach to set or change them)
+• Ask the Coach for a quick routine and start it with one tap
 
 WHAT'S FREE
 Week 1 of the plan and every exercise on its own, any time. No account, no ads. Your workouts stay on your iPhone.
@@ -114,8 +114,8 @@ UN PLAN DE 28 DÍAS
 • Días suaves para recuperarte, y un día solo avanza cuando lo has completado
 • Temporizador de contracción y relajación con guía por voz y respuesta háptica
 • Rachas y un calendario semanal, mensual y anual de tus entrenamientos
-• Recordatorios para entrenar, revisar tu mewing y hacer pausas para la postura, en los días y horas que elijas (o pídele al Coach que los cree)
-• Cuéntale al Coach lo que hiciste sin la app y guardará el entrenamiento cuando lo confirmes, o pídele una rutina rápida
+• Recordatorios para entrenar, revisar tu mewing y hacer pausas para la postura, en los días y horas que elijas (o pídele al Coach que los cree o cambie)
+• Pídele al Coach una rutina rápida y empiézala con un toque
 
 QUÉ ES GRATIS
 La semana 1 del plan y cada ejercicio por separado, cuando quieras. Sin cuenta y sin anuncios. Tus entrenamientos se quedan en tu iPhone.
@@ -172,8 +172,8 @@ UM PLANO DE 28 DIAS
 • Dias leves para recuperar, e um dia só avança quando você o conclui
 • Timer de contração e relaxamento com instruções por voz e retorno tátil
 • Sequências e um calendário semanal, mensal e anual dos seus treinos
-• Lembretes de treino, checagens de mewing e pausas para a postura, nos seus dias e horários (ou peça ao Coach para criá-los)
-• Conte ao Coach o que você fez sem o app e ele salva o treino quando você confirmar, ou peça uma rotina rápida
+• Lembretes de treino, checagens de mewing e pausas para a postura, nos seus dias e horários (ou peça ao Coach para criá-los ou mudá-los)
+• Peça ao Coach uma rotina rápida e comece com um toque
 
 O QUE É GRÁTIS
 A semana 1 do plano e cada exercício avulso, quando quiser. Sem conta, sem anúncios. Seus treinos ficam no seu iPhone.
@@ -230,8 +230,8 @@ EIN 28-TAGE-PLAN
 • Leichte Tage zur Erholung, und der Plan geht erst weiter, wenn du den Tag geschafft hast
 • Timer für Halten und Lockern mit Sprachansagen und Haptik
 • Serien und ein Wochen-, Monats- und Jahreskalender deiner Trainings
-• Erinnerungen für Training, Mewing-Checks und Haltungspausen an deinen Tagen und zu deinen Uhrzeiten (oder lass sie dir vom Coach einrichten)
-• Erzähl dem Coach, was du ohne die App gemacht hast, und er speichert das Training, sobald du bestätigst, oder lass dir eine kurze Routine zusammenstellen
+• Erinnerungen für Training, Mewing-Checks und Haltungspausen an deinen Tagen und zu deinen Uhrzeiten (oder lass sie dir vom Coach einrichten oder ändern)
+• Lass dir vom Coach eine kurze Routine zusammenstellen und starte sie mit einem Tippen
 
 DAS IST KOSTENLOS
 Woche 1 des Plans und jede einzelne Übung, jederzeit. Kein Konto, keine Werbung. Deine Trainings bleiben auf deinem iPhone.
@@ -288,8 +288,8 @@ UN PLAN DE 28 JOURS
 • Des journées légères pour récupérer, et le plan n'avance que lorsque tu as fait la séance du jour
 • Minuteur de maintien et de relâchement avec guidage vocal et retour haptique
 • Séries et calendrier de tes séances par semaine, mois et année
-• Rappels pour tes séances, ton mewing et ta posture, aux jours et heures de ton choix (ou demande au Coach de les créer)
-• Raconte au Coach ce que tu as fait sans l'app et il enregistre la séance quand tu confirmes, ou demande-lui une routine rapide
+• Rappels pour tes séances, ton mewing et ta posture, aux jours et heures de ton choix (ou demande au Coach de les créer ou de les modifier)
+• Demande au Coach une routine rapide et lance-la tout de suite
 
 CE QUI EST GRATUIT
 La semaine 1 du plan et chaque exercice à l'unité, à tout moment. Pas de compte, pas de pub. Tes séances restent sur ton iPhone.
@@ -346,8 +346,8 @@ UN PIANO DI 28 GIORNI
 • Giorni leggeri per recuperare, e un giorno si sblocca solo quando hai completato il precedente
 • Timer di tenuta e rilassamento con indicazioni vocali e feedback aptico
 • Serie e un calendario settimanale, mensile e annuale dei tuoi allenamenti
-• Promemoria per allenamenti, controlli del mewing e pause per la postura, nei giorni e agli orari che scegli tu (oppure chiedi al Coach di impostarli)
-• Racconta al Coach cosa hai fatto senza l'app e salverà l'allenamento quando confermi, oppure chiedigli una routine veloce
+• Promemoria per allenamenti, controlli del mewing e pause per la postura, nei giorni e agli orari che scegli tu (oppure chiedi al Coach di impostarli o cambiarli)
+• Chiedi al Coach una routine veloce e avviala con un tocco
 
 COSA È GRATIS
 La settimana 1 del piano e ogni singolo esercizio, quando vuoi. Nessun account, nessuna pubblicità. I tuoi allenamenti restano sul tuo iPhone.

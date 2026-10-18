@@ -1,6 +1,6 @@
 import { useContext, useMemo } from 'react';
 
-import { LogWorkoutContext, ProgressDispatchContext, ProgressStateContext, SaveWorkoutContext } from '@/state/progress/ProgressProvider';
+import { ProgressDispatchContext, ProgressStateContext, SaveWorkoutContext } from '@/state/progress/ProgressProvider';
 import { selectProgressSummary } from '@/state/progress/selectors';
 
 import { useToday } from './useToday';
@@ -22,13 +22,6 @@ export function useSaveWorkout() {
   const save = useContext(SaveWorkoutContext);
   if (!save) throw new Error('useSaveWorkout must be used inside <ProgressProvider>');
   return save;
-}
-
-/** Saves a workout done without the app (a confirmed Coach proposal). */
-export function useLogWorkout() {
-  const log = useContext(LogWorkoutContext);
-  if (!log) throw new Error('useLogWorkout must be used inside <ProgressProvider>');
-  return log;
 }
 
 export function useProgressDispatch() {

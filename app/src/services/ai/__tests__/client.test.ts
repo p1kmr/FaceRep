@@ -50,25 +50,16 @@ describe('AI client', () => {
     expect(parseChatReply({ answer: '', actions: [{ type: 'delete' }] })).toBeNull();
   });
 
-  it('checks proposed workouts again: known exercises only, days 0–6', () => {
+  it('checks proposed routines again: 2 or more known exercises; nothing else is a workout action', () => {
     const reply = parseChatReply({
       answer: 'Check it below.',
       actions: [
-        { type: 'log', daysAgo: 0, exercises: ['01-jaw-clench', 'squats', '01-jaw-clench'], minutes: 6 },
-        { type: 'routine', title: '  Quick jaw ', exercises: ['01-jaw-clench', '11-chin-tuck'] },
+        { type: 'routine', title: '  Quick jaw ', exercises: ['01-jaw-clench', 'squats', '11-chin-tuck', '01-jaw-clench'] },
         { type: 'routine', exercises: ['01-jaw-clench'] }, // one exercise is not a routine
-        { type: 'log', daysAgo: 9, minutes: 5 },
+        { type: 'log', daysAgo: 0, exercises: ['01-jaw-clench'], minutes: 6 }, // the Coach doesn't save workouts
       ],
     });
-    expect(reply?.actions).toEqual([
-      { type: 'log', daysAgo: 0, exercises: ['01-jaw-clench'], minutes: 6 },
-      { type: 'routine', title: 'Quick jaw', exercises: ['01-jaw-clench', '11-chin-tuck'] },
-    ]);
-    const earlier = parseChatReply({ answer: 'ok', actions: [{ type: 'log', daysAgo: 2, exercises: [], minutes: 500 }] });
-    expect(earlier?.actions).toEqual([]); // 500 minutes is out of range: nothing left to save
-    expect(parseChatReply({ answer: 'ok', actions: [{ type: 'log', daysAgo: 1, exercises: [], minutes: 12 }] })?.actions).toEqual([
-      { type: 'log', daysAgo: 1, exercises: [], minutes: 12 },
-    ]);
+    expect(reply?.actions).toEqual([{ type: 'routine', title: 'Quick jaw', exercises: ['01-jaw-clench', '11-chin-tuck'] }]);
   });
 
   it('sends the DeviceCheck token with the question', async () => {

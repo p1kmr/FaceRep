@@ -33,17 +33,6 @@ export type ReminderAction =
   | { type: 'update'; id: string; title?: string; times?: string[]; days?: number[]; enabled?: boolean }
   | { type: 'delete'; id: string };
 
-/**
- * A workout the user says they did without the app (or forgot to save), to save on a day 0–6 days back. exercises: the
- * ones they named (may be empty). minutes: only when they said. Saved only on Confirm.
- */
-export interface LogAction {
-  type: 'log';
-  daysAgo: number;
-  exercises: ExerciseId[];
-  minutes: number | null;
-}
-
 /** A short routine to start now; it starts only when the user taps Start. */
 export interface RoutineAction {
   type: 'routine';
@@ -52,7 +41,7 @@ export interface RoutineAction {
 }
 
 /** Anything the Coach can propose. Nothing happens until the user confirms it on its card. */
-export type CoachAction = ReminderAction | LogAction | RoutineAction;
+export type CoachAction = ReminderAction | RoutineAction;
 
 /** What the Coach gets to know about the user's reminders, so it can change them when asked. */
 export type ReminderContext = Pick<Reminder, 'id' | 'title' | 'kind' | 'enabled' | 'times' | 'days'>;

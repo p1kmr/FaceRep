@@ -20,7 +20,7 @@ iPhone app ── purchase/restore (react-native-purchases, public appl_ key) �
   └──────────────────────────────────────────────► Cloudflare Worker ───────────┘
                                                      │  D1: free_usage (per ID per month), rate_limits (per day)
                                                      ├──► Apple DeviceCheck (token validation only)
-                                                     ├──► Workers AI (only if access is allowed)
+                                                     ├──► Gemini API, backup Workers AI (only if access is allowed)
                                                      └──► its private assets: the Premium exercises (§2b)
 ```
 
@@ -46,7 +46,7 @@ Rules
 - Without a RevenueCat key (web, Expo Go) everything works, as Free.
 - **(FaceRep)** Free: **days 1 to 3 of the weekly workouts** (`WEEKS.freeDays`), made from the free exercises (`FREE_EXERCISE_IDS`: one or two per area, none that loads the jaw), those exercises on their own in the library, streaks and progress, 3 Coach answers a month. From day 4 the weeks need Premium: a locked day names one of its free exercises and shows the others locked. Premium: **every day and every exercise**, in the weeks and in the library, and **unlimited AI Coach answers** (the Worker's `LIMITS` stop only abuse: 100 a day per app ID, far beyond normal use; the Terms mention fair use, the app never shows the number). The app says "Days 1 to 3 are free", never "trial".
 - `FREE_LIMITS.aiPerMonth = 3` (`constants/limits.ts`), refilled on the 1st. The app's count is for display and to open the paywall early; the Worker is the authority. A 402 `freeUsed` syncs the app to "all used".
-- **(FaceRep)** AI consent (guideline 5.1.2(i)) comes before the first question, and the paywall also says the Coach uses Cloudflare Workers AI, so nobody pays before knowing where questions go.
+- **(FaceRep)** AI consent (guideline 5.1.2(i)) comes before the first question, and the paywall also says the Coach uses Google Gemini (Cloudflare Workers AI as a backup), so nobody pays before knowing where questions go.
 
 ## 2b. Premium exercises come only from the Worker
 The Premium exercises' texts (every language), drawings and clips are **not in the app**: a patched app that flips
@@ -81,7 +81,7 @@ Order for every `POST /chat` (`worker/src/lib/handler.js`):
    - **Premium?** RevenueCat REST v1 with `REVENUECAT_SECRET_KEY`. RevenueCat unreachable → 503.
    - **Free, DeviceCheck configured:** no `deviceToken` → 403; Apple says invalid → 403.
    - **Free:** D1 `free_usage` for (ID, month) ≥ 3 → 402.
-4. Workers AI answers → `commit()` adds 1 to the free count. A failed model call is not counted.
+4. The model answers (Gemini, or Workers AI when it fails) → `commit()` adds 1 to the free count. A failed model call is not counted.
 
 **(FaceRep) DeviceCheck bits are not used.** Apple keeps one pair of bits per iPhone **per developer team, shared by all
 your apps**. Elowa uses bit0 for "free answers used this month", so FaceRep only validates the token and never reads or

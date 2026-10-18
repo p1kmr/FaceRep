@@ -7,11 +7,11 @@ Three jobs:
   `.content/` by `npm run content` (it runs before `npm run deploy` and `npm run dev`) from the app's
   `assets/guides/` and `content/locales/<lang>/exercises.json` (`src/lib/content.js`, `scripts/content.js`,
   docs/premium.md §2b). Free users' Coach names only the free exercises.
-- `POST /chat`: the AI Coach. With the user's reminder list it can also propose reminder changes (function calling, `src/lib/reminders.js`), and it can propose saving a workout the user did without the app or a short routine to start (`src/lib/workouts.js`); the app shows each for the user to confirm. Receives a question (+ the last few turns and an anonymous training context), checks it, applies daily limits and the Premium / free-allowance check, asks a **Workers AI** model and returns a cleaned-up answer.
+- `POST /chat`: the AI Coach. With the user's reminder list it can also propose reminder changes (function calling, `src/lib/reminders.js`), and it can propose a short routine to start (`src/lib/workouts.js`); the app shows each for the user to confirm. It never saves a workout. Receives a question (+ the last few turns and an anonymous training context), checks it, applies daily limits and the Premium / free-allowance check, asks **Google's Gemini API** (Workers AI when Gemini fails) and returns a cleaned-up answer.
 - `GET /privacy`, `/terms`, `/support`: the public pages App Store Connect asks for (`src/pages.js`), so no separate website is needed.
 
 ```
-iPhone app ──(question + anonymous context)──► Cloudflare Worker ──► Workers AI (model runs on Cloudflare)
+iPhone app ──(question + anonymous context)──► Cloudflare Worker ──► Google Gemini API (backup: Workers AI on Cloudflare)
                                                  • strict input check (validate.js)
                                                  • fair-use ceiling: 100/day per app ID, 300/day per IP (D1)
                                                  • Premium? RevenueCat REST (secret key)
@@ -22,9 +22,10 @@ iPhone app ──(question + anonymous context)──► Cloudflare Worker ─�
 |---|---|---|
 | **Cloudflare Workers** | Runs the API | Free plan: ~100k requests/day |
 | **Cloudflare D1** | Counters only (never question text, never raw IPs) | Free plan |
-| **Workers AI** | The model (`@cf/google/gemma-4-26b-a4b-it`, fallback `@cf/zai-org/glm-4.7-flash`) | 10,000 free neurons/day, then $0.011 per 1,000 neurons. One Coach answer is roughly $0.0002 |
+| **Google Gemini API** | The model (`gemini-3.5-flash-lite`), secret `GEMINI_API_KEY` | Paid tier (billing on the Google project): $0.30 / $2.50 per million tokens in / out, about $0.0015 per Coach answer |
+| **Workers AI** | The backup model (`@cf/google/gemma-4-26b-a4b-it`), used only when Gemini fails | 10,000 free neurons/day for the whole account (on the Free plan it stops until 00:00 UTC when they run out), then $0.011 per 1,000 neurons on Workers Paid. One answer is about 30 to 45 neurons |
 
-No third-party AI key: the model is called through the `AI` binding. Cloudflare states it does not train on customer content sent to Workers AI.
+Gemini is called with the `GEMINI_API_KEY` secret (never in the app), Workers AI through the `AI` binding. Only the messages go to the model, never the app ID or the IP. The Google project must have billing on: on the paid tier Google doesn't use prompts or answers to improve its products, and the free tier isn't allowed for users in the EEA, Switzerland and the UK (Gemini API terms). Cloudflare states it does not train on customer content sent to Workers AI. Google's terms also say the API isn't for apps "likely to be accessed by individuals under the age of 18" while FaceRep is rated 13+: the owner accepted that risk on 2026-10-18; if Google ever blocks the key, Workers AI answers on its own.
 
 ---
 
@@ -40,6 +41,7 @@ npx wrangler login                       # opens the browser once
 # Already done on 2026-10-07 (D1 "facerep-limits" created, tables applied, id in wrangler.jsonc):
 # npx wrangler d1 create facerep-limits && npm run db:migrate
 npx wrangler secret put IP_HASH_SECRET   # paste any long random text
+npx wrangler secret put GEMINI_API_KEY   # from Google AI Studio, on a project with billing on
 ```
 In `wrangler.jsonc` → `vars`: set `APP_NAME` (your final app name), `SUPPORT_EMAIL` (a dedicated inbox; it is public), optionally `LEGAL_NAME`.
 
@@ -91,8 +93,8 @@ Turn on step 2 only once the app build that sends DeviceCheck tokens is the one 
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `AI_MODEL` | `@cf/google/gemma-4-26b-a4b-it` | Main model |
-| `AI_FALLBACK_MODEL` | `@cf/zai-org/glm-4.7-flash` | Tried once when the main model fails or is slower than 15 s |
+| `AI_MODEL` | `gemini-3.5-flash-lite` | Main model (Gemini API; without `GEMINI_API_KEY` the fallback answers alone) |
+| `AI_FALLBACK_MODEL` | `@cf/google/gemma-4-26b-a4b-it` | Workers AI, tried once when the main model fails or is slower than 10 s; must support function calling |
 | `AI_MAX_OUTPUT_TOKENS` | `700` | Answer length cap |
 | `APP_NAME` | `FaceRep` | Shown in the Coach's persona and on the legal pages |
 | `SUPPORT_EMAIL` | `kindcodelabs@gmail.com` | Support address, shown on the legal pages |

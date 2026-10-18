@@ -1,11 +1,18 @@
 import { buildMessages } from './prompt.js';
-import { generateAnswer } from './model.js';
+import { describeCalls, generateAnswer } from './model.js';
 import { REMINDER_LIMITS, REMINDER_TOOLS, sanitizeActions } from './reminders.js';
 import { validateChatRequest } from './validate.js';
 import { sanitizeWorkoutCalls, workoutTools } from './workouts.js';
 
 // Includes room for the DeviceCheck token (a few KB).
 const MAX_BODY_BYTES = 30_000;
+
+/**
+ * An answer that sends the user to a card's Confirm button ("confirm", "confirma", "confirme", "bestätige",
+ * "conferma" in the app's languages). Without a proposal there is no card: the model wrote it without calling the
+ * tool (Gemini did, 1 time in 4, in a longer chat on 2026-10-18), so that answer isn't shown and the fallback answers.
+ */
+const POINTS_TO_CARD = /confirm|conferm|bestätig/i;
 
 /**
  * POST /chat, framework-neutral so it can be tested without Cloudflare.
@@ -36,20 +43,23 @@ export async function handleChat({ method, rawBody, ip }, { ai, model, fallbackM
   if (!access.ok) return { status: access.status, body: access.body };
   // Without Premium the Coach only knows the free exercises (catalog.js idsFor).
   const premium = access.premium === true;
+  const actionsFrom = (toolCalls) =>
+    [...sanitizeActions(toolCalls, input.reminders), ...sanitizeWorkoutCalls(toolCalls, premium)].slice(0, REMINDER_LIMITS.actionsPerAnswer);
 
   const result = await generateAnswer({
     ai,
     model,
     fallbackModel,
     maxOutputTokens,
-    // The main model can propose reminder changes and workouts (function calling); the fallback only answers.
+    // Both models can propose reminder changes and workouts (function calling).
     messages: buildMessages({ ...input, appName, canPropose: true, premium }),
-    fallbackMessages: buildMessages({ ...input, appName, canPropose: false, premium }),
     tools: [...REMINDER_TOOLS, ...workoutTools(premium)],
+    fallbackTools: true,
+    // Proposals that would all be dropped and no text, or text pointing at a card that isn't there: the fallback answers.
+    usable: ({ answer, toolCalls }) => actionsFrom(toolCalls).length > 0 || (Boolean(answer) && !POINTS_TO_CARD.test(answer)),
   }).catch(() => null);
-  const actions = result
-    ? [...sanitizeActions(result.toolCalls, input.reminders), ...sanitizeWorkoutCalls(result.toolCalls, premium)].slice(0, REMINDER_LIMITS.actionsPerAnswer)
-    : [];
+  const actions = result ? actionsFrom(result.toolCalls) : [];
+  if (result && result.toolCalls.length > actions.length) console.error(`chat: proposals dropped: ${describeCalls(result.toolCalls)}`);
   if (!result || (!result.answer && !actions.length)) {
     console.error('chat: model call failed');
     return { status: 502, body: { error: 'model' } };

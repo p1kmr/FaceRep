@@ -1,6 +1,7 @@
 import { createAccessCheck, createFreeUsage, createPremiumCheck, pruneFreeUsage } from './lib/access.js';
 import { CONTENT_LIMITS, createContentTokens, handleContentFile, handleContentRequest, tokenOf } from './lib/content.js';
 import { createDeviceCheck } from './lib/devicecheck.js';
+import { chooseModels, createGemini, createModels } from './lib/gemini.js';
 import { handleChat } from './lib/handler.js';
 import { createD1RateLimiter, pruneRateLimits } from './lib/ratelimit.js';
 import { renderPage } from './pages.js';
@@ -8,7 +9,7 @@ import { renderPage } from './pages.js';
 /**
  * FaceRep API (Cloudflare Worker).
  * POST /chat → a Coach question (+ recent turns and an anonymous training context) in, an answer out.
- *   The model runs on Workers AI (env.AI). With REVENUECAT_SECRET_KEY set, only Premium users and
+ *   Google's Gemini API answers (GEMINI_API_KEY), Workers AI (env.AI) when it fails. With REVENUECAT_SECRET_KEY set, only Premium users and
  *   free users with answers left this month get through; the DEVICECHECK_* secrets add the iPhone check.
  * POST /content, GET /content/files/… → the Premium exercises, only after RevenueCat confirms Premium (lib/content.js).
  * GET /privacy, /terms, /support → the public pages the App Store asks for.
@@ -30,9 +31,8 @@ export default {
     };
     const isPremium = createPremiumCheck({ secretKey: env.REVENUECAT_SECRET_KEY });
     const result = await handleChat(input, {
-      ai: env.AI,
-      model: env.AI_MODEL,
-      fallbackModel: env.AI_FALLBACK_MODEL,
+      ai: createModels({ ai: env.AI, gemini: createGemini({ apiKey: env.GEMINI_API_KEY }) }),
+      ...chooseModels({ model: env.AI_MODEL, fallbackModel: env.AI_FALLBACK_MODEL, geminiKey: env.GEMINI_API_KEY }),
       maxOutputTokens: Number(env.AI_MAX_OUTPUT_TOKENS) || undefined,
       appName: env.APP_NAME,
       checkRateLimit: createD1RateLimiter(env.DB, { ipSecret: env.IP_HASH_SECRET }),

@@ -8,7 +8,10 @@ import { FREE_PER_MONTH } from './lib/access.js';
 /** Days of the weekly workouts that are free: the same as WEEKS.freeDays in the app (npm run review:check compares them). */
 export const FREE_DAYS = 3;
 
-const UPDATED = { privacy: 'October 18, 2026', terms: 'October 17, 2026' };
+/** Face scans free in all: the same as FREE_LIMITS.scans in the app (npm run review:check compares them). */
+export const FREE_SCANS = 3;
+
+const UPDATED = { privacy: 'October 19, 2026', terms: 'October 19, 2026' };
 
 const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -58,8 +61,8 @@ function privacy(env) {
 <p class="muted">Last updated ${UPDATED.privacy}</p>
 
 <div class="card">
-<strong>In short:</strong> ${c.app} has no account, no ads and no trackers. Your workouts, Coach chat and settings are
-stored only on your iPhone. Only three things ever leave it: the questions you send to the AI Coach (after you agree),
+<strong>In short:</strong> ${c.app} has no account, no ads and no trackers. Your workouts, face scans, Coach chat and
+settings are stored only on your iPhone. Only three things ever leave it: the questions you send to the AI Coach (after you agree),
 a random app ID when Premium exercises download (so our server can check your subscription), and the purchase details
 Apple and RevenueCat need to process a subscription. Camera pictures and face data never leave your iPhone. We never sell
 or share your data for advertising.
@@ -74,7 +77,8 @@ pictures show (man or woman), your reminders and app settings are stored only in
 iOS; their names, times and days only leave your iPhone with a Coach question (see below).</p>
 <p>The optional workout mirror shows your front camera on the screen while you exercise, so you can check your form. The
 picture is never recorded, saved or sent anywhere, and the camera is on only while the mirror is shown. Voice cues are
-spoken by your iPhone's built-in voice, on the device. ${c.app} does not use your photos, microphone, contacts or location.</p>
+spoken by your iPhone's built-in voice, on the device. ${c.app} does not use your photo library, microphone, contacts or
+location.</p>
 <p><strong>Face data (move check).</strong> On iPhones that support Apple's face tracking (ARKit), the mirror's move check
 reads how parts of your face move while the mirror is on, for example how far your eyebrows rise or your cheeks puff out,
 and how far your head tilts, about 15 times a second. ${c.app} uses these readings only to show in the mirror whether it
@@ -82,6 +86,16 @@ sees the exercise's move and how many holds it saw in the current exercise. They
 and then discarded: they are not stored, not even on your iPhone, never sent to us or anyone else, never used to identify
 you, and never used for advertising, marketing or data mining. You can turn the move check off in Settings (Move check in
 the mirror), or not use the mirror at all.</p>
+<p><strong>Face data (face scan).</strong> The optional face scan uses the same face tracking for about 30 seconds while
+you do six moves (raise your eyebrows, squint, smile, pucker your lips, open your mouth, puff your cheeks). For each scan
+${c.app} saves, in its database on your iPhone, only the date and how far each move went on the left and right side of
+your face compared with your relaxed face (a few numbers), so you can follow them over time. It never measures or saves the
+shape of your face, never rates looks, and is not used to identify you. If you turn on progress photos, ${c.app} also takes
+one photo of your relaxed face at the start of each scan and saves it in its own storage on your iPhone: not in your photo
+library, excluded from iCloud and computer backups (so it does not move to a new iPhone), and readable only while your
+iPhone is unlocked. You can delete one photo, all photos or a scan in the app at any time; Delete all data and deleting the
+app delete them too. Nothing from the face scan (numbers or photos) is ever sent to us or anyone else, or used for
+advertising, marketing or data mining.</p>
 
 <h2>Data that leaves your iPhone</h2>
 <table>
@@ -92,8 +106,9 @@ the mirror), or not use the mirror at all.</p>
   days of your reminders (so the Coach can suggest changes to them, which you confirm in the app), the app language and a
   random app ID.<br><em>Please don't include your name or other details that identify you in questions.</em></td>
   <td>Only when you send a question, after you allowed the AI Coach on the consent screen</td>
-  <td>Our server on Cloudflare, which has the answer written by an AI model that also runs on Cloudflare (Cloudflare
-  Workers AI). The app ID and your IP address are not given to the model.</td>
+  <td>Our server on Cloudflare, which has the answer written by Google's AI model (Google Gemini API) or, when it is
+  unavailable, by an AI model that runs on Cloudflare (Cloudflare Workers AI). The app ID and your IP address are not
+  given to either model.</td>
   <td>To answer your question</td>
 </tr>
 <tr>
@@ -112,8 +127,10 @@ the mirror), or not use the mirror at all.</p>
 </table>
 
 <h2>What our server keeps</h2>
-<p>Our server does not store your questions or the AI answers, and it never logs request contents. Cloudflare states that
-it does not use customer content sent to Workers AI to train models. To prevent abuse our server keeps two daily counters:
+<p>Our server does not store your questions or the AI answers, and it never logs request contents. We use Google's paid
+Gemini API service: Google states that it does not use prompts or answers sent to it to improve its products, and that it
+keeps them for a limited time only to detect abuse and for required legal disclosures. Cloudflare states that it does not
+use customer content sent to Workers AI to train models. To prevent abuse our server keeps two daily counters:
 one keyed by the random app ID and one keyed by a one-way, secret-keyed hash of your IP address (the IP itself is never
 stored). They are deleted automatically after about two days. Premium downloads have their own counters of the same kind.
 For the free monthly allowance it also keeps a count of free answers per random app ID, deleted after about two months.
@@ -124,7 +141,8 @@ Coach and for the Premium downloads, our server asks RevenueCat whether the rand
 
 <h2>Service providers</h2>
 <ul>
-  <li><strong>Cloudflare, Inc.</strong>: hosts our server and runs the AI model (Workers AI).</li>
+  <li><strong>Google LLC</strong>: writes the AI Coach's answers (Gemini API).</li>
+  <li><strong>Cloudflare, Inc.</strong>: hosts our server and runs the backup AI model (Workers AI).</li>
   <li><strong>RevenueCat, Inc.</strong>: manages subscriptions and purchases.</li>
   <li><strong>Apple Inc.</strong>: App Store payments, DeviceCheck (the token check above), and optional crash reports
   and app analytics you choose to share with developers in iOS settings.</li>
@@ -142,8 +160,8 @@ Where required, transfers rely on the providers' Standard Contractual Clauses or
 
 <h2>Your choices and rights</h2>
 <ul>
-  <li><strong>Delete your data:</strong> Settings → Delete all data, or delete the app. This erases your workouts, chat and
-  settings from your iPhone. A random app ID stays in the iPhone's Keychain so your subscription keeps working.</li>
+  <li><strong>Delete your data:</strong> Settings → Delete all data, or delete the app. This erases your workouts, face
+  scans with their photos, chat and settings from your iPhone. A random app ID stays in the iPhone's Keychain so your subscription keeps working.</li>
   <li><strong>Stop AI processing:</strong> turn off Settings → Allow AI Coach. ${c.app} then sends no Coach questions to our server.</li>
   <li><strong>Subscriptions:</strong> manage or cancel in your Apple Account settings.</li>
   <li>Depending on where you live, you may have rights to access, correct, delete or port your data, to object or restrict
@@ -188,9 +206,9 @@ AI Coach answers are generated automatically and may be wrong.</p>
 <h2>Premium subscriptions and purchases</h2>
 <ul>
   <li>Premium is offered as auto-renewing weekly, monthly and yearly subscriptions. Prices are shown in the app before you buy.</li>
-  <li>A set of exercises, the first ${FREE_DAYS} days of the weekly workouts (made from those exercises) and ${FREE_PER_MONTH}
-  AI Coach answers a month are free. Premium unlocks every day of the weekly workouts, every exercise and
-  unlimited AI Coach answers for personal use (see fair use below). The Premium exercises are downloaded to your iPhone
+  <li>A set of exercises, the first ${FREE_DAYS} days of the weekly workouts (made from those exercises), ${FREE_PER_MONTH}
+  AI Coach answers a month and ${FREE_SCANS} face scans are free. Premium unlocks every day of the weekly workouts, every
+  exercise, unlimited AI Coach answers for personal use (see fair use below) and unlimited face scans. The Premium exercises are downloaded to your iPhone
   once you subscribe, so the first time needs an internet connection.</li>
   <li>Payment is charged to your Apple Account at confirmation of purchase.</li>
   <li>Subscriptions renew automatically unless cancelled at least 24 hours before the end of the current period. Your account is charged for renewal within 24 hours before the end of the period.</li>
@@ -237,6 +255,8 @@ also moves Premium to a new iPhone.</p>
 <p><strong>Cancel a subscription.</strong> iPhone Settings → your name → Subscriptions → ${c.app}.</p>
 <p><strong>The reminder doesn't show.</strong> Check iPhone Settings → Notifications → ${c.app}, and that the reminder is on in ${c.app} → Settings.</p>
 <p><strong>Report an AI answer.</strong> Long-press the answer in the Coach, or email ${c.mail}.</p>
+<p><strong>Face scan photos on a new iPhone.</strong> Progress photos stay only on the iPhone that took them: they are not
+in backups, so they don't move to a new iPhone. The scans' numbers move with an iPhone backup.</p>
 <p><strong>Delete everything.</strong> Settings → Delete all data, or delete the app.</p>
 
 <p class="muted">${c.app} is a fitness and wellness app, not medical advice.

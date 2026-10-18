@@ -28,8 +28,8 @@ export function toSummary(row: SessionRow): SessionSummary {
     exerciseIds: done.map(([id]) => id),
     exerciseReps: done.map(([, reps]) => Number(reps) || 0),
     kind: row.kind === 'single' ? 'single' : 'routine',
-    // A workout saved from the Coach is stored with kind 'logged', Today's workout ended short with 'short' (no
-    // migration: kind is free text).
+    // A workout an earlier build's Coach saved is stored with kind 'logged', Today's workout ended short with 'short'
+    // (no migration: kind is free text).
     ...(row.kind === 'logged' ? { logged: true } : {}),
     ...(row.kind === 'short' ? { short: true } : {}),
   };

@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Sono il tuo Coach di {{app}}. Chiedimi degli esercizi per il viso, della tecnica, della postura o di una semplice routine di cura del viso. Posso anche prepararti una routine veloce, salvare un allenamento fatto senza l'app o impostare dei promemoria.",
-  "placeholder": "Chiedi o raccontami cosa hai fatto",
+  "intro": "Sono il tuo Coach di {{app}}. Chiedimi degli esercizi per il viso, della tecnica, della postura o di una semplice routine di cura del viso. Posso anche prepararti una routine veloce e impostare, cambiare o eliminare i tuoi promemoria.",
+  "placeholder": "Chiedi o imposta un promemoria",
   "send": "Invia",
   "newChat": "Nuova chat",
   "history": {
@@ -36,19 +36,13 @@
     "declined": "Non salvato",
     "open": "Vedi promemoria",
     "missing": "Questo promemoria non esiste più.",
-    "log": "Salva allenamento",
     "routine": "Allenamento per te",
     "routineTitle": "La tua routine",
-    "today": "Oggi",
-    "yesterday": "Ieri",
     "more_one": "+{{count}} altro",
     "more_other": "+{{count}} altri",
-    "save": "Salva",
     "start": "Inizia",
     "started": "Iniziato",
-    "notStarted": "Non iniziato",
-    "openProgress": "Vedi i progressi",
-    "nothing": "Non c'è ancora niente da salvare. Di' al Coach quali esercizi hai fatto o per quanto tempo."
+    "notStarted": "Non iniziato"
   },
   "bubble": {
     "open": "Chiedi al Coach",
@@ -56,7 +50,7 @@
   },
   "hint": {
     "title": "Chiedi al Coach",
-    "body": "Tecnica, mewing, postura o cura del viso: chiedimi quello che vuoi. Posso anche salvare gli allenamenti, prepararti una routine e impostare dei promemoria.",
+    "body": "Tecnica, mewing, postura o cura del viso: chiedimi quello che vuoi. Posso anche prepararti una routine e impostare o cambiare i tuoi promemoria.",
     "technique": "Controlla la mia tecnica",
     "remind": "Imposta un promemoria",
     "ask": "Fai una domanda",
@@ -66,14 +60,12 @@
   },
   "suggestions": {
     "jawline": "Cosa possono cambiare gli esercizi per la mascella?",
-    "mewing": "Sto facendo il mewing nel modo giusto?",
+    "mewing": "Come si fa bene il mewing?",
     "reminder": "Ricordami di controllare il mewing ogni 2 ore nei giorni feriali",
     "skincare": "Una semplice routine di cura del viso?",
     "skincare_man": "Una semplice routine di cura del viso per uomo?",
     "skincare_woman": "Una semplice routine di cura del viso per donna?",
-    "doubleChin": "Gli esercizi possono aiutare con il doppio mento?",
-    "routine": "Preparami una routine veloce di 5 minuti per la mascella",
-    "log": "Stamattina ho fatto i miei esercizi per la mascella. Puoi salvarli?"
+    "routine": "Preparami una routine veloce di 5 minuti per la mascella"
   },
   "errors": {
     "notConfigured": "Il Coach non è ancora configurato in questa build.",
@@ -86,10 +78,10 @@
   },
   "consent": {
     "title": "Prima di chiedere al Coach",
-    "what": "Il Coach è un'IA. Per risponderti, la tua domanda viene inviata al nostro server ed elaborata da un modello di IA (Cloudflare Workers AI).",
+    "what": "Il Coach è un'IA. Per risponderti, la tua domanda viene inviata al nostro server ed elaborata da un modello di IA: Google Gemini, oppure Cloudflare Workers AI quando Gemini non è disponibile.",
     "sent": "Cosa inviamo: la tua domanda, gli ultimi messaggi di questa chat, il tuo obiettivo, la tua serie, quanti allenamenti hai fatto questa settimana e i nomi e gli orari dei tuoi promemoria (così il Coach può proporti modifiche da confermare).",
     "notSent": "Cosa non inviamo: il tuo nome, foto, contatti o posizione. Non esiste un account a tuo nome.",
-    "storage": "Il nostro server non conserva le tue domande. La cronologia della chat resta su questo iPhone e puoi eliminarla quando vuoi.",
+    "storage": "Il nostro server non conserva le tue domande. Google le conserva solo per un periodo limitato per prevenire abusi e non le usa per migliorare i propri prodotti. La cronologia della chat resta su questo iPhone e puoi eliminarla quando vuoi.",
     "medical": "Il Coach dà consigli generali su fitness e cura del viso, non consigli medici.",
     "allow": "Accetta e continua",
     "notNow": "Non ora",

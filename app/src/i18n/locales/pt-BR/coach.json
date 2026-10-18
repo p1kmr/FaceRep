@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Sou seu Coach do {{app}}. Pergunte sobre exercícios faciais, técnica, postura ou uma rotina simples de cuidados com o rosto. Também posso montar uma rotina rápida, salvar um treino que você fez sem o app ou criar lembretes.",
-  "placeholder": "Pergunte ou conte o que você fez",
+  "intro": "Sou seu Coach do {{app}}. Pergunte sobre exercícios faciais, técnica, postura ou uma rotina simples de cuidados com o rosto. Também posso montar uma rotina rápida e criar, mudar ou apagar seus lembretes.",
+  "placeholder": "Pergunte ou crie um lembrete",
   "send": "Enviar",
   "newChat": "Nova conversa",
   "history": {
@@ -37,19 +37,13 @@
     "declined": "Não salvo",
     "open": "Ver lembretes",
     "missing": "Este lembrete não existe mais.",
-    "log": "Salvar treino",
     "routine": "Treino para você",
     "routineTitle": "Sua rotina",
-    "today": "Hoje",
-    "yesterday": "Ontem",
     "more_one": "+{{count}} mais",
     "more_other": "+{{count}} mais",
-    "save": "Salvar",
     "start": "Começar",
     "started": "Iniciado",
-    "notStarted": "Não iniciado",
-    "openProgress": "Ver progresso",
-    "nothing": "Ainda não há nada para salvar. Diga ao Coach quais exercícios você fez ou por quanto tempo."
+    "notStarted": "Não iniciado"
   },
   "bubble": {
     "open": "Pergunte ao Coach",
@@ -57,7 +51,7 @@
   },
   "hint": {
     "title": "Pergunte ao Coach",
-    "body": "Técnica, mewing, postura ou cuidados com o rosto: pode perguntar. Também posso salvar treinos, montar uma rotina e criar lembretes.",
+    "body": "Técnica, mewing, postura ou cuidados com o rosto: pode perguntar. Também posso montar uma rotina e criar ou mudar seus lembretes.",
     "technique": "Conferir minha técnica",
     "remind": "Criar um lembrete",
     "ask": "Fazer uma pergunta",
@@ -67,14 +61,12 @@
   },
   "suggestions": {
     "jawline": "O que os exercícios de mandíbula podem mudar?",
-    "mewing": "Estou fazendo mewing do jeito certo?",
+    "mewing": "Como faço mewing do jeito certo?",
     "reminder": "Me lembre de checar meu mewing a cada 2 horas nos dias úteis",
     "skincare": "Rotina simples de cuidados com o rosto?",
     "skincare_man": "Rotina simples de cuidados com o rosto para homens?",
     "skincare_woman": "Rotina simples de cuidados com o rosto para mulheres?",
-    "doubleChin": "Exercícios podem ajudar na papada?",
-    "routine": "Monte uma rotina rápida de 5 minutos para a mandíbula",
-    "log": "Fiz meus exercícios de mandíbula hoje de manhã. Pode salvar?"
+    "routine": "Monte uma rotina rápida de 5 minutos para a mandíbula"
   },
   "errors": {
     "notConfigured": "O Coach ainda não está configurado nesta versão.",
@@ -87,10 +79,10 @@
   },
   "consent": {
     "title": "Antes de perguntar ao Coach",
-    "what": "O Coach é uma IA. Para responder, sua pergunta é enviada ao nosso servidor e processada por um modelo de IA (Cloudflare Workers AI).",
+    "what": "O Coach é uma IA. Para responder, sua pergunta é enviada ao nosso servidor e processada por um modelo de IA: Google Gemini, ou Cloudflare Workers AI quando o Gemini não estiver disponível.",
     "sent": "Enviado: sua pergunta, as últimas mensagens desta conversa, sua área de foco, sua sequência, quantos treinos você fez nesta semana e os nomes e horários dos seus lembretes (para que o Coach possa sugerir mudanças que você confirma).",
     "notSent": "Não enviado: seu nome, fotos, contatos ou localização. Não existe nenhuma conta sua com a gente.",
-    "storage": "Nosso servidor não guarda suas perguntas. O histórico da conversa fica neste iPhone, e você pode apagá-lo quando quiser.",
+    "storage": "Nosso servidor não guarda suas perguntas. O Google as guarda só por um tempo limitado para evitar abusos e não as usa para melhorar os próprios produtos. O histórico da conversa fica neste iPhone, e você pode apagá-lo quando quiser.",
     "medical": "O Coach dá dicas gerais de fitness e cuidados com o rosto, e não aconselhamento médico.",
     "allow": "Concordar e continuar",
     "notNow": "Agora não",

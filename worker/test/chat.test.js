@@ -46,6 +46,7 @@ test('chat: answers, sending system prompt + context, history and the question i
   assert.deepEqual(input.messages.slice(1).map((m) => m.role), ['user', 'assistant', 'user']);
   assert.equal(input.messages.at(-1).content, 'Am I mewing correctly?');
   assert.ok(!JSON.stringify(input.messages).includes(body.appUserId), 'the app ID never reaches the model');
+  assert.deepEqual(input.chat_template_kwargs, { enable_thinking: false }, 'thinking used up the token budget');
 });
 
 test('chat: strict input check', () => {
@@ -145,8 +146,13 @@ test('pages: privacy, terms and support render with the app name; unknown paths 
   // Apps using face tracking (ARKit) must say what face data they use and that it stays on the device (5.1.1, 5.1.2(vi)).
   assert.match(privacy, /Face data \(move check\)/);
   assert.match(privacy, /never sent to us or anyone else/);
+  // The face scan keeps numbers and, if turned on, photos on the iPhone: the policy says what, where and how to delete.
+  assert.match(privacy, /Face data \(face scan\)/);
+  assert.match(privacy, /excluded from iCloud and computer backups/);
+  assert.match(privacy, /Nothing from the face scan \(numbers or photos\) is ever sent/);
   const terms = await renderPage('/terms', env).text();
   assert.match(terms, /unlimited\s+AI Coach answers for personal use/);
+  assert.match(terms, /3 face scans are free/);
   assert.match(terms, /automated or abusive use/);
   // The fair-use ceiling is never advertised.
   assert.doesNotMatch(terms, new RegExp(`${LIMITS.perUser}\\s+(AI Coach\\s+)?(answers|questions)|${LIMITS.perUser}\\s+(a|per)\\s+day`, 'i'));

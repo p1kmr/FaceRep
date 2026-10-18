@@ -11,7 +11,6 @@ import {
   type ChatTurn,
   type CoachAction,
   type CoachContext,
-  type LogAction,
   type ReminderContext,
   type RoutineAction,
 } from './types';
@@ -19,31 +18,23 @@ import {
 const clip = (v: unknown, max: number) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 const MAX_ACTIONS = 3;
 /** Same limits as the Worker (worker/src/lib/workouts.js). */
-export const WORKOUT_ACTION_LIMITS = { daysBack: 6, maxMinutes: 120, logMax: 12, routineMin: 2, routineMax: 8, titleChars: 40 };
+export const WORKOUT_ACTION_LIMITS = { routineMin: 2, routineMax: 8, titleChars: 40 };
 
 const exerciseIds = (v: unknown, max: number): ExerciseId[] =>
   Array.isArray(v) ? [...new Set(v.filter(isExerciseId))].slice(0, max) : [];
 
-/** A proposed workout to save or start; null when anything is off (an older catalog drops unknown exercises). */
-function parseWorkoutAction(a: Record<string, unknown>): LogAction | RoutineAction | null {
+/** A proposed routine to start; null when anything is off (an older catalog drops unknown exercises). */
+function parseRoutine(a: Record<string, unknown>): RoutineAction | null {
   const L = WORKOUT_ACTION_LIMITS;
-  if (a.type === 'routine') {
-    const exercises = exerciseIds(a.exercises, L.routineMax);
-    return exercises.length >= L.routineMin ? { type: 'routine', title: clip(a.title, L.titleChars), exercises } : null;
-  }
-  const daysAgo = a.daysAgo;
-  if (typeof daysAgo !== 'number' || !Number.isInteger(daysAgo) || daysAgo < 0 || daysAgo > L.daysBack) return null;
-  const exercises = exerciseIds(a.exercises, L.logMax);
-  const m = a.minutes;
-  const minutes = typeof m === 'number' && Number.isInteger(m) && m >= 1 && m <= L.maxMinutes ? m : null;
-  return exercises.length || minutes ? { type: 'log', daysAgo, exercises, minutes } : null;
+  const exercises = exerciseIds(a.exercises, L.routineMax);
+  return exercises.length >= L.routineMin ? { type: 'routine', title: clip(a.title, L.titleChars), exercises } : null;
 }
 
 /** One proposed action, checked like everything else from the server; null when malformed. */
 function parseAction(value: unknown): CoachAction | null {
   const a = value as Record<string, unknown> | null;
   if (!a || typeof a !== 'object') return null;
-  if (a.type === 'log' || a.type === 'routine') return parseWorkoutAction(a);
+  if (a.type === 'routine') return parseRoutine(a);
   if (a.type === 'create') {
     const times = cleanTimes(a.times);
     const days = cleanDays(a.days);

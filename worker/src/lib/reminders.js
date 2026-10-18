@@ -1,5 +1,5 @@
 /**
- * Reminder changes the Coach can PROPOSE (create, change, delete), as Workers AI function calling.
+ * Reminder changes the Coach can PROPOSE (create, change, delete), as function calling (Gemini or Workers AI).
  * The app shows each one as a card and nothing changes until the user taps Confirm. Everything the
  * model returns is checked here (and again in the app): wrong shapes, unknown ids and anything over
  * the limits are dropped, never "fixed up" into something the user didn't ask for.
@@ -54,7 +54,7 @@ const DAYS_SCHEMA = {
   items: { type: 'integer' },
 };
 
-/** Function definitions for Workers AI (OpenAI-style "tools"). */
+/** Function definitions for the models (OpenAI-style "tools", taken by Gemini and Workers AI). */
 export const REMINDER_TOOLS = [
   {
     type: 'function',
@@ -101,7 +101,7 @@ export const REMINDER_TOOLS = [
   },
 ];
 
-/** Tool calls in either Workers AI shape: top-level { name, arguments } or OpenAI choices[0].message.tool_calls. */
+/** Tool calls in either shape: top-level { name, arguments } (older Workers AI) or OpenAI choices[0].message.tool_calls. */
 export function extractToolCalls(result) {
   if (!isObj(result)) return [];
   const raw = Array.isArray(result.tool_calls) ? result.tool_calls : result.choices?.[0]?.message?.tool_calls;

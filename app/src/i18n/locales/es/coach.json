@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Soy tu Coach de {{app}}. Pregúntame sobre ejercicios faciales, técnica, postura o una rutina sencilla de cuidado facial. También puedo armarte una rutina rápida, guardar un entrenamiento que hiciste sin la app o crear recordatorios.",
-  "placeholder": "Pregunta o cuéntame qué hiciste",
+  "intro": "Soy tu Coach de {{app}}. Pregúntame sobre ejercicios faciales, técnica, postura o una rutina sencilla de cuidado facial. También puedo armarte una rutina rápida y crear, cambiar o borrar tus recordatorios.",
+  "placeholder": "Pregunta o crea un recordatorio",
   "send": "Enviar",
   "newChat": "Nuevo chat",
   "history": {
@@ -36,19 +36,13 @@
     "declined": "No guardado",
     "open": "Ver recordatorios",
     "missing": "Este recordatorio ya no existe.",
-    "log": "Guardar entrenamiento",
     "routine": "Entrenamiento para ti",
     "routineTitle": "Tu rutina",
-    "today": "Hoy",
-    "yesterday": "Ayer",
     "more_one": "+{{count}} más",
     "more_other": "+{{count}} más",
-    "save": "Guardar",
     "start": "Empezar",
     "started": "Empezado",
-    "notStarted": "No empezado",
-    "openProgress": "Ver progreso",
-    "nothing": "Todavía no hay nada que guardar. Dile al Coach qué ejercicios hiciste o durante cuánto tiempo."
+    "notStarted": "No empezado"
   },
   "bubble": {
     "open": "Pregunta al Coach",
@@ -56,7 +50,7 @@
   },
   "hint": {
     "title": "Pregunta al Coach",
-    "body": "Técnica, mewing, postura o cuidado facial: pregúntame lo que quieras. También puedo guardar entrenamientos, armarte una rutina y crear recordatorios.",
+    "body": "Técnica, mewing, postura o cuidado facial: pregúntame lo que quieras. También puedo armarte una rutina y crear o cambiar tus recordatorios.",
     "technique": "Revisar mi técnica",
     "remind": "Crear un recordatorio",
     "ask": "Hacer una pregunta",
@@ -66,14 +60,12 @@
   },
   "suggestions": {
     "jawline": "¿Qué pueden cambiar los ejercicios de mandíbula?",
-    "mewing": "¿Estoy haciendo bien el mewing?",
+    "mewing": "¿Cómo hago bien el mewing?",
     "reminder": "Recuérdame revisar mi mewing cada 2 horas entre semana",
     "skincare": "¿Una rutina sencilla de cuidado facial?",
     "skincare_man": "¿Una rutina sencilla de cuidado facial para hombres?",
     "skincare_woman": "¿Una rutina sencilla de cuidado facial para mujeres?",
-    "doubleChin": "¿Los ejercicios pueden ayudar con la papada?",
-    "routine": "Dame una rutina rápida de 5 minutos para la mandíbula",
-    "log": "Hice mis ejercicios de mandíbula esta mañana. ¿Puedes guardarlos?"
+    "routine": "Dame una rutina rápida de 5 minutos para la mandíbula"
   },
   "errors": {
     "notConfigured": "El Coach aún no está configurado en esta versión.",
@@ -86,10 +78,10 @@
   },
   "consent": {
     "title": "Antes de preguntar al Coach",
-    "what": "El Coach es una IA. Para responderte, tu pregunta se envía a nuestro servidor y la procesa un modelo de IA (Cloudflare Workers AI).",
+    "what": "El Coach es una IA. Para responderte, tu pregunta se envía a nuestro servidor y la procesa un modelo de IA: Google Gemini, o Cloudflare Workers AI cuando Gemini no está disponible.",
     "sent": "Se envía: tu pregunta, los últimos mensajes de este chat, tu área de enfoque, tu racha, cuántos entrenamientos hiciste esta semana y los nombres y horas de tus recordatorios (para que el Coach pueda sugerirte cambios que tú confirmas).",
     "notSent": "No se envía: tu nombre, fotos, contactos ni ubicación. No tienes ninguna cuenta con nosotros.",
-    "storage": "Nuestro servidor no guarda tus preguntas. El historial del chat se queda en este iPhone y puedes borrarlo cuando quieras.",
+    "storage": "Nuestro servidor no guarda tus preguntas. Google las conserva solo por un tiempo limitado para evitar abusos y no las usa para mejorar sus productos. El historial del chat se queda en este iPhone y puedes borrarlo cuando quieras.",
     "medical": "El Coach da consejos generales de fitness y cuidado facial, no consejo médico.",
     "allow": "Aceptar y continuar",
     "notNow": "Ahora no",

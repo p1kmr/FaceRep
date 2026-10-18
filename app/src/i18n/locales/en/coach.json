@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "I'm your {{app}} Coach. Ask me about face exercises, technique, posture or a simple face care routine. I can also put together a quick routine, save a workout you did without the app, or set reminders.",
-  "placeholder": "Ask, or tell me what you did",
+  "intro": "I'm your {{app}} Coach. Ask me about face exercises, technique, posture or a simple face care routine. I can also put together a quick routine and set, change or delete your reminders.",
+  "placeholder": "Ask, or set a reminder",
   "send": "Send",
   "newChat": "New chat",
   "history": {
@@ -36,19 +36,13 @@
     "declined": "Not saved",
     "open": "See reminders",
     "missing": "This reminder doesn't exist anymore.",
-    "log": "Save workout",
     "routine": "Workout for you",
     "routineTitle": "Your routine",
-    "today": "Today",
-    "yesterday": "Yesterday",
     "more_one": "+{{count}} more",
     "more_other": "+{{count}} more",
-    "save": "Save",
     "start": "Start",
     "started": "Started",
-    "notStarted": "Not started",
-    "openProgress": "See progress",
-    "nothing": "There's nothing to save yet. Tell the Coach which exercises you did or for how long."
+    "notStarted": "Not started"
   },
   "bubble": {
     "open": "Ask the Coach",
@@ -56,7 +50,7 @@
   },
   "hint": {
     "title": "Ask the Coach",
-    "body": "Technique, mewing, posture or face care: ask me anything. I can also save workouts, put together a routine and set reminders.",
+    "body": "Technique, mewing, posture or face care: ask me anything. I can also put together a routine and set or change your reminders.",
     "technique": "Check my technique",
     "remind": "Set a reminder",
     "ask": "Ask a question",
@@ -66,14 +60,12 @@
   },
   "suggestions": {
     "jawline": "What can jaw exercises change?",
-    "mewing": "Am I doing mewing correctly?",
+    "mewing": "How do I do mewing correctly?",
     "reminder": "Remind me to check my mewing every 2 hours on weekdays",
     "skincare": "Simple face care routine?",
     "skincare_man": "Simple face care routine for men?",
     "skincare_woman": "Simple face care routine for women?",
-    "doubleChin": "Can exercises help a double chin?",
-    "routine": "Give me a quick 5-minute jaw routine",
-    "log": "I did my jaw exercises this morning. Can you save them?"
+    "routine": "Give me a quick 5-minute jaw routine"
   },
   "errors": {
     "notConfigured": "The Coach isn't set up in this build yet.",
@@ -86,10 +78,10 @@
   },
   "consent": {
     "title": "Before you ask the Coach",
-    "what": "The Coach is an AI. To answer, your question is sent to our server and processed by an AI model (Cloudflare Workers AI).",
+    "what": "The Coach is an AI. To answer, your question is sent to our server and processed by an AI model: Google Gemini, or Cloudflare Workers AI when Gemini isn't available.",
     "sent": "Sent: your question, the last few messages of this chat, your focus area, your streak, how many workouts you did this week, and the names and times of your reminders (so the Coach can suggest changes you confirm).",
     "notSent": "Not sent: your name, photos, contacts or location. We don't have an account for you.",
-    "storage": "Our server doesn't keep your questions. The chat history stays on this iPhone, and you can delete it any time.",
+    "storage": "Our server doesn't keep your questions. Google keeps them only for a limited time to prevent abuse and doesn't use them to improve its products. The chat history stays on this iPhone, and you can delete it any time.",
     "medical": "The Coach gives general fitness and face care tips, not medical advice.",
     "allow": "Agree and continue",
     "notNow": "Not now",

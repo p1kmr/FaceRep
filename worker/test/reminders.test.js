@@ -118,18 +118,18 @@ test('/chat: a reminder proposal comes back as an action next to the answer (and
   assert.equal(committed, 1);
   assert.deepEqual(
     ai.calls[0].input.tools.map((t) => t.function.name),
-    ['create_reminder', 'update_reminder', 'delete_reminder', 'log_workout', 'suggest_workout'],
+    ['create_reminder', 'update_reminder', 'delete_reminder', 'suggest_workout'],
   );
 });
 
-test('/chat: tool calls without text are fine; the fallback model gets no tools', async () => {
+test('/chat: tool calls without text are fine; the fallback model can propose too', async () => {
   const toolsOnly = fakeAi([{ tool_calls: [{ name: 'delete_reminder', arguments: { id: 'm1' } }], response: '' }]);
   const res = await handleChat(request(body), { ai: toolsOnly, model: 'main', checkRateLimit: async () => 'ok' });
   assert.deepEqual(res.body, { answer: '', actions: [{ type: 'delete', id: 'm1' }] });
 
-  const fallback = fakeAi([new Error('down'), { response: 'Set it in Settings, Reminders.' }]);
+  const fallback = fakeAi([new Error('down'), { tool_calls: [{ name: 'delete_reminder', arguments: { id: 'm1' } }], response: 'Check it below.' }]);
   const res2 = await handleChat(request(body), { ai: fallback, model: 'main', fallbackModel: 'lite', checkRateLimit: async () => 'ok' });
-  assert.deepEqual(res2.body, { answer: 'Set it in Settings, Reminders.' });
-  assert.equal(fallback.calls[1].input.tools, undefined);
-  assert.match(fallback.calls[1].input.messages[0].content, /can't change reminders/);
+  assert.deepEqual(res2.body, { answer: 'Check it below.', actions: [{ type: 'delete', id: 'm1' }] });
+  assert.ok(fallback.calls[1].input.tools.length > 0);
+  assert.deepEqual(fallback.calls[1].input.messages, fallback.calls[0].input.messages);
 });

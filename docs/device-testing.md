@@ -80,10 +80,11 @@ Delete the app first so onboarding and permissions start fresh.
       lists day 1 to 7, today open with Start, a later day opens to its exercises, a done day is green with "Done" and
       opens to what you did that day. Start Today's workout, finish one exercise and End: the alert says the day counts
       once at least half is done, and Today still shows the same day; do at least half and End: the day is done.
-- [ ] **Coach:** consent screen first; 3 free answers; a reminder proposal only applies after Confirm. Say "I did my jaw
-      exercises this morning, about 5 minutes": a Save workout card shows today, the exercises and the minutes; Save → it
-      appears in Progress with a "Logged" tag. Ask "a quick 5-minute jaw routine": Start opens the player with those
-      exercises. The keyboard's mic button dictates into the Coach.
+- [ ] **Coach:** consent screen first; 3 free answers; a reminder proposal only applies after Confirm. Ask "Move my
+      workout reminder to 7 PM" and "Delete my mewing reminder": each shows a card, and only Confirm changes Settings →
+      Reminders. Ask "a quick 5-minute jaw routine": Start opens the player with those exercises. Say "I did my jaw
+      exercises without the app": the Coach says a workout is saved when it's finished in the app (no card). The
+      keyboard's mic button dictates into the Coach.
 - [ ] **Videos:** an exercise page plays its clip in a loop (pause button works; your music keeps playing); in a workout
       the clip plays during "Get ready" and "Next up", then the drawings follow the counter. Settings → Accessibility →
       Motion → Reduce Motion: the drawings instead of the clips.

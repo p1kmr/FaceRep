@@ -1,7 +1,7 @@
 {
   "title": "Coach",
-  "intro": "Ich bin dein {{app}}-Coach. Frag mich zu Gesichtsübungen, Technik, Haltung oder einer einfachen Gesichtspflege-Routine. Ich kann dir auch eine kurze Routine zusammenstellen, ein Training speichern, das du ohne die App gemacht hast, oder Erinnerungen einrichten.",
-  "placeholder": "Frag mich oder erzähl, was du gemacht hast",
+  "intro": "Ich bin dein {{app}}-Coach. Frag mich zu Gesichtsübungen, Technik, Haltung oder einer einfachen Gesichtspflege-Routine. Ich kann dir auch eine kurze Routine zusammenstellen und deine Erinnerungen einrichten, ändern oder löschen.",
+  "placeholder": "Frag mich oder stell eine Erinnerung ein",
   "send": "Senden",
   "newChat": "Neuer Chat",
   "history": {
@@ -36,19 +36,13 @@
     "declined": "Nicht gespeichert",
     "open": "Erinnerungen ansehen",
     "missing": "Diese Erinnerung gibt es nicht mehr.",
-    "log": "Training speichern",
     "routine": "Training für dich",
     "routineTitle": "Deine Routine",
-    "today": "Heute",
-    "yesterday": "Gestern",
     "more_one": "+{{count}} weitere",
     "more_other": "+{{count}} weitere",
-    "save": "Speichern",
     "start": "Starten",
     "started": "Gestartet",
-    "notStarted": "Nicht gestartet",
-    "openProgress": "Fortschritt ansehen",
-    "nothing": "Noch nichts zu speichern. Sag dem Coach, welche Übungen du gemacht hast oder wie lange."
+    "notStarted": "Nicht gestartet"
   },
   "bubble": {
     "open": "Frag den Coach",
@@ -56,7 +50,7 @@
   },
   "hint": {
     "title": "Frag den Coach",
-    "body": "Technik, Mewing, Haltung oder Gesichtspflege: Frag mich alles. Ich kann auch Trainings speichern, eine Routine zusammenstellen und Erinnerungen einrichten.",
+    "body": "Technik, Mewing, Haltung oder Gesichtspflege: Frag mich alles. Ich kann auch eine Routine zusammenstellen und deine Erinnerungen einrichten oder ändern.",
     "technique": "Meine Technik prüfen",
     "remind": "Erinnerung einrichten",
     "ask": "Frage stellen",
@@ -66,14 +60,12 @@
   },
   "suggestions": {
     "jawline": "Was können Kieferübungen verändern?",
-    "mewing": "Mache ich Mewing richtig?",
+    "mewing": "Wie mache ich Mewing richtig?",
     "reminder": "Erinnere mich wochentags alle 2 Stunden an meinen Mewing-Check",
     "skincare": "Einfache Gesichtspflege-Routine?",
     "skincare_man": "Einfache Gesichtspflege für Männer?",
     "skincare_woman": "Einfache Gesichtspflege für Frauen?",
-    "doubleChin": "Können Übungen bei einem Doppelkinn helfen?",
-    "routine": "Stell mir eine kurze 5-Minuten-Routine für den Kiefer zusammen",
-    "log": "Ich habe heute Morgen meine Kieferübungen gemacht. Kannst du sie speichern?"
+    "routine": "Stell mir eine kurze 5-Minuten-Routine für den Kiefer zusammen"
   },
   "errors": {
     "notConfigured": "Der Coach ist in diesem Build noch nicht eingerichtet.",
@@ -86,10 +78,10 @@
   },
   "consent": {
     "title": "Bevor du den Coach fragst",
-    "what": "Der Coach ist eine KI. Für eine Antwort wird deine Frage an unseren Server gesendet und von einem KI-Modell (Cloudflare Workers AI) verarbeitet.",
+    "what": "Der Coach ist eine KI. Für eine Antwort wird deine Frage an unseren Server gesendet und von einem KI-Modell verarbeitet: Google Gemini oder, wenn Gemini nicht verfügbar ist, Cloudflare Workers AI.",
     "sent": "Gesendet werden: deine Frage, die letzten Nachrichten dieses Chats, dein Fokus, deine Serie, wie viele Trainings du diese Woche gemacht hast, und die Namen und Uhrzeiten deiner Erinnerungen (damit der Coach Änderungen vorschlagen kann, die du bestätigst).",
     "notSent": "Nicht gesendet werden: dein Name, Fotos, Kontakte oder dein Standort. Bei uns gibt es kein Konto von dir.",
-    "storage": "Unser Server speichert deine Fragen nicht. Der Chatverlauf bleibt auf diesem iPhone, und du kannst ihn jederzeit löschen.",
+    "storage": "Unser Server speichert deine Fragen nicht. Google bewahrt sie nur begrenzte Zeit auf, um Missbrauch zu verhindern, und nutzt sie nicht, um seine Produkte zu verbessern. Der Chatverlauf bleibt auf diesem iPhone, und du kannst ihn jederzeit löschen.",
     "medical": "Der Coach gibt allgemeine Fitness- und Gesichtspflegetipps, keine medizinische Beratung.",
     "allow": "Zustimmen und weiter",
     "notNow": "Nicht jetzt",
