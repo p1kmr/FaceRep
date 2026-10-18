@@ -1,7 +1,7 @@
 import { SymbolView } from 'expo-symbols';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Pressable, View } from 'react-native';
+import { ActivityIndicator, Pressable, useWindowDimensions, View } from 'react-native';
 
 import type { Goal } from '@/constants/exercises';
 import { areasOfAll, type FaceArea } from '@/constants/faceMap';
@@ -35,6 +35,25 @@ interface TodayCardProps {
 
 /** Image shape of the face map (base.webp). */
 const MAP_ASPECT = 720 / 974;
+/** The title's size range (Anton, two lines at most) and its line height per point of size. */
+const TITLE = { max: 38, min: 27, line: 44 / 38 };
+/** Anton capitals are narrow: a letter (or space, or "·") is about this wide per point of size, with room to spare. */
+const ANTON_WIDTH = 0.44;
+
+/**
+ * The title's size, so its longer line fits the card when it's split into two lines at a space as evenly as possible
+ * (iOS wraps that way too). Worked out here because iOS's own shrink (adjustsFontSizeToFit) on two lines shrank the
+ * title to a few points when the card changed, for example from locked to unlocked once Premium had loaded.
+ */
+function titleSize(title: string, width: number, fontScale: number) {
+  const words = title.split(' ');
+  let longest = title.length;
+  for (let i = 1; i < words.length; i++) {
+    longest = Math.min(longest, Math.max(words.slice(0, i).join(' ').length, words.slice(i).join(' ').length));
+  }
+  const size = Math.floor(width / (longest * ANTON_WIDTH * fontScale));
+  return Math.max(TITLE.min, Math.min(TITLE.max, size));
+}
 
 /**
  * Today's workout as the hero: where it is in the weeks ("Week 6 · Day 3", never a total), the face with the areas it
@@ -46,7 +65,8 @@ const MAP_ASPECT = 720 / 974;
 export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek, onArea }: TodayCardProps) {
   const { t } = useTranslation(['home', 'common', 'exercises']);
   const styles = useStyles();
-  const { colors } = useTheme();
+  const { colors, tokens } = useTheme();
+  const { fontScale } = useWindowDimensions();
   const { map } = useGuideImages();
   const { canUse } = useExerciseAccess();
   const content = usePremiumContent();
@@ -55,6 +75,8 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek,
   const areas = areasOfAll(ids);
   const areaNames = areas.map((a) => t(`exercises:areas.${a}.name`));
   const title = areas.length && areas.length <= 3 ? areaNames.join(' · ') : t(`common:programs.${goal}`);
+  // AppText caps Dynamic Type at 1.6×; the caption has `lg` padding on both sides.
+  const size = box.width ? titleSize(title.toUpperCase(), box.width - tokens.space.lg * 2, Math.min(fontScale, 1.6)) : TITLE.max;
   const minutes = t('common:minutes', { count: toMinutes(workout.seconds) });
   const { week, day, easy } = workout;
   const where = easy ? t('home:today.weekEasy', { week }) : t('home:today.week', { week, day });
@@ -109,7 +131,12 @@ export function TodayCard({ workout, goal, isPremium, onStart, onUnlock, onWeek,
         </View>
         <View style={styles.caption} pointerEvents="none">
           <Gradient colors={[colors.plateFade, colors.plate]} direction="vertical" />
-          <AppText variant="brand" numberOfLines={2} adjustsFontSizeToFit minimumFontScale={0.7} style={styles.title} accessibilityRole="header">
+          <AppText
+            variant="brand"
+            numberOfLines={2}
+            style={[styles.title, { fontSize: size, lineHeight: Math.round(size * TITLE.line) }]}
+            accessibilityRole="header"
+          >
             {title.toUpperCase()}
           </AppText>
           <AppText variant="footnote" style={styles.subtitle}>
@@ -196,7 +223,7 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   pillText: { color: colors.onImage, fontWeight: tokens.font.weight.bold, letterSpacing: 0.6 },
   caption: { position: 'absolute', left: 0, right: 0, bottom: 0, paddingTop: 48, paddingHorizontal: tokens.space.lg, paddingBottom: tokens.space.md },
   // Always on the white plate, in both themes.
-  title: { color: colors.primary, fontSize: 38, lineHeight: 44 },
+  title: { color: colors.primary },
   subtitle: { color: colors.onPlateMuted },
   body: { padding: tokens.space.lg, gap: tokens.space.md },
   row: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.md },
