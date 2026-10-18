@@ -1,12 +1,13 @@
 import { router } from 'expo-router';
 import { SymbolView } from 'expo-symbols';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { Linking, Pressable, View } from 'react-native';
 
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Screen } from '@/components/ui/Screen';
+import { LINKS } from '@/constants/links';
 import { useSettingsDispatch } from '@/hooks/useSettings';
 import { useTheme } from '@/hooks/useTheme';
 import { setAiConsent } from '@/state/settings/actions';
@@ -15,15 +16,17 @@ import { makeStyles } from '@/theme/makeStyles';
 /**
  * Asked once before the first Coach question: App Store guideline 5.1.2(i) requires saying where
  * personal data goes (including third-party AI) and getting explicit permission. Revocable in Settings.
+ * The privacy policy link gives the full details (who processes what, how long it's kept).
  */
 export default function AiConsentScreen() {
-  const { t } = useTranslation('coach');
+  const { t } = useTranslation(['coach', 'settings']);
   const { colors } = useTheme();
   const styles = useStyles();
   const dispatch = useSettingsDispatch();
   const answer = (consent: boolean) => {
     dispatch(setAiConsent(consent));
-    router.back();
+    if (router.canGoBack()) router.back();
+    else router.replace('/');
   };
 
   return (
@@ -60,11 +63,18 @@ export default function AiConsentScreen() {
       <AppText variant="footnote" muted center>
         {t('consent.withdraw')}
       </AppText>
+      <Pressable onPress={() => Linking.openURL(LINKS.privacy).catch(() => {})} accessibilityRole="link" hitSlop={8} style={styles.link}>
+        <AppText variant="footnote" style={styles.linkText}>
+          {t('settings:privacyPolicy')}
+        </AppText>
+      </Pressable>
     </Screen>
   );
 }
 
-const useStyles = makeStyles(({ tokens }) => ({
+const useStyles = makeStyles(({ colors, tokens }) => ({
   header: { alignItems: 'center', gap: tokens.space.md, paddingTop: tokens.space.lg },
   card: { padding: tokens.space.lg, gap: tokens.space.md },
+  link: { alignSelf: 'center' },
+  linkText: { color: colors.textMuted, textDecorationLine: 'underline' },
 }));

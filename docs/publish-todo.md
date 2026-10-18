@@ -1,6 +1,7 @@
 # Publish FaceRep 1.0 to the App Store: TODO
 
-State checked on 2026-10-09 (after commit `ca5b8f0`) with the asc CLI, the RevenueCat MCP, wrangler and the Expo MCP.
+State checked on 2026-10-09 (after commit `ca5b8f0`) with the asc CLI, the RevenueCat MCP, wrangler and the Expo MCP;
+App Store Connect read again on 2026-10-18 (§1d).
 Re-check before acting: from the repo root run
 `./.tools/asc validate --app 6820638812 --version-id 7edc84f2-a25e-4553-a918-45a254d06399`
 (0 blocking issues on 2026-10-09; what is left is in §3b and can only be done by hand).
@@ -154,6 +155,63 @@ exercises' texts, drawings and clips are no longer in the app, the Worker sends 
 - [ ] App Privacy needs no change: the download sends only the random app ID, already declared as User ID (App
       Functionality, not linked).
 
+## 1d. Before submitting: App Review audit of 2026-10-18 (docs/app-review.md §3)
+Read from App Store Connect with `./.tools/asc` (read-only) on 2026-10-18. `asc validate` shows 0 blocking issues, but
+it can't see agreements, App Privacy or whether the text is out of date. **One build only:** finish everything that goes
+inside the app first, then build 13, then the screenshots from that same code, then App Store Connect.
+
+**Any time, now (no build needed):**
+- [ ] **Account Holder: accept the updated Paid Applications Schedule.** The App Store Connect home page shows a banner
+      (seen 2026-10-18): until it's accepted, Apple blocks app updates, new in-app purchases and offers, and submissions.
+      App Store Connect → Business → Agreements. It's shared with Elowa, and only the Account Holder can accept it.
+- [ ] **Owner: Worker deploy** (§1c): it adds `/content` and the privacy policy's Premium download row and new summary
+      line. `/plan` is already gone from the live Worker (it answers 404), so deploying now breaks nothing. It must be
+      live before the device test: build 13 downloads the Premium exercises from `/content`.
+
+**Step 1: changes inside the app (all before build 13):**
+- [x] Consent screen: a Privacy Policy link (5.1.2(i), 2026-10-18).
+- [x] The "Every 2 hours" reminder button is gone; a new reminder starts with one time (2026-10-18).
+- [ ] **Simulator check before building:** an iPad (the iPhone window, 2.4.1), Larger Text, and VoiceOver labels in
+      Accessibility Inspector. Fix what's broken now, not after the build.
+- [ ] `npm run lint && npm run typecheck && npm test` (app), `npm test` (worker), then commit and push: build 13 is made
+      from `main`.
+
+**Step 2: build 13 and the device test:**
+- [ ] **Build 13** from `app/` (EAS production profile, auto-submit), when the owner says go.
+- [ ] **Owner tests build 13** (§1c, docs/device-testing.md, docs/face-tracking.md §5): mirror on the iPhone 11 (black on
+      build 12), days 1–3 free, Day 4 locked, sandbox purchase, Premium download, Restore, airplane mode, Dark Mode.
+      Only a failure here means another build.
+
+**Step 3: screenshots (Simulator, same code as build 13; can run while EAS builds):**
+- [ ] 8 slides × 7 locales show the old Today; slide 3 says "28-day plan · Week 1 free". New slide 3 words in
+      `store-screenshots/capture/copy.js`, re-capture in the 6 languages, export for the 7 store locales (es-ES and
+      es-MX share the Spanish), compare with build 13 on the iPhone (store-screenshots/README.md, docs/screenshots.md).
+
+**Step 4: App Store Connect (after the agreement and build 13). The texts can be drafted in the docs earlier:**
+- [ ] **Attach build 13** to 1.0 in place of build 7.
+- [ ] **Store text, all seven locales** (owner's OK first): description and promotional text still describe the
+      28-day plan, "27 exercises", "Week 1 free" and every exercise free (2.3.1(a), 2.3.2). New text: days 1 to 3 free
+      (never "trial"); Premium = every day, every exercise, unlimited Coach; no exercise count, no "28". Source:
+      docs/store-listing.md (es-ES and es-MX share the Spanish), then the same text in docs/launch.md.
+- [ ] **Subscriptions** (owner's OK first): the descriptions in seven locales say "Weeks 2 to 4 and unlimited Coach",
+      and the three review notes describe the 28-day plan and Day 8. New: every day, every exercise, unlimited Coach
+      (55 characters at most). Optional: a real paywall screenshot from build 13 for the subscription review (§1).
+- [ ] **Free trial** (decided: 3 days on all three plans; money, so the owner's OK on the day): add a 3-day free trial
+      to Weekly and Monthly, and change Yearly from 1 week to 3 days, in every territory. The paywall reads the trial
+      from the App Store, so the app needs no change. Needs the agreement first.
+- [ ] **Screenshots:** upload the 7 locales from Step 3.
+- [ ] **Review notes for 1.0**: the weeks (no grid), how to reach a locked day, the Premium download, the mirror's
+      person button, the move check and Apple's face-data questions (docs/launch.md).
+- [ ] App Privacy: no change needed. Check it still shows as published.
+- Optional: **App Accessibility** (Accessibility Nutrition Labels) is still voluntary. Fill it in from the Step 1 and
+  Step 2 checks; claim only what really works.
+- [ ] **Subscriptions on the 1.0 page** (§3b): select all three. Recheck the website's MISSING_METADATA after the new
+      subscription texts, run `./.tools/asc validate`, then the owner submits (§5).
+
+**Later:** **iPhone Duo screenshots**. Apple requires them from April 2027 for builds made with the iOS 27.1 SDK or
+later. After launch, optional: Custom Product Pages, Product Page Optimization, Asset Library creative assets (2.3.14),
+In-App Events, and a featuring nomination (App Store → Nominations).
+
 ## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)
 `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real
 iPhone. Keys are per Apple team, so the existing team DeviceCheck key can be reused (FaceRep only validates tokens and
@@ -220,7 +278,8 @@ then shown to the owner):
 
 ## 4. Account checks (owner, App Store Connect web)
 - [ ] **Paid Apps Agreement, tax and banking** are active in Business. They are needed for subscriptions, and are
-      expected to be active already because Elowa sells subscriptions.
+      expected to be active already because Elowa sells subscriptions. Apple updated the Paid Applications Schedule
+      (banner on 2026-10-18): the Account Holder must accept the new version first (§1d).
 - [ ] Optional (recommended): send App Store Server Notifications to RevenueCat, so renewals and cancellations reach
       it right away. Copy the URL from RevenueCat → FaceRep (App Store) app settings, and paste it into ASC → App
       Information → App Store Server Notifications, for both production and sandbox.

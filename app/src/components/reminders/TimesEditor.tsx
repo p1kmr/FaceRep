@@ -10,7 +10,7 @@ import { AppText } from '../ui/AppText';
 import { Card } from '../ui/Card';
 import { Chip } from '../ui/Chip';
 
-/** One time picker per time (1–6), remove buttons, "Add a time" and an "every 2 hours" shortcut. */
+/** One time picker per time (1–6), remove buttons and "Add a time". */
 export function TimesEditor({ value, onChange }: { value: string[]; onChange: (times: string[]) => void }) {
   const { t, i18n } = useTranslation('reminders');
   const styles = useStyles();
@@ -46,7 +46,6 @@ export function TimesEditor({ value, onChange }: { value: string[]; onChange: (t
       </Card>
       <View style={styles.chips}>
         {value.length < REMINDER.maxTimes ? <Chip label={t('edit.addTime')} onPress={() => onChange([...value, nextFree()].sort())} /> : null}
-        <Chip label={t('edit.everyTwoHours')} onPress={() => onChange([...REMINDER.everyTwoHours])} />
       </View>
     </View>
   );

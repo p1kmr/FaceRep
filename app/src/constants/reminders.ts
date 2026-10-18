@@ -10,8 +10,6 @@ export const REMINDER = {
   /** iOS keeps at most 64 scheduled notifications per app; leave a little room. */
   maxScheduled: 60,
   titleMax: 40,
-  /** "Every 2 hours" helper in the editor. */
-  everyTwoHours: ['10:00', '12:00', '14:00', '16:00', '18:00'],
 } as const;
 
 /** What a reminder is for: picks its icon and default text. */

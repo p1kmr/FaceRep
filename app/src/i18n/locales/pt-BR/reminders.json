@@ -25,7 +25,6 @@
     "namePlaceholder": "{{name}}",
     "times": "Horários",
     "addTime": "Adicionar horário",
-    "everyTwoHours": "A cada 2 horas, 10:00–18:00",
     "removeTime": "Remover {{time}}",
     "days": "Dias",
     "save": "Salvar",

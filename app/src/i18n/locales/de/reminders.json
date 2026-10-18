@@ -25,7 +25,6 @@
     "namePlaceholder": "{{name}}",
     "times": "Uhrzeiten",
     "addTime": "Uhrzeit hinzufügen",
-    "everyTwoHours": "Alle 2 Stunden, 10:00–18:00",
     "removeTime": "{{time}} entfernen",
     "days": "Tage",
     "save": "Speichern",

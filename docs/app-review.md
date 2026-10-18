@@ -1,7 +1,7 @@
 # App Review: the rules for every change
 
 Apple's [App Review Guidelines](https://developer.apple.com/app-store/review/guidelines/) (the numbers below), last
-updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not legal advice.
+updated by Apple on **October 16, 2026**, checked against FaceRep on 2026-10-18. Not legal advice.
 
 **How to use it.**
 - Before adding or changing a feature, a text, a translation, a screenshot or store text, go through every area in §1
@@ -87,6 +87,10 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
   changed, saved or started until the person taps Confirm, Save or Start on its card, and the card shows what will happen.
 - If people could ever see each other's content (sharing, groups, public chats), that is user-generated content (1.2):
   filtering, report, block and published contact details first.
+- Since October 2026, 1.2 also names "AI content creation apps", and 4.7 counts chatbots that aren't in the binary. The
+  Coach writes text answers only, so it keeps what both ask for: the prompt's topic filter, long-press → report (a mail
+  to support) and the support page's email. AI pictures, video or voice of people would need more first: nothing that
+  makes intimate or sexual images of real people, and a way to report and remove them.
 
 **Accounts and sign-in** (5.1.1(v), 4.8)
 - FaceRep has no account. If one is added:
@@ -94,10 +98,13 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
   - Google or another social login also needs Sign in with Apple (or a login that meets 4.8);
   - the app keeps working without an account unless accounts are the core feature.
 
-**What the server sends** (2.5.2, 2.3.1)
+**What the server sends** (2.5.2, 2.5.19, 2.3.1)
 - The Worker sends data (Coach answers, exercise IDs) and, after a purchase, the Premium exercises (texts, drawings,
   short videos: media the app shows, never code), never code that changes features. No hidden switches that change
   the app after review. Every feature must be reachable by the reviewer and described in the review notes.
+- 2.5.19 (new in October 2026): no hidden, dormant or undocumented features, and nothing hidden in the binary by
+  obfuscation. That means no secret gestures, no debug menus in release builds, and no feature flags the Worker could
+  turn on after review.
 - The app works on first launch without any download (the free part is bundled). Premium content downloads only after a
   purchase or restore, with its progress on the Today card (4.2.3). The Worker must be live during review: a reviewer's
   sandbox purchase is checked with RevenueCat like any other.
@@ -118,10 +125,17 @@ updated by Apple on **June 8, 2026**, checked against FaceRep on 2026-10-09. Not
   Unicode text, never as images.
 - Never imply Apple endorses FaceRep (5.2.4). Write "iPhone" only as Apple's product name.
 - Name and subtitle: at most 30 characters each. Keywords: no other apps, no trademarks, no prices (2.3.7).
+- Store text, review notes and the subscriptions' descriptions say what is free and what is Premium exactly as the app
+  does (2.3.1(a), 2.3.2, 3.1.2(c)). When the free part changes, all of them change before the build is submitted.
+- Creative assets (Asset Library: product page header, search results; 2.3.14, new in October 2026) follow the same
+  rules: about FaceRep, no prices or discounts, no unverifiable claims, fine for 4+.
 
 **Age rating** (2.3.6)
 - 13+ (health and wellness topics, occasional mild medical information from the Coach). Answer the age questions
   again if a feature changes that: chat between people, open web access, or more medical content.
+- The social-media questions (required for every submission since September 2026) are answered "no": no social media,
+  no chat between people, no user-generated content anyone else sees, no age check. The Coach is a chat with an AI, not
+  between people. Check them with `./.tools/asc age-rating audit --app 6820638812`.
 
 ## 2. Automatic check (`npm test`, or `npm run review:check` in `app/`)
 `app/scripts/review-check.js` reads every user-visible text and fails when it finds:
@@ -137,58 +151,48 @@ A word list can't judge meaning, so §1 still applies. If the check flags an hon
 really can't be said another way, add the exact sentence to `ALLOWED` in the script, with a reason. Never weaken a rule
 just to make a change pass. A new app language needs its own claim words: the test fails until it has them.
 
-## 3. FaceRep 1.0 audit (2026-10-09)
+## 3. FaceRep 1.0 audit (2026-10-18)
 
-**Fixed in this audit** (in the build that is submitted, and on the Worker after deploy):
-- Exercises tab: "for a sharper-looking jawline" (a result claim, in all six languages) → "Jaw, chin and neck muscles,
-  plus tongue and neck posture". "Lift and tone" (cheeks) → "Work and tone".
-- Coach starter questions "How long until I see jawline results?" and "Which exercises help a double chin?" assumed
-  results. They are now "What can jaw exercises change?" and "Can exercises help a double chin?".
-- "Unlimited AI Coach answers" (paywall, Coach, store description), while the Worker stopped Premium at 40 a day,
-  which a keen user could reach. The ceiling is now 100 a day per person (300 per network IP), far beyond normal use,
-  and the Terms say Premium is unlimited for personal use with fair use against abuse. So "unlimited" is true and
-  stays in the app, without a number (3.1.2(c), 2.3.1). German: "Unbegrenzt Antworten" → "Unbegrenzte Antworten".
-- The privacy policy now confirms that service providers give the same or equal protection (5.1.1(i)).
-- Privacy manifest: added Fitness (the streak and workouts-this-week sent with Coach questions). Other User Content is
-  already declared on the same "to be safe" basis.
+Checked against the guidelines of October 16, 2026, at commit `a11b5ca` plus the two fixes below. App Store Connect was
+read with `./.tools/asc` in read-only mode. What the owner still has to do, in order: docs/publish-todo.md §1d.
+
+**Fixed in this audit:**
+- The privacy policy's summary said only two things ever leave the iPhone. Since the Premium download, the random app
+  ID also goes to our server, so it now says three (5.1.1(i)). The change is live after the next Worker deploy.
+- The AI consent screen now links the privacy policy under its text, for the full details. Guideline 5.1.2(i) asks for
+  access to information about how and where the data will be used.
 
 **Status by rule**
 | Rule | What it needs | FaceRep |
 |---|---|---|
-| 1.4.1, 2.3.1 health and claims | no medical or result claims; "check with a doctor" | Safety line on welcome, Settings → Exercise safety, jaw caution on the exercise page and before jaw exercises; Coach refuses diagnosis; automatic word check ✅ |
-| 1.2, 4.7 AI content | report path, filtering | Long-press → report; the prompt keeps to the topic, no looks ratings ✅ |
-| 2.1 completeness | backend on during review, IAP reachable | Worker live (deployed with the build that downloads Premium exercises); paywall from the locked days (Day 4 on, on Today and the week page) and Settings; after a sandbox purchase the Premium exercises download at once ✅ |
-| 2.3.2 paid items in metadata | say what's paid | "What's free" and "Premium" in the description; slides 3 and 8 label it ✅ |
-| 2.3.7 metadata | no prices in screenshots, no trademarks | "3 free answers a month" says what is free (2.3.2), not a price ✅. The screenshot words and store text still say "Week 1 free" / free weekly workouts: they must say "Days 1 to 3 free" before release (docs/publish-todo.md) ⚠️ |
-| 2.3.9 rights | own the images | AI-generated, fictional people, labelled ✅ |
-| 2.4.1 iPad | runs on iPad | iPhone-only; check in iPad compatibility mode (docs/device-testing.md) ⚠️ |
-| 2.5.2 self-contained | no downloaded code | The weeks are built on the iPhone; the Worker returns JSON data the app checks, and the Premium exercises' pictures, videos and texts (media, no code) ✅ |
-| 4.2.3 downloads | no required download on first launch | The free part is in the app; Premium exercises (about 9 MB) download after purchase, progress and Try again on Today ✅ |
-| 2.5.14 recording | consent + indicator | The mirror is preview only; iOS asks first and shows the camera dot ✅ |
-| 3.1.1, 3.1.2 subscriptions | IAP only; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`, the Worker re-checks RevenueCat ✅ |
-| 3.1.2(a) ongoing value | keeps giving value | Every day and every exercise in weeks that never end, and the unlimited Coach ✅ |
-| 3.1.2(c) what you get | describe it exactly | "Unlimited" Coach answers; the hidden ceiling (100 a day) only stops abuse, fair use in the Terms ✅ |
-| 4.3 spam | clearly different | Anatomy drawings (man or woman), voice-guided timer, mirror, AI Coach ✅ |
-| 4.5.4 notifications | not required, no marketing | Only the person's reminders; asked when one is turned on ✅ |
-| 5.1.1(i) privacy policy | in the app and in ASC; data, retention, deletion, third parties | `/privacy`, linked from Settings and the paywall ✅ (equal-protection sentence added) |
-| 5.1.1(v) accounts | no login needed | No account ✅ |
-| 5.1.2(i) third-party AI | disclose and get permission | Consent screen names Cloudflare Workers AI; Settings switch ✅ |
-| 5.6.1 ratings | Apple's prompt only | `expo-store-review` after 3 workouts, at most every 120 days ✅ |
-| 2.3.6 age | honest answers | 13+ ✅ |
+| 1.2, 4.7 AI content | topic filter, report path, contact | The Coach keeps to the topic and never rates looks; long-press → report; the support page has the email ✅ |
+| 1.4.1, 2.3.1 health and claims | no medical or result claims; "check with a doctor" | Safety line on the welcome screen, Settings → Exercise safety, jaw caution; the word check passes in all six languages ✅ |
+| 2.1 completeness | final build, backend live, IAP reachable | ❌ Version 1.0 still has build 7, which has the 28-day plan; build 13 is needed. The live Worker has no `/content` yet, so a reviewer's Premium download would fail |
+| 2.3.1(a), 2.3.2, 3.1.2(c) metadata | store text, review notes and subscription texts match the app | ❌ All seven locales still describe the 28-day plan ("27 exercises", "Week 1 free", every exercise free). The review notes point to the removed grid and Settings row, and the subscription descriptions say "Weeks 2 to 4" |
+| 2.3.3, 2.3.7 screenshots | the current app, no prices | ❌ All 8 slides in seven locales show the old Today; slide 3 says "28-day plan · Week 1 free" |
+| 2.3.6 age rating | honest answers, including the social-media questions | Answered; 13+ ✅ |
+| 2.3.14 creative assets | Asset Library rules | None used ✅ |
+| 2.4.1 iPad | works in an iPhone window | iPhone-only; still to check on an iPad ⚠️ |
+| 2.5.2, 2.5.19 downloads, hidden features | media only, nothing hidden | The Premium download is texts, drawings and clips; there are no debug menus or server switches ✅ |
+| 2.5.14 recording | consent and an indicator | The mirror is a preview only; iOS asks first and shows the camera dot ✅ |
+| 3.1.1, 3.1.2 subscriptions | in-app purchase; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`. Its trial line comes from the App Store offer, so it follows App Store Connect ✅ |
+| 3.1.2(a) ongoing value | keeps giving value | Every day and exercise, and the unlimited Coach ✅ |
+| 4.2.1 ARKit | rich AR, not a model in a view | ARKit only reads movement for the move check; FaceRep isn't an AR app. Say so in the review notes ✅ |
+| 4.2.3 downloads | nothing required at first launch | The free part is in the app; the Premium download (about 9 MB) comes after purchase ✅ |
+| 4.10 built-in capabilities | the camera isn't sold | The mirror is free for everyone ✅ |
+| 5.1.1(i) privacy policy | in the app and in App Store Connect; data, retention, deletion | `/privacy` from Settings, the paywall and the consent screen ✅ |
+| 5.1.2(i) third-party AI | say who gets the data, ask first | The consent screen names Cloudflare Workers AI; switch in Settings ✅ |
+| 5.1.2(vi) face data | never for marketing; explain its use | "Face data" paragraph, camera purpose string, Settings → Move check in the mirror ✅. The review notes must answer Apple's face-data questions (docs/launch.md) |
+| 5.6.1 ratings | Apple's prompt only | `expo-store-review` ✅ |
 
 **Judgment calls (kept, low risk):**
 - The microphone purpose string exists only because the camera library can record sound. FaceRep never asks for the
   microphone (docs/architecture.md).
 - The keywords "glow" and "skincare": the app calls the topic "face care", but people search for "skincare", and the
   Coach does give basic face care tips. Drop them if a reviewer objects.
+- The English keywords "double" and "chin": the chin and neck exercises work that area, and the Coach answers "Can
+  exercises help a double chin?" honestly. Nothing promises a result. Drop them if a reviewer objects.
 - The privacy and support URLs are on the `elowa-app.workers.dev` subdomain. They work; a FaceRep domain would look
   more professional later (5.6.2).
 - The EU trader status (DSA) is undeclared, so the app isn't sold in the EU. This is the owner's choice, not a
   guideline issue (docs/publish-todo.md §0).
-
-**Still to do for 1.0** (docs/publish-todo.md §1 and §3):
-- build 5 with these fixes, attached in place of build 4;
-- deploy the Worker;
-- in App Store Connect: App Privacy with Fitness, and the German store description ("Unbegrenzte Antworten");
-- the iPad check;
-- the medical device declaration ("No": FaceRep is fitness and wellness, not a medical device).

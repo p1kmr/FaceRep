@@ -8,7 +8,7 @@ import { FREE_PER_MONTH } from './lib/access.js';
 /** Days of the weekly workouts that are free: the same as WEEKS.freeDays in the app (npm run review:check compares them). */
 export const FREE_DAYS = 3;
 
-const UPDATED = { privacy: 'October 17, 2026', terms: 'October 17, 2026' };
+const UPDATED = { privacy: 'October 18, 2026', terms: 'October 17, 2026' };
 
 const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -59,9 +59,10 @@ function privacy(env) {
 
 <div class="card">
 <strong>In short:</strong> ${c.app} has no account, no ads and no trackers. Your workouts, Coach chat and settings are
-stored only on your iPhone. Only two things ever leave it: the questions you send to the AI Coach (after you agree), and
-the purchase details Apple and RevenueCat need to process a subscription. Camera pictures and face data never leave your iPhone. We never sell or share your data for
-advertising.
+stored only on your iPhone. Only three things ever leave it: the questions you send to the AI Coach (after you agree),
+a random app ID when Premium exercises download (so our server can check your subscription), and the purchase details
+Apple and RevenueCat need to process a subscription. Camera pictures and face data never leave your iPhone. We never sell
+or share your data for advertising.
 </div>
 
 <h2>Who we are</h2>

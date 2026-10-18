@@ -16,7 +16,7 @@ import type { Reminder } from '@/services/reminders/reminders';
 import { makeStyles } from '@/theme/makeStyles';
 import { createId } from '@/utils/ids';
 
-const NEW: Omit<Reminder, 'id'> = { kind: 'mewing', title: '', enabled: true, times: [...REMINDER.everyTwoHours], days: [1, 2, 3, 4, 5] };
+const NEW: Omit<Reminder, 'id'> = { kind: 'mewing', title: '', enabled: true, times: [REMINDER.defaultTime], days: [1, 2, 3, 4, 5] };
 
 /** Add or edit one reminder: type, name, times, days. ?id= edits an existing one. */
 export default function ReminderScreen() {
