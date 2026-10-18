@@ -54,7 +54,7 @@ state/progress/
 |---|---|---|
 | `kv` | small JSON values: settings, app ID copy, AI usage (versioned envelope) | `services/storage/kv.ts` |
 | `sessions` + `session_exercises` | finished workouts; the weeks are counted from them (`plan_level`, `plan_day` are left from the old 28-day plan, unread) | `services/progress/sessionsRepo.ts` |
-| `chat_messages` | Coach history (last 200) | `services/chat/chatRepo.ts` |
+| `chat_messages` | Coach chats by `chat_id` (History: last 100 chats, 200 messages each) | `services/chat/chatRepo.ts` |
 
 Schema changes: append to `services/db/migrations.ts` (tracked with `PRAGMA user_version`); never edit a shipped entry.
 
@@ -274,6 +274,13 @@ workout in the weeks (one per date, like any other).
 `WorkoutActionCard` shows exactly that before Save, or the routine before Start (which opens the player with those
 exercises). A saved workout is stored with kind `logged` (no migration) and shows a "Logged" tag in the history. Nothing is
 saved or started until the user taps Save or Start. The iPhone keyboard's dictation mic works in the Coach's text field.
+
+**Chats (History).** The Coach keeps several chats on the iPhone (`chat_messages.chat_id`, migration 3: the one
+conversation before it became the first chat) and opens the most recent one. The pencil starts a new chat (saved only with
+its first answer); the clock opens `app/coach-history.tsx`: each chat named after its first question, with the time or
+date of its last answer. Tap one to go back to it, swipe left or long-press to delete it (VoiceOver: the Delete action), or
+Delete all chats. Only the open chat's last turns go with a question. Both buttons wait while an answer is coming; an
+answer whose chat was deleted meanwhile is neither shown nor saved. Settings → Delete all data deletes every chat too.
 
 
 ## Languages

@@ -23,7 +23,7 @@ const MARGIN = 12;
 /** Room for the tab bar so the button never covers it. */
 const TAB_BAR = 64;
 /** Screens where the button would be in the way (or is the Coach itself). */
-const HIDDEN = ['/coach', '/workout', '/paywall', '/ai-consent', '/onboarding', '/safety', '/reminder'];
+const HIDDEN = ['/coach', '/coach-history', '/workout', '/paywall', '/ai-consent', '/onboarding', '/safety', '/reminder'];
 const spring = { damping: 18, stiffness: 220 };
 /** The first-time hint shows at most once per app launch. */
 let hintShownThisLaunch = false;

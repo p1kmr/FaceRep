@@ -47,6 +47,11 @@ export function formatTime(time: string, locale: string): string {
   return new Date(2000, 0, 1, h, m).toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit' });
 }
 
+/** "3:27 PM" or "15:27" for a moment (ISO timestamp), on this iPhone's clock, in the app language. */
+export function formatTimeOf(isoTimestamp: string, locale: string): string {
+  return new Date(isoTimestamp).toLocaleTimeString(locale, { hour: 'numeric', minute: '2-digit' });
+}
+
 /** "Mon" for weekday 1 (0 = Sunday … 6 = Saturday), in the app language. */
 export function weekdayShortOf(day: number, locale: string): string {
   // 2026-01-04 was a Sunday.

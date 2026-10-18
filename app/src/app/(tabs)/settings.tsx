@@ -63,7 +63,7 @@ export default function SettingsScreen() {
         style: 'destructive',
         onPress: async () => {
           await wipeDatabase().catch(() => {});
-          chat.clear();
+          chat.deleteAll();
           progressDispatch(resetProgress());
           dispatch(resetSettings()); // onboarding starts again
           toast({ message: t('settings:deleted') });

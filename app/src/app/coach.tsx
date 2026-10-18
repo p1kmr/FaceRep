@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, KeyboardAvoidingView, Linking, Platform, Pressable, ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView, Linking, Platform, Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Composer } from '@/components/coach/Composer';
@@ -11,8 +11,9 @@ import { TypingDots } from '@/components/coach/TypingDots';
 import { WorkoutActionCard } from '@/components/coach/WorkoutActionCard';
 import { AppText } from '@/components/ui/AppText';
 import { Button } from '@/components/ui/Button';
-import { IconButton } from '@/components/ui/IconButton';
 import { Chip } from '@/components/ui/Chip';
+import { IconButton } from '@/components/ui/IconButton';
+import { SheetHeader } from '@/components/ui/SheetHeader';
 import { COACH_SUGGESTIONS } from '@/constants/coach';
 import { LINKS } from '@/constants/links';
 import { useChat } from '@/hooks/useChat';
@@ -24,7 +25,7 @@ import { makeStyles } from '@/theme/makeStyles';
 
 /**
  * The AI Coach (Premium; a few free answers a month), opened from the floating button on every main
- * screen or the Today card. Long-press an answer to report it.
+ * screen or the Today card. Long-press an answer to report it. The clock opens the chat history, the pencil a new chat.
  */
 export default function CoachScreen() {
   const { t } = useTranslation('coach');
@@ -40,12 +41,6 @@ export default function CoachScreen() {
   const empty = !chat.messages.length && !chat.pending;
   const unlock = t('unlock');
 
-  const confirmClear = () =>
-    Alert.alert(t('clear'), t('clearConfirm'), [
-      { text: t('common:cancel'), style: 'cancel' },
-      { text: t('clear'), style: 'destructive', onPress: chat.clear },
-    ]);
-
   // Reporting an answer: a pre-filled mail to support (good practice for generative AI features).
   const report = (text: string) =>
     Linking.openURL(
@@ -55,19 +50,16 @@ export default function CoachScreen() {
   return (
     // A sheet like Elowa's chat: no top inset, keep the composer above the home indicator.
     <SafeAreaView style={styles.root} edges={['bottom']}>
-      <View style={styles.header}>
-        <AppText variant="title" accessibilityRole="header">
-          {t('title')}
-        </AppText>
-        <View style={styles.actions}>
-          {chat.messages.length ? (
-            <Pressable onPress={confirmClear} accessibilityRole="button" hitSlop={8}>
-              <AppText style={styles.link}>{t('clear')}</AppText>
-            </Pressable>
-          ) : null}
-          <IconButton icon="xmark" onPress={() => router.back()} accessibilityLabel={t('common:close')} />
-        </View>
-      </View>
+      {/* Not while an answer is coming: it belongs to the open chat. */}
+      <SheetHeader title={t('title')} onClose={() => router.back()}>
+        <IconButton
+          icon="clock.arrow.circlepath"
+          onPress={() => router.push('/coach-history')}
+          accessibilityLabel={t('history.title')}
+          disabled={chat.thinking}
+        />
+        <IconButton icon="square.and.pencil" onPress={chat.newChat} accessibilityLabel={t('newChat')} disabled={empty || chat.thinking} />
+      </SheetHeader>
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={64}>
         <ScrollView
           ref={scroll}
@@ -137,15 +129,6 @@ export default function CoachScreen() {
 const useStyles = makeStyles(({ colors, tokens }) => ({
   root: { flex: 1, backgroundColor: colors.background },
   flex: { flex: 1 },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: tokens.space.lg,
-    paddingTop: tokens.space.lg,
-    paddingBottom: tokens.space.sm,
-  },
-  actions: { flexDirection: 'row', alignItems: 'center', gap: tokens.space.lg },
   content: { padding: tokens.space.lg, gap: tokens.space.md },
   turn: { gap: tokens.space.sm },
   empty: { gap: tokens.space.lg },

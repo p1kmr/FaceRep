@@ -55,6 +55,7 @@ function RootNavigator() {
           <Stack.Screen name="paywall" options={{ presentation: 'modal', headerShown: false }} />
           <Stack.Screen name="ai-consent" options={{ presentation: 'modal', title: '' }} />
           <Stack.Screen name="coach" options={{ presentation: 'modal', headerShown: false }} />
+          <Stack.Screen name="coach-history" options={{ presentation: 'modal', headerShown: false }} />
           <Stack.Screen name="reminders" options={{ title: t('reminders:title') }} />
           <Stack.Screen name="reminder" options={{ presentation: 'modal', title: '' }} />
           <Stack.Screen name="safety" options={{ presentation: 'modal', title: t('settings:safety') }} />

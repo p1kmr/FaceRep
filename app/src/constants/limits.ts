@@ -15,8 +15,10 @@ export const CHAT_LIMITS = {
   questionChars: 500,
   turnChars: 1500,
   historyTurns: 10,
-  /** Messages kept in the on-device chat history (older ones are deleted). */
+  /** Messages kept of each chat on the iPhone (older ones are deleted). */
   storedMessages: 200,
+  /** Chats kept in History (the ones with the oldest last answer are deleted). */
+  storedChats: 100,
 } as const;
 
 /** Ask for an App Store rating after this many finished workouts (never more than once per 120 days). */

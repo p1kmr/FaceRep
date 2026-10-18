@@ -37,4 +37,10 @@ export const MIGRATIONS: string[] = [
   ALTER TABLE sessions ADD COLUMN plan_level INTEGER;
   ALTER TABLE sessions ADD COLUMN plan_day INTEGER;
   `,
+  // 3: the Coach keeps several chats (History). The one conversation so far becomes the first chat.
+  `
+  ALTER TABLE chat_messages ADD COLUMN chat_id TEXT;
+  UPDATE chat_messages SET chat_id = 'first-chat';
+  CREATE INDEX IF NOT EXISTS chat_messages_chat ON chat_messages (chat_id, created_at);
+  `,
 ];

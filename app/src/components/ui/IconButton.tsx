@@ -16,9 +16,11 @@ interface IconButtonProps {
   tone?: 'surface' | 'primary';
   /** On/off button (voice, mirror): read as a switch by VoiceOver, filled while on. */
   toggled?: boolean;
+  /** Dimmed and not tappable (e.g. New chat while the chat is empty). */
+  disabled?: boolean;
 }
 
-export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', tone: toneProp = 'surface', toggled }: IconButtonProps) {
+export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', tone: toneProp = 'surface', toggled, disabled }: IconButtonProps) {
   const styles = useStyles();
   const { colors } = useTheme();
   const large = size === 'large';
@@ -32,8 +34,17 @@ export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', 
       accessibilityRole={toggled === undefined ? 'button' : 'switch'}
       aria-checked={toggled}
       accessibilityLabel={accessibilityLabel}
+      accessibilityState={disabled ? { disabled } : undefined}
+      disabled={disabled}
       hitSlop={8}
-      style={({ pressed }) => [styles.base, large && styles.large, tone === 'primary' && styles.primary, large && tone === 'primary' && styles.glow, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.base,
+        large && styles.large,
+        tone === 'primary' && styles.primary,
+        large && tone === 'primary' && styles.glow,
+        pressed && styles.pressed,
+        disabled && styles.disabled,
+      ]}
     >
       {tone === 'primary' ? (
         <View style={styles.fill}>
@@ -68,4 +79,5 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   primary: { backgroundColor: colors.primary },
   glow: { boxShadow: `${tokens.elevation.glow} ${colors.glow}` },
   pressed: { opacity: 0.8, transform: [{ scale: 0.96 }] },
+  disabled: { opacity: 0.4 },
 }));
