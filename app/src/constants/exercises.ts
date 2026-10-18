@@ -115,16 +115,13 @@ export const PROGRAMS: ProgramId[] = ['jawline', 'cheekbones', 'lips', 'eyes', '
 export const GOALS: Goal[] = [...PROGRAMS, 'full'];
 
 /**
- * Display order of the programs (onboarding, Settings, Exercises tab). Every program is there for
+ * Display order of the programs (onboarding, Settings). Every program is there for
  * everyone; with the woman's pictures the areas women's face-yoga apps lead with come first. Only
  * the order changes on the device; the plan never depends on the guide.
  */
 export const programsFor = (guide: GuideId): ProgramId[] =>
   guide === 'woman' ? ['lips', 'cheekbones', 'eyes', 'massage', 'jawline'] : PROGRAMS;
 export const goalsFor = (guide: GuideId): Goal[] => [...programsFor(guide), 'full'];
-
-export const exercisesOf = (program: ProgramId): Exercise[] =>
-  EXERCISE_IDS.map((id) => EXERCISES[id]).filter((e) => e.program === program);
 
 export const isExerciseId = (v: unknown): v is ExerciseId => typeof v === 'string' && (EXERCISE_IDS as readonly string[]).includes(v);
 

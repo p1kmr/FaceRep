@@ -1,12 +1,5 @@
 {
   "title": "Exercícios",
-  "programIntro": {
-    "jawline": "Músculos da mandíbula, do queixo e do pescoço, além da postura da língua e do pescoço.",
-    "cheekbones": "Trabalhe e tonifique os músculos ao redor das bochechas e da boca.",
-    "lips": "Os músculos ao redor dos lábios e dos cantos da boca.",
-    "eyes": "Músculos da testa, das sobrancelhas e dos olhos, ótimo depois de muito tempo de tela.",
-    "massage": "Massagem suave com as pontas dos dedos para relaxar a mandíbula, as sobrancelhas e as têmporas. Mãos limpas, pressão leve."
-  },
   "muscles": {
     "masseter": "Masseter",
     "platysma": "Platisma",
@@ -148,10 +141,6 @@
     "muscles": "Músculos",
     "exercises": "Exercícios para esta área",
     "a11y": "Mapa do rosto, {{area}} em vermelho. Escolha uma área com os botões abaixo."
-  },
-  "view": {
-    "map": "Mapa do rosto",
-    "programs": "Programas"
   },
   "premium": "Premium"
 }

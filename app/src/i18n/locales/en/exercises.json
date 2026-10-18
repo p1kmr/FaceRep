@@ -1,12 +1,5 @@
 {
   "title": "Exercises",
-  "programIntro": {
-    "jawline": "Jaw, chin and neck muscles, plus tongue and neck posture.",
-    "cheekbones": "Work and tone the muscles around your cheeks and mouth.",
-    "lips": "The muscles around your lips and the corners of your mouth.",
-    "eyes": "Forehead, brow and eye muscles, great after long screen time.",
-    "massage": "Gentle fingertip massage to relax your jaw, brows and temples. Clean hands, light pressure."
-  },
   "muscles": {
     "masseter": "Masseter",
     "platysma": "Platysma",
@@ -148,10 +141,6 @@
     "muscles": "Muscles",
     "exercises": "Exercises for this area",
     "a11y": "Face map, {{area}} in red. Pick an area with the buttons below."
-  },
-  "view": {
-    "map": "Face map",
-    "programs": "Programs"
   },
   "premium": "Premium"
 }

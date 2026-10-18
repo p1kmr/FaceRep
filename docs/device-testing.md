@@ -86,7 +86,7 @@ Delete the app first so onboarding and permissions start fresh.
 - [ ] **Videos:** an exercise page plays its clip in a loop (pause button works; your music keeps playing); in a workout
       the clip plays during "Get ready" and "Next up", then the drawings follow the counter. Settings → Accessibility →
       Motion → Reduce Motion: the drawings instead of the clips.
-- [ ] **Face map:** Exercises tab → Face map: tap the jaw, eyes, forehead and neck on the face; each lights up with its
+- [ ] **Face map:** Exercises tab: tap the jaw, eyes, forehead and neck on the face; each lights up with its
       note and exercises. On Today, tap a lit area of the face: the Exercises tab opens on it.
 - [ ] **Dark mode and large text:** Control Center → Dark Mode; Settings → Accessibility → Larger Text at the largest
       size: nothing cut off on Today, the workout player and Settings.

@@ -219,9 +219,12 @@ which (`MUSCLE_AREA`), and from that which exercises work each area. The picture
 (`videos/tools/facemap.py`, docs/images.md): per guide a grey face and one red layer per area, cut to its box, with each
 area's outline in `areas.json`. `components/faceMap/FaceMap.tsx` stacks them (Reanimated fades; `mixBlendMode` doesn't
 work on iOS, so the red is baked into each layer) and turns a tap into an area with `services/faceMap/hit.ts` (pure,
-tested: inside an outline, the smallest wins; a near miss still counts). Used on Today (the day's areas) and in the
-Exercises tab (Face map | Programs): tap an area or its chip to see its muscles, a short note and its exercises. No
-photo of the user is taken or analysed: the face is the app's own drawing.
+tested: inside an outline, the smallest wins; a near miss still counts). Used on Today (the day's areas) and as the
+Exercises tab, the library: tap an area or its chip to see its muscles, a short note and its exercises. The tab has no
+list by program next to it: four of the five programs are face areas under another name, so it showed the same
+exercises twice, grouped a little differently (the massage ones are in their areas: jaw, neck, forehead, temples). The
+programs stay the user's focus (onboarding, Settings, Today's workout). No photo of the user is taken or analysed: the
+face is the app's own drawing.
 
 ## Progress calendar (Week / Month / Year)
 The Mon–Sun calendar lives on the Progress tab, separate from the weeks: the weeks say how far you are, the calendar
