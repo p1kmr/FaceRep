@@ -16,7 +16,7 @@ import { useFaceScanActions, useFaceScans } from '@/hooks/useFaceScans';
 import { useScanRun } from '@/hooks/useScanRun';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import type { RawScan } from '@/services/faceScan/score';
-import { deleteScanPhoto, faceScanMode } from '@/services/faceTracking';
+import { deleteScanPhoto, faceScanMode, simulatorCamera } from '@/services/faceTracking';
 import { haptics } from '@/services/haptics';
 import { openSystemSettings } from '@/services/notifications/reminder';
 import { voice } from '@/services/voice';
@@ -51,6 +51,9 @@ export default function ScanScreen() {
   const [phase, setPhase] = useState<'intro' | 'scanning' | 'saving'>('intro');
   const [id, setId] = useState(createId);
   const scanning = phase === 'scanning';
+  // The Simulator says under the oval that a pretend face does the moves, except behind the store screenshots'
+  // stand-in picture (ScanCamera).
+  const [standIn] = useState(() => (faceScanMode === 'simulated' ? simulatorCamera('scan') : null));
 
   const onDone = async (readings: RawScan | null, photo: string | null) => {
     if (!readings) {
@@ -205,7 +208,7 @@ export default function ScanScreen() {
         progress={view.stage === 'hold' ? view.progress : 0}
         tone={tone}
         countdown={view.countdown}
-        caption={faceScanMode === 'simulated' ? t('simulator') : undefined}
+        caption={faceScanMode === 'simulated' && !standIn ? t('simulator') : undefined}
       />
       <View style={[styles.top, { paddingTop: insets.top + 8 }]}>
         <IconButton icon="xmark" onPress={close} accessibilityLabel={t('cancel')} />

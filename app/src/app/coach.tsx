@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from 'expo-router';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Linking, Platform, Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -20,6 +20,7 @@ import { useChat } from '@/hooks/useChat';
 import { useFreeAiLabel } from '@/hooks/useFreeAiLabel';
 import { useGuide } from '@/hooks/useGuide';
 import { usePremium } from '@/hooks/usePremium';
+import { isSimulator } from '@/services/faceTracking';
 import { isReminderProposal, isWorkoutProposal } from '@/state/chat/selectors';
 import { makeStyles } from '@/theme/makeStyles';
 
@@ -29,8 +30,10 @@ import { makeStyles } from '@/theme/makeStyles';
  */
 export default function CoachScreen() {
   const { t } = useTranslation('coach');
-  // `q` starts a question (e.g. from the floating button's hint); the user still sends it.
-  const { q } = useLocalSearchParams<{ q?: string }>();
+  // `q` starts a question (e.g. from the floating button's hint); the user still sends it. In the Simulator only,
+  // ?send=1 sends it at once, for the store screenshots, which are taken without taps (docs/screenshots.md §4).
+  const { q, send } = useLocalSearchParams<{ q?: string; send?: string }>();
+  const autoSend = isSimulator && send === '1' && typeof q === 'string' ? q : null;
   const styles = useStyles();
   const chat = useChat();
   const { isPremium } = usePremium();
@@ -40,6 +43,14 @@ export default function CoachScreen() {
   const scroll = useRef<ScrollView>(null);
   const empty = !chat.messages.length && !chat.pending;
   const unlock = t('unlock');
+
+  const autoSent = useRef<string | null>(null);
+  const { send: sendQuestion } = chat;
+  useEffect(() => {
+    if (!autoSend || autoSent.current === autoSend) return;
+    // Sending waits for the chat to load and the app ID; `send` changes when they're ready.
+    if (sendQuestion(autoSend)) autoSent.current = autoSend;
+  }, [autoSend, sendQuestion]);
 
   // Reporting an answer: a pre-filled mail to support (good practice for generative AI features).
   const report = (text: string) =>
@@ -116,7 +127,7 @@ export default function CoachScreen() {
               </AppText>
             </Pressable>
           ) : null}
-          <Composer onSend={chat.send} disabled={chat.thinking} initialText={typeof q === 'string' ? q : ''} />
+          <Composer onSend={chat.send} disabled={chat.thinking} initialText={typeof q === 'string' && !autoSend ? q : ''} />
           <AppText variant="caption" muted center>
             {t('aiNote')}
           </AppText>

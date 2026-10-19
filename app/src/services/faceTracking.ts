@@ -10,6 +10,7 @@ import type { NativeSyntheticEvent, ViewProps } from 'react-native';
 interface FaceRepFaceTracking {
   isSupported(): boolean;
   isSimulator?: boolean;
+  simulatorCamera?(name: string): string | null;
   photosDirectory?(): string;
   takePhoto?(name: string): Promise<{ name: string; width: number; height: number }>;
   deletePhoto?(name: string): Promise<void>;
@@ -65,6 +66,23 @@ export const faceScanMode: 'camera' | 'simulated' | null = !native?.takePhoto
     : native.isSimulator === true
       ? 'simulated'
       : null;
+
+/** True in the iOS Simulator. */
+export const isSimulator = native?.isSimulator === true;
+
+/**
+ * The Simulator has no camera. For the store screenshots a picture copied into the app's
+ * Documents/SimulatorCamera/<name>.jpg stands in for it (docs/screenshots.md §4): `scan` in the face scan (and its
+ * photo), `mirror` in the workout mirror. Always null on an iPhone, and in the Simulator without the file.
+ */
+export function simulatorCamera(name: 'scan' | 'mirror'): string | null {
+  if (!isSimulator) return null;
+  try {
+    return native?.simulatorCamera?.(name) ?? null;
+  } catch {
+    return null;
+  }
+}
 
 let photosDirectory: string | null | undefined;
 

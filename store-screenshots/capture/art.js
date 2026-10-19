@@ -5,9 +5,9 @@
 // With --sim, a card on a Simulator screen is cut where sim/<lang>/regions.json says (docs/screenshots.md §4).
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import sharp from 'sharp';
 
 import { LANGS } from './copy.js';
 import { FONT_CSS, ICON_SVGS, simRegions, simShot } from './lib.js';
@@ -20,6 +20,10 @@ const executablePath = process.env.CHROMIUM_PATH || (fs.existsSync(LOCAL_CHROMIU
 const RED = '#E5322D', INK = '#111418';
 
 const useSim = process.argv.includes('--sim');
+// The streak on the Progress screen and the exercise in the voice-cue slide's player: sim-capture.js seeds 30 days and
+// films the man's Brow Lift (a free exercise); the web capture had 11 days and the Jaw Clench.
+const STREAK = useSim ? '30' : '11';
+const VOICE_EXERCISE = useSim ? 'browLift' : 'jawClench';
 const t = (lang, ns, key) => key.split('.').reduce((o, k) => o[k], JSON.parse(fs.readFileSync(`${APP}/src/i18n/locales/${lang}/${ns}.json`, 'utf8')));
 const icon = (name, color) => ICON_SVGS[name].replaceAll('COLOR', color);
 const webp = (file) => `data:image/webp;base64,${fs.readFileSync(file).toString('base64')}`;
@@ -66,13 +70,16 @@ for (const [who, [x, y, size]] of Object.entries({ woman: [150, 40, 620], man: [
 }
 
 for (const lang of LANGS) {
-  const streak = t(lang, 'home', 'streak_other').replace('{{count}}', '11');
+  const streak = t(lang, 'home', 'streak_other').replace('{{count}}', STREAK);
   await draw(`${lang}/streak.png`, `<div class="chip">${icon('flame.fill', '#FF8A1F')}<span>${streak}</span></div>`);
   const speaker = (c) => icon('speaker.wave.2.fill', c);
-  const start = t(lang, 'workout', 'voice.start').replace('{{name}}', t(lang, 'exercises', 'items.jawClench.name'));
+  const start = t(lang, 'workout', 'voice.start').replace('{{name}}', t(lang, 'exercises', `items.${VOICE_EXERCISE}.name`));
   await draw(`${lang}/voice-start.png`, `<div class="bubble">${speaker(RED)}<span>${start}</span></div>`);
   await draw(`${lang}/voice-hold.png`, `<div class="bubble red">${speaker('#fff')}<span>${t(lang, 'workout', 'voice.hold')}</span></div>`);
   await draw(`${lang}/voice-relax.png`, `<div class="bubble">${speaker(RED)}<span>${t(lang, 'workout', 'voice.relax')}</span></div>`);
+  // The face scan slide: the scan intro's privacy line, its first sentence ("The scan runs on this iPhone").
+  const onDevice = t(lang, 'scan', 'intro.private').split(/(?<=[.!?])\s/)[0].replace(/[.!?]$/, '');
+  await draw(`${lang}/scan-private.png`, `<div class="chip">${icon('lock.fill', RED)}<span>${onDevice}</span></div>`);
 }
 
 // Cards lifted out of the app: cut from the framed screen (3 px per point) where capture.js found them, shown a bit
@@ -84,7 +91,12 @@ for (const lang of LANGS) {
   const sim = useSim ? simRegions(lang) : {};
   // [file, screen, raw top in the framed screen, region, canvas pixels per point, points cut off each side]
   // (the mirror's box has a white rounded border: cut inside it, so only the camera picture is lifted out)
-  for (const [name, screen, rawTop, key, scale, inset] of [['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]]) {
+  // Simulator only: the Coach's routine card, the scan's two rings and the Progress tab's scan chart.
+  // [, points tall]: made this tall in every language with the screen's own colour below, for a card that runs off the
+  // bottom of its slide (the scan's rings, deck.js slide 3).
+  const cuts = [['pop-card.png', 'coach', 72, 'card', 2.3, 0], ['pop-mirror.png', 'workout-mirror', 62, 'mirror', 3.6, 6], ['pop-mirror-man.png', 'workout-mirror-man', 62, 'mirror-man', 3.6, 6]];
+  if (useSim) cuts.push(['pop-routine.png', 'coach', 0, 'routine', 2.3, 0], ['pop-rings.png', 'scan-result', 0, 'rings', 2.3, 0, 290], ['pop-chart.png', 'progress', 0, 'chart', 2.3, 0]);
+  for (const [name, screen, rawTop, key, scale, inset, tall = 0] of cuts) {
     // A Simulator screen is the whole screen, so its boxes are measured from the top (no offset).
     const fromSim = useSim && simShot(lang, screen);
     if (fromSim && !sim[key]) { console.warn(`  ${lang}: ${screen} is a Simulator shot but sim/${lang}/regions.json has no "${key}" box: ${name} skipped`); continue; }
@@ -92,10 +104,15 @@ for (const lang of LANGS) {
     const top = fromSim ? 0 : rawTop;
     if (!box) { console.warn(`  ${lang}: no "${key}" region yet (run capture.js ${lang}): ${name} skipped`); continue; }
     const [x, y, w, h] = [box[0] + inset, box[1] + inset, box[2] - 2 * inset, box[3] - 2 * inset];
-    const crop = path.join(OUT, lang, `.crop-${name}`);
-    execFileSync('convert', [path.join(SCREENS, lang, `${screen}.png`), '-crop', `${w * 3}x${h * 3}+${x * 3}+${(y + top) * 3}`, '+repage', crop]);
-    const src = `data:image/png;base64,${fs.readFileSync(crop).toString('base64')}`;
-    fs.rmSync(crop);
+    let crop = await sharp(path.join(SCREENS, lang, `${screen}.png`))
+      .extract({ left: x * 3, top: (y + top) * 3, width: w * 3, height: h * 3 })
+      .png()
+      .toBuffer();
+    if (tall > h) {
+      const [r, g, b] = await sharp(crop).removeAlpha().raw().toBuffer();
+      crop = await sharp(crop).extend({ bottom: (tall - h) * 3, background: { r, g, b } }).png().toBuffer();
+    }
+    const src = `data:image/png;base64,${crop.toString('base64')}`;
     await draw(`${lang}/${name}`, `<div class="pop" style="width:${Math.round(w * scale)}px"><img src="${src}"></div>`);
   }
 }
@@ -104,14 +121,19 @@ await browser.close();
 
 // The deck gives each chip one box for every language: pad each language's picture to the widest one
 // (transparent on the right), so the words are the same size in every language and the chip stays left-aligned.
-for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'pop-card.png', 'pop-mirror.png', 'pop-mirror-man.png']) {
+for (const name of ['streak.png', 'voice-start.png', 'voice-hold.png', 'voice-relax.png', 'scan-private.png', 'pop-card.png', 'pop-mirror.png', 'pop-mirror-man.png', 'pop-routine.png', 'pop-rings.png', 'pop-chart.png']) {
   const have = LANGS.filter((l) => manifest[`${l}/${name}`] && fs.existsSync(path.join(OUT, l, name)));
   if (!have.length) continue;
   const w = Math.max(...have.map((l) => manifest[`${l}/${name}`].w));
   const h = Math.max(...have.map((l) => manifest[`${l}/${name}`].h));
   for (const l of have) {
     const file = path.join(OUT, l, name);
-    execFileSync('convert', [file, '-background', 'none', '-gravity', 'northwest', '-extent', `${w * 2}x${h * 2}`, file]);
+    const { width, height } = await sharp(file).metadata();
+    const padded = await sharp(file)
+      .extend({ right: w * 2 - width, bottom: h * 2 - height, background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .png()
+      .toBuffer();
+    fs.writeFileSync(file, padded);
     manifest[`${l}/${name}`] = { w, h };
   }
 }

@@ -22,6 +22,16 @@ public class FaceRepFaceTrackingModule: Module {
       #endif
     }
 
+    // The Simulator's stand-in camera picture for the store screenshots (ScanPhotos.simulatorCamera), as a file URL.
+    // Always nil on an iPhone.
+    Function("simulatorCamera") { (name: String) -> String? in
+      #if targetEnvironment(simulator)
+      return ScanPhotos.simulatorCamera(name)?.absoluteString
+      #else
+      return nil
+      #endif
+    }
+
     // The progress photos' folder as a file URL ending in "/" (the app adds the file name).
     Function("photosDirectory") { () throws -> String in
       try ScanPhotos.directory().absoluteString

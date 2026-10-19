@@ -52,9 +52,9 @@ Re-check before acting: from the repo root run
   - name, subtitle and privacy policy URL; the en-US name is `FaceRep: Face Yoga & Jawline`;
   - description, keywords, promotional text, and the support URL `https://facerep-api.elowa-app.workers.dev/support`.
     No What's New, because Apple doesn't allow it on a first version;
-  - 8 screenshots each, 01→08, from `store-screenshots/export/<lang>/` at 1320 × 2868 (6.9" iPhone, API type
+  - 9 screenshots each, 01→09, from `store-screenshots/export/<lang>/` at 1320 × 2868 (6.9" iPhone, API type
     APP_IPHONE_67). iPhone only, so the iPad notice in `asc validate` doesn't apply (`supportsTablet` is false).
-  - Slide 5 shows both her and his camera mirror. A woman-only or man-only version is a quick rebuild; upload it with
+  - Slide 7 shows both her and his camera mirror. A woman-only or man-only version is a quick rebuild; upload it with
     `--replace --confirm`.
   - The texts are AI translations, so a native speaker should check them. Promotional text can change at any time;
     everything else needs a new version after release.
@@ -130,8 +130,7 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
       revert its commit ("Mirror move check with Apple face tracking…"), deploy the Worker again and make a new build.
 - [ ] **Store text:** the description and What's New in docs/store-listing.md now mention the face map, the videos and the
       Coach saving workouts (all six languages); put them on the 1.0 page.
-- [ ] **Screenshots:** Today, the player, the exercise page, Progress and the Coach look different now: re-capture and
-      re-export them (store-screenshots/README.md) before submitting.
+- [x] **Screenshots:** re-captured from the iOS Simulator on 2026-10-19 (Step 3 below).
 - [ ] **Review notes:** use the updated text in docs/launch.md (face map, videos, Coach save / routine, move check).
       The notes in App Store Connect still say "Settings → Mirror in workouts" (that row is gone: the mirror is only
       the person button in the player) and "tap any locked day in the 28-day grid" (the 28-day plan is gone: the weeks go
@@ -185,9 +184,8 @@ Progress; 3 free scans, then Premium; an optional progress photo that stays on t
       re-score old scans.
 - [ ] **Store text** (owner's OK first): add the face scan to the description and the Premium list in all locales
       ("3 face scans free", "unlimited face scans"); no looks words.
-- [ ] **Screenshots:** a face scan slide (results with the chart). The results and Progress screens can be captured in
-      the Simulator (`facerep://scan?start=1` runs a pretend scan there); a slide showing the camera screen needs a
-      real iPhone screenshot.
+- [x] **Screenshots:** slide 3 is the face scan and its results (a stand-in picture in the Simulator's camera), slide 4 Progress with
+      the scan chart (2026-10-19, Step 3 below).
 - [ ] **Review notes:** the new text in docs/launch.md §6 (it covers the face scan and Apple's face-data questions).
 - [ ] App Privacy: no change (scan numbers and photos never leave the iPhone, so they aren't "collected").
 
@@ -223,9 +221,10 @@ inside the app first, then build 13, then the screenshots from that same code, t
       Only a failure here means another build.
 
 **Step 3: screenshots (Simulator, same code as build 13; can run while EAS builds):**
-- [ ] 8 slides × 7 locales show the old Today; slide 3 says "28-day plan · Week 1 free". New slide 3 words in
-      `store-screenshots/capture/copy.js`, re-capture in the 6 languages, export for the 7 store locales (es-ES and
-      es-MX share the Spanish), compare with build 13 on the iPhone (store-screenshots/README.md, docs/screenshots.md).
+- [x] 9 slides × 6 languages from the iOS Simulator (2026-10-19): a free user, free exercises only, the face scan
+      and its chart, the camera mirror with stand-in pictures, the real Coach (cards, no technique text). In
+      `store-screenshots/export/<lang>/01–09.jpg`; the old set is in `export/v1-web/`. Compare with the next build on
+      the iPhone before uploading (es-ES and es-MX share the Spanish).
 
 **Step 4: App Store Connect (after the agreement and build 13). The texts can be drafted in the docs earlier:**
 - [ ] **Attach build 13** to 1.0 in place of build 7.

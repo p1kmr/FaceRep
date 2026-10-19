@@ -1,4 +1,5 @@
 import { CameraView } from 'expo-camera';
+import { Image } from 'expo-image';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, View, type NativeSyntheticEvent, type StyleProp, type ViewStyle } from 'react-native';
@@ -8,7 +9,7 @@ import { MOVES } from '@/constants/moves';
 import { useAppActive } from '@/hooks/useAppActive';
 import { useMoveCheck } from '@/hooks/useMoveCheck';
 import { useSettings } from '@/hooks/useSettings';
-import { FaceTrackingView, type NativeFaceEvent } from '@/services/faceTracking';
+import { FaceTrackingView, simulatorCamera, type NativeFaceEvent } from '@/services/faceTracking';
 import type { MovePhase } from '@/services/workout/moveCheck';
 import { makeStyles } from '@/theme/makeStyles';
 
@@ -37,6 +38,8 @@ export function MirrorView({ style, exercise, index, phase, rep, large = false }
   const { moveCheck } = useSettings();
   // ARKit stopped with an error: the plain camera for the rest of this workout, so the mirror never stays black.
   const [failed, setFailed] = useState(false);
+  // The Simulator has no camera: the store screenshots' stand-in picture, when one was copied in.
+  const [standIn] = useState(() => simulatorCamera('mirror'));
   const Tracking = moveCheck && !failed ? FaceTrackingView : null;
   const { view, onFace } = useMoveCheck({ move: Tracking ? MOVES[exercise.id] : null, exercise: index, phase, rep, holdSec: exercise.holdSec });
   const onTrackingFace = (event: NativeSyntheticEvent<NativeFaceEvent>) => (event.nativeEvent.error === undefined ? onFace(event) : setFailed(true));
@@ -45,6 +48,8 @@ export function MirrorView({ style, exercise, index, phase, rep, large = false }
       <View style={StyleSheet.absoluteFill} accessible accessibilityRole="image" accessibilityLabel={t('mirrorA11y')}>
         {Tracking ? (
           <Tracking style={StyleSheet.absoluteFill} active={active} onFace={onTrackingFace} />
+        ) : standIn ? (
+          <Image source={{ uri: standIn }} style={StyleSheet.absoluteFill} contentFit="cover" />
         ) : (
           <CameraView style={StyleSheet.absoluteFill} facing="front" active={active} animateShutter={false} />
         )}

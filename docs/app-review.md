@@ -176,7 +176,7 @@ read with `./.tools/asc` in read-only mode. What the owner still has to do, in o
 | 1.4.1, 2.3.1 health and claims | no medical or result claims; "check with a doctor" | Safety line on the welcome screen, Settings → Exercise safety, jaw caution; the word check passes in all six languages ✅. The face scan reads movement only, says "Not a medical test" and explains its method ✅ |
 | 2.1 completeness | final build, backend live, IAP reachable | ❌ Version 1.0 still has build 7, which has the 28-day plan; build 13 is needed. The live Worker has no `/content` yet, so a reviewer's Premium download would fail |
 | 2.3.1(a), 2.3.2, 3.1.2(c) metadata | store text, review notes and subscription texts match the app | ❌ All seven locales still describe the 28-day plan ("27 exercises", "Week 1 free", every exercise free). The review notes point to the removed grid and Settings row, and the subscription descriptions say "Weeks 2 to 4" |
-| 2.3.3, 2.3.7 screenshots | the current app, no prices | ❌ All 8 slides in seven locales show the old Today; slide 3 says "28-day plan · Week 1 free" |
+| 2.3.3, 2.3.7 screenshots | the current app, no prices | New set of 9 from the Simulator (2026-10-19): a free user, free exercises only, limits labelled ✅. Not uploaded yet: App Store Connect still has the old 8 ❌ |
 | 2.3.6 age rating | honest answers, including the social-media questions | Answered; 13+ ✅ |
 | 2.3.14 creative assets | Asset Library rules | None used ✅ |
 | 2.4.1 iPad | works in an iPhone window | iPhone-only; still to check on an iPad ⚠️ |

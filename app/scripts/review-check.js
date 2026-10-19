@@ -235,7 +235,10 @@ function check() {
   for (const { where, text } of texts()) {
     if (ceiling.test(text)) problems.push(`${where}: names the fair-use ceiling (${perUser} a day); the Coach is sold as unlimited, never show the number`);
   }
-  if (!screenshotBlocks().en?.includes(`${free} FREE ANSWERS A MONTH`)) problems.push(`copy.js (en) slide 8 must say "${free} FREE ANSWERS A MONTH"`);
+  // Screenshots that show something with a free limit say what's free (2.3.2), with the app's numbers.
+  if (!screenshotBlocks().en?.includes(`${free} FREE ANSWERS A MONTH`)) problems.push(`copy.js (en): the Coach slide must say "${free} FREE ANSWERS A MONTH"`);
+  const freeScans = number('app/src/constants/limits.ts', /scans:\s*(\d+)/);
+  if (!screenshotBlocks().en?.includes(`${freeScans} FREE SCANS`)) problems.push(`copy.js (en): the face scan slide must say "${freeScans} FREE SCANS"`);
 
   // The Premium exercises (texts, drawings, clips) never ship in the app: only the Worker sends them, after RevenueCat
   // confirms Premium, so a patched app can't unlock them (docs/premium.md). Their words follow the same rules as above.

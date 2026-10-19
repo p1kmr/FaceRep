@@ -8,11 +8,11 @@
     "h": 720
   },
   "en/streak.png": {
-    "w": 780,
+    "w": 805,
     "h": 205
   },
   "en/voice-start.png": {
-    "w": 1227,
+    "w": 1301,
     "h": 205
   },
   "en/voice-hold.png": {
@@ -24,11 +24,11 @@
     "h": 205
   },
   "es/streak.png": {
-    "w": 780,
+    "w": 805,
     "h": 205
   },
   "es/voice-start.png": {
-    "w": 1227,
+    "w": 1301,
     "h": 205
   },
   "es/voice-hold.png": {
@@ -40,11 +40,11 @@
     "h": 205
   },
   "pt-BR/streak.png": {
-    "w": 780,
+    "w": 805,
     "h": 205
   },
   "pt-BR/voice-start.png": {
-    "w": 1227,
+    "w": 1301,
     "h": 205
   },
   "pt-BR/voice-hold.png": {
@@ -56,11 +56,11 @@
     "h": 205
   },
   "de/streak.png": {
-    "w": 780,
+    "w": 805,
     "h": 205
   },
   "de/voice-start.png": {
-    "w": 1227,
+    "w": 1301,
     "h": 205
   },
   "de/voice-hold.png": {
@@ -72,11 +72,11 @@
     "h": 205
   },
   "fr/streak.png": {
-    "w": 780,
+    "w": 805,
     "h": 205
   },
   "fr/voice-start.png": {
-    "w": 1227,
+    "w": 1301,
     "h": 205
   },
   "fr/voice-hold.png": {
@@ -88,11 +88,11 @@
     "h": 205
   },
   "it/streak.png": {
-    "w": 780,
+    "w": 805,
     "h": 205
   },
   "it/voice-start.png": {
-    "w": 1227,
+    "w": 1301,
     "h": 205
   },
   "it/voice-hold.png": {
@@ -108,48 +108,48 @@
     "h": 365
   },
   "en/pop-card.png": {
-    "w": 1018,
-    "h": 485
+    "w": 1014,
+    "h": 437
   },
   "es/pop-grid.png": {
     "w": 1018,
     "h": 365
   },
   "es/pop-card.png": {
-    "w": 1018,
-    "h": 485
+    "w": 1014,
+    "h": 437
   },
   "pt-BR/pop-grid.png": {
     "w": 1018,
     "h": 365
   },
   "pt-BR/pop-card.png": {
-    "w": 1018,
-    "h": 485
+    "w": 1014,
+    "h": 437
   },
   "de/pop-grid.png": {
     "w": 1018,
     "h": 365
   },
   "de/pop-card.png": {
-    "w": 1018,
-    "h": 485
+    "w": 1014,
+    "h": 437
   },
   "fr/pop-grid.png": {
     "w": 1018,
     "h": 365
   },
   "fr/pop-card.png": {
-    "w": 1018,
-    "h": 485
+    "w": 1014,
+    "h": 437
   },
   "it/pop-grid.png": {
     "w": 1018,
     "h": 365
   },
   "it/pop-card.png": {
-    "w": 1018,
-    "h": 485
+    "w": 1014,
+    "h": 437
   },
   "en/pop-mirror.png": {
     "w": 580,
@@ -198,5 +198,101 @@
   "it/pop-mirror-man.png": {
     "w": 580,
     "h": 767
+  },
+  "en/pop-routine.png": {
+    "w": 1014,
+    "h": 545
+  },
+  "en/pop-rings.png": {
+    "w": 1018,
+    "h": 747
+  },
+  "en/pop-chart.png": {
+    "w": 1014,
+    "h": 720
+  },
+  "en/scan-private.png": {
+    "w": 1291,
+    "h": 205
+  },
+  "es/scan-private.png": {
+    "w": 1291,
+    "h": 205
+  },
+  "pt-BR/scan-private.png": {
+    "w": 1291,
+    "h": 205
+  },
+  "de/scan-private.png": {
+    "w": 1291,
+    "h": 205
+  },
+  "fr/scan-private.png": {
+    "w": 1291,
+    "h": 205
+  },
+  "it/scan-private.png": {
+    "w": 1291,
+    "h": 205
+  },
+  "es/pop-routine.png": {
+    "w": 1014,
+    "h": 545
+  },
+  "es/pop-rings.png": {
+    "w": 1018,
+    "h": 747
+  },
+  "es/pop-chart.png": {
+    "w": 1014,
+    "h": 720
+  },
+  "pt-BR/pop-routine.png": {
+    "w": 1014,
+    "h": 545
+  },
+  "pt-BR/pop-rings.png": {
+    "w": 1018,
+    "h": 747
+  },
+  "pt-BR/pop-chart.png": {
+    "w": 1014,
+    "h": 720
+  },
+  "de/pop-routine.png": {
+    "w": 1014,
+    "h": 545
+  },
+  "de/pop-rings.png": {
+    "w": 1018,
+    "h": 747
+  },
+  "de/pop-chart.png": {
+    "w": 1014,
+    "h": 720
+  },
+  "fr/pop-routine.png": {
+    "w": 1014,
+    "h": 545
+  },
+  "fr/pop-rings.png": {
+    "w": 1018,
+    "h": 747
+  },
+  "fr/pop-chart.png": {
+    "w": 1014,
+    "h": 720
+  },
+  "it/pop-routine.png": {
+    "w": 1014,
+    "h": 545
+  },
+  "it/pop-rings.png": {
+    "w": 1018,
+    "h": 747
+  },
+  "it/pop-chart.png": {
+    "w": 1014,
+    "h": 720
   }
 }

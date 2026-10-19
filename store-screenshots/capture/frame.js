@@ -37,6 +37,9 @@ export const SCREENS = {
   'workout-mirror': { kind: 'full' },
   'workout-mirror-man': { kind: 'full' },
   coach: { kind: 'sheet', behind: 'today' },
+  // Simulator only (sim-capture.js): the face scan, its results and the Progress tab with the scans' chart.
+  scan: { kind: 'full' },
+  'scan-result': { kind: 'sheet', behind: 'progress' },
 };
 const TABS = [['today', 'flame', 'flame.fill'], ['exercises', 'square.grid.2x2', 'square.grid.2x2.fill'], ['progress', 'chart.bar.fill', 'chart.bar.fill'], ['settings', 'gearshape', 'gearshape.fill']];
 

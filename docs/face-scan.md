@@ -107,7 +107,9 @@ Progress → Face scan: latest numbers, chart (last 12), New scan, Progress phot
 **iOS Simulator (no camera).** The module tells the app it's a Simulator (`isSimulator`). The scan then plays a pretend
 face (`services/faceScan/simulatedFace.ts`) that does whatever the scan asks, and the photo is a drawn stand-in, so
 everything except the camera can be tried: intro, photo question, the run, saving, results, chart, history, photos,
-deleting, the free limit and the paywall. Use a development build (`npx expo run:ios`).
+deleting, the free limit and the paywall. Use a Release build (`npx expo run:ios --configuration Release`). For the store
+screenshots a picture in the app's `Documents/SimulatorCamera/scan.jpg` shows behind the oval and becomes the photo
+(`simulatorCamera`, Simulator only; docs/screenshots.md §4).
 
 **iPhone (needs a new build: native code changed).** A development build is best for tuning, since a JavaScript
 change then needs no new build. Otherwise use TestFlight.

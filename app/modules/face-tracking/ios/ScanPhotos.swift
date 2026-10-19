@@ -75,9 +75,23 @@ enum ScanPhotos {
     }
   }
 
-  /// The Simulator has no camera: a plain picture with a face outline and the time stands in for the photo, so the
-  /// photo screens can be tried there. Never used on an iPhone.
+  #if targetEnvironment(simulator)
+  /// A picture copied into the app's Documents/SimulatorCamera/<name>.jpg that stands in for the camera in the store
+  /// screenshots (docs/screenshots.md §4): "scan" for the face scan, "mirror" for the workout mirror. Simulator only.
+  static func simulatorCamera(_ name: String) -> URL? {
+    guard name.range(of: "^[a-z]{1,16}$", options: .regularExpression) != nil,
+      let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+    else { return nil }
+    let url = documents.appendingPathComponent("SimulatorCamera", isDirectory: true).appendingPathComponent("\(name).jpg")
+    return FileManager.default.fileExists(atPath: url.path) ? url : nil
+  }
+
+  /// The Simulator has no camera: the scan's stand-in picture (above) if there is one, else a plain picture with a face
+  /// outline and the time, so the photo screens can be tried there. Never used on an iPhone.
   static func simulatorImage() -> UIImage {
+    if let url = simulatorCamera("scan"), let image = UIImage(contentsOfFile: url.path) {
+      return image
+    }
     let size = CGSize(width: 900, height: 1200)
     let format = UIGraphicsImageRendererFormat()
     format.scale = 1
@@ -99,4 +113,5 @@ enum ScanPhotos {
       ("Simulator · \(time)" as NSString).draw(at: CGPoint(x: 60, y: 1060), withAttributes: attributes)
     }
   }
+  #endif
 }

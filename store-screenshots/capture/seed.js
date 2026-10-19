@@ -16,8 +16,34 @@ const addDays = (iso, n) => {
 const q = (s) => `'${String(s).replace(/'/g, "''")}'`;
 const MINUTES = [8, 12, 7, 19, 21, 18, 8, 7, 20, 13, 8];
 
+// Face scans (docs/face-scan.md), one a week, the newest two days ago: Movement and Balance, oldest first. Small ups
+// and downs like real scans; never a promise that they rise.
+const SCAN_SCORES = [[74, 86], [77, 85], [78, 88], [81, 88], [83, 91]];
+// Each move's score next to the scan's Movement, and each two-sided move's balance next to its Balance (each set adds
+// up to 0, so the averages come out as above). The puffed cheeks are the smallest move.
+const MOVE_OFFSETS = { browRaise: 3, eyeSquint: -4, smile: 5, lipPucker: -1, mouthOpen: 8, cheekPuff: -11 };
+const BALANCE_OFFSETS = { browRaise: -2, eyeSquint: 2, smile: 0 };
+const BIGGER_SIDE = { browRaise: 'r', eyeSquint: 'l', smile: 'r' };
+/** `full` in app/src/constants/faceScan.ts: the rise above the relaxed face that scores 100. */
+const FULL = { browRaise: 0.8, eyeSquint: 0.7, smile: 0.9, lipPucker: 0.9, mouthOpen: 0.6, cheekPuff: 0.7 };
+
+/** A scan's raw readings as the app saves them (services/faceScan/score.ts), worked back from its two scores. */
+export function scanReadings(movement, balance) {
+  const out = {};
+  for (const [id, offset] of Object.entries(MOVE_OFFSETS)) {
+    const rise = ((movement + offset) / 100) * FULL[id];
+    if (id in BALANCE_OFFSETS) {
+      const share = (balance + BALANCE_OFFSETS[id]) / 100;
+      const bigger = (2 * rise) / (1 + share);
+      const sides = BIGGER_SIDE[id] === 'l' ? { l: bigger, r: bigger * share } : { l: bigger * share, r: bigger };
+      out[id] = id === 'browRaise' ? { ...sides, c: rise } : sides;
+    } else out[id] = { c: rise };
+  }
+  return JSON.parse(JSON.stringify(out, (_, v) => (typeof v === 'number' ? Math.round(v * 1e4) / 1e4 : v)));
+}
+
 /** Settings as the app saves them (kv 'facerep.settings', envelope version 1). */
-export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, mirror = false, theme = 'light', coachButton = false, today = TODAY, done = DONE } = {}) {
+export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, mirror = false, theme = 'light', coachButton = false, today = TODAY, done = DONE, scanPhotos = null } = {}) {
   return {
     themeMode: theme,
     themeId: 'forge',
@@ -33,16 +59,21 @@ export function settingsFor({ guide = 'woman', goal = 'full', onboarded = true, 
     voiceCues: true,
     mirror,
     aiConsent: true,
+    scanPhotos,
     lastReviewPromptOn: today,
     askButton: { visible: coachButton, side: 'right', y: 0.97, hintShows: 99 },
   };
 }
 
-/** SQL that fills a fresh database: settings, the random app ID and 11 finished workouts, one a day. */
-export function seedSql({ guide, goal = 'full', onboarded = true, sessions = true, mirror = false, theme = 'light', coachButton = false, today = TODAY, done = DONE } = {}) {
+/**
+ * SQL that fills a fresh database: settings, the random app ID, 11 finished workouts (one a day) and `scans` weekly
+ * face scans (the newest ones of SCAN_SCORES; 0 = none, so a free scan is left for a live one).
+ */
+export function seedSql({ guide, goal = 'full', onboarded = true, sessions = true, mirror = false, theme = 'light', coachButton = false, today = TODAY, done = DONE, scans = 0, scanPhotos = null } = {}) {
   const kv = (key, data) => `INSERT OR REPLACE INTO kv (key, value) VALUES (${q(key)}, ${q(JSON.stringify({ version: 1, data }))});`;
   const lines = [
-    kv('facerep.settings', settingsFor({ guide, goal, onboarded, mirror, theme, coachButton, today, done })),
+    kv('facerep.settings', settingsFor({ guide, goal, onboarded, mirror, theme, coachButton, today, done, scanPhotos })),
+    kv('facerep.faceScans', { used: scans }),
     `INSERT OR REPLACE INTO kv (key, value) VALUES ('facerep.appUserId', '0d6f3c1e-8a52-4b7e-9c41-5f2a7e9b1c30');`,
   ];
   if (sessions && onboarded) {
@@ -58,6 +89,13 @@ export function seedSql({ guide, goal = 'full', onboarded = true, sessions = tru
       lines.push(`INSERT OR REPLACE INTO sessions (id, day, finished_at, duration_sec, total_reps, kind) VALUES (${q(id)}, ${q(day)}, ${q(`${day}T07:${String(minutes).padStart(2, '0')}:00.000Z`)}, ${300 + n * 20}, ${total}, 'routine');`);
       ids.forEach((ex, i) => lines.push(`INSERT OR REPLACE INTO session_exercises (session_id, position, exercise_id, reps) VALUES (${q(id)}, ${i}, ${q(ex)}, ${reps(i)});`));
     }
+  }
+  if (onboarded) {
+    (scans ? SCAN_SCORES.slice(-scans) : []).forEach(([movement, balance], i, list) => {
+      const day = addDays(today, -2 - 7 * (list.length - 1 - i));
+      const moves = JSON.stringify(scanReadings(movement, balance));
+      lines.push(`INSERT OR REPLACE INTO face_scans (id, taken_at, day, moves, photo) VALUES (${q(`demo-scan-${i + 1}`)}, ${q(`${day}T08:15:00.000Z`)}, ${q(day)}, ${q(moves)}, NULL);`);
+    });
   }
   return lines.join('\n');
 }

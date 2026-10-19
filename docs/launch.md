@@ -97,13 +97,15 @@ Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Ch
 - **Never use:** competitor names (Luvly, FaceYogi, Umax…), "#1/best", "lose double chin in 7 days", "reshape bone", "anti-aging", "guaranteed", TMJ/therapy/treat, "rate my face", "PSL", "attractiveness score".
 
 ## 4. Screenshots and preview
-- **Done (2026-10-09):** 8 iPhone 6.9" screenshots (1320×2868) in all six languages, from the real app with demo data,
-  in `store-screenshots/export/<App Store locale>/` (how they are made and rebuilt: `store-screenshots/README.md`).
-  Red and black slides, Anton headlines with one highlighted word, tilted iPhones, magnified details, voice bubbles.
-  Order: (1) Train your face like your body (player, mid-squeeze) · (2) See the muscle you train (masseter) ·
-  (3) A plan that grows with you, "Week 1 free" · (4) Just listen and follow (voice cues) · (5) Check your form in
-  the mirror (her and his camera mirror, "Nothing recorded") · (6) For him. For her. · (7) Keep your streak going ·
-  (8) Ask the Coach, "3 free answers a month".
+- **Done (2026-10-19), not uploaded yet:** 9 iPhone 6.9" screenshots (1320×2868) in all six languages, from the real
+  app in the iOS Simulator (a free user with demo data, free exercises only), in `store-screenshots/export/<lang>/`
+  (how they are made and rebuilt: `store-screenshots/README.md`, docs/screenshots.md). Red and black slides with a
+  glow behind the phones, Anton headlines with one highlighted word, tilted iPhones, magnified details, lifted cards.
+  Order: (1) Train your face like your body (her Cheek Lift mid-squeeze) · (2) See the muscle you train (his Chin
+  Lift) · (3) Scan. Measure. Compare. (his face scanned, the results' rings with the change since the last scan), "3 free scans" · (4) Track your progress (streak and the scan chart) ·
+  (5) A workout every day, "Days 1–3 free" · (6) Just listen and follow (voice cues) · (7) Check your form in the
+  mirror (her and his camera mirror, "Nothing recorded") · (8) For him. For her. · (9) Ask the Coach, "3 free answers
+  a month". The 2026-10-09 set (web capture, 28-day plan) is kept in `store-screenshots/export/v1-web/`.
 - App Store Connect needs only the 6.9" set (it scales it down); up to 10 screenshots, the first 3 show in search.
 - App Preview: 15–30 s, in-app footage only, muted autoplay. Open with the relaxed→squeeze glow in the first 2 seconds. No before/after faces.
 

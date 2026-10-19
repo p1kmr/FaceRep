@@ -1,5 +1,5 @@
 // Exports the deck from the running editor (npm run dev → http://localhost:3000) with its own "Export bundle"
-// button, then writes the App Store files: ../export/<lang>/0N.jpg (1320 × 2868, iPhone 6.9", JPEG without alpha;
+// button, then writes the App Store files: ../export/<lang>/NN.jpg (1320 × 2868, iPhone 6.9", JPEG without alpha;
 // copy.js `asc` says which App Store locales get each language) and ../export/strip-<lang>.jpg to look at.
 // Usage: node export.js   (LANGS=en node export.js after LANGS=en node deck.js: one language)
 import fs from 'node:fs';
@@ -7,6 +7,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import sharp from 'sharp';
 
 import { COPY, LANGS } from './copy.js';
 
@@ -37,11 +38,18 @@ for (const lang of LANGS) {
   const files = fs.readdirSync(dir).filter((f) => f.endsWith('.png')).sort();
   if (files.length !== COPY[lang].slides.length) throw new Error(`${lang}: expected ${COPY[lang].slides.length} slides, got ${files.length}`);
   fs.mkdirSync(path.join(OUT, lang), { recursive: true });
-  files.forEach((f, i) => {
+  for (const [i, f] of files.entries()) {
     // Flatten to RGB JPEG: App Store Connect rejects images with an alpha channel.
-    execFileSync('convert', [path.join(dir, f), '-background', '#000', '-alpha', 'remove', '-alpha', 'off', '-quality', '90', path.join(OUT, lang, `0${i + 1}.jpg`)]);
-  });
-  execFileSync('convert', [...files.map((f) => path.join(dir, f)), '+append', '-resize', 'x900', '-quality', '85', path.join(OUT, `strip-${lang}.jpg`)]);
+    await sharp(path.join(dir, f)).flatten({ background: '#000000' }).jpeg({ quality: 90 }).toFile(path.join(OUT, lang, `${String(i + 1).padStart(2, '0')}.jpg`));
+  }
+  // The strip: every slide side by side, 900 px tall, to look at (never upload it).
+  const h = 900;
+  const w = Math.round((1320 * h) / 2868);
+  const tiles = await Promise.all(files.map((f) => sharp(path.join(dir, f)).flatten({ background: '#000000' }).resize(w, h).png().toBuffer()));
+  await sharp({ create: { width: w * files.length, height: h, channels: 3, background: '#000000' } })
+    .composite(tiles.map((input, i) => ({ input, left: i * w, top: 0 })))
+    .jpeg({ quality: 85 })
+    .toFile(path.join(OUT, `strip-${lang}.jpg`));
   console.log(`  export/${lang} → App Store ${COPY[lang].asc.join(', ')}`);
 }
 fs.rmSync(tmp, { recursive: true, force: true });

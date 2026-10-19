@@ -68,8 +68,8 @@
           }
         },
         "callout": {
-          "focusX": 0.525,
-          "focusY": 0.9,
+          "focusX": 0.523,
+          "focusY": 0.872,
           "zoom": 2.2,
           "shape": "circle"
         }
@@ -125,8 +125,8 @@
           }
         },
         "callout": {
-          "focusX": 0.645,
-          "focusY": 0.375,
+          "focusX": 0.5,
+          "focusY": 0.4,
           "zoom": 2.3,
           "shape": "circle"
         }
@@ -135,20 +135,148 @@
         "id": "facerep-3",
         "layout": "device-bottom",
         "label": {
-          "en": "28-DAY PLAN · WEEK 1 FREE",
-          "es": "PLAN DE 28 DÍAS · SEMANA 1 GRATIS",
-          "pt-BR": "PLANO DE 28 DIAS · SEMANA 1 GRÁTIS",
-          "de": "28-TAGE-PLAN · WOCHE 1 GRATIS",
-          "fr": "PLAN DE 28 JOURS · SEMAINE 1 GRATUITE",
-          "it": "PIANO DI 28 GIORNI · SETTIMANA 1 GRATIS"
+          "en": "FACE SCAN · 3 FREE SCANS",
+          "es": "ESCANEO FACIAL · 3 ESCANEOS GRATIS",
+          "pt-BR": "ESCANEAMENTO FACIAL · 3 GRÁTIS",
+          "de": "GESICHTSSCAN · 3 SCANS GRATIS",
+          "fr": "SCAN DU VISAGE · 3 SCANS GRATUITS",
+          "it": "SCANSIONE DEL VISO · 3 GRATIS"
         },
         "headline": {
-          "en": "A plan that\n*grows*\nwith you",
-          "es": "Un plan que\n*crece*\ncontigo",
-          "pt-BR": "Um plano\nque *evolui*\ncom você",
-          "de": "Ein Plan, der\nmit dir\n*wächst*",
-          "fr": "Un plan qui\n*progresse*\navec toi",
-          "it": "Un piano che\n*cresce*\ncon te"
+          "en": "Scan.\nMeasure.\n*Compare.*",
+          "es": "Escanea.\nMide.\n*Compara.*",
+          "pt-BR": "Escanear.\nMedir.\n*Comparar.*",
+          "de": "Scannen.\nMessen.\n*Vergleichen.*",
+          "fr": "Scanne.\nMesure.\n*Compare.*",
+          "it": "Scansiona.\nMisura.\n*Confronta.*"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/scan.png",
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 150,
+            "y": 930,
+            "width": 1040,
+            "height": 2119,
+            "rotation": 3,
+            "zIndex": 3
+          }
+        },
+        "imageElements": [
+          {
+            "id": "rings",
+            "src": "/art/{locale}/pop-rings.png",
+            "transform": {
+              "x": 49,
+              "y": 2122,
+              "width": 1222,
+              "height": 896,
+              "rotation": -3,
+              "zIndex": 7
+            },
+            "fit": "contain"
+          },
+          {
+            "id": "private",
+            "src": "/art/{locale}/scan-private.png",
+            "transform": {
+              "x": 100,
+              "y": 1057,
+              "width": 1033,
+              "height": 164,
+              "rotation": -1,
+              "zIndex": 8
+            },
+            "fit": "contain"
+          }
+        ]
+      },
+      {
+        "id": "facerep-4",
+        "layout": "device-bottom",
+        "label": {
+          "en": "STREAK & SCAN CHART",
+          "es": "RACHA Y GRÁFICO DE ESCANEOS",
+          "pt-BR": "SEQUÊNCIA E ESCANEAMENTOS",
+          "de": "SERIE & SCAN-VERLAUF",
+          "fr": "SÉRIE & COURBE DES SCANS",
+          "it": "SERIE E GRAFICO DELLE SCANSIONI"
+        },
+        "headline": {
+          "en": "Track your\n*progress*",
+          "es": "Sigue tu\n*progreso*",
+          "pt-BR": "Acompanhe\nseu\n*progresso*",
+          "de": "Verfolge\ndeinen\n*Fortschritt*",
+          "fr": "Suis tes\n*progrès*",
+          "it": "Segui i tuoi\n*progressi*"
+        },
+        "screenshot": "/screenshots/apple/iphone/{locale}/progress.png",
+        "inverted": true,
+        "typography": {
+          "labelScale": 1.35
+        },
+        "transforms": {
+          "caption": {
+            "x": 96,
+            "y": 150,
+            "width": 1128,
+            "height": 760,
+            "rotation": 0,
+            "zIndex": 4
+          },
+          "device": {
+            "x": 150,
+            "y": 900,
+            "width": 1000,
+            "height": 2037,
+            "rotation": -3,
+            "zIndex": 3
+          }
+        },
+        "imageElements": [
+          {
+            "id": "chart",
+            "src": "/art/{locale}/pop-chart.png",
+            "transform": {
+              "x": 146,
+              "y": 1718,
+              "width": 1026,
+              "height": 729,
+              "rotation": -1,
+              "zIndex": 7
+            },
+            "fit": "contain"
+          }
+        ]
+      },
+      {
+        "id": "facerep-5",
+        "layout": "device-bottom",
+        "label": {
+          "en": "DAILY WORKOUT · DAYS 1–3 FREE",
+          "es": "ENTRENAMIENTO DIARIO · DÍAS 1–3 GRATIS",
+          "pt-BR": "TREINO DIÁRIO · DIAS 1–3 GRÁTIS",
+          "de": "TÄGLICHES TRAINING · TAG 1–3 GRATIS",
+          "fr": "SÉANCE DU JOUR · JOURS 1 À 3 GRATUITS",
+          "it": "ALLENAMENTO DEL GIORNO · GIORNI 1–3 GRATIS"
+        },
+        "headline": {
+          "en": "A workout\n*every* day",
+          "es": "Tu rutina,\n*cada* día",
+          "pt-BR": "Um treino\n*todo* dia",
+          "de": "Dein\nTraining für\n*jeden* Tag",
+          "fr": "Une séance\n*chaque*\njour",
+          "it": "Il tuo\n*allenamento*\nogni giorno"
         },
         "screenshot": "/screenshots/apple/iphone/{locale}/today.png",
         "typography": {
@@ -171,25 +299,10 @@
             "rotation": 3,
             "zIndex": 3
           }
-        },
-        "imageElements": [
-          {
-            "id": "grid",
-            "src": "/art/{locale}/pop-grid.png",
-            "transform": {
-              "x": -10,
-              "y": 2400,
-              "width": 1018,
-              "height": 365,
-              "rotation": -3,
-              "zIndex": 7
-            },
-            "fit": "contain"
-          }
-        ]
+        }
       },
       {
-        "id": "facerep-4",
+        "id": "facerep-6",
         "layout": "device-bottom",
         "label": {
           "en": "VOICE CUES",
@@ -237,7 +350,7 @@
             "transform": {
               "x": 30,
               "y": 850,
-              "width": 1043,
+              "width": 1106,
               "height": 174,
               "rotation": 0,
               "zIndex": 6
@@ -273,7 +386,7 @@
         ]
       },
       {
-        "id": "facerep-5",
+        "id": "facerep-7",
         "layout": "two-devices",
         "label": {
           "en": "CAMERA MIRROR · NOTHING RECORDED",
@@ -324,7 +437,7 @@
         }
       },
       {
-        "id": "facerep-6",
+        "id": "facerep-8",
         "layout": "device-bottom",
         "label": {
           "en": "FOR MEN & WOMEN",
@@ -395,64 +508,7 @@
         ]
       },
       {
-        "id": "facerep-7",
-        "layout": "device-bottom",
-        "label": {
-          "en": "PROGRESS",
-          "es": "PROGRESO",
-          "pt-BR": "PROGRESSO",
-          "de": "FORTSCHRITT",
-          "fr": "PROGRÈS",
-          "it": "PROGRESSI"
-        },
-        "headline": {
-          "en": "Keep your\n*streak*\ngoing",
-          "es": "Mantén\ntu *racha*",
-          "pt-BR": "Mantenha\nsua\n*sequência*",
-          "de": "Bleib\n*dran*",
-          "fr": "Garde\nta *série*",
-          "it": "Non perdere\nla *serie*"
-        },
-        "screenshot": "/screenshots/apple/iphone/{locale}/progress.png",
-        "typography": {
-          "labelScale": 1.35
-        },
-        "transforms": {
-          "caption": {
-            "x": 96,
-            "y": 150,
-            "width": 1128,
-            "height": 760,
-            "rotation": 0,
-            "zIndex": 4
-          },
-          "device": {
-            "x": 70,
-            "y": 900,
-            "width": 1000,
-            "height": 2037,
-            "rotation": -3,
-            "zIndex": 3
-          }
-        },
-        "imageElements": [
-          {
-            "id": "streak",
-            "src": "/art/{locale}/streak.png",
-            "transform": {
-              "x": 540,
-              "y": 1160,
-              "width": 741,
-              "height": 195,
-              "rotation": 5,
-              "zIndex": 6
-            },
-            "fit": "contain"
-          }
-        ]
-      },
-      {
-        "id": "facerep-8",
+        "id": "facerep-9",
         "layout": "device-bottom",
         "label": {
           "en": "AI COACH · 3 FREE ANSWERS A MONTH",
@@ -471,7 +527,6 @@
           "it": "Dubbi?\nChiedi al\n*Coach*"
         },
         "screenshot": "/screenshots/apple/iphone/{locale}/coach.png",
-        "inverted": true,
         "typography": {
           "labelScale": 1.35
         },
@@ -498,11 +553,11 @@
             "id": "card",
             "src": "/art/{locale}/pop-card.png",
             "transform": {
-              "x": -10,
-              "y": 1960,
-              "width": 1018,
-              "height": 485,
-              "rotation": -3,
+              "x": 206,
+              "y": 2113,
+              "width": 1044,
+              "height": 450,
+              "rotation": -1,
               "zIndex": 7
             },
             "fit": "contain"
@@ -512,7 +567,7 @@
     ],
     "android": [
       {
-        "id": "s_mv0j63ou_5",
+        "id": "s_mvewhazl_5",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -523,7 +578,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_6",
+        "id": "s_mvewhazl_6",
         "layout": "device-bottom",
         "label": {
           "en": "FEATURE 01"
@@ -534,7 +589,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_7",
+        "id": "s_mvewhazl_7",
         "layout": "two-devices",
         "label": {
           "en": "FEATURE 02"
@@ -546,7 +601,7 @@
         "screenshotSecondary": ""
       },
       {
-        "id": "s_mv0j63ou_8",
+        "id": "s_mvewhazl_8",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 03"
@@ -558,7 +613,7 @@
         "inverted": true
       },
       {
-        "id": "s_mv0j63ou_9",
+        "id": "s_mvewhazl_9",
         "layout": "no-device",
         "label": {
           "en": "MORE"
@@ -571,7 +626,7 @@
     ],
     "ipad": [
       {
-        "id": "s_mv0j63ou_a",
+        "id": "s_mvewhazl_a",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -582,7 +637,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_b",
+        "id": "s_mvewhazl_b",
         "layout": "device-bottom",
         "label": {
           "en": "FEATURE 01"
@@ -593,7 +648,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_c",
+        "id": "s_mvewhazl_c",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -607,7 +662,7 @@
     ],
     "tvos": [
       {
-        "id": "s_mv0j63ou_d",
+        "id": "s_mvewhazl_d",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -618,7 +673,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_e",
+        "id": "s_mvewhazl_e",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 01"
@@ -629,7 +684,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_f",
+        "id": "s_mvewhazl_f",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -641,7 +696,7 @@
         "inverted": true
       },
       {
-        "id": "s_mv0j63ou_g",
+        "id": "s_mvewhazl_g",
         "layout": "no-device",
         "label": {
           "en": "MORE"
@@ -654,7 +709,7 @@
     ],
     "watchos": [
       {
-        "id": "s_mv0j63ou_h",
+        "id": "s_mvewhazl_h",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -665,7 +720,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_i",
+        "id": "s_mvewhazl_i",
         "layout": "device-bottom",
         "label": {
           "en": "FEATURE 01"
@@ -676,7 +731,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_j",
+        "id": "s_mvewhazl_j",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -690,7 +745,7 @@
     ],
     "carplay": [
       {
-        "id": "s_mv0j63ou_k",
+        "id": "s_mvewhazl_k",
         "layout": "split-landscape",
         "label": {
           "en": "CARPLAY"
@@ -701,7 +756,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_l",
+        "id": "s_mvewhazl_l",
         "layout": "device-bottom",
         "label": {
           "en": "FEATURE 01"
@@ -712,7 +767,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_m",
+        "id": "s_mvewhazl_m",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -726,7 +781,7 @@
     ],
     "mac": [
       {
-        "id": "s_mv0j63ou_n",
+        "id": "s_mvewhazl_n",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -737,7 +792,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_o",
+        "id": "s_mvewhazl_o",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 01"
@@ -748,7 +803,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_p",
+        "id": "s_mvewhazl_p",
         "layout": "device-top",
         "label": {
           "en": "FEATURE 02"
@@ -760,7 +815,7 @@
         "inverted": true
       },
       {
-        "id": "s_mv0j63ou_q",
+        "id": "s_mvewhazl_q",
         "layout": "two-devices",
         "label": {
           "en": "FEATURE 03"
@@ -772,7 +827,7 @@
         "screenshotSecondary": ""
       },
       {
-        "id": "s_mv0j63ou_r",
+        "id": "s_mvewhazl_r",
         "layout": "no-device",
         "label": {
           "en": "MORE"
@@ -785,7 +840,7 @@
     ],
     "android-7": [
       {
-        "id": "s_mv0j63ou_s",
+        "id": "s_mvewhazl_s",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -796,7 +851,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_t",
+        "id": "s_mvewhazl_t",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 01"
@@ -809,7 +864,7 @@
     ],
     "android-10": [
       {
-        "id": "s_mv0j63ou_u",
+        "id": "s_mvewhazl_u",
         "layout": "hero",
         "label": {
           "en": "MEET YOUR APP"
@@ -820,7 +875,7 @@
         "screenshot": ""
       },
       {
-        "id": "s_mv0j63ou_v",
+        "id": "s_mvewhazl_v",
         "layout": "split-landscape",
         "label": {
           "en": "FEATURE 01"
@@ -833,7 +888,7 @@
     ],
     "feature-graphic": [
       {
-        "id": "s_mv0j63ou_w",
+        "id": "s_mvewhazl_w",
         "layout": "feature-graphic",
         "label": {},
         "headline": {
@@ -853,7 +908,7 @@
     "span": false,
     "decoration": "none",
     "shadow": 70,
-    "glow": 0,
+    "glow": 40,
     "tilt": 0,
     "headlineWeight": 400,
     "headlineScale": 1.7,
