@@ -14,8 +14,16 @@
   "remindersOn_other": "{{count}} ativos",
   "remindersOn_zero": "{{count}} ativos",
   "haptics": "Retorno tátil",
-  "voiceCues": "Instruções por voz",
-  "voiceCuesHint": "Diz Contraia, Relaxe e o que vem a seguir, para você acompanhar de olhos fechados.",
+  "soundCues": "Avisos sonoros",
+  "soundCuesOption": {
+    "voice": "Voz",
+    "beeps": "Bipes",
+    "off": "Desativados"
+  },
+  "soundCuesHint": {
+    "voice": "Diz Contraia, Relaxe e o que vem a seguir, para você acompanhar de olhos fechados.",
+    "beeps": "Um bipe para contrair, um tique a cada segundo que você segura e um bipe mais grave para relaxar."
+  },
   "moveCheck": "Checagem do movimento no espelho",
   "moveCheckHint": "Mostra quando a câmera vê o movimento do exercício. Funciona no seu iPhone: nada é gravado, salvo ou enviado.",
   "scanPhotos": "Fotos do escaneamento facial",

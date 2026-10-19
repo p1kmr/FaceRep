@@ -14,7 +14,12 @@
   "skip": "Passer",
   "end": "Terminer la séance",
   "paused": "En pause",
-  "voiceCues": "Guidage vocal",
+  "sound": {
+    "label": "Signaux sonores",
+    "voice": "Guidage vocal",
+    "beeps": "Bips",
+    "off": "Son coupé"
+  },
   "mirror": "Miroir",
   "mirrorA11y": "Miroir : ta caméra avant. Rien n'est enregistré.",
   "mirrorDenied": {

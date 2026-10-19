@@ -1,5 +1,6 @@
 import type { Goal } from '@/constants/exercises';
 import type { GuideId } from '@/constants/guides';
+import type { SoundCues } from '@/constants/sounds';
 import type { ThemeMode } from '@/constants/theme';
 import type { ISODate } from '@/utils/dates';
 
@@ -15,7 +16,7 @@ export const ONBOARDING_COMPLETE = 'settings/onboardingComplete';
 export const REMINDER_SAVED = 'settings/reminderSaved';
 export const REMINDER_DELETED = 'settings/reminderDeleted';
 export const HAPTICS_SET = 'settings/hapticsSet';
-export const VOICE_CUES_SET = 'settings/voiceCuesSet';
+export const SOUND_CUES_SET = 'settings/soundCuesSet';
 export const MIRROR_SET = 'settings/mirrorSet';
 export const MOVE_CHECK_SET = 'settings/moveCheckSet';
 export const TILE_SPOT_SET = 'settings/tileSpotSet';
@@ -34,7 +35,7 @@ export type SettingsAction =
   | { type: typeof REMINDER_SAVED; payload: Reminder }
   | { type: typeof REMINDER_DELETED; payload: string }
   | { type: typeof HAPTICS_SET; payload: boolean }
-  | { type: typeof VOICE_CUES_SET; payload: boolean }
+  | { type: typeof SOUND_CUES_SET; payload: SoundCues }
   | { type: typeof MIRROR_SET; payload: boolean }
   | { type: typeof MOVE_CHECK_SET; payload: boolean }
   | { type: typeof TILE_SPOT_SET; payload: TileSpot | null }
@@ -54,7 +55,8 @@ export const completeOnboarding = (today: ISODate): SettingsAction => ({ type: O
 export const saveReminder = (reminder: Reminder): SettingsAction => ({ type: REMINDER_SAVED, payload: reminder });
 export const deleteReminder = (id: string): SettingsAction => ({ type: REMINDER_DELETED, payload: id });
 export const setHaptics = (on: boolean): SettingsAction => ({ type: HAPTICS_SET, payload: on });
-export const setVoiceCues = (on: boolean): SettingsAction => ({ type: VOICE_CUES_SET, payload: on });
+/** Voice, beeps or off. Ignored when it isn't one of them. */
+export const setSoundCues = (cues: SoundCues): SettingsAction => ({ type: SOUND_CUES_SET, payload: cues });
 export const setMirror = (on: boolean): SettingsAction => ({ type: MIRROR_SET, payload: on });
 export const setMoveCheck = (on: boolean): SettingsAction => ({ type: MOVE_CHECK_SET, payload: on });
 /** Where the workout's small tile was dragged (null: back to the corner). Odd values are kept within 0–1 or dropped. */

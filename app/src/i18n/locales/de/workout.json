@@ -14,7 +14,12 @@
   "skip": "Überspringen",
   "end": "Training beenden",
   "paused": "Pausiert",
-  "voiceCues": "Sprachansagen",
+  "sound": {
+    "label": "Akustische Signale",
+    "voice": "Sprachansagen",
+    "beeps": "Pieptöne",
+    "off": "Ton aus"
+  },
   "mirror": "Spiegel",
   "mirrorA11y": "Spiegel: deine Frontkamera. Es wird nichts aufgenommen.",
   "mirrorDenied": {

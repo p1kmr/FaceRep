@@ -14,7 +14,12 @@
   "skip": "Salta",
   "end": "Termina allenamento",
   "paused": "In pausa",
-  "voiceCues": "Indicazioni vocali",
+  "sound": {
+    "label": "Segnali sonori",
+    "voice": "Indicazioni vocali",
+    "beeps": "Bip",
+    "off": "Audio disattivato"
+  },
   "mirror": "Specchio",
   "mirrorA11y": "Specchio: la tua fotocamera frontale. Non viene registrato nulla.",
   "mirrorDenied": {

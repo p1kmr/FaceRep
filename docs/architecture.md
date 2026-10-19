@@ -70,18 +70,28 @@ While it runs, `useWorkout()` also:
   Auto-Lock locks the phone after 30 s–5 min without a touch (always 30 s in Low Power Mode), the app goes to the
   background and the workout pauses. Hands-on exercises make that likely. This is the iOS version of the web's Screen
   Wake Lock API.
-- **speaks cues** (Settings → Voice cues, on by default; also the speaker button in the player). `services/workout/cues.ts`
-  is pure and tested: it turns each state change into "Get ready. Lip Press." / "Squeeze" ("Massage" for the massage
-  program) / "Last one. Squeeze." / "Relax" / "Next up: …" / "Workout complete". `services/voice.ts` (the only
-  `expo-speech` import) speaks them with the iPhone's built-in voice in the app's language: offline, no permission.
-  `useApplicationAudioSession: false` gives speech its own iOS audio session, so the user's music is turned down for a
-  cue and comes back instead of stopping.
+- **plays sound cues** (Settings → Sound cues: Voice, the default, Beeps or Off; the speaker button in the player goes
+  through them in that order and shows the new choice for a moment). `services/workout/cues.ts` is pure and tested: it
+  turns each state change into "Get ready. Lip Press." / "Squeeze" ("Massage" for the massage program) / "Last one.
+  Squeeze." / "Relax" / "Next up: …" / "Workout complete". `services/voice.ts` (the only `expo-speech` import) speaks
+  them with the iPhone's built-in voice in the app's language: offline, no permission. `useApplicationAudioSession:
+  false` gives speech its own iOS audio session, so the user's music is turned down for a cue and comes back instead of
+  stopping.
+  For people who'd rather not hear talking, `beepFor()` gives the same moments as beeps, at most one a second: 3, 2, 1
+  before each exercise, a beep when a squeeze starts and a soft tick for each of its seconds, a lower beep when it ends
+  (relaxing is quiet, so ticking always means squeeze), and a chime at the end. The face scan uses them too (3, 2, 1,
+  each move's measuring starting and ending, done). `services/beeps.ts` (the only `expo-audio` import) plays them over
+  the user's music without turning it down (`mixWithOthers`), also with the ring switch on silent like the voice. The
+  sounds are plain tones made by `scripts/sounds.js` (`npm run sounds`; a test checks the files match it), so nothing
+  is downloaded or licensed. expo-audio's plugin in `app.json` keeps background audio off (`enableBackgroundPlayback:
+  false`: FaceRep plays nothing in the background, guideline 2.5.4) and leaves the camera's microphone text alone; never
+  set its `microphonePermission` to `false`, which deletes that text.
 
 **Mirror** (the person button in the workout player; it stays on for the next workout): `components/exercise/MirrorView.tsx`
 shows the front camera (`expo-camera`) as a small tile on the figure. `hooks/useMirror.ts` asks for the camera the first time
 it's turned on; iOS asks only once, so after "Don't Allow" an alert offers the Settings app. Nothing is recorded or saved,
-and the camera stops in the background. The microphone purpose string exists only because the camera library can record
-video with sound (Apple rejects builds whose code can reach the microphone without one); FaceRep never asks for it.
+and the camera stops in the background. The microphone purpose string exists only because the camera and audio libraries
+can record sound (Apple rejects builds whose code can reach the microphone without one); FaceRep never asks for it.
 `components/exercise/PlayerStage.tsx` draws the figure and the mirror in a layer over the whole player: tap the small
 tile to swap them (only their boxes change, so the camera doesn't restart), drag it anywhere on the screen (the spot is
 remembered as `tileSpot`, like the Coach button's), and × on the mirror closes it.

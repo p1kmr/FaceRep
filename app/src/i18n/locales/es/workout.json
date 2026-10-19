@@ -14,7 +14,12 @@
   "skip": "Saltar",
   "end": "Terminar entrenamiento",
   "paused": "En pausa",
-  "voiceCues": "Guía por voz",
+  "sound": {
+    "label": "Avisos sonoros",
+    "voice": "Guía por voz",
+    "beeps": "Pitidos",
+    "off": "Sin sonido"
+  },
   "mirror": "Espejo",
   "mirrorA11y": "Espejo: tu cámara frontal. No se graba nada.",
   "mirrorDenied": {

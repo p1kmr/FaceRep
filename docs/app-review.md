@@ -193,8 +193,8 @@ read with `./.tools/asc` in read-only mode. What the owner still has to do, in o
 | 5.6.1 ratings | Apple's prompt only | `expo-store-review` ✅ |
 
 **Judgment calls (kept, low risk):**
-- The microphone purpose string exists only because the camera library can record sound. FaceRep never asks for the
-  microphone (docs/architecture.md).
+- The microphone purpose string exists only because the camera and audio libraries can record sound. FaceRep never asks
+  for the microphone (docs/architecture.md), and has no background audio (2.5.4).
 - The keywords "glow" and "skincare": the app calls the topic "face care", but people search for "skincare", and the
   Coach does give basic face care tips. Drop them if a reviewer objects.
 - The English keywords "double" and "chin": the chin and neck exercises work that area, and the Coach answers a double

@@ -1,7 +1,8 @@
 import { router, useLocalSearchParams } from 'expo-router';
+import type { SymbolViewProps } from 'expo-symbols';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, StyleSheet, View, type LayoutRectangle } from 'react-native';
+import { AccessibilityInfo, Alert, StyleSheet, View, type LayoutRectangle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ExerciseStrip } from '@/components/exercise/ExerciseStrip';
@@ -14,6 +15,7 @@ import { AppText } from '@/components/ui/AppText';
 import { IconButton } from '@/components/ui/IconButton';
 import { ProgressRing } from '@/components/ui/ProgressRing';
 import { isExerciseId } from '@/constants/exercises';
+import { SOUND_CUES, type SoundCues } from '@/constants/sounds';
 import { useExerciseAccess } from '@/hooks/useContent';
 import { useMirror } from '@/hooks/useMirror';
 import { usePremium } from '@/hooks/usePremium';
@@ -27,8 +29,12 @@ import { defaultItem, type WorkoutItem } from '@/services/workout/items';
 import { movePhaseOf } from '@/services/workout/moveCheck';
 import { currentExercise, phaseDuration, workoutResult, type WorkoutResult } from '@/services/workout/timer';
 import { countsAsDay } from '@/services/workout/weeks';
-import { setVoiceCues } from '@/state/settings/actions';
+import { setSoundCues } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
+
+/** The speaker button's icon for each choice of sound cues. */
+const SOUND_ICONS: Record<SoundCues, SymbolViewProps['name']> = { voice: 'speaker.wave.2.fill', beeps: 'metronome.fill', off: 'speaker.slash.fill' };
+const SOUND_NOTE_MS = 1500;
 
 /**
  * The guided player: the figure squeezes and relaxes with the timer.
@@ -66,8 +72,10 @@ export default function WorkoutScreen() {
     paddingRight: insets.right,
   };
   const { state, pause, resume, skip } = useWorkout(setup.items);
-  const { voiceCues } = useSettings();
+  const { soundCues } = useSettings();
   const settingsDispatch = useSettingsDispatch();
+  // The speaker button goes voice → beeps → off; the new choice shows for a moment in place of the exercise count.
+  const [soundNote, setSoundNote] = useState<SoundCues | null>(null);
   const mirror = useMirror();
   const [mirrorBig, setMirrorBig] = useState(false);
   // Where the frame is on the screen, for PlayerStage (measured once it's laid out).
@@ -85,6 +93,19 @@ export default function WorkoutScreen() {
     setFinished(result);
     const session = await saveWorkout(result, kind);
     if (session && kind === 'routine') askForReview();
+  };
+
+  useEffect(() => {
+    if (!soundNote) return;
+    const timer = setTimeout(() => setSoundNote(null), SOUND_NOTE_MS);
+    return () => clearTimeout(timer);
+  }, [soundNote]);
+
+  const nextSound = () => {
+    const next = SOUND_CUES[(SOUND_CUES.indexOf(soundCues) + 1) % SOUND_CUES.length];
+    settingsDispatch(setSoundCues(next));
+    setSoundNote(next);
+    AccessibilityInfo.announceForAccessibility(t(`sound.${next}`));
   };
 
   useEffect(() => {
@@ -148,15 +169,19 @@ export default function WorkoutScreen() {
     <View style={[styles.root, safe]}>
       <View style={styles.top}>
         <IconButton icon="xmark" onPress={confirmEnd} accessibilityLabel={t('end')} />
-        <AppText variant="caption" muted style={styles.where} numberOfLines={1}>
-          {`${t(`common:programs.${e.program}`)} · ${t('exerciseOf', { index: state.index + 1, total: state.queue.length })}`.toUpperCase()}
+        <AppText variant="caption" muted={!soundNote} style={styles.where} numberOfLines={1}>
+          {(soundNote
+            ? t(`sound.${soundNote}`)
+            : `${t(`common:programs.${e.program}`)} · ${t('exerciseOf', { index: state.index + 1, total: state.queue.length })}`
+          ).toUpperCase()}
         </AppText>
         <View style={styles.actions}>
           <IconButton
-            icon={voiceCues ? 'speaker.wave.2.fill' : 'speaker.slash.fill'}
-            onPress={() => settingsDispatch(setVoiceCues(!voiceCues))}
-            accessibilityLabel={t('voiceCues')}
-            toggled={voiceCues}
+            icon={SOUND_ICONS[soundCues]}
+            onPress={nextSound}
+            accessibilityLabel={t('sound.label')}
+            value={t(`sound.${soundCues}`)}
+            tone={soundCues === 'off' ? 'surface' : 'primary'}
           />
           <IconButton
             icon="person.crop.square"

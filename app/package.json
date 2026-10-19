@@ -12,6 +12,7 @@
     "test": "jest",
     "images": "node scripts/guide-images.js",
     "images:check": "node scripts/guide-images.js --check",
+    "sounds": "node scripts/sounds.js",
     "i18n:check": "node scripts/i18n-check.js",
     "review:check": "node scripts/review-check.js",
     "test:worker": "npm --prefix ../worker test"
@@ -19,6 +20,7 @@
   "dependencies": {
     "@react-native-community/datetimepicker": "9.1.0",
     "expo": "~57.0.25",
+    "expo-audio": "~57.0.5",
     "expo-camera": "~57.0.6",
     "expo-constants": "~57.0.19",
     "expo-dev-client": "~57.0.19",

@@ -57,7 +57,8 @@ Paywall when no free scan  ─┘          camera: find face → 3-2-1 → relax
 Progress → Face scan: latest numbers, chart (last 12), New scan, Progress photos (/scan-photos), the scans
 ```
 
-- Voice cues (if on) say each move; a haptic marks the start and end of each hold.
+- Sound cues: the voice says each move, or with Beeps 3, 2, 1 before the first move and a beep at the start and end of
+  each hold; a haptic marks the start and end of each hold either way.
 - Leaving the app or closing the scan stops it. Nothing is saved, and a photo already taken is deleted. Only a real
   background counts: a system alert or Control Center ("inactive") just pauses the camera and the scan waits for the face.
 - If ARKit stops, the camera view tries again twice by itself (`FaceTrackingView.swift`); after that "The camera

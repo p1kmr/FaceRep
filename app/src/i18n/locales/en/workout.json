@@ -14,7 +14,12 @@
   "skip": "Skip",
   "end": "End workout",
   "paused": "Paused",
-  "voiceCues": "Voice cues",
+  "sound": {
+    "label": "Sound cues",
+    "voice": "Voice cues",
+    "beeps": "Beeps",
+    "off": "Sound off"
+  },
   "mirror": "Mirror",
   "mirrorA11y": "Mirror: your front camera. Nothing is recorded.",
   "mirrorDenied": {

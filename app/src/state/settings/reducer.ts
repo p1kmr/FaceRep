@@ -1,6 +1,7 @@
 import { GOALS } from '@/constants/exercises';
 import { DEFAULT_GUIDE, isGuideId } from '@/constants/guides';
 import { REMINDER } from '@/constants/reminders';
+import { isSoundCues } from '@/constants/sounds';
 import { cleanReminder, saveProblem, workoutReminder, type Reminder } from '@/services/reminders/reminders';
 import { DEFAULT_THEME_ID } from '@/constants/theme';
 
@@ -19,9 +20,9 @@ import {
   SCAN_PHOTOS_SET,
   SETTINGS_HYDRATE,
   SETTINGS_RESET,
+  SOUND_CUES_SET,
   THEME_MODE_SET,
   TILE_SPOT_SET,
-  VOICE_CUES_SET,
   type SettingsAction,
 } from './actions';
 import type { AskButtonSettings, SavedSettings, Settings, SettingsState, TileSpot } from './types';
@@ -35,7 +36,7 @@ export const DEFAULT_SETTINGS: Settings = {
   guide: DEFAULT_GUIDE,
   reminders: [workoutReminder()],
   haptics: true,
-  voiceCues: true,
+  soundCues: 'voice',
   mirror: false,
   moveCheck: true,
   tileSpot: null,
@@ -98,7 +99,8 @@ export function sanitizeSettings(saved: SavedSettings | null): Settings {
     guide: isGuideId(s.guide) ? s.guide : d.guide,
     reminders: sanitizeReminders(s),
     haptics: s.haptics !== false,
-    voiceCues: s.voiceCues !== false,
+    // Before beeps, cues were the voice on or off.
+    soundCues: isSoundCues(s.soundCues) ? s.soundCues : s.voiceCues === false ? 'off' : d.soundCues,
     mirror: s.mirror === true,
     moveCheck: s.moveCheck !== false,
     tileSpot: sanitizeTileSpot(s.tileSpot),
@@ -136,8 +138,8 @@ export function settingsReducer(state: SettingsState, action: SettingsAction): S
       return update(state, { reminders: s.reminders.filter((x) => x.id !== action.payload) });
     case HAPTICS_SET:
       return update(state, { haptics: action.payload });
-    case VOICE_CUES_SET:
-      return update(state, { voiceCues: action.payload === true });
+    case SOUND_CUES_SET:
+      return isSoundCues(action.payload) ? update(state, { soundCues: action.payload }) : state;
     case MIRROR_SET:
       return update(state, { mirror: action.payload === true });
     case MOVE_CHECK_SET:

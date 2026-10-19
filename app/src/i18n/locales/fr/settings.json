@@ -13,8 +13,16 @@
   "remindersOn_one": "{{count}} activé",
   "remindersOn_other": "{{count}} activés",
   "haptics": "Retour haptique",
-  "voiceCues": "Guidage vocal",
-  "voiceCuesHint": "Annonce « Contracte », « Relâche » et l'exercice suivant, pour que tu puisses suivre les yeux fermés.",
+  "soundCues": "Signaux sonores",
+  "soundCuesOption": {
+    "voice": "Voix",
+    "beeps": "Bips",
+    "off": "Désactivés"
+  },
+  "soundCuesHint": {
+    "voice": "Annonce « Contracte », « Relâche » et l'exercice suivant, pour que tu puisses suivre les yeux fermés.",
+    "beeps": "Un bip pour contracter, un tic à chaque seconde de maintien et un bip plus grave pour relâcher."
+  },
   "moveCheck": "Suivi du mouvement dans le miroir",
   "moveCheckHint": "Indique quand la caméra voit le mouvement de l'exercice. Tout se passe sur ton iPhone : rien n'est enregistré, sauvegardé ni envoyé.",
   "scanPhotos": "Photos du scan du visage",

@@ -11,8 +11,8 @@ import {
   setGuide,
   setMirror,
   setMoveCheck,
+  setSoundCues,
   setTileSpot,
-  setVoiceCues,
 } from '../actions';
 import { DEFAULT_SETTINGS, initialSettingsState, settingsReducer } from '../reducer';
 
@@ -83,16 +83,23 @@ describe('settingsReducer', () => {
     expect(s.settings.askButton).toEqual({ ...DEFAULT_SETTINGS.askButton, side: 'left' });
   });
 
-  it('voice cues start on and the mirror off; both are remembered', () => {
-    expect(DEFAULT_SETTINGS.voiceCues).toBe(true);
+  it('sound cues start on the voice and the mirror off; both are remembered', () => {
+    expect(DEFAULT_SETTINGS.soundCues).toBe('voice');
     expect(DEFAULT_SETTINGS.mirror).toBe(false);
-    let s = settingsReducer(initialSettingsState, setVoiceCues(false));
+    let s = settingsReducer(initialSettingsState, setSoundCues('beeps'));
     s = settingsReducer(s, setMirror(true));
-    expect(s.settings).toMatchObject({ voiceCues: false, mirror: true });
+    expect(s.settings).toMatchObject({ soundCues: 'beeps', mirror: true });
+    expect(settingsReducer(s, setSoundCues('loud' as never))).toBe(s);
     // A save from before these settings existed gets the defaults; odd values don't switch anything on.
-    expect(settingsReducer(s, hydrateSettings({ goal: 'eyes' })).settings).toMatchObject({ voiceCues: true, mirror: false });
-    const odd = settingsReducer(s, hydrateSettings({ voiceCues: false, mirror: 'yes' as never }));
-    expect(odd.settings).toMatchObject({ voiceCues: false, mirror: false });
+    expect(settingsReducer(s, hydrateSettings({ goal: 'eyes' })).settings).toMatchObject({ soundCues: 'voice', mirror: false });
+    const odd = settingsReducer(s, hydrateSettings({ soundCues: 'loud' as never, mirror: 'yes' as never }));
+    expect(odd.settings).toMatchObject({ soundCues: 'voice', mirror: false });
+    expect(settingsReducer(s, hydrateSettings({ soundCues: 'off' })).settings.soundCues).toBe('off');
+  });
+
+  it('keeps voice cues turned off in a save from before beeps', () => {
+    expect(settingsReducer(initialSettingsState, hydrateSettings({ voiceCues: false })).settings.soundCues).toBe('off');
+    expect(settingsReducer(initialSettingsState, hydrateSettings({ voiceCues: true })).settings.soundCues).toBe('voice');
   });
 
   it('the move check starts on; off is remembered and only a clear off turns it off', () => {

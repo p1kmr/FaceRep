@@ -9,18 +9,19 @@ import { AppText } from '@/components/ui/AppText';
 import { Segmented } from '@/components/ui/Segmented';
 import { AVAILABLE_GUIDES } from '@/constants/exerciseImages';
 import { goalsFor } from '@/constants/exercises';
+import { SOUND_CUES } from '@/constants/sounds';
 import { useGuide } from '@/hooks/useGuide';
 import { useScanPhotosSetting } from '@/hooks/useScanPhotosSetting';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
 import { faceTrackingSupported } from '@/services/faceTracking';
-import { setGoal, setGuide, setHaptics, setMoveCheck, setVoiceCues } from '@/state/settings/actions';
+import { setGoal, setGuide, setHaptics, setMoveCheck, setSoundCues } from '@/state/settings/actions';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { ToggleRow } from './ToggleRow';
 
 /**
- * Settings → Training: focus, exercise pictures, reminders, how workouts guide you (haptics, voice, move check) and the
- * face scan's progress photos. The mirror itself is turned on and off in the workout (the person button). The move
+ * Settings → Training: focus, exercise pictures, sound cues (voice, beeps or off), reminders, haptics, the move check
+ * and the face scan's progress photos. The mirror itself is turned on and off in the workout (the person button). The move
  * check and scan photo rows only show on iPhones with Apple's face tracking (docs/face-tracking.md, docs/face-scan.md).
  */
 export function TrainingCard() {
@@ -55,6 +56,21 @@ export function TrainingCard() {
           />
         </View>
       ) : null}
+      <View style={styles.block}>
+        <AppText variant="footnote" muted>
+          {t('settings:soundCues')}
+        </AppText>
+        <Segmented
+          options={SOUND_CUES.map((c) => ({ id: c, label: t(`settings:soundCuesOption.${c}`) }))}
+          value={settings.soundCues}
+          onChange={(c) => dispatch(setSoundCues(c))}
+        />
+        {settings.soundCues === 'off' ? null : (
+          <AppText variant="footnote" muted>
+            {t(`settings:soundCuesHint.${settings.soundCues}`)}
+          </AppText>
+        )}
+      </View>
       <ListRow
         title={t('settings:reminders')}
         subtitle={t('settings:remindersOn', { count: settings.reminders.filter((r) => r.enabled).length })}
@@ -62,12 +78,10 @@ export function TrainingCard() {
         chevron
         divider
       />
-      <ToggleRow title={t('settings:haptics')} value={settings.haptics} onValueChange={(on) => dispatch(setHaptics(on))} divider />
       <ToggleRow
-        title={t('settings:voiceCues')}
-        subtitle={t('settings:voiceCuesHint')}
-        value={settings.voiceCues}
-        onValueChange={(on) => dispatch(setVoiceCues(on))}
+        title={t('settings:haptics')}
+        value={settings.haptics}
+        onValueChange={(on) => dispatch(setHaptics(on))}
         divider={faceTrackingSupported || scanPhotos.available}
       />
       {faceTrackingSupported ? (

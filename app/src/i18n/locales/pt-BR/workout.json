@@ -14,7 +14,12 @@
   "skip": "Pular",
   "end": "Encerrar treino",
   "paused": "Pausado",
-  "voiceCues": "Instruções por voz",
+  "sound": {
+    "label": "Avisos sonoros",
+    "voice": "Instruções por voz",
+    "beeps": "Bipes",
+    "off": "Sem som"
+  },
   "mirror": "Espelho",
   "mirrorA11y": "Espelho: sua câmera frontal. Nada é gravado.",
   "mirrorDenied": {

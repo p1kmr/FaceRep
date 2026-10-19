@@ -12,9 +12,11 @@ import { ScanIntro } from '@/components/scan/ScanIntro';
 import { ScanPanel } from '@/components/scan/ScanPanel';
 import { ScanStepDots } from '@/components/scan/ScanStepDots';
 import { IconButton } from '@/components/ui/IconButton';
+import { useBeeps } from '@/hooks/useBeeps';
 import { useFaceScanActions, useFaceScans } from '@/hooks/useFaceScans';
 import { useScanRun } from '@/hooks/useScanRun';
 import { useSettings, useSettingsDispatch } from '@/hooks/useSettings';
+import { beeps } from '@/services/beeps';
 import type { RawScan } from '@/services/faceScan/score';
 import { deleteScanPhoto, faceScanMode, simulatorCamera } from '@/services/faceTracking';
 import { haptics } from '@/services/haptics';
@@ -51,6 +53,8 @@ export default function ScanScreen() {
   const [phase, setPhase] = useState<'intro' | 'scanning' | 'saving'>('intro');
   const [id, setId] = useState(createId);
   const scanning = phase === 'scanning';
+  const beepsOn = settings.soundCues === 'beeps';
+  useBeeps(beepsOn && phase !== 'intro');
   // The Simulator says under the oval that a pretend face does the moves, except behind the store screenshots'
   // stand-in picture (ScanCamera).
   const [standIn] = useState(() => (faceScanMode === 'simulated' ? simulatorCamera('scan') : null));
@@ -67,7 +71,8 @@ export default function ScanScreen() {
     }
     setPhase('saving');
     haptics.success();
-    if (settings.voiceCues) voice.say(t('status.done'), i18n.language);
+    if (settings.soundCues === 'voice') voice.say(t('status.done'), i18n.language);
+    else if (beepsOn) beeps.play('done');
     await actions.save({ id, moves: readings, photo });
     router.replace({ pathname: '/scan-result', params: { id, fresh: '1' } });
   };
@@ -110,7 +115,12 @@ export default function ScanScreen() {
     return () => sub.remove();
   }, []);
 
-  // Each move is said once when it's shown and felt when its measuring starts and ends.
+  // Beeps: 3, 2, 1 before the first move.
+  useEffect(() => {
+    if (scanning && beepsOn && view.countdown) beeps.play('count');
+  }, [scanning, beepsOn, view.countdown]);
+
+  // Each move is said once when it's shown, and felt (and with beeps heard) when its measuring starts and ends.
   const lastCue = useRef('');
   useEffect(() => {
     if (!scanning) return;
@@ -120,10 +130,15 @@ export default function ScanScreen() {
     if (view.stage === 'prepare') {
       const title = t(`steps.${view.stepId}.title`);
       if (screenReader) AccessibilityInfo.announceForAccessibility(title);
-      else if (settings.voiceCues) voice.say(title, i18n.language);
-    } else if (view.stage === 'hold') haptics.squeeze();
-    else if (view.stage === 'release') haptics.release();
-  }, [scanning, view.stage, view.step, view.stepId, settings.voiceCues, screenReader, t, i18n.language]);
+      else if (settings.soundCues === 'voice') voice.say(title, i18n.language);
+    } else if (view.stage === 'hold') {
+      haptics.squeeze();
+      if (beepsOn) beeps.play('go');
+    } else if (view.stage === 'release') {
+      haptics.release();
+      if (beepsOn) beeps.play('release');
+    }
+  }, [scanning, view.stage, view.step, view.stepId, settings.soundCues, beepsOn, screenReader, t, i18n.language]);
 
   useEffect(() => {
     if (run.photoSaved) haptics.tap();

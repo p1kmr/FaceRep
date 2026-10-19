@@ -13,8 +13,16 @@
   "remindersOn_one": "{{count}} activo",
   "remindersOn_other": "{{count}} activos",
   "haptics": "Respuesta háptica",
-  "voiceCues": "Guía por voz",
-  "voiceCuesHint": "Dice “Aprieta”, “Relaja” y qué viene después, para que puedas seguir el ejercicio con los ojos cerrados.",
+  "soundCues": "Avisos sonoros",
+  "soundCuesOption": {
+    "voice": "Voz",
+    "beeps": "Pitidos",
+    "off": "Desactivados"
+  },
+  "soundCuesHint": {
+    "voice": "Dice “Aprieta”, “Relaja” y qué viene después, para que puedas seguir el ejercicio con los ojos cerrados.",
+    "beeps": "Un pitido para apretar, un tic por cada segundo que aguantas y un pitido más grave para relajar."
+  },
   "moveCheck": "Control del movimiento en el espejo",
   "moveCheckHint": "Muestra cuándo la cámara ve el movimiento del ejercicio. Funciona en tu iPhone: no se graba, guarda ni envía nada.",
   "scanPhotos": "Fotos del escaneo facial",

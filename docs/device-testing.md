@@ -55,8 +55,13 @@ Delete the app first so onboarding and permissions start fresh.
 - [ ] **Workout:** start Day 1. The screen stays on for the whole workout without touching it (Auto-Lock at 30 s:
       Settings → Display & Brightness → Auto-Lock). Haptics on every squeeze and release.
 - [ ] **Voice cues:** "Get ready…", "Squeeze", "Relax", "Last one", "Next up: …", "Workout complete". Play music in
-      another app first: it gets quieter for each cue and comes back (it must not stop). The speaker button mutes cues.
-      Try with the ring/silent switch on silent and note whether you hear the cues.
+      another app first: it gets quieter for each cue and comes back (it must not stop). Try with the ring/silent switch
+      on silent and note whether you hear the cues.
+- [ ] **Beeps:** tap the speaker button in the player: "Beeps" shows at the top. Then 3, 2, 1 before an exercise, a beep
+      when a squeeze starts, a tick every second of it, a lower beep when it ends, nothing while relaxing, a chime at the
+      end. With music playing in another app it keeps playing at the same volume. Tap again: "Sound off", silence;
+      again: back to the voice. Settings → Sound cues shows the same choice. Start a face scan with Beeps: 3, 2, 1, a beep
+      at each move's start and end, a chime when it's done.
 - [ ] **Massage exercises:** the ring and the voice say "Massage" instead of "Squeeze".
 - [ ] **Mirror:** tap the person button → iOS asks for the camera with our text → Allow → your face appears in the corner,
       mirrored. Leave the app and come back: the workout is paused and the camera restarts. Delete and reinstall, tap
@@ -92,7 +97,8 @@ Delete the app first so onboarding and permissions start fresh.
       note and exercises. On Today, tap a lit area of the face: the Exercises tab opens on it.
 - [ ] **Dark mode and large text:** Control Center → Dark Mode; Settings → Accessibility → Larger Text at the largest
       size: nothing cut off on Today, the workout player and Settings.
-- [ ] **VoiceOver:** the timer reads phase and seconds; the voice and mirror buttons read as switches with on/off.
+- [ ] **VoiceOver:** the timer reads phase and seconds; the sound button reads its choice (Voice cues, Beeps, Sound
+      off) and says the new one when tapped; the mirror button reads as a switch with on/off.
 - [ ] **iPad (if you have one):** install the TestFlight build on it. FaceRep is iPhone-only, but App Review often opens
       iPhone apps on an iPad, where they run in an iPhone-sized window (guideline 2.4.1). Check onboarding, the paywall
       (close, buy, Restore), a workout with the mirror, and the Coach.

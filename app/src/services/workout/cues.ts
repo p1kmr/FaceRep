@@ -36,6 +36,37 @@ export function cueFor(prev: WorkoutState | null, next: WorkoutState): Cue | nul
   }
 }
 
+/**
+ * The cues as beeps instead of words (Settings → Sound cues → Beeps), at most one a second: `count` for 3, 2, 1 before
+ * an exercise, `go` when a squeeze starts and a soft `tick` for each second of it, `release` when it ends (relaxing is
+ * quiet, so ticking always means squeeze), and `done` at the end.
+ */
+export type Beep = 'count' | 'go' | 'tick' | 'release' | 'done';
+
+/** The last seconds before an exercise's first squeeze, counted down with beeps. */
+const COUNTDOWN_SEC = 3;
+
+/** The beep for going from `prev` to `next`; null when nothing sounds (a pause, a resume, a second of relaxing). */
+export function beepFor(prev: WorkoutState | null, next: WorkoutState): Beep | null {
+  if (!next.queue.length || next.paused) return null;
+  if (!prev) return next.phase === 'ready' && next.remaining <= COUNTDOWN_SEC ? 'count' : null;
+  const moved = prev.phase !== next.phase || prev.index !== next.index || prev.rep !== next.rep;
+  if (!moved && prev.remaining === next.remaining) return null;
+  switch (next.phase) {
+    case 'hold':
+      return moved ? 'go' : 'tick';
+    case 'relax':
+      return moved ? 'release' : null;
+    case 'rest':
+      if (moved) return 'release';
+      return next.remaining <= COUNTDOWN_SEC ? 'count' : null;
+    case 'ready':
+      return next.remaining <= COUNTDOWN_SEC ? 'count' : null;
+    case 'done':
+      return 'done';
+  }
+}
+
 /** A regional voice for each app language when the device has none of its own ("de" → "de-DE"). */
 const FALLBACK_REGION: Record<string, string> = { en: 'en-US', es: 'es-ES', pt: 'pt-BR', de: 'de-DE', fr: 'fr-FR', it: 'it-IT' };
 

@@ -14,13 +14,15 @@ interface IconButtonProps {
   /** Large round button (player controls). */
   size?: 'small' | 'large';
   tone?: 'surface' | 'primary';
-  /** On/off button (voice, mirror): read as a switch by VoiceOver, filled while on. */
+  /** On/off button (the mirror): read as a switch by VoiceOver, filled while on. */
   toggled?: boolean;
+  /** What a button set to one of several choices is set to, read by VoiceOver after the label (the sound cues). */
+  value?: string;
   /** Dimmed and not tappable (e.g. New chat while the chat is empty). */
   disabled?: boolean;
 }
 
-export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', tone: toneProp = 'surface', toggled, disabled }: IconButtonProps) {
+export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', tone: toneProp = 'surface', toggled, value, disabled }: IconButtonProps) {
   const styles = useStyles();
   const { colors } = useTheme();
   const large = size === 'large';
@@ -34,6 +36,7 @@ export function IconButton({ icon, onPress, accessibilityLabel, size = 'small', 
       accessibilityRole={toggled === undefined ? 'button' : 'switch'}
       aria-checked={toggled}
       accessibilityLabel={accessibilityLabel}
+      accessibilityValue={value ? { text: value } : undefined}
       accessibilityState={disabled ? { disabled } : undefined}
       disabled={disabled}
       hitSlop={8}

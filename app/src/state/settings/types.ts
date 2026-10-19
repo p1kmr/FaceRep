@@ -1,5 +1,6 @@
 import type { Goal } from '@/constants/exercises';
 import type { GuideId } from '@/constants/guides';
+import type { SoundCues } from '@/constants/sounds';
 import type { Reminder } from '@/services/reminders/reminders';
 import type { ThemeMode } from '@/constants/theme';
 import type { ISODate } from '@/utils/dates';
@@ -32,8 +33,11 @@ export interface Settings {
   /** The user's reminders (workout, mewing, posture, own). The first install has a workout one, off. */
   reminders: Reminder[];
   haptics: boolean;
-  /** Spoken cues in workouts ("Squeeze", "Relax", "Next up: …"), with the iPhone's own voice. */
-  voiceCues: boolean;
+  /**
+   * Cues in workouts and the face scan: spoken with the iPhone's own voice ("Squeeze", "Relax", "Next up: …"), as beeps
+   * (a tick for every second of a squeeze), or off.
+   */
+  soundCues: SoundCues;
   /** Front camera as a mirror in workouts. Nothing is recorded or saved. */
   mirror: boolean;
   /** In the mirror, Apple's face tracking shows when it sees the move (iPhones that have it). Nothing is recorded or saved. */
@@ -51,8 +55,8 @@ export interface Settings {
   askButton: AskButtonSettings;
 }
 
-/** What a save can hold: also older saves with one daily reminder ({ enabled, time }). */
-export type SavedSettings = Partial<Settings> & { reminder?: { enabled?: unknown; time?: unknown } };
+/** What a save can hold: also older saves with one daily reminder ({ enabled, time }) and voice cues on or off. */
+export type SavedSettings = Partial<Settings> & { reminder?: { enabled?: unknown; time?: unknown }; voiceCues?: unknown };
 
 export interface SettingsState {
   hydrated: boolean;

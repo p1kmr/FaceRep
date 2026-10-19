@@ -1,7 +1,7 @@
 # FaceRep: facial fitness for men and women (iOS)
 
 Guided face workouts for jawline, cheekbones, lips, eyes and face massage, with an anatomy drawing (a man or a woman)
-whose working muscle lights up red, a hold/relax timer with voice cues, an optional camera mirror (on iPhones with face
+whose working muscle lights up red, a hold/relax timer with voice or beep cues, an optional camera mirror (on iPhones with face
 tracking it can show when it sees the move, on the device: docs/face-tracking.md), streaks, and a paid **AI Coach** for
 face-training and basic face care questions.
 Built with **Expo (React Native)**, the same architecture as Elowa.
@@ -37,7 +37,7 @@ npm install
 npx expo start            # scan the QR code with the iPhone camera (Expo Go)
 npx expo start --web      # quick look in a browser (SF Symbols and the native tab bar only show on iOS)
 ```
-Purchases, DeviceCheck, notifications, the camera mirror and voice cues need a **development build**: steps and a test checklist in [docs/device-testing.md](docs/device-testing.md). This version added native packages (camera, speech, keep-awake) and languages, so an older development build must be rebuilt.
+Purchases, DeviceCheck, notifications, the camera mirror and voice cues need a **development build**: steps and a test checklist in [docs/device-testing.md](docs/device-testing.md). This version added native packages (camera, speech, audio, keep-awake) and languages, so an older development build must be rebuilt.
 
 ## Checks
 ```bash

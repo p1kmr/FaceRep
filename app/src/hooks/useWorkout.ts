@@ -3,13 +3,15 @@ import { getLocales } from 'expo-localization';
 import { useEffect, useReducer, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { beeps } from '@/services/beeps';
 import { haptics } from '@/services/haptics';
 import { voice } from '@/services/voice';
-import { cueFor, speechLanguage, type Cue } from '@/services/workout/cues';
+import { beepFor, cueFor, speechLanguage, type Cue } from '@/services/workout/cues';
 import type { WorkoutItem } from '@/services/workout/items';
 import { createWorkout, workoutReducer, type Phase, type WorkoutState } from '@/services/workout/timer';
 
 import { useAppActive } from './useAppActive';
+import { useBeeps } from './useBeeps';
 import { useSettings } from './useSettings';
 
 const KEEP_AWAKE_TAG = 'workout';
@@ -17,8 +19,8 @@ const KEEP_AWAKE_TAG = 'workout';
 /**
  * Runs the workout state machine: one tick per second while the screen is open and the app is in
  * the foreground (leaving the app pauses it). Haptics mark every squeeze and release, the voice says
- * them (Settings → Voice cues), and the screen stays on while it runs: iOS Auto-Lock would otherwise
- * lock the phone after 30 s without a touch, which sends the app to the background and pauses it.
+ * them or beeps mark them (Settings → Sound cues), and the screen stays on while it runs: iOS Auto-Lock would
+ * otherwise lock the phone after 30 s without a touch, which sends the app to the background and pauses it.
  */
 export function useWorkout(items: WorkoutItem[]) {
   const [state, dispatch] = useReducer(workoutReducer, items, createWorkout);
@@ -52,7 +54,7 @@ export function useWorkout(items: WorkoutItem[]) {
     else if (state.phase === 'done') haptics.success();
   }, [state.phase]);
 
-  useVoiceCues(state);
+  useSoundCues(state);
 
   return {
     state,
@@ -62,23 +64,33 @@ export function useWorkout(items: WorkoutItem[]) {
   };
 }
 
-/** Speaks each new cue while voice cues are on; quiet while paused, and stops when the screen closes. */
-function useVoiceCues(state: WorkoutState) {
-  const { voiceCues } = useSettings();
+/**
+ * Speaks each new cue, or beeps each second that has one, as Settings → Sound cues says; quiet while paused, and
+ * stops when the screen closes.
+ */
+function useSoundCues(state: WorkoutState) {
+  const { soundCues } = useSettings();
   const { t, i18n } = useTranslation(['workout', 'exercises']);
   const prev = useRef<WorkoutState | null>(null);
+  useBeeps(soundCues === 'beeps');
 
   useEffect(() => {
-    const cue = cueFor(prev.current, state);
+    const before = prev.current;
     prev.current = state;
-    if (!voiceCues) return;
+    if (soundCues === 'beeps') {
+      const beep = beepFor(before, state);
+      if (beep) beeps.play(beep);
+      return;
+    }
+    const cue = cueFor(before, state);
+    if (soundCues !== 'voice') return;
     if (state.paused) voice.stop();
     else if (cue) voice.say(cueText(cue, t), speechLanguage(i18n.language, getLocales().map((l) => l.languageTag)));
-  }, [state, voiceCues, t, i18n.language]);
+  }, [state, soundCues, t, i18n.language]);
 
   useEffect(() => {
-    if (!voiceCues) voice.stop();
-  }, [voiceCues]);
+    if (soundCues !== 'voice') voice.stop();
+  }, [soundCues]);
 
   useEffect(
     () => () => {

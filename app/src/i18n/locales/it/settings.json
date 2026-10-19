@@ -13,8 +13,16 @@
   "remindersOn_one": "{{count}} attivo",
   "remindersOn_other": "{{count}} attivi",
   "haptics": "Feedback aptico",
-  "voiceCues": "Indicazioni vocali",
-  "voiceCuesHint": "Dice Contrai, Rilassati e cosa viene dopo, così puoi seguire anche a occhi chiusi.",
+  "soundCues": "Segnali sonori",
+  "soundCuesOption": {
+    "voice": "Voce",
+    "beeps": "Bip",
+    "off": "Disattivati"
+  },
+  "soundCuesHint": {
+    "voice": "Dice Contrai, Rilassati e cosa viene dopo, così puoi seguire anche a occhi chiusi.",
+    "beeps": "Un bip per contrarre, un tic per ogni secondo di tenuta e un bip più grave per rilassarti."
+  },
   "moveCheck": "Controllo del movimento nello specchio",
   "moveCheckHint": "Mostra quando la fotocamera vede il movimento dell'esercizio. Funziona sul tuo iPhone: non viene registrato, salvato o inviato nulla.",
   "scanPhotos": "Foto della scansione del viso",
