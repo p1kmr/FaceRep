@@ -22,7 +22,8 @@ import { weekStart } from '@/utils/dates';
 
 /**
  * Today: greeting and streak, this week (with this month folded under it), today's workout on the face (the areas it
- * works lit), the weekly face scan when one is due, and the numbers. The Coach is the floating button.
+ * works lit), the weekly face scan when one is due, and the numbers. The streak and the numbers open Progress. The Coach
+ * is the floating button.
  */
 export default function TodayScreen() {
   const workout = useTodayWorkout();
@@ -37,11 +38,12 @@ export default function TodayScreen() {
   const start = () => router.push({ pathname: '/workout', params: { kind: 'today' } });
   const unlock = () => router.push('/paywall');
   const showWeek = () => router.push('/week');
+  const showProgress = () => router.navigate('/progress');
   const learnArea = (area: FaceArea) => router.navigate({ pathname: '/exercises', params: { area } });
 
   return (
     <Screen>
-      <TodayHeader streak={summary.streak} />
+      <TodayHeader streak={summary.streak} onStreak={showProgress} />
       <WeekStrip />
       <MonthToggle open={monthOpen} onPress={() => setMonthOpen(!monthOpen)} />
       {monthOpen ? (
@@ -59,7 +61,11 @@ export default function TodayScreen() {
         onArea={learnArea}
       />
       <ScanTodayCard />
-      <StatCards summary={summary} weekMinutes={minutesBetween(sessions, weekStart(today, firstWeekday), today)} />
+      <StatCards
+        summary={summary}
+        weekMinutes={minutesBetween(sessions, weekStart(today, firstWeekday), today)}
+        onPress={showProgress}
+      />
     </Screen>
   );
 }

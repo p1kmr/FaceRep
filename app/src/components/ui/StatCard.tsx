@@ -1,6 +1,7 @@
 import { SymbolView, type SymbolViewProps } from 'expo-symbols';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
+import { haptics } from '@/services/haptics';
 import { makeStyles } from '@/theme/makeStyles';
 
 import { AppText } from './AppText';
@@ -14,13 +15,16 @@ interface StatCardProps {
   label: string;
   /** What VoiceOver reads (the number with its words). */
   a11y: string;
+  /** Makes the card a button (Today's open Progress), with what it does for VoiceOver. */
+  onPress?: () => void;
+  hint?: string;
 }
 
 /** A small card: icon, big number, label (Today and Progress). Lay several out in a row. */
-export function StatCard({ icon, tint, soft, value, label, a11y }: StatCardProps) {
+export function StatCard({ icon, tint, soft, value, label, a11y, onPress, hint }: StatCardProps) {
   const styles = useStyles();
-  return (
-    <View style={styles.card} accessible accessibilityLabel={a11y}>
+  const content = (
+    <>
       <View style={[styles.icon, { backgroundColor: soft }]}>
         <SymbolView name={icon} size={16} tintColor={tint} />
       </View>
@@ -30,7 +34,28 @@ export function StatCard({ icon, tint, soft, value, label, a11y }: StatCardProps
       <AppText variant="caption" muted numberOfLines={1}>
         {label}
       </AppText>
-    </View>
+    </>
+  );
+  if (!onPress) {
+    return (
+      <View style={styles.card} accessible accessibilityLabel={a11y}>
+        {content}
+      </View>
+    );
+  }
+  return (
+    <Pressable
+      onPress={() => {
+        haptics.tap();
+        onPress();
+      }}
+      accessibilityRole="button"
+      accessibilityLabel={a11y}
+      accessibilityHint={hint}
+      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+    >
+      {content}
+    </Pressable>
   );
 }
 
@@ -47,4 +72,5 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
   },
   icon: { width: 30, height: 30, borderRadius: tokens.radius.sm, alignItems: 'center', justifyContent: 'center', marginBottom: tokens.space.xs },
   value: { fontSize: 30, lineHeight: 36 },
+  pressed: { opacity: 0.85, transform: [{ scale: 0.98 }] },
 }));

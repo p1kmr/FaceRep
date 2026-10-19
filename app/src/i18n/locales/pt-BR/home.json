@@ -5,6 +5,7 @@
   "streak_other": "Sequência de {{count}} dias",
   "streak_zero": "Sequência de {{count}} dias",
   "noStreak": "Comece sua sequência hoje",
+  "openProgress": "Abre a aba Progresso.",
   "today": {
     "week": "Semana {{week}} · Dia {{day}}",
     "weekEasy": "Semana {{week}} · Dia leve",

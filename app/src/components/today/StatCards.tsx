@@ -7,11 +7,12 @@ import { makeStyles } from '@/theme/makeStyles';
 
 import { StatCard } from '../ui/StatCard';
 
-/** Streak, minutes this week (the week strip's week), all workouts. */
-export function StatCards({ summary, weekMinutes }: { summary: ProgressSummary; weekMinutes: number }) {
+/** Streak, minutes this week (the week strip's week), all workouts. Each one opens Progress (`onPress`). */
+export function StatCards({ summary, weekMinutes, onPress }: { summary: ProgressSummary; weekMinutes: number; onPress: () => void }) {
   const { t } = useTranslation('home');
   const styles = useStyles();
   const { colors } = useTheme();
+  const button = { onPress, hint: t('openProgress') };
   return (
     <View style={styles.row}>
       <StatCard
@@ -21,6 +22,7 @@ export function StatCards({ summary, weekMinutes }: { summary: ProgressSummary; 
         value={summary.streak}
         label={t('stats.streak')}
         a11y={t('stats.streakA11y', { count: summary.streak })}
+        {...button}
       />
       <StatCard
         icon="clock.fill"
@@ -29,6 +31,7 @@ export function StatCards({ summary, weekMinutes }: { summary: ProgressSummary; 
         value={weekMinutes}
         label={t('stats.minutes')}
         a11y={t('stats.minutesA11y', { count: weekMinutes })}
+        {...button}
       />
       <StatCard
         icon="checkmark.seal.fill"
@@ -37,6 +40,7 @@ export function StatCards({ summary, weekMinutes }: { summary: ProgressSummary; 
         value={summary.totals.workouts}
         label={t('stats.workouts')}
         a11y={t('stats.workoutsA11y', { count: summary.totals.workouts })}
+        {...button}
       />
     </View>
   );

@@ -1,9 +1,10 @@
 import { SymbolView } from 'expo-symbols';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import { useTheme } from '@/hooks/useTheme';
 import { useToday } from '@/hooks/useToday';
+import { haptics } from '@/services/haptics';
 import { makeStyles } from '@/theme/makeStyles';
 import { formatDay } from '@/utils/format';
 
@@ -12,8 +13,8 @@ import { AppText } from '../ui/AppText';
 /** Morning until noon, afternoon until 6 PM, then evening (the iPhone's clock; display only). */
 const partOfDay = (hour: number) => (hour < 12 ? 'morning' : hour < 18 ? 'afternoon' : 'evening');
 
-/** Today's date, a greeting for the time of day, and the streak. */
-export function TodayHeader({ streak }: { streak: number }) {
+/** Today's date, a greeting for the time of day, and the streak (it opens Progress: `onStreak`). */
+export function TodayHeader({ streak, onStreak }: { streak: number; onStreak: () => void }) {
   const { t, i18n } = useTranslation('home');
   const styles = useStyles();
   const { colors } = useTheme();
@@ -29,12 +30,22 @@ export function TodayHeader({ streak }: { streak: number }) {
           {t(`hello.${partOfDay(new Date().getHours())}`)}
         </AppText>
       </View>
-      <View style={styles.streak} accessible accessibilityLabel={streakLabel}>
+      <Pressable
+        onPress={() => {
+          haptics.tap();
+          onStreak();
+        }}
+        accessibilityRole="button"
+        accessibilityLabel={streakLabel}
+        accessibilityHint={t('openProgress')}
+        hitSlop={8}
+        style={({ pressed }) => [styles.streak, pressed && styles.pressed]}
+      >
         <SymbolView name="flame.fill" size={18} tintColor={colors.streak} />
         <AppText variant="brand" style={styles.streakNumber}>
           {streak}
         </AppText>
-      </View>
+      </Pressable>
     </View>
   );
 }
@@ -52,4 +63,5 @@ const useStyles = makeStyles(({ colors, tokens }) => ({
     backgroundColor: colors.streakSoft,
   },
   streakNumber: { fontSize: 22, lineHeight: 28, color: colors.streak },
+  pressed: { opacity: 0.8, transform: [{ scale: 0.96 }] },
 }));

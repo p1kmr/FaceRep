@@ -4,6 +4,7 @@
   "streak_one": "Série de {{count}} jour",
   "streak_other": "Série de {{count}} jours",
   "noStreak": "Lance ta série aujourd'hui",
+  "openProgress": "Ouvre l'onglet Progrès.",
   "today": {
     "week": "Semaine {{week}} · Jour {{day}}",
     "weekEasy": "Semaine {{week}} · Jour léger",

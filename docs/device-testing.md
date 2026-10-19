@@ -94,7 +94,8 @@ Delete the app first so onboarding and permissions start fresh.
       the clip plays during "Get ready" and "Next up", then the drawings follow the counter. Settings → Accessibility →
       Motion → Reduce Motion: the drawings instead of the clips.
 - [ ] **Face map:** Exercises tab: tap the jaw, eyes, forehead and neck on the face; each lights up with its
-      note and exercises. On Today, tap a lit area of the face: the Exercises tab opens on it.
+      note and exercises. On Today, tap a lit area of the face: the Exercises tab opens on it. Tap the streak badge
+      (top right) and each of the three small cards (streak, minutes, workouts): each opens the Progress tab.
 - [ ] **Dark mode and large text:** Control Center → Dark Mode; Settings → Accessibility → Larger Text at the largest
       size: nothing cut off on Today, the workout player and Settings.
 - [ ] **VoiceOver:** the timer reads phase and seconds; the sound button reads its choice (Voice cues, Beeps, Sound

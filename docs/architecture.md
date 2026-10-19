@@ -224,7 +224,8 @@ drawing's white plate uses `onPlate` / `onPlateMuted` (the plate is white in bot
 month folded under it (`MonthToggle` "October 2026 ⌄" opens `MonthCard`: the Progress month, days with a workout
 filled; a day opens Progress), today's workout as the hero (`TodayCard`: "Week 6 · Day 3", which opens this week, and the week's step, the face
 map with the areas the day works lit and slowly breathing, cropped to frame them; tap an area to open it in the library)
-and three stat cards. The Coach stays the floating button
+and three stat cards. The streak badge and the stat cards are buttons that open the Progress tab, where those numbers
+come from (VoiceOver: "Opens the Progress tab."). The Coach stays the floating button
 (`AskBubble`, now on the brand gradient): one way in, as before.
 
 ## The face map
