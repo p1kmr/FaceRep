@@ -1,7 +1,8 @@
 # Publish FaceRep 1.0 to the App Store: TODO
 
 State checked on 2026-10-09 (after commit `ca5b8f0`) with the asc CLI, the RevenueCat MCP, wrangler and the Expo MCP;
-App Store Connect read again on 2026-10-18 (§1d).
+App Store Connect read again on 2026-10-18 (§1d). Store text, screenshots, review notes and the subscriptions' texts
+written on 2026-10-19 (§1d Step 4): they describe the app at `3b3969b`, so the build to submit is the next one (§1d).
 Re-check before acting: from the repo root run
 `./.tools/asc validate --app 6820638812 --version-id 7edc84f2-a25e-4553-a918-45a254d06399`
 (0 blocking issues on 2026-10-09; what is left is in §3b and can only be done by hand).
@@ -48,7 +49,8 @@ Re-check before acting: from the repo root run
 - **Worker:** deployed. `/privacy`, `/terms` and `/support` return 200 and show kindcodelabs@gmail.com.
   `REVENUECAT_SECRET_KEY` and `IP_HASH_SECRET` are set.
 - **Store listing in seven App Store locales** (en-US primary, es-MX, es-ES, pt-BR, de-DE, fr-FR, it), all from
-  docs/store-listing.md (es-MX and es-ES share the Spanish text):
+  docs/store-listing.md (es-MX and es-ES share the Spanish text); description, promotional text and screenshots
+  replaced on 2026-10-19 (§1d Step 4):
   - name, subtitle and privacy policy URL; the en-US name is `FaceRep: Face Yoga & Jawline`;
   - description, keywords, promotional text, and the support URL `https://facerep-api.elowa-app.workers.dev/support`.
     No What's New, because Apple doesn't allow it on a first version;
@@ -112,8 +114,10 @@ Builds 3–6 must not be used.
 - [ ] Compare each store screenshot with the same screen on build 7. The slides come from the web build made to look
       like the iPhone, so icons or layout could differ slightly. If a screen differs, re-run the capture
       (store-screenshots/README.md).
-- [ ] Optional: replace the subscription review screenshot (a paywall rendered from the web build) with a real paywall
-      screenshot from build 7: `./.tools/asc subscriptions review screenshots create --subscription-id <id> --file <png>`.
+- [x] Subscription review screenshot (2026-10-19): the old one (the web build's paywall with the 28-day plan) is
+      replaced on all three by the current paywall from the iPhone 17 Pro Max Simulator, same code as build 14: the
+      three plans with App Store prices, Yearly selected with its free-trial line, Restore, Terms and Privacy
+      (`./.tools/asc subscriptions review screenshots delete`, then `create --subscription-id <id> --file <jpg>`).
 - [ ] Optional: delete the local branch `backup/weekly-local-29d96e7` if the owner agrees.
 
 ## 1b. Build 8: new look, face map, exercise videos, Coach that saves and starts workouts
@@ -128,15 +132,11 @@ update can't add native code). Build 8 replaces build 7 as the one to test and s
       Keep it: do §7 there before submitting (Worker deploy for the privacy policy, What's New, slide 5; the review
       notes in docs/launch.md already describe it). Drop it:
       revert its commit ("Mirror move check with Apple face tracking…"), deploy the Worker again and make a new build.
-- [ ] **Store text:** the description and What's New in docs/store-listing.md now mention the face map, the videos and the
-      Coach saving workouts (all six languages); put them on the 1.0 page.
+- [x] **Store text:** the description in docs/store-listing.md (face map, videos, the Coach's routines; all six
+      languages) is on the 1.0 page since 2026-10-19. Version 1.0 has no What's New.
 - [x] **Screenshots:** re-captured from the iOS Simulator on 2026-10-19 (Step 3 below).
-- [ ] **Review notes:** use the updated text in docs/launch.md (face map, videos, Coach save / routine, move check).
-      The notes in App Store Connect still say "Settings → Mirror in workouts" (that row is gone: the mirror is only
-      the person button in the player) and "tap any locked day in the 28-day grid" (the 28-day plan is gone: the weeks go
-      on with no end and are free; Premium is every exercise, which a reviewer sees unlocked in the library and in
-      Today's workout right after buying, and the unlimited Coach). Update them when the new build is attached, not
-      before (they describe the attached build).
+- [x] **Review notes:** the text in docs/launch.md §6 is in App Store Connect since 2026-10-19. It describes the next
+      build (§1d Step 4), not builds 7 or 13.
 - [ ] Build 12 (from `ae2eb2a`) is the first with the move check; on an iPhone 11 its mirror stayed black (cause found
       2026-10-19: that iPhone's Face ID / TrueDepth camera is broken, so ARKit can't run; not an app bug). The next
       build adds the plain-camera fallback and its log lines, the draggable mirror tile with ×, the month under the week,
@@ -158,11 +158,10 @@ exercises' texts, drawings and clips are no longer in the app, the Worker sends 
 - [ ] **Owner tests build 13** with docs/device-testing.md (the "Free days and Premium download" lines): days 1–3 free,
       day 4 locked, buying in the sandbox downloads the Premium exercises, they work in airplane mode afterwards,
       Restore on another iPhone downloads them again.
-- [ ] **Store text, screenshots and review notes** (paused until the owner says, with the 28-day clean-up): they still
-      say "Week 1 free" and free weekly workouts. They must say "Days 1 to 3 free" (never "trial"), the What's free and
-      Premium lists must match the paywall, and the review notes must say how a reviewer reaches a Premium day: Today or
-      the week page (tap "Week · Day") shows Day 4 onward locked → Unlock → sandbox purchase → the Premium exercises
-      download right away and every day and exercise opens. A reviewer can't wait three days for Day 4.
+- [x] **Store text, screenshots and review notes** (2026-10-19): "Days 1 to 3 free" (never "trial"), the What's free
+      and Premium lists match the paywall, and the review notes say how a reviewer reaches a Premium day: Today → "Week 1
+      · Day 1" shows Day 4 onward locked → Unlock Day 4 → sandbox purchase → the Premium exercises download right away
+      and every day and exercise opens. A reviewer can't wait three days for Day 4.
 - [ ] App Privacy needs no change: the download sends only the random app ID, already declared as User ID (App
       Functionality, not linked).
 
@@ -182,11 +181,12 @@ Progress; 3 free scans, then Premium; an optional progress photo that stays on t
       --platform ios`, then `npx expo start --dev-client`.
 - [ ] **Tune** `SCAN_MOVES[].full` after 2–3 people's scans (docs/face-scan.md §6). Before launch only: later changes
       re-score old scans.
-- [ ] **Store text** (owner's OK first): add the face scan to the description and the Premium list in all locales
-      ("3 face scans free", "unlimited face scans"); no looks words.
+- [x] **Store text** (2026-10-19, at the owner's request): the face scan is in the description, What's free (3 face
+      scans) and Premium (unlimited face scans) in all locales; movement only, no looks words, "iPhone X and later".
 - [x] **Screenshots:** slide 3 is the face scan and its results (a stand-in picture in the Simulator's camera), slide 4 Progress with
       the scan chart (2026-10-19, Step 3 below).
-- [ ] **Review notes:** the new text in docs/launch.md §6 (it covers the face scan and Apple's face-data questions).
+- [x] **Review notes:** the text in docs/launch.md §6 (the face scan and Apple's face-data questions), in App Store
+      Connect since 2026-10-19.
 - [ ] App Privacy: no change (scan numbers and photos never leave the iPhone, so they aren't "collected").
 
 ## 1d. Before submitting: App Review audit of 2026-10-18 (docs/app-review.md §3)
@@ -194,13 +194,24 @@ Read from App Store Connect with `./.tools/asc` (read-only) on 2026-10-18. `asc 
 it can't see agreements, App Privacy or whether the text is out of date. **One build only:** finish everything that goes
 inside the app first, then build 13, then the screenshots from that same code, then App Store Connect.
 
+**Build 13 already exists (2026-10-18), made from `a838531`:** before the Gemini Coach (`3ff53f2`), the face scan
+(`f3c972c`), the beeps (`94c4edc`, expo-audio is native code) and the Progress taps (`3b3969b`). The store page,
+screenshots and review notes in App Store Connect show all of them (2026-10-19). Where this file says "build 13" for
+those features, it means the next build (14) from `main`. Never submit with build 7 or 13 attached (2.1, 2.3.1).
+
 **Any time, now (no build needed):**
-- [ ] **Account Holder: accept the updated Paid Applications Schedule.** The App Store Connect home page shows a banner
+- [x] **Account Holder: accept the updated Paid Applications Schedule.** The App Store Connect home page showed a banner
       (seen 2026-10-18): until it's accepted, Apple blocks app updates, new in-app purchases and offers, and submissions.
-      App Store Connect → Business → Agreements. It's shared with Elowa, and only the Account Holder can accept it.
-- [ ] **Owner: Worker deploy** (§1c): it adds `/content` and the privacy policy's Premium download row and new summary
-      line. `/plan` is already gone from the live Worker (it answers 404), so deploying now breaks nothing. It must be
-      live before the device test: build 13 downloads the Premium exercises from `/content`.
+      Accepted by the owner: on 2026-10-19 `./.tools/asc web agreements status` shows no banner and nothing pending.
+- [x] **Mac and Vision Pro: turned both off** on 2026-10-19, at the owner's request (re-read afterwards: both false).
+      Before that, `./.tools/asc web apps compatibility view --app 6820638812` showed both on (Apple's default for
+      iPhone apps). ARKit face tracking doesn't exist there, so the
+      move check and the face scan would be missing and the mirror would be a plain camera (the Persona on Vision Pro),
+      while Premium sells unlimited scans. Pricing and Availability on the website, or `./.tools/asc web apps compatibility
+      edit --app 6820638812 --ios-app-on-mac false --ios-app-on-vision-pro false`. The iPhone-only build (iOS 16.4+)
+      still runs on iPads, as Apple requires.
+- [x] **Owner: Worker deploy** (§1c): live, checked 2026-10-19: `/content` answers only POST, a file without a token
+      gets 401, and `/privacy` says "Last updated October 19, 2026" with the face scan and the Premium download row.
 
 **Step 1: changes inside the app (all before build 13):**
 - [x] Consent screen: a Privacy Policy link (5.1.2(i), 2026-10-18).
@@ -223,26 +234,31 @@ inside the app first, then build 13, then the screenshots from that same code, t
 **Step 3: screenshots (Simulator, same code as build 13; can run while EAS builds):**
 - [x] 9 slides × 6 languages from the iOS Simulator (2026-10-19): a free user, free exercises only, the face scan
       and its chart, the camera mirror with stand-in pictures, the real Coach (cards, no technique text). In
-      `store-screenshots/export/<lang>/01–09.jpg`; the old set is in `export/v1-web/`. Compare with the next build on
-      the iPhone before uploading (es-ES and es-MX share the Spanish).
+      `store-screenshots/export/<lang>/01–09.jpg`; the old set is in `export/v1-web/`. Uploaded on 2026-10-19 at the
+      owner's request (Step 4). Still compare them with the next build on the iPhone; re-capture and replace any slide
+      that differs (es-ES and es-MX share the Spanish).
 
 **Step 4: App Store Connect (after the agreement and build 13). The texts can be drafted in the docs earlier:**
-- [ ] **Attach build 13** to 1.0 in place of build 7.
-- [ ] **Store text, all seven locales** (owner's OK first): description and promotional text still describe the
-      28-day plan, "27 exercises", "Week 1 free" and every exercise free (2.3.1(a), 2.3.2). New text: days 1 to 3 free
-      (never "trial"); Premium = every day, every exercise, unlimited Coach; no exercise count, no "28". Source:
-      docs/store-listing.md (es-ES and es-MX share the Spanish), then the same text in docs/launch.md.
-- [ ] **Subscriptions** (owner's OK first): the descriptions in seven locales say "Weeks 2 to 4 and unlimited Coach",
-      and the three review notes describe the 28-day plan and Day 8. New: every day, every exercise, unlimited Coach
-      (55 characters at most). Optional: a real paywall screenshot from build 13 for the subscription review (§1).
+- [x] **Build 14 from `main`, attached to 1.0** (2026-10-19) in place of build 7: VALID, in internal TestFlight, with
+      the barbell-smile icon. The small icon beside the app's name in App Store Connect stays the old one until the
+      version is submitted.
+- [x] **Store text, all seven locales** (2026-10-19): description and promotional text from docs/store-listing.md
+      (es-ES and es-MX share the Spanish): days 1 to 3 free (never "trial"); Premium = every exercise (mewing named,
+      2.3.2), every day, unlimited Coach and face scans; the face scan and the beeps; no exercise count, no "28". Name,
+      subtitle and keywords unchanged. Read back from App Store Connect: the same as the doc.
+- [x] **Subscriptions** (2026-10-19): the description in seven locales on all three ("Every day and exercise, unlimited
+      Coach and face scans.", at most 55 characters) and the three review notes (docs/launch.md). Names, prices and
+      the trial unchanged. The review screenshot is the current paywall (2026-10-19, §1).
 - [ ] **Free trial** (decided: 3 days on all three plans; money, so the owner's OK on the day): add a 3-day free trial
       to Weekly and Monthly, and change Yearly from 1 week to 3 days, in every territory. The paywall reads the trial
       from the App Store, so the app needs no change. Needs the agreement first.
-- [ ] **Screenshots:** upload the 7 locales from Step 3.
-- [ ] **Review notes for 1.0**: paste the ready text in docs/launch.md §6 (free and Premium, the Coach's AI, the
-      mirror, the move check, the face scan with Apple's face-data answers).
-- [ ] App Privacy: no change needed (the Coach's data is already declared, Not linked; the provider isn't part of the
-      labels). Check it still shows as published.
+- [x] **Screenshots** (2026-10-19): the 9 slides of Step 3 in all 7 locales (they replaced the 8 old ones; checksums
+      and order 01–09 checked against `export/`).
+- [x] **Review notes for 1.0** (2026-10-19): the text in docs/launch.md §6 (free and Premium with the way to a locked
+      day, the Coach's AI, the mirror, the move check, the face scan with Apple's face-data answers, sound cues and the
+      microphone string), 3,679 of 4,000 characters.
+- [x] App Privacy: no change needed (the Coach's data is already declared, Not linked; the provider isn't part of the
+      labels). Checked 2026-10-19: published, the same four labels.
 - Optional: **App Accessibility** (Accessibility Nutrition Labels) is still voluntary. Fill it in from the Step 1 and
   Step 2 checks; claim only what really works.
 - [ ] **Subscriptions on the 1.0 page** (§3b): select all three. Recheck the website's MISSING_METADATA after the new
@@ -273,7 +289,7 @@ npm run deploy
 
 ## 3. App Store Connect: done by CLI on 2026-10-09
 - App Review details: contact Pawan Kumar, phone set, email kindcodelabs@gmail.com, no sign-in needed, and review notes
-  (about 2,100 characters; they explain Premium and the 28-day grid, the Coach and its consent screen, the camera
+  (about 2,100 characters, replaced on 2026-10-19 by the text in docs/launch.md §6; they explained Premium and the 28-day grid, the Coach and its consent screen, the camera
   mirror, the man/woman pictures, reminders, languages and safety. DeviceCheck is not mentioned because it is off).
 - App Privacy is published with four labels, all App Functionality, not linked to you, no tracking: User ID,
   Purchase History, Other User Content and Fitness.
@@ -313,13 +329,22 @@ then shown to the owner):
       MISSING_METADATA, while the public API and RevenueCat say READY_TO_SUBMIT, with every field filled in (7 languages,
       prices in 175 territories, review screenshot and notes, group names, and the promotional images uploaded the same day).
       The owner opens Subscriptions → FaceRep Premium → each one on the website to see what it flags.
-- [ ] **Test build 7 on the iPhone** (TestFlight, attached to 1.0), including a sandbox purchase and Restore (§1).
+      Still the same on 2026-10-19: the website side says MISSING_METADATA, while the public API says READY_TO_SUBMIT,
+      each subscription's version 1 is READY_FOR_REVIEW and `./.tools/asc review doctor` finds no blockers. Selecting them
+      on the 1.0 page is the real test.
+- [x] **Screen recording for App Review** (owner, 2026-10-20: FaceRep-1.0-build14-review-under50.mp4, COMPLETE): build 1.0 (14) on the iPhone, attached under 1.0 → App Review
+      Information → Attachment. Then a line in the review notes says what it shows. Nothing attached on 2026-10-19.
+- [x] **Test build 14 on the iPhone** (TestFlight, attached to 1.0), including a sandbox purchase and Restore (§1).
+      Done by the owner on 2026-10-19: RevenueCat shows Premium Weekly bought in the sandbox from the iPhone at 15:09 IST
+      (Premium active; TestFlight renews it every day). The only other Premium is a 3-day promotional grant to a
+      Simulator ID (ends 2026-10-21).
 - [ ] **Submit:** only the owner presses "Add for Review" and then "Submit to App Review".
 
 ## 4. Account checks (owner, App Store Connect web)
-- [ ] **Paid Apps Agreement, tax and banking** are active in Business. They are needed for subscriptions, and are
-      expected to be active already because Elowa sells subscriptions. Apple updated the Paid Applications Schedule
-      (banner on 2026-10-18): the Account Holder must accept the new version first (§1d).
+- [x] **Paid Apps Agreement, tax and banking** are active in Business. They are needed for subscriptions. Apple updated
+      the Paid Applications Schedule (banner on 2026-10-18), and the owner accepted it (§1d). On 2026-10-19 there was no
+      agreement banner, and the sandbox purchase went through (products don't load without an active Paid Apps
+      agreement).
 - [ ] Optional (recommended): send App Store Server Notifications to RevenueCat, so renewals and cancellations reach
       it right away. Copy the URL from RevenueCat → FaceRep (App Store) app settings, and paste it into ASC → App
       Information → App Store Server Notifications, for both production and sandbox.

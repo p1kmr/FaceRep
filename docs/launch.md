@@ -34,7 +34,7 @@ Research done 2026-10-06 (App Store lookup/search APIs, USPTO, Apple guidelines 
 - **Keywords (100):** `double,chin,cheekbone,jaw,tongue,posture,facial,fitness,men,women,exercise,eye,massage,skincare,glow`
   (`looksmax` was dropped for `men,women`; it also kept distance from rating apps. `face`, `yoga`, `jawline`, `lips`,
   `cheeks`, `mewing`, `workouts` are already in the name and subtitle.)
-- **Promotional text (158):** See the muscle you train. Voice-guided face workouts for jawline, cheekbones, lips and eyes, with a 28-day plan and an optional camera mirror. Week 1 is free.
+- **Promotional text (166):** See the muscle you train. Guided face workouts for jawline, cheekbones, lips and eyes, with voice or beep cues, a camera mirror and a face scan. Days 1 to 3 are free.
 - **Custom product page (women):** in App Store Connect → Custom Product Pages, same app, her screenshots (Woman pictures,
   Lips program first) and promotional text that leads with lips and eyes. Use its link for ads aimed at women.
 - **Other languages:** name, subtitle, keywords, promotional text and description for Spanish, Portuguese (Brazil),
@@ -42,52 +42,8 @@ Research done 2026-10-06 (App Store lookup/search APIs, USPTO, Apple guidelines 
 - **Category:** Health & Fitness (secondary: Lifestyle). **Age rating:** 13+.
 - **Subscriptions:** group "FaceRep Premium": "Premium Weekly" $1.99 (no trial), "Premium Monthly" $3.99,
   "Premium Yearly" $29.99 with a 7-day free trial (pre-selected). Reasons and paywall rules in docs/premium.md §6.
-- **Description:**
-
-```
-FaceRep is facial fitness for men and women: short, guided workouts for your jawline, cheekbones, lips and eye area, plus face massage. A few minutes a day.
-
-SEE THE MUSCLE YOU TRAIN
-Every exercise shows the working muscle lit up in red, moving from relaxed to squeeze in time with the timer. Choose whether the pictures show a man or a woman.
-
-FOLLOW ALONG WITHOUT LOOKING
-Voice cues tell you when to squeeze, relax and what comes next, so you can train with your eyes closed or your hands on your face. The screen stays on while you train. Turn on the mirror to see yourself next to the drawing and check your form: the camera picture is never recorded or saved.
-
-FIVE PROGRAMS, 27 EXERCISES
-• Jawline: jaw clench, chin lift, jaw jut, mewing, tongue press, chin tuck and neck stretch
-• Cheekbones: cheek lift, fish face, smiling fish, cheek puff, O stretch and lion face
-• Lips: lip press, pout, lip corner lift and smile-line press
-• Eyes: brow lift, forehead press, wide eyes, lower lid lift, V eyes and eye squeeze
-• Face massage: jaw release, jawline sweep, frown release and temple circles
-
-A 28-DAY PLAN
-• 4 weeks that get harder: more exercises, more reps, longer holds
-• Light days to recover, and a day only moves on when you've done it
-• Hold and relax timer with voice cues and haptics
-• Streaks and a week, month and year calendar of your workouts
-• Reminders for workouts, mewing checks and posture breaks, on your days and times (or ask the Coach to set them)
-
-WHAT'S FREE
-Week 1 of the plan and every exercise on its own, any time. No account, no ads. Your workouts stay on your iPhone.
-
-PREMIUM
-• Weeks 2 to 4 of the 28-day plan
-• Level 2 and 3 when you finish, and new rounds after that
-• Unlimited AI Coach answers (3 free answers a month without Premium). You're asked for permission before your first question.
-
-SAFETY
-Move gently and stop if anything hurts. If you have jaw pain or a jaw joint problem, ask a doctor or dentist before jaw exercises. FaceRep is a fitness and wellness app, not medical advice. Results vary.
-
-SUBSCRIPTION
-Premium is available weekly, monthly or yearly. Payment is charged to your Apple Account and renews automatically unless cancelled at least 24 hours before the period ends. Manage it in your App Store account settings.
-
-The exercise drawings and photos are AI-generated and show fictional people.
-
-Terms of Use: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
-Privacy Policy: https://facerep-api.elowa-app.workers.dev/privacy
-```
-
-- **What's New (1.0):** First release: a 28-day plan with five programs (jawline, cheekbones, lips, eyes and face massage), exercise drawings of a man or a woman, voice cues, a camera mirror, streaks and the AI Coach.
+- **Description, subscription description and every language:** [store-listing.md](store-listing.md) (English is the
+  source; in App Store Connect since 2026-10-19). Version 1.0 has no What's New: Apple doesn't show it on a first version.
 
 Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Cheekbones`.
 
@@ -97,7 +53,7 @@ Alternative (Facewerk): `Facewerk: Face Workout for Men` / `Jawline, Mewing & Ch
 - **Never use:** competitor names (Luvly, FaceYogi, Umax…), "#1/best", "lose double chin in 7 days", "reshape bone", "anti-aging", "guaranteed", TMJ/therapy/treat, "rate my face", "PSL", "attractiveness score".
 
 ## 4. Screenshots and preview
-- **Done (2026-10-19), not uploaded yet:** 9 iPhone 6.9" screenshots (1320×2868) in all six languages, from the real
+- **Done and uploaded to all 7 App Store locales (2026-10-19):** 9 iPhone 6.9" screenshots (1320×2868) in all six languages, from the real
   app in the iOS Simulator (a free user with demo data, free exercises only), in `store-screenshots/export/<lang>/`
   (how they are made and rebuilt: `store-screenshots/README.md`, docs/screenshots.md). Red and black slides with a
   glow behind the phones, Anton headlines with one highlighted word, tilted iPhones, magnified details, lifted cards.
@@ -119,8 +75,8 @@ The rule-by-rule status, the checklist for every new feature and the automatic c
 
 **App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe), Fitness (the streak and workouts in the last 7 days sent with each Coach question; same reason). All Not linked, App Functionality. Workout history and reminders stay on device → not "collected". The mirror's camera picture is shown live and never stored or sent → not "collected". No tracking.
 
-**Review notes** (App Store Connect → the version → App Review Information → Notes; ready to paste, about 2,600
-characters of the 4,000 allowed):
+**Review notes** (App Store Connect → the version → App Review Information → Notes; ready to paste, about 3,600
+characters of the 4,000 allowed; in App Store Connect since 2026-10-19):
 
 > FaceRep is a facial exercise app with no account. It follows the iPhone's language (English, Spanish, Portuguese
 > (Brazil), German, French, Italian); Settings > Language opens the per-app language page.
@@ -128,8 +84,11 @@ characters of the 4,000 allowed):
 > FREE AND PREMIUM: a set of exercises, days 1 to 3 of the weekly workouts, 3 AI Coach answers a month and 3 face scans
 > are free. Premium (weekly, monthly or yearly; only yearly has a 1-week free trial) unlocks every exercise, every day of
 > the weekly workouts, unlimited Coach answers and unlimited face scans. The paywall opens from Settings > Get Premium,
-> from a locked exercise (Exercises tab), from the Coach after its free answers, and from Progress > Face scan after 3
-> scans. Restore is on the paywall and in Settings.
+> from a locked day (on Today tap "Week 1 · Day 1": Days 4 to 7 show locked, with "Unlock Day 4"), from a locked
+> exercise (Exercises tab), from the Coach after its free answers, and from Progress > Face scan after 3 scans. After a
+> purchase the Premium exercises download from our server (progress on the Today card); then every exercise opens and
+> the week page shows every day's exercises. A new day starts the day after a workout, so Day 4's workout itself starts
+> only after three days of workouts. Restore is on the paywall and in Settings.
 >
 > AI COACH: answers come from the Google Gemini API, with Cloudflare Workers AI as a backup. A consent screen names both
 > before the first question; Settings > Allow AI Coach turns it off. No account, name or IP address goes to the AI.
@@ -138,8 +97,8 @@ characters of the 4,000 allowed):
 > - Workout mirror: the person button in the workout player shows the camera next to the exercise drawing. Live preview.
 > - Move check: on iPhones with face tracking, the mirror uses ARKit on the device to show whether it sees the
 >   exercise's movement (try Brow Lift). Face data is processed in real time and discarded.
-> - Face scan (Progress > Face scan, or the card on Today): a 35-second guided scan with ARKit face tracking on the
->   device. It measures how far six facial movements go (raise eyebrows, squint, smile, pucker, open mouth, puff cheeks)
+> - Face scan (Progress > Face scan, or the card on Today; iPhone X or later): a guided scan of about 30 seconds with
+>   ARKit face tracking on the device. It measures how far six facial movements go (raise eyebrows, squint, smile, pucker, open mouth, puff cheeks)
 >   and how evenly the left and right side move, compared with the user's own relaxed face. It does not measure face
 >   shape, looks or age and is not a medical test; "How it's measured" explains the method. Only these numbers are
 >   saved, on the iPhone. Optional progress photo: asked once with its own buttons; if allowed, one photo of the relaxed
@@ -150,10 +109,26 @@ characters of the 4,000 allowed):
 > identify anyone, and never used for advertising, marketing or data mining. FaceRep is not an AR app: ARKit only reads
 > movement. In the Simulator the scan plays a pretend face; on an iPhone it uses the camera.
 >
-> OTHER: the face map (Exercises tab > Face map) is the app's own drawing; no photo of the user is used. Exercise videos
-> are made from the drawings. Reminders are local notifications (Settings > Reminders; permission is asked when one is
-> turned on). The Coach can propose a reminder change or a short routine; nothing changes or starts until the user taps
+> SOUND: Settings > Sound cues (or the speaker button in the workout player) switches between voice, beeps and off.
+> Sounds play only while the app is open (no background audio). FaceRep never asks for the microphone: its purpose
+> string is there only because the camera and audio libraries can record sound.
+>
+> OTHER: the face map (Exercises tab) is the app's own drawing; no photo of the user is used. Exercise videos are made
+> from the drawings. Reminders are local notifications (Settings > Reminders; permission is asked when one is turned
+> on). The Coach can propose a reminder change or a short routine; nothing changes or starts until the user taps
 > Confirm or Start. The exercise pictures can show a man or a woman (display only, Settings > Exercise pictures).
+
+**Subscription review note** (the same on Weekly, Monthly and Yearly: App Store Connect → Subscriptions → each plan →
+Review Information; in App Store Connect since 2026-10-19). The subscriptions' public description is in
+docs/store-listing.md.
+
+> Premium unlocks every exercise, every day of the weekly workouts, unlimited AI Coach answers and unlimited face
+> scans. Free users get a set of exercises, days 1 to 3 of the weekly workouts, 3 Coach answers a month and 3 face
+> scans. The paywall opens from Settings > Get Premium, from a locked day (on Today tap "Week 1 · Day 1", then "Unlock
+> Day 4"), from a locked exercise in the Exercises tab, from the Coach after its free answers, and from Progress > Face
+> scan after 3 scans. After the purchase the Premium exercises download (progress on the Today card). Restore is on the
+> paywall and in Settings. No account or sign-in is needed. Weekly, Monthly and Yearly are in one group; only Yearly
+> has a 1-week free trial.
 
 ## 7. Keeping the developer account safe
 Accounts get terminated for: hidden features or server switches that change the app after review, fake reviews or rating manipulation, bait-and-switch or confusing subscriptions, copying other apps or names, misleading health claims.
