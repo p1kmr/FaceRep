@@ -79,6 +79,8 @@ export interface Exercise {
   jawCaution?: boolean;
   /** Done with the fingers (massage or light resistance): show the clean-hands / recent-treatment caution. */
   handsOn?: boolean;
+  /** Done on one side at a time: the player mirrors the drawing on every second rep. */
+  alternatesSides?: boolean;
 }
 
 export const EXERCISES: Record<ExerciseId, Exercise> = {
@@ -86,7 +88,7 @@ export const EXERCISES: Record<ExerciseId, Exercise> = {
   '02-chin-lift': { id: '02-chin-lift', program: 'jawline', key: 'chinLift', muscles: ['platysma'], reps: 10, holdSec: 5, relaxSec: 3 },
   '03-jaw-jut': { id: '03-jaw-jut', program: 'jawline', key: 'jawJut', muscles: ['platysma', 'mentalis'], reps: 10, holdSec: 5, relaxSec: 3, jawCaution: true },
   '04-mewing': { id: '04-mewing', program: 'jawline', key: 'mewing', muscles: ['tongue'], reps: 4, holdSec: 20, relaxSec: 5 },
-  '05-neck-stretch': { id: '05-neck-stretch', program: 'jawline', key: 'neckStretch', muscles: ['neck'], reps: 6, holdSec: 8, relaxSec: 3 },
+  '05-neck-stretch': { id: '05-neck-stretch', program: 'jawline', key: 'neckStretch', muscles: ['neck'], reps: 6, holdSec: 8, relaxSec: 3, alternatesSides: true },
   '11-chin-tuck': { id: '11-chin-tuck', program: 'jawline', key: 'chinTuck', muscles: ['deepNeck'], reps: 10, holdSec: 5, relaxSec: 3 },
   '12-tongue-press': { id: '12-tongue-press', program: 'jawline', key: 'tonguePress', muscles: ['underChin', 'tongue'], reps: 10, holdSec: 5, relaxSec: 3 },
   '06-cheek-lift': { id: '06-cheek-lift', program: 'cheekbones', key: 'cheekLift', muscles: ['zygomaticus'], reps: 12, holdSec: 5, relaxSec: 3 },

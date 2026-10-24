@@ -11,14 +11,18 @@ interface PlayerFigureProps {
   preview: boolean;
   paused: boolean;
   label: string;
+  /** The other side (alternating exercises, every second rep): the drawings are mirrored. */
+  mirrored?: boolean;
 }
+
+const MIRRORED = { transform: [{ scaleX: -1 }] };
 
 /**
  * The figure in the workout player. Before each exercise its clip plays (when it has one); during the reps the two
  * drawings switch in time with the counter, because a clip has a fixed timing (docs/videos.md).
  */
-export function PlayerFigure({ id, squeeze, preview, paused, label }: PlayerFigureProps) {
+export function PlayerFigure({ id, squeeze, preview, paused, label, mirrored }: PlayerFigureProps) {
   const clip = useExerciseClip(id);
   if (preview && clip) return <ExerciseClip key={id} id={id} clip={clip} label={label} paused={paused} fill />;
-  return <ExerciseFrames id={id} squeeze={squeeze} label={label} fill />;
+  return <ExerciseFrames id={id} squeeze={squeeze} label={label} fill style={mirrored ? MIRRORED : undefined} />;
 }

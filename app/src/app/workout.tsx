@@ -268,6 +268,7 @@ export default function WorkoutScreen() {
               preview={state.phase === 'ready' || state.phase === 'rest'}
               paused={state.paused}
               label={`${name}, ${phaseLabel}`}
+              mirrored={!!e.alternatesSides && state.rep % 2 === 0}
             />
           }
           mirror={
