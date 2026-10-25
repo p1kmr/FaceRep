@@ -26,11 +26,11 @@ Nothing leaves the iPhone at any step. The photo is dropped after reading unless
 | Vision `VNRecognizeTextRequest` / `RecognizeTextRequest` | 13+ / 18+ | Accurate mode, language hints, a confidence and a box per line (for the highlights). Covers the six FaceRep languages plus Japanese and Korean; check `supportedRecognitionLanguages()` at runtime |
 | Vision `RecognizeDocumentsRequest` | 26+ | Reads documents as structure (paragraphs, tables, lists); made for receipts and nutrition labels; 26 languages |
 | VisionKit `DataScannerViewController` | 16+ | Live text in the camera view; "point at the box" |
-| `@zhanziyang/expo-text-extractor` (community) | | Vision on iOS, Google ML Kit on Android; fine for a first prototype |
+| `expo-text-extractor` 2.0 (community) | | Vision on iOS, Google ML Kit on Android; plain text lines only, fine for a first prototype |
 
-Long term, a small Swift Expo module like FaceRep's `modules/face-tracking` is better: Apple's frameworks only, no Google
-ML Kit, no unknown maintainer. **Never** upload the photo or use cloud text reading in version 1 (5.1.2(i), GDPR
-Article 9, and the privacy promise).
+For the check screen's highlights (a box and a confidence per line), a small Swift Expo module like FaceRep's
+`modules/face-tracking` is needed (react-native.md). **Never** upload the photo or use cloud text reading in version 1
+(5.1.2(i), GDPR Article 9, and the privacy promise).
 
 ## 3. Finding the fields
 - **Rules first** (same result on every iPhone, easy to test). Patterns per language:
@@ -76,7 +76,7 @@ FaceRep already uses expo-camera, whose barcode scanner reads DataMatrix and QR 
 
 | FaceRep | In the medicine app |
 |---|---|
-| Expo SDK 57, Expo Router, strict TypeScript, the state / hooks / services split (docs/architecture.md) | The same |
+| Expo SDK 57, Expo Router, strict TypeScript, the state / hooks / services split (docs/architecture.md) | The same, on Expo SDK 58 (react-native.md) |
 | `services/db` (SQLite and migrations) | Medicines, schedules, dose log |
 | `services/reminders`, `services/notifications` | The base of the engine (§5) |
 | `modules/face-tracking` (a Swift Expo module) | The pattern for the Vision, Foundation Models and HealthKit module |
@@ -96,7 +96,7 @@ FaceRep already uses expo-camera, whose barcode scanner reads DataMatrix and QR 
 ## Sources
 - [RecognizeDocumentsRequest](https://developer.apple.com/documentation/vision/recognizedocumentsrequest),
   [VNRecognizeTextRequest recognitionLanguages](https://developer.apple.com/documentation/vision/vnrecognizetextrequest/recognitionlanguages),
-  [@zhanziyang/expo-text-extractor](https://www.jsdelivr.com/package/npm/@zhanziyang/expo-text-extractor)
+  [expo-text-extractor](https://www.npmjs.com/package/expo-text-extractor)
 - [Foundation Models overview (Cult of Mac)](https://www.cultofmac.com/news/apple-foundation-models-framework),
   [guided generation guide](https://www.atelier-socle.com/en/articles/foundation-models-api-guide)
 - [RxNav terms of service](https://lhncbc.nlm.nih.gov/RxNav/TermsofService.html),

@@ -51,8 +51,8 @@ ratings, hidden features); this file adds what a medicine app changes.
 5. **Accessibility Nutrition Labels:** declare only what's really supported (VoiceOver, Larger Text, Dark Interface,
    Sufficient Contrast, Reduced Motion). For older users this is a store-page selling point.
 6. **Permission texts** in all six languages: camera (scan), notifications, Health read (`NSHealthShareUsageDescription`,
-   only with the import), AlarmKit (`NSAlarmKitUsageDescription`, only with alarm mode). No Photos text: the picker
-   doesn't need one.
+   only with the import), AlarmKit (`NSAlarmKitUsageDescription`, only with alarm mode). The photo picker never asks for
+   permission, but expo-image-picker's plugin still writes a Photos purpose string, so translate it too.
 7. **Review notes:** it's a reminder the person sets up, not a medical device; labels are read on the iPhone and
    confirmed; steps to reach every feature. Ship a **sample label** in the app ("Try with a sample"): reviewers may have
    no medicines at hand, and the Simulator screenshots can use it (like FaceRep's stand-in camera).

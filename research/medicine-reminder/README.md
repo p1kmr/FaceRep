@@ -10,6 +10,7 @@ into the new app's repository once it exists.
 | [apple-rules.md](apple-rules.md) | The App Review guidelines and App Store Connect steps this idea touches |
 | [laws-and-safety.md](laws-and-safety.md) | Medical-device rules (US, EU, UK), health-data privacy laws, safety rules for the design |
 | [scan-tech.md](scan-tech.md) | How the scan should work, label formats per country, the Expo build plan, what to reuse from FaceRep |
+| [react-native.md](react-native.md) | Building it in React Native (Expo SDK 58): a package for each feature, what to test first, Android later |
 | [keywords-countries.md](keywords-countries.md) | Keywords per language from App Store autocomplete, country ranking, launch order |
 
 ## 1. The short answer
