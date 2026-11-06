@@ -34,11 +34,11 @@ iPhone app ── purchase/restore (react-native-purchases, public appl_ key) �
 ## 2. App side
 | File | Role |
 |---|---|
-| `services/purchases/purchases.ts` | **The only file that imports `react-native-purchases`.** Public key `EXPO_PUBLIC_RC_IOS_KEY` (via `constants/config.ts`); entitlement `premium`. |
-| `services/purchases/plans.ts` | Store-neutral plans (`$rc_weekly`, `$rc_monthly`, `$rc_annual`), which ones to show, fallback prices, free-trial days, "Save X%" (yearly vs monthly). |
+| `services/purchases/purchases.ts` | **The only file that imports `react-native-purchases`.** Public key `EXPO_PUBLIC_RC_IOS_KEY` (via `constants/config.ts`); entitlement `premium`. `fetchPlans` keeps a plan's free trial only when StoreKit says this buyer can still get it (`checkTrialOrIntroductoryPriceEligibility`). |
+| `services/purchases/plans.ts` | Store-neutral plans (`$rc_weekly`, `$rc_monthly`, `$rc_annual`), which ones to show, fallback prices, free-trial days, which trials to keep (`keepEligibleIntros`), "Save X%" (yearly vs monthly). |
 | `state/premium/*` | Reducer: `ready`, `isPremium`, `plans`, `appUserId`, `aiUsage`. Tests in `__tests__/reducer.test.ts`. |
 | `state/premium/PremiumProvider.tsx` | Single-flight init. **Always ends with `ready`**, even offline; failures leave the user on Free. |
-| `hooks/usePremium.ts`, `hooks/usePaywall.ts` | What screens read; plan cards, buy, restore, double-tap guard. |
+| `hooks/usePremium.ts`, `hooks/usePaywall.ts` | What screens read; plan cards, buy, restore, double-tap guard. The paywall loads the plans again each time it opens (the one load at launch can fail), and Buy tries once more before saying "not available". |
 | `components/paywall/PaywallView.tsx` | Price, period, trial and auto-renew text next to the button; Restore, Terms (Apple EULA via our page) and Privacy links. |
 
 Rules
@@ -138,6 +138,8 @@ Status codes the app understands (`app/src/services/ai/client.ts`): 429 `rateLim
 - The App Store Connect product IDs must be exactly `facerep_premium_weekly`, `facerep_premium_monthly` and
   `facerep_premium_yearly`.
 - Prices and "Save X%" come from the store; `FALLBACK_PRICES` only show while loading and never claim a trial.
+- The trial line shows only to buyers StoreKit says can still get the trial (Apple gives it once per subscription
+  group). Everyone else sees the regular price, which is what Apple's payment sheet charges them.
 
 ## 7. Known limits
 - No cross-device sync of workout history (on-device by design); Premium moves with Restore.

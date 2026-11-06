@@ -1,4 +1,14 @@
-import { EMPTY_PLANS, PLAN_PERIOD, freeTrialDays, visiblePlanIds, yearlySavePercent, type StorePlan, type StorePlans } from '../plans';
+import {
+  EMPTY_PLANS,
+  PLAN_PERIOD,
+  freeTrialDays,
+  keepEligibleIntros,
+  visiblePlanIds,
+  yearlySavePercent,
+  type PlanId,
+  type StorePlan,
+  type StorePlans,
+} from '../plans';
 
 const plans = (p: Partial<StorePlans>): StorePlans => ({ ...EMPTY_PLANS, ...p });
 
@@ -18,6 +28,22 @@ describe('plans', () => {
     expect(freeTrialDays({ price: 0, periodUnit: 'WEEK', periodNumberOfUnits: 1, cycles: 1 })).toBe(7);
     expect(freeTrialDays({ price: 0.99, periodUnit: 'WEEK', periodNumberOfUnits: 1, cycles: 1 })).toBeNull();
     expect(freeTrialDays(null)).toBeNull();
+  });
+
+  it('keeps a free trial only for buyers Apple will still give it to', () => {
+    const trial = { price: 0, periodUnit: 'WEEK', periodNumberOfUnits: 1, cycles: 1 };
+    const all = plans({ weekly: plan('weekly', 1.99), monthly: plan('monthly', 3.99), yearly: { ...plan('yearly', 29.99), intro: trial } });
+    expect(keepEligibleIntros(all, new Set<PlanId>(['yearly'])).yearly?.intro).toEqual(trial);
+    // Already had the trial, or StoreKit can't tell: the paywall shows the regular price.
+    const ineligible = keepEligibleIntros(all, new Set<PlanId>());
+    expect(ineligible.yearly?.intro).toBeNull();
+    expect(freeTrialDays(ineligible.yearly?.intro ?? null)).toBeNull();
+    expect(ineligible.yearly?.price).toBe(29.99);
+    expect(all.yearly?.intro).toEqual(trial); // the store's plans aren't changed
+    // Plans without a trial pass through untouched.
+    expect(ineligible.weekly).toBe(all.weekly);
+    expect(ineligible.monthly).toBe(all.monthly);
+    expect(keepEligibleIntros(EMPTY_PLANS, new Set<PlanId>())).toEqual(EMPTY_PLANS);
   });
 
   it('computes the yearly saving from live prices', () => {

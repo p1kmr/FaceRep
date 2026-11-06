@@ -39,6 +39,19 @@ export const FALLBACK_PRICES: Record<PlanId, string> = {
 };
 
 /**
+ * Apple gives an introductory offer (the free trial) only once per subscription group. Keep a plan's offer only
+ * when StoreKit confirmed this buyer can still get it, so the paywall never promises a trial that Apple's payment
+ * sheet won't give (3.1.2). "Can't tell" counts as no, as RevenueCat advises.
+ */
+export function keepEligibleIntros(plans: StorePlans, eligible: ReadonlySet<PlanId>): StorePlans {
+  const keep = (id: PlanId): StorePlan | null => {
+    const plan = plans[id];
+    return plan?.intro && !eligible.has(id) ? { ...plan, intro: null } : plan;
+  };
+  return { weekly: keep('weekly'), monthly: keep('monthly'), yearly: keep('yearly') };
+}
+
+/**
  * The plans to show. While loading, or when the store gave nothing (offline, no key), all of them with fallback
  * prices (buying then says "not available"). Once the store answered, only plans it really sells: a plan whose
  * product isn't set up in App Store Connect yet (e.g. weekly) is hidden instead of failing on tap.

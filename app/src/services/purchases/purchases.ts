@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import Purchases, {
+  INTRO_ELIGIBILITY_STATUS,
   LOG_LEVEL,
   type CustomerInfo,
   type PurchasesOffering,
@@ -8,7 +9,7 @@ import Purchases, {
 
 import { CONFIG } from '@/constants/config';
 
-import { EMPTY_PLANS, type PlanId, type StorePlan, type StorePlans } from './plans';
+import { EMPTY_PLANS, keepEligibleIntros, PLAN_IDS, type PlanId, type StorePlan, type StorePlans } from './plans';
 
 // The ONLY file that imports react-native-purchases (see docs/architecture.md).
 // Public SDK key only (appl_...). Secret RevenueCat keys must never ship in the app.
@@ -65,9 +66,29 @@ export function mapOffering(offering: PurchasesOffering | null): StorePlans {
   };
 }
 
+/** True once RevenueCat is set up (the store calls below need it). */
+export function isPurchasesConfigured(): boolean {
+  return configured;
+}
+
+/** The plans whose intro offer (the free trial) StoreKit says this buyer can still get. */
+async function introEligiblePlans(plans: StorePlans): Promise<Set<PlanId>> {
+  const withIntro = PLAN_IDS.filter((id) => plans[id]?.intro);
+  if (withIntro.length === 0) return new Set();
+  const productId = (id: PlanId) => (plans[id]?.pkg as PurchasesPackage).product.identifier;
+  try {
+    const result = await Purchases.checkTrialOrIntroductoryPriceEligibility(withIntro.map(productId));
+    const eligible = INTRO_ELIGIBILITY_STATUS.INTRO_ELIGIBILITY_STATUS_ELIGIBLE;
+    return new Set(withIntro.filter((id) => result[productId(id)]?.status === eligible));
+  } catch {
+    return new Set(); // can't tell: show the regular price, never a trial Apple may not give
+  }
+}
+
 export async function fetchPlans(): Promise<StorePlans> {
   const offerings = await Purchases.getOfferings();
-  return mapOffering(offerings.current ?? null);
+  const plans = mapOffering(offerings.current ?? null);
+  return keepEligibleIntros(plans, await introEligiblePlans(plans));
 }
 
 export async function fetchIsPremium(): Promise<boolean> {

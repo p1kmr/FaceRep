@@ -1,11 +1,25 @@
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 
 import { haptics } from '@/services/haptics';
-import { FALLBACK_PRICES, freeTrialDays, visiblePlanIds, yearlySavePercent, type PlanId } from '@/services/purchases/plans';
-import { isUserCancelled, purchasePlan, restorePurchases } from '@/services/purchases/purchases';
-import { setPremium } from '@/state/premium/actions';
+import {
+  FALLBACK_PRICES,
+  freeTrialDays,
+  PLAN_IDS,
+  visiblePlanIds,
+  yearlySavePercent,
+  type PlanId,
+  type StorePlans,
+} from '@/services/purchases/plans';
+import {
+  fetchPlans,
+  isPurchasesConfigured,
+  isUserCancelled,
+  purchasePlan,
+  restorePurchases,
+} from '@/services/purchases/purchases';
+import { setPlans, setPremium } from '@/state/premium/actions';
 
 import { usePremium, usePremiumDispatch } from './usePremium';
 
@@ -26,6 +40,25 @@ export function usePaywall(onSuccess: () => void) {
   const { plans, ready } = usePremium();
   const dispatch = usePremiumDispatch();
   const [busy, setBusy] = useState(false);
+  const [reloading, setReloading] = useState(true); // until the refresh below finishes
+
+  /** Loads the plans again: the single load at launch can fail (slow network, an App Store hiccup). */
+  const reloadPlans = useCallback(async (): Promise<StorePlans | null> => {
+    if (!isPurchasesConfigured()) return null;
+    try {
+      const fresh = await fetchPlans();
+      if (PLAN_IDS.some((id) => fresh[id])) dispatch(setPlans(fresh)); // never replace loaded plans with nothing
+      return fresh;
+    } catch {
+      return null;
+    }
+  }, [dispatch]);
+
+  // Each time the paywall opens: brings back plans that failed at launch and keeps trial eligibility current.
+  useEffect(() => {
+    if (!ready) return;
+    reloadPlans().finally(() => setReloading(false));
+  }, [ready, reloadPlans]);
 
   const cards = useMemo<PlanCard[]>(() => {
     const save = yearlySavePercent(plans);
@@ -62,13 +95,13 @@ export function usePaywall(onSuccess: () => void) {
 
   const buy = async (id: PlanId) => {
     if (busy) return;
-    const plan = plans[id];
-    if (!plan) {
-      Alert.alert(t('errors.unavailableTitle'), t('errors.unavailable'));
-      return;
-    }
     setBusy(true);
     try {
+      const plan = plans[id] ?? (await reloadPlans())?.[id] ?? null; // one more try before giving up
+      if (!plan) {
+        Alert.alert(t('errors.unavailableTitle'), t('errors.unavailable'));
+        return;
+      }
       if (await purchasePlan(plan)) succeed();
     } catch (err) {
       if (!isUserCancelled(err)) Alert.alert(t('errors.failedTitle'), (err as Error)?.message ?? '');
@@ -94,5 +127,6 @@ export function usePaywall(onSuccess: () => void) {
     }
   };
 
-  return { cards, loading: !ready, busy, buy, restore };
+  const anyPlan = PLAN_IDS.some((id) => plans[id]);
+  return { cards, loading: !ready || (reloading && !anyPlan), busy, buy, restore };
 }

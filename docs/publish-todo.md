@@ -26,7 +26,7 @@ Re-check before acting: from the repo root run
 | What | Value |
 |---|---|
 | ASC app / bundle ID | `6820638812` / `com.p1kmr.facerep` |
-| ASC version 1.0 | `7edc84f2-a25e-4553-a918-45a254d06399` (PREPARE_FOR_SUBMISSION, phased release configured) |
+| ASC version 1.0 | `7edc84f2-a25e-4553-a918-45a254d06399` (build 14; WAITING_FOR_REVIEW since 2026-11-04, submission `49e28104-622e-42f7-a633-c98bfd9af5d3`; phased release configured) |
 | Version 1.0 localizations | en-US `07839324-ea48-4b9a-9229-0af73cccfde4`, es-MX `0a068905-8d81-473f-9453-bdf9c9d00b70`, es-ES `0a5145c4-eb36-4461-a655-3a0a4d662852`, pt-BR `20db9926-93f5-4fc8-9559-87e8847cc262`, de-DE `f3cbd978-3363-45c8-b877-110196d94a88`, fr-FR `c06b0f6f-9b5a-4fde-aa7e-3936b1a6b3b0`, it `73135207-7e51-4577-b8ba-21ff32ffb9e2` |
 | App info | `124df349-ee60-4ba4-b8f6-7e1ad6e1f720` |
 | Subscription group "FaceRep Premium" | `22455499`, group version `136d3d83-aafb-49ec-8cfd-de076058c98e` |
@@ -323,7 +323,7 @@ then shown to the owner):
       → Regulations and Permits → "Is this app a regulated medical device?" → **No** (FaceRep is fitness and wellness,
       not medical). The asc web session can also set it: `./.tools/asc web apps medical-device set --app 6820638812
       --declared false`, but only with the owner's OK, because it is a legal declaration.
-- [ ] **Subscriptions on the 1.0 page:** version 1.0 → "In-App Purchases and Subscriptions" → select Premium Weekly,
+- [x] **Subscriptions on the 1.0 page:** all three went in with the 2026-11-04 submission (§5). Was: version 1.0 → "In-App Purchases and Subscriptions" → select Premium Weekly,
       Monthly and Yearly. Without them the reviewer can't buy Premium and the app is rejected.
       On 2026-10-10 `./.tools/asc web review subscriptions attach` refused all three: the website side reports them as
       MISSING_METADATA, while the public API and RevenueCat say READY_TO_SUBMIT, with every field filled in (7 languages,
@@ -338,7 +338,7 @@ then shown to the owner):
       Done by the owner on 2026-10-19: RevenueCat shows Premium Weekly bought in the sandbox from the iPhone at 15:09 IST
       (Premium active; TestFlight renews it every day). The only other Premium is a 3-day promotional grant to a
       Simulator ID (ends 2026-10-21).
-- [ ] **Submit:** only the owner presses "Add for Review" and then "Submit to App Review".
+- [x] **Submit:** done by the owner on 2026-11-04 (§5).
 
 ## 4. Account checks (owner, App Store Connect web)
 - [x] **Paid Apps Agreement, tax and banking** are active in Business. They are needed for subscriptions. Apple updated
@@ -350,8 +350,23 @@ then shown to the owner):
       Information → App Store Server Notifications, for both production and sandbox.
 
 ## 5. Submit (owner only, never an AI)
-- [ ] After §3b: the owner checks the summary on the 1.0 page and submits. After approval: release (if manual), then watch RevenueCat and the
-      Worker logs.
+- [x] The owner submitted on 2026-11-04: one submission (`49e28104-622e-42f7-a633-c98bfd9af5d3`, 5 items) with 1.0
+      (build 14), Premium Weekly, Monthly and Yearly, and the group. Still WAITING_FOR_REVIEW on 2026-11-07.
+- [ ] After approval: release (if manual), then watch RevenueCat and the Worker logs. Then §6.
+
+## 6. Next build (15): the paywall fix
+On `main` after build 14 (2026-11-07). The paywall shows Yearly's 1-week free trial only when StoreKit says the buyer
+can still get it (Apple gives it once per subscription group); everyone else sees Continue and the regular price. It
+also loads the plans again each time it opens, and Buy tries once more before "not available". Build 14 shows the
+trial to everyone and loads the plans only at launch, so a failed load there ends in an error on Buy.
+- [ ] Leave build 14 in review: swapping the build means cancelling the submission and going to the back of the queue.
+- [ ] If Apple rejects build 14: build 15 from `main`, attach it to 1.0 and reply in App Store Connect.
+- [ ] If Apple approves: release 1.0, then a new version 1.0.1 with build 15 (`version` in `app/app.json` to 1.0.1
+      first; the build number counts up by itself).
+- [ ] Test before submitting: an account that already had the trial sees Continue and the regular Yearly price; a
+      new sandbox account sees "Start free trial", and Apple's sheet says 1 week free.
+- [ ] With build 15: the new last sentence of FREE AND PREMIUM in the review notes (docs/launch.md §6). If the
+      subscriptions are reviewed again, the new end of their review note too.
 
 ## Not needed for 1.0
 - Product Page Optimization tests, Custom Product Pages (the women-focused page in docs/launch.md §3 can come later),

@@ -38,6 +38,9 @@ updated by Apple on **October 16, 2026**, checked against FaceRep on 2026-10-18.
   goes in the Terms only.
 - Weekly shows only its billed price. "Save X%" compares yearly with monthly, never with weekly.
 - "Free trial" means only the App Store's subscription trial. Days 1 to 3 are "free", never a "trial".
+- The trial line shows only when StoreKit says this buyer can still get the trial (Apple gives it once per
+  subscription group; `fetchPlans` checks it, and "can't tell" counts as no). Everyone else sees the regular price and
+  Continue, so the paywall never promises a trial that Apple's payment sheet won't give.
 - A new paid feature means:
   - list it under PREMIUM in docs/store-listing.md;
   - describe it in the review notes, with steps to reach it;
@@ -182,7 +185,7 @@ read with `./.tools/asc` in read-only mode. What the owner still has to do, in o
 | 2.4.1 iPad | works in an iPhone window | iPhone-only; still to check on an iPad ⚠️ |
 | 2.5.2, 2.5.19 downloads, hidden features | media only, nothing hidden | The Premium download is texts, drawings and clips; there are no debug menus or server switches ✅ |
 | 2.5.14 recording | consent and an indicator | The mirror is a preview only; iOS asks first and shows the camera dot ✅. The scan's photo needs a yes first and shows "Photo saved on this iPhone" when taken ✅ |
-| 3.1.1, 3.1.2 subscriptions | in-app purchase; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`. Its trial line comes from the App Store offer, so it follows App Store Connect ✅ |
+| 3.1.1, 3.1.2 subscriptions | in-app purchase; price, period, trial, renewal, Restore, Terms, Privacy | `PaywallView`. Its trial line comes from the App Store offer, and only for buyers StoreKit says can still get the trial, so it matches Apple's payment sheet ✅ |
 | 3.1.2(a) ongoing value | keeps giving value | Every day and exercise, the unlimited Coach and unlimited face scans ✅ |
 | 4.2.1 ARKit | rich AR, not a model in a view | ARKit only reads movement, for the move check and the face scan; FaceRep isn't an AR app. Say so in the review notes ✅ |
 | 4.2.3 downloads | nothing required at first launch | The free part is in the app; the Premium download (about 9 MB) comes after purchase ✅ |
