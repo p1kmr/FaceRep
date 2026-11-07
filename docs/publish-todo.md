@@ -26,7 +26,7 @@ Re-check before acting: from the repo root run
 | What | Value |
 |---|---|
 | ASC app / bundle ID | `6820638812` / `com.p1kmr.facerep` |
-| ASC version 1.0 | `7edc84f2-a25e-4553-a918-45a254d06399` (build 14; WAITING_FOR_REVIEW since 2026-11-04, submission `49e28104-622e-42f7-a633-c98bfd9af5d3`; phased release configured) |
+| ASC version 1.0 | `7edc84f2-a25e-4553-a918-45a254d06399` (build 15; WAITING_FOR_REVIEW since 2026-11-07, submission `52452456-62d6-4379-9d07-e32a0d9f8921`; phased release configured) |
 | Version 1.0 localizations | en-US `07839324-ea48-4b9a-9229-0af73cccfde4`, es-MX `0a068905-8d81-473f-9453-bdf9c9d00b70`, es-ES `0a5145c4-eb36-4461-a655-3a0a4d662852`, pt-BR `20db9926-93f5-4fc8-9559-87e8847cc262`, de-DE `f3cbd978-3363-45c8-b877-110196d94a88`, fr-FR `c06b0f6f-9b5a-4fde-aa7e-3936b1a6b3b0`, it `73135207-7e51-4577-b8ba-21ff32ffb9e2` |
 | App info | `124df349-ee60-4ba4-b8f6-7e1ad6e1f720` |
 | Subscription group "FaceRep Premium" | `22455499`, group version `136d3d83-aafb-49ec-8cfd-de076058c98e` |
@@ -350,23 +350,33 @@ then shown to the owner):
       Information → App Store Server Notifications, for both production and sandbox.
 
 ## 5. Submit (owner only, never an AI)
-- [x] The owner submitted on 2026-11-04: one submission (`49e28104-622e-42f7-a633-c98bfd9af5d3`, 5 items) with 1.0
-      (build 14), Premium Weekly, Monthly and Yearly, and the group. Still WAITING_FOR_REVIEW on 2026-11-07.
-- [ ] After approval: release (if manual), then watch RevenueCat and the Worker logs. Then §6.
+- [x] Submitted by the owner on 2026-11-07 (20:28 IST) with the asc CLI (§6): submission
+      `52452456-62d6-4379-9d07-e32a0d9f8921`, 5 items: 1.0 (build 15), Premium Weekly, Monthly and Yearly, and the
+      group. It replaces the 2026-11-04 submission with build 14 (`49e28104…`), taken out of review for it.
+- [ ] After approval: release (manual), then watch RevenueCat and the Worker logs.
+- [ ] After release, open the paywall from the App Store with an Indian account: it should show ₹ prices, like Apple's
+      sheet. In TestFlight (2026-11-07) the paywall showed the $ prices StoreKit gave the app, while Apple's sheet
+      charged ₹199 a week and ₹2,999 a year. The app shows StoreKit's price text as it is.
 
-## 6. Next build (15): the paywall fix
-On `main` after build 14 (2026-11-07). The paywall shows Yearly's 1-week free trial only when StoreKit says the buyer
-can still get it (Apple gives it once per subscription group); everyone else sees Continue and the regular price. It
-also loads the plans again each time it opens, and Buy tries once more before "not available". Build 14 shows the
-trial to everyone and loads the plans only at launch, so a failed load there ends in an error on Buy.
-- [ ] Leave build 14 in review: swapping the build means cancelling the submission and going to the back of the queue.
-- [ ] If Apple rejects build 14: build 15 from `main`, attach it to 1.0 and reply in App Store Connect.
-- [ ] If Apple approves: release 1.0, then a new version 1.0.1 with build 15 (`version` in `app/app.json` to 1.0.1
-      first; the build number counts up by itself).
-- [ ] Test before submitting: an account that already had the trial sees Continue and the regular Yearly price; a
-      new sandbox account sees "Start free trial", and Apple's sheet says 1 week free.
-- [ ] With build 15: the new last sentence of FREE AND PREMIUM in the review notes (docs/launch.md §6). If the
-      subscriptions are reviewed again, the new end of their review note too.
+## 6. Build 15: the paywall fix
+Build 1.0.0 (15) from `main` at `5440a78` (EAS build `6bd41b88`, ASC build `ddba497e-b74f-4c0b-a017-22434ea4932d`),
+VALID and in the internal TestFlight group since 2026-11-07. The paywall shows Yearly's 1-week free trial only when
+StoreKit says the buyer can still get it (Apple gives it once per subscription group); everyone else sees Continue and
+the regular price. It also loads the plans again each time it opens, and Buy tries once more before "not available".
+- [x] Attached to 1.0 and submitted (§5) with these asc commands from the repo root: `review submissions-cancel --id
+      <old> --confirm`, `versions attach-build --version-id <1.0> --build-id <build>`, `review submissions-create
+      --app 6820638812 --platform IOS`, `review items-add` for the version, the group version and the three
+      subscription versions (IDs above), then `review submissions-submit --id <new> --confirm`. A cancelled
+      submission doesn't come back as a draft (its items show REMOVED), so it needs a new one.
+- [x] Review notes: the new last sentence of FREE AND PREMIUM (docs/launch.md §6), in App Store Connect since 2026-11-07.
+- [x] Tested by the owner on the iPhone (TestFlight, 2026-11-07): Yearly's paywall says "Start free trial" and 7 days
+      free, and Apple's sheet says 1-week free trial, then ₹2,999 per year; Weekly shows no trial on either. StoreKit
+      still offers this account the trial (it bought Weekly in October), so the "already had it" case (Continue, no
+      trial line) is covered only by the unit test.
+- [ ] The subscriptions' review note went in without its new end (docs/launch.md §6). It's true without it; add it
+      only if Apple asks about the trial.
+- The 1.0 review videos are in `~/personal/facerep-review-videos`, outside the repo: EAS uploads untracked files with
+  the build.
 
 ## Not needed for 1.0
 - Product Page Optimization tests, Custom Product Pages (the women-focused page in docs/launch.md §3 can come later),

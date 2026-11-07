@@ -75,9 +75,8 @@ The rule-by-rule status, the checklist for every new feature and the automatic c
 
 **App Privacy labels:** User ID (not linked to identity), Purchases (App Functionality), Other User Content (Coach questions and the reminder names/times sent with them, processed but not stored; declare to be safe), Fitness (the streak and workouts in the last 7 days sent with each Coach question; same reason). All Not linked, App Functionality. Workout history and reminders stay on device → not "collected". The mirror's camera picture is shown live and never stored or sent → not "collected". No tracking.
 
-**Review notes** (App Store Connect → the version → App Review Information → Notes; ready to paste, about 3,850
-characters of the 4,000 allowed; in App Store Connect since 2026-10-19, except the free-trial sentence at the end of
-FREE AND PREMIUM, which goes in with the next build: docs/publish-todo.md §6):
+**Review notes** (App Store Connect → the version → App Review Information → Notes; ready to paste, 3,825
+characters of the 4,000 allowed; in App Store Connect as written since 2026-11-07, with build 15: docs/publish-todo.md §6):
 
 > FaceRep is a facial exercise app with no account. It follows the iPhone's language (English, Spanish, Portuguese
 > (Brazil), German, French, Italian); Settings > Language opens the per-app language page.
@@ -121,8 +120,8 @@ FREE AND PREMIUM, which goes in with the next build: docs/publish-todo.md §6):
 > Confirm or Start. The exercise pictures can show a man or a woman (display only, Settings > Exercise pictures).
 
 **Subscription review note** (the same on Weekly, Monthly and Yearly: App Store Connect → Subscriptions → each plan →
-Review Information; in App Store Connect since 2026-10-19, except "shown only to accounts that haven't had it (others
-see the regular price)", which goes in if the subscriptions are reviewed again: docs/publish-todo.md §6). The
+Review Information; in App Store Connect since 2026-10-19 without "shown only to accounts that haven't had it (others
+see the regular price)", and submitted that way on 2026-11-07; true without it: docs/publish-todo.md §6). The
 subscriptions' public description is in
 docs/store-listing.md.
 
