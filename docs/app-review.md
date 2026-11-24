@@ -205,5 +205,6 @@ read with `./.tools/asc` in read-only mode. What the owner still has to do, in o
   nothing promises a result. Drop them if a reviewer objects.
 - The privacy and support URLs are on the `elowa-app.workers.dev` subdomain. They work; a FaceRep domain would look
   more professional later (5.6.2).
-- The EU trader status (DSA) is undeclared, so the app isn't sold in the EU. This is the owner's choice, not a
-  guideline issue (docs/publish-todo.md §0).
+- The EU trader status (DSA): FaceRep is declared a non-trader, so it is sold in the EU from release. Selling
+  subscriptions makes it a trader under the DSA; the owner keeps the non-trader status until Apple asks
+  (docs/publish-todo.md §0). This is EU law, not an App Review guideline.

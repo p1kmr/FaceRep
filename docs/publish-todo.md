@@ -79,19 +79,24 @@ Re-check before acting: from the repo root run
   commit `a9f8761`, so build 7 (§1) replaces it.
 
 ## 0. Owner decisions still open
-- **DeviceCheck at launch** (recommended: yes, see §2).
-- **EU trader status (DSA): left undeclared on purpose for now.** Declaring as a trader shows the address, phone and email
-  publicly on EU store pages. Until it is declared, App Store Connect marks the **27 EU countries "TRADER_STATUS_NOT_PROVIDED"**,
-  and the app is not sold there (Spain, Germany, France, Italy and the rest of the EU). It is an account-wide setting
-  (Business → Compliance), shared with Elowa. Don't change it without the owner.
+- **DeviceCheck at launch**: on since 2026-11-25 (§2).
+- **EU trader status (DSA): FaceRep is declared a non-trader.** App Compliance (seen 2026-11-25) says "This developer
+  has identified itself as a non-trader for this app". So the 27 EU countries go on sale at release: on 2026-11-25,
+  `asc pricing availability territory-availabilities` showed 174 territories available, China mainland off, and no
+  TRADER_STATUS_NOT_PROVIDED. FaceRep sells subscriptions, which makes it a trader under the DSA. The owner decided on
+  2026-11-25 to keep the non-trader status and the EU on sale, and to act only if Apple asks. Then switch to trader:
+  Business → Agreements → Compliance → Digital Services Act with an address or a P.O. Box (plus proof), a phone that
+  receives codes and an email, all shown on EU store pages; then the app's App Compliance. Elowa has its own app-level
+  status: don't change it.
 - **Coach AI: Google Gemini API, decided by the owner on 2026-10-18** (`gemini-3.5-flash-lite`; Workers AI Gemma answers
   when Gemini fails; worker/README.md). Google's Gemini API terms say it isn't for apps "likely to be accessed by
   individuals under the age of 18" and FaceRep is rated 13+: the owner accepted that risk. Owner steps:
   - [x] `GEMINI_API_KEY` secret on `facerep-api` (2026-10-18).
-  - [ ] **Billing on** for the key's Google project (Google AI Studio → the key's project → Billing). Required: the free
-        tier lets Google use the questions to improve its products and isn't allowed for EEA, Swiss and UK users, and
-        the consent screen and privacy page say Google doesn't use them.
-  - [ ] Deploy the Worker (`npm --prefix worker run deploy`), then the AI checks the live Coach.
+  - [x] **Billing on** for the key's Google project. Required: the free tier lets Google use the questions to improve
+        its products and isn't allowed for EEA, Swiss and UK users, and the consent screen and privacy page say Google
+        doesn't use them. Confirmed by the owner on 2026-11-25: AI Studio shows the key's project on Tier 1 (paid).
+  - [ ] A budget alert (Google Cloud → Billing → Budgets & alerts), so a jump in Coach use shows up by email.
+  - [x] Deploy the Worker: live since 2026-10-24 at `c36de57`, the latest Worker commit (checked 2026-11-25).
   - The consent screen and paywall texts naming Google ship with the next build (build 13).
 - **Cloudflare Workers Paid ($5 a month)** (optional now). Workers AI is only the backup, so its 10,000 free neurons a
   day are plenty; Workers Paid still lifts the 100,000 requests a day (docs/premium.md).
@@ -268,9 +273,12 @@ those features, it means the next build (14) from `main`. Never submit with buil
 later. After launch, optional: Custom Product Pages, Product Page Optimization, Asset Library creative assets (2.3.14),
 In-App Events, and a featuring nomination (App Store → Nominations).
 
-## 2. Worker: DeviceCheck (owner runs, after build 7 is on TestFlight)
-`DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` are not set. Free Coach answers are only rate-limited, not tied to a real
-iPhone. Keys are per Apple team, so the existing team DeviceCheck key can be reused (FaceRep only validates tokens and
+## 2. Worker: DeviceCheck (on since 2026-11-25)
+On since 2026-11-25. The owner set `DEVICECHECK_KEY_ID` and `DEVICECHECK_KEY` from the team's DeviceCheck key (named
+"Elowa DeviceCheck"; one key serves every app on the team) and deployed. Tested the same day on build 15 (TestFlight,
+Free): 3 Coach answers, then the paywall. A free request without a valid token now gets 403 (Premium skips the check),
+so the Simulator gets no free Coach answers (docs/screenshots.md). To turn it off: `npx wrangler secret delete
+DEVICECHECK_KEY`. Keys are per Apple team, so the existing team DeviceCheck key can be reused (FaceRep only validates tokens and
 never writes DeviceCheck bits; see worker/README.md §D). Keep the `.p8` outside `~/Downloads`, because Terminal can't
 read it there. Run these from `worker/`:
 
@@ -283,8 +291,8 @@ npx wrangler secret put DEVICECHECK_KEY < /path/to/AuthKey_XXXXXXXXXX.p8
 ```
 npm run deploy
 ```
-- [ ] Then, on build 7 without Premium: the Coach asks for consent, gives 3 answers, then shows the paywall.
-- [ ] If DeviceCheck is turned on, add a line to the review notes (§3): "Free Coach answers are tied to the device with
+- [x] On build 15 without Premium: 3 answers, then the paywall (2026-11-25).
+- [ ] With the next submission, add a line to the review notes (§3): "Free Coach answers are tied to the device with
       Apple DeviceCheck."
 
 ## 3. App Store Connect: done by CLI on 2026-10-09
@@ -345,15 +353,22 @@ then shown to the owner):
       the Paid Applications Schedule (banner on 2026-10-18), and the owner accepted it (§1d). On 2026-10-19 there was no
       agreement banner, and the sandbox purchase went through (products don't load without an active Paid Apps
       agreement).
-- [ ] Optional (recommended): send App Store Server Notifications to RevenueCat, so renewals and cancellations reach
-      it right away. Copy the URL from RevenueCat → FaceRep (App Store) app settings, and paste it into ASC → App
-      Information → App Store Server Notifications, for both production and sandbox.
+- [x] App Store Server Notifications go to RevenueCat, so renewals, cancellations and refunds reach it (and the
+      Worker's Premium check) right away. The owner set them on 2026-11-25. Read back the same day: production and
+      sandbox both have RevenueCat's URL, Version 2. The URL is in RevenueCat → FaceRep (App Store) app settings →
+      "Apple Server to Server notification settings" → Reveal; RevenueCat's API doesn't give it. "Track new purchases
+      from server-to-server notifications" stays off: every purchase happens in the app, which reports it.
 
 ## 5. Submit (owner only, never an AI)
 - [x] Submitted by the owner on 2026-11-07 (20:28 IST) with the asc CLI (§6): submission
       `52452456-62d6-4379-9d07-e32a0d9f8921`, 5 items: 1.0 (build 15), Premium Weekly, Monthly and Yearly, and the
       group. It replaces the 2026-11-04 submission with build 14 (`49e28104…`), taken out of review for it.
-- [ ] After approval: release (manual), then watch RevenueCat and the Worker logs.
+- [x] Approved: 1.0 is Pending Developer Release (seen 2026-11-25), and the three subscriptions are APPROVED.
+      RevenueCat checked the same day: both Apple keys valid, offering `default` with the three plans, entitlement
+      `premium`, production revenue 0 (test purchases are sandbox and never count, so nothing needs a reset).
+- [x] Released by the owner on 2026-11-25 (1.0 Ready for Distribution). Store link: https://apps.apple.com/app/id6820638812
+      (live once `https://itunes.apple.com/lookup?id=6820638812&country=us` returns a result; it can take up to 24 h).
+      Then watch RevenueCat (Sandbox data switched off) and the Worker logs.
 - [ ] After release, open the paywall from the App Store with an Indian account: it should show ₹ prices, like Apple's
       sheet. In TestFlight (2026-11-07) the paywall showed the $ prices StoreKit gave the app, while Apple's sheet
       charged ₹199 a week and ₹2,999 a year. The app shows StoreKit's price text as it is.

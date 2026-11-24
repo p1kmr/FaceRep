@@ -180,8 +180,10 @@ CHROMIUM_PATH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" nod
   Premium (a promotional entitlement for testing) loses it: write its old ID back into kv `facerep.appUserId` after
   `xcrun simctl keychain booted reset` to get it back.
 - **The Coach's 3 free answers a month** belong to the app ID, and each language needs 2: the script gives each
-  language a new ID (Keychain reset, `sim-seed.js --new-id`, which also clears the app's own count). If DeviceCheck is
-  ever switched on in the Worker, the Simulator gets no answers at all (it has no DeviceCheck).
+  language a new ID (Keychain reset, `sim-seed.js --new-id`, which also clears the app's own count). DeviceCheck has
+  been on in the Worker since 2026-11-25, and the Simulator has no DeviceCheck, so it gets no answers. To re-capture
+  the Coach slide, the owner turns DeviceCheck off for the capture (`npx wrangler secret delete DEVICECHECK_KEY` in
+  `worker/`) and puts it back right after (docs/publish-todo.md §2).
 
 After the capture, `xcrun simctl status_bar booted clear` gives the Simulator its own clock back.
 
