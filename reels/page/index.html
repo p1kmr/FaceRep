@@ -1,0 +1,26 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>FaceRep reel render</title>
+<!--
+  The reel render page (reels/render.mjs). Mediabunny loads from jsdelivr at an exact version, checked against the
+  hash below: the same file Reel Studio uses.
+-->
+<script type="importmap">
+{
+  "imports": {
+    "mediabunny": "https://cdn.jsdelivr.net/npm/mediabunny@1.65.0/dist/bundles/mediabunny.min.mjs"
+  },
+  "integrity": {
+    "https://cdn.jsdelivr.net/npm/mediabunny@1.65.0/dist/bundles/mediabunny.min.mjs": "sha384-kt9tNiQgOnlvKHhTwHO9wJQc1DkPwA2CJVYkDwIKhONNSb1ClY6Su8tr7NbYsI5f"
+  }
+}
+</script>
+<body style="margin:0;background:#111">
+<script>
+  // If a file fails to load, tell the render script instead of waiting until it gives up.
+  window.addEventListener('error', (e) => {
+    fetch('/log', { method: 'POST', body: 'FAIL the page could not start: ' + (e.message || e.target?.src || 'a file did not load') })
+      .then(() => fetch('/done', { method: 'POST', body: 'fail' }));
+  }, true);
+</script>
+<script type="module" src="/page/main.js"></script>
