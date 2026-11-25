@@ -14,7 +14,8 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repo = join(here, '..');
-const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// The owner's Mac, then Chrome for Testing in a Claude Code cloud session.
+const CHROME = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome'].find(existsSync);
 const SCREENS = join(repo, 'store-screenshots', 'capture', 'sim', 'en');
 const ASSETS = {
   '/font/anton.ttf': join(repo, 'app', 'assets', 'fonts', 'Anton-Regular.ttf'),
@@ -30,8 +31,8 @@ if (!reel || !existsSync(join(reel, 'reel.js'))) {
   console.log('Use: node reels/render.mjs reels/NNN-name [--stills]');
   process.exit(1);
 }
-if (!existsSync(CHROME)) {
-  console.log('FAIL Google Chrome must be in /Applications.');
+if (!CHROME) {
+  console.log('FAIL Google Chrome must be in /Applications (or /usr/bin/google-chrome).');
   process.exit(1);
 }
 const job = { stillsOnly: args.includes('--stills'), fps: 30, bits: 10_000_000 };
@@ -91,7 +92,7 @@ const server = createServer(async (req, res) => {
         console.log((await body(req)).toString().slice(0, 3000));
         return res.end('ok');
       }
-      const save = /^\/save\/(reel\.mp4|still-\d+(?:\.\d+)?\.jpg|sheet\.jpg)$/.exec(req.url);
+      const save = /^\/save\/(reel\.mp4|still-\d+(?:\.\d+)?\.(?:jpg|png)|sheet\.jpg)$/.exec(req.url);
       if (save) {
         mkdirSync(out, { recursive: true });
         writeFileSync(join(out, save[1]), await body(req));

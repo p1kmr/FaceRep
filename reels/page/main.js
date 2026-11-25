@@ -1,7 +1,6 @@
 // The render page's start: loads the font and pictures, saves the still pictures (and a sheet of them), then, unless
 // only stills were asked for, draws every frame of the reel into an MP4 with its sound. reels/render.mjs serves it.
 
-import { describe, makeMp4 } from '/page/encode.js';
 import { makeSound } from '/page/sound.js';
 import { REEL } from '/reel.js';
 
@@ -9,6 +8,7 @@ const W = 1080, H = 1920;
 const post = (url, body) => fetch(url, { method: 'POST', body });
 const say = (text) => post('/log', text);
 const jpg = (canvas) => new Promise((ok) => canvas.toBlob(ok, 'image/jpeg', 0.88));
+const png = (canvas) => new Promise((ok) => canvas.toBlob(ok, 'image/png'));
 
 async function picture(src) {
   const img = new Image();
@@ -41,7 +41,7 @@ async function stills(canvas, draw) {
   const s = sheet.getContext('2d');
   for (const [i, t] of REEL.stills.entries()) {
     draw(t);
-    await post(`/save/still-${t}.jpg`, await jpg(canvas));
+    await post(`/save/still-${t}.${REEL.png ? 'png' : 'jpg'}`, await (REEL.png ? png : jpg)(canvas)); // png: a sheet
     s.drawImage(canvas, i * SW, 0, SW, SH);
   }
   await post('/save/sheet.jpg', await jpg(sheet));
@@ -63,6 +63,7 @@ async function main() {
   };
   await stills(canvas, draw);
   if (!job.stillsOnly) {
+    const { describe, makeMp4 } = await import('/page/encode.js'); // only here: stills work without the encoder
     const sound = await makeSound(REEL);
     await say(`     sound level: ${loudness(sound)}`);
     const frames = Math.round(REEL.seconds * job.fps);
