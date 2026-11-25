@@ -3,9 +3,11 @@
 State on 2026-11-25:
 - Sample 001, an animated promo of 10 s, is made: `reels/001-looksmax/` (`script.md`, `reel.js`). The owner has not
   picked a format yet.
-- Next step: the owner decides on the character idea below (both characters or one, and the names). On an OK, draw
-  one character sheet picture first (Flex with 6 exercise faces, Rep in 4 poses), then one episode of 15–20 s.
-  Draw nothing before that OK.
+- The owner said both characters, named Flex and Rep. Sheet draft 1 (`reels/characters/`) was turned down: the owner
+  wants white characters for a US audience, girls and boys both, and a more polished, aesthetic look.
+- Now: 5 new options for the human cast (US, 18–24), drawn in code in `reels/page/cast/`, shown in
+  `reels/cast-options/` (a lineup and one card each). Rep stays. Next step: the owner picks one or two; then one
+  episode as still pictures (one per scene) for the owner's OK, and video only when the owner says.
 
 ## What the research found (2026-11-25)
 

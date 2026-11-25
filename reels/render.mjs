@@ -82,7 +82,7 @@ const server = createServer(async (req, res) => {
       }
       if (req.url === '/reel.js') return send(res, join(reel, 'reel.js'));
       if (ASSETS[req.url]) return send(res, ASSETS[req.url]);
-      const code = /^\/page\/([\w-]+\.js)$/.exec(req.url);
+      const code = /^\/page\/((?:[\w-]+\/)?[\w-]+\.js)$/.exec(req.url); // reels/page/*.js and one folder down
       if (code && existsSync(join(here, 'page', code[1]))) return send(res, join(here, 'page', code[1]));
       const screen = /^\/screens\/([\w-]+\.png)$/.exec(req.url);
       if (screen && existsSync(join(SCREENS, screen[1]))) return send(res, join(SCREENS, screen[1]));
