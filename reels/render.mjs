@@ -3,7 +3,8 @@
 //   node reels/render.mjs reels/001-looksmax            <reel>/out/reel.mp4, the still pictures and sheet.jpg
 //   node reels/render.mjs reels/001-looksmax --stills   only the still pictures and sheet.jpg
 // The page (reels/page/) draws <reel>/reel.js frame by frame. Screens come from the store capture's Simulator
-// screenshots (store-screenshots/capture/sim/en/), the font and the icon from app/assets/.
+// screenshots (store-screenshots/capture/sim/en/, on the Mac) or else their committed copies in reels/screens/
+// (made by reels/screens.mjs), the font and the icon from app/assets/.
 
 import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
@@ -16,12 +17,13 @@ const here = dirname(fileURLToPath(import.meta.url));
 const repo = join(here, '..');
 // The owner's Mac, then Chrome for Testing in a Claude Code cloud session.
 const CHROME = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome'].find(existsSync);
-const SCREENS = join(repo, 'store-screenshots', 'capture', 'sim', 'en');
+// A screen's fresh Simulator shot first, then its committed copy.
+const SCREENS = (name) => [join(repo, 'store-screenshots', 'capture', 'sim', 'en', `${name}.png`), join(here, 'screens', `${name}.jpg`)];
 const ASSETS = {
   '/font/anton.ttf': join(repo, 'app', 'assets', 'fonts', 'Anton-Regular.ttf'),
   '/brand/icon.png': join(repo, 'app', 'assets', 'brand', 'icon.png'),
 };
-const TYPES = { html: 'text/html; charset=utf-8', js: 'text/javascript', png: 'image/png', ttf: 'font/ttf' };
+const TYPES = { html: 'text/html; charset=utf-8', js: 'text/javascript', png: 'image/png', jpg: 'image/jpeg', ttf: 'font/ttf' };
 const MAX_BYTES = 300 * 1024 * 1024;
 
 const args = process.argv.slice(2);
@@ -84,8 +86,9 @@ const server = createServer(async (req, res) => {
       if (ASSETS[req.url]) return send(res, ASSETS[req.url]);
       const code = /^\/page\/((?:[\w-]+\/)?[\w-]+\.js)$/.exec(req.url); // reels/page/*.js and one folder down
       if (code && existsSync(join(here, 'page', code[1]))) return send(res, join(here, 'page', code[1]));
-      const screen = /^\/screens\/([\w-]+\.png)$/.exec(req.url);
-      if (screen && existsSync(join(SCREENS, screen[1]))) return send(res, join(SCREENS, screen[1]));
+      const screen = /^\/screens\/([\w-]+)\.png$/.exec(req.url);
+      const shot = screen && SCREENS(screen[1]).find(existsSync);
+      if (shot) return send(res, shot);
     }
     if (req.method === 'POST') {
       if (req.url === '/log') {

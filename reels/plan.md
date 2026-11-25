@@ -93,4 +93,5 @@ First episode ideas:
   In a Claude Code cloud session it needs two changes first: Chrome for Testing is at `/usr/bin/google-chrome` (the
   script looks only in `/Applications`), and it can't encode AAC sound itself (Reel Studio's page loads
   `@mediabunny/aac-encoder` there). The Simulator screens (`store-screenshots/capture/sim/en/*.png`) are git-ignored,
-  so a cloud checkout doesn't have them: the owner adds the ones a video needs, or the video waits for the Mac.
+  so a cloud checkout doesn't have them: `node reels/screens.mjs --capture` on the Mac copies them into
+  `reels/screens/` (committed), and the renderer uses those copies when the Simulator shots aren't there.
