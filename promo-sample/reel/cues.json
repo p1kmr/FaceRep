@@ -1,0 +1,21 @@
+{
+  "_about": "Times in seconds on the narration file (make_reel.py adds a short lead-in). Found with ffmpeg silencedetect and checked by transcription.",
+  "charon": {
+    "narration": "narration_charon.wav",
+    "before": [["THIS WAS ME.", 0.00], ["NO ROUTINE.", 1.59], ["NO DISCIPLINE.", 3.00]],
+    "slides": [4.55, 8.20, 12.06, 14.59],
+    "after": [["SAME GUY.", 17.48], ["JUST SHOWING UP", 18.61], ["EVERY SINGLE DAY.", 20.13]],
+    "endcard": 21.91,
+    "store": 23.01,
+    "hold": 1.6
+  },
+  "fenrir": {
+    "narration": "narration_fenrir.wav",
+    "before": [["THIS WAS ME.", 0.00], ["NO ROUTINE.", 1.21], ["NO DISCIPLINE.", 2.73]],
+    "slides": [4.53, 8.97, 12.79, 15.59],
+    "after": [["SAME GUY.", 18.78], ["JUST SHOWING UP", 20.26], ["EVERY SINGLE DAY.", 22.35]],
+    "endcard": 24.36,
+    "store": 25.65,
+    "hold": 1.5
+  }
+}
