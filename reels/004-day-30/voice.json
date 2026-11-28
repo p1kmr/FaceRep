@@ -1,0 +1,18 @@
+{
+  "cast": {
+    "brody": { "voice": "Fenrir", "style": "A loud, cocky American gym bro, about 20. First line: sleepy and flat at 2 am. Second line: proud and hyped, like a funny short video" },
+    "brody2": { "voice": "Fenrir", "style": "A loud, cocky American gym bro, about 20, like a funny short video. First line: a long annoyed sigh, then giving in. Second line: proud, calm and steady. Third line: casual and cool, a little smug, shrugging it off" },
+    "kayla": { "voice": "Leda", "style": "A friendly American girl, about 21, stopping mid-step in surprise, then impressed and playful, warm and soft" },
+    "rep": { "voice": "Schedar", "style": "Completely flat and deadpan, unimpressed, dry and slow, like a bored robot" }
+  },
+  "lines": [
+    { "id": "brody-1", "who": "brody", "text": "Day one of my looksmax arc." },
+    { "id": "brody-2", "who": "brody", "text": "Five minutes a day." },
+    { "id": "brody-3", "who": "brody2", "text": "Ugh. Fine." },
+    { "id": "brody-4", "who": "brody2", "text": "Ten for ten. No shaking." },
+    { "id": "brody-5", "who": "brody2", "text": "I sleep now. And I do my face reps." },
+    { "id": "kayla-1", "who": "kayla", "text": "Wait... did you glow up?" },
+    { "id": "rep-1", "who": "rep", "text": "Bro." },
+    { "id": "rep-2", "who": "rep", "text": "Day thirty-one." }
+  ]
+}

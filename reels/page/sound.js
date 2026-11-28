@@ -1,6 +1,10 @@
 // The reel's sound, made in code (no recordings, no AI, nothing downloaded): a phonk-style beat at the reel's tempo
 // (808 bass, kick, clap, hats and a cowbell riff with an echo), a whoosh into each cut, deep hits and a ding where
-// the reel's cues ask, and one last hit where the pattern stops. Returns one stereo AudioBuffer as long as the reel.
+// the reel's cues ask, and one last hit where the pattern stops. Optional cues: quiet ([from, to] pairs: the beat
+// stops there), ticks and hearts (a clock and a heartbeat, page/suspense.js). Returns one stereo AudioBuffer as long
+// as the reel.
+
+import { heart, tick } from '/page/suspense.js';
 
 const RATE = 48000;
 const KICK = [0, 10], CLAP = [4, 12], HATS = [0, 2, 4, 6, 8, 10, 12, 14, 15]; // 16th steps of a bar
@@ -27,8 +31,10 @@ export async function makeSound(reel) {
   const s = { ctx, out: comp, noise: noise(ctx) };
   s.bells = echo(ctx, comp, (60 / reel.bpm) * 0.75);
   const step = 60 / reel.bpm / 4;
+  const quiet = (t) => (reel.cues.quiet ?? []).some(([from, to]) => t >= from - 1e-6 && t < to - 1e-6);
   for (let i = 0; i * step < reel.cues.end - 1e-6; i++) {
     const t = i * step, bar = Math.floor(i / 16) % 2, k = i % 16;
+    if (quiet(t)) continue;
     if (KICK.includes(k)) kick(s, t);
     if (CLAP.includes(k)) clap(s, t);
     if (HATS.includes(k)) hat(s, t, k === 14);
@@ -42,6 +48,8 @@ export async function makeSound(reel) {
   for (const t of [...reel.cues.hits, end]) impact(s, t);
   for (const t of reel.cues.cuts) whoosh(s, t);
   for (const t of reel.cues.dings) ding(s, t);
+  (reel.cues.ticks ?? []).forEach((t, i) => tick(s, t, i));
+  for (const t of reel.cues.hearts ?? []) heart(s, t);
   return level(await ctx.startRendering());
 }
 

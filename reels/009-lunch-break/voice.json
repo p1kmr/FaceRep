@@ -1,0 +1,17 @@
+{
+  "cast": {
+    "rep": { "voice": "Schedar", "style": "Completely flat and deadpan, unimpressed, dry and slow, like a bored robot coach. First line: counting down slowly. Second line: calm and matter-of-fact" },
+    "kayla": { "voice": "Leda", "style": "A friendly American girl, about 21, stopping in a doorway, half worried and half trying not to laugh, quiet and unsure" },
+    "brody": { "voice": "Fenrir", "style": "A cocky American guy, about 20, talking through puckered fish lips without moving his face, totally serious and proud, a little muffled, like a funny short video" },
+    "mia": { "voice": "Zephyr", "style": "A bright young American woman, about 23, embarrassed but holding a straight face, quick and dry, like a funny short video" },
+    "greg": { "voice": "Algenib", "style": "A big, calm American boss, about 45, deep and slow, dead serious like a coach, a short pause after every word" }
+  },
+  "lines": [
+    { "id": "rep-1", "who": "rep", "text": "Hold it. Four... three..." },
+    { "id": "rep-2", "who": "rep", "text": "Five minutes. Any break." },
+    { "id": "kayla-1", "who": "kayla", "text": "...Is he okay?" },
+    { "id": "brody-1", "who": "brody", "text": "It's a rep." },
+    { "id": "mia-1", "who": "mia", "text": "Don't look at us." },
+    { "id": "greg-1", "who": "greg", "text": "Hold. Your. Rep." }
+  ]
+}

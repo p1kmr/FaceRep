@@ -1,0 +1,19 @@
+{
+  "cast": {
+    "leo": { "voice": "Puck", "style": "A youthful, pumped-up American guy, about 22, at the gym, like a funny anime short. 'Done! Every single rep!' is a loud, joyful shout, a little out of breath, like he just won. 'Chest. Back. Legs.' is smug and proud, slow, one word at a time. 'I forgot face day...' is a horrified, shaky whisper, as if he just remembered something terrible. 'Now it's every rep.' is proud and relieved, grinning" },
+    "maya": { "voice": "Kore", "style": "A confident, playful American woman, about 23, his gym friend, teasing him in a dry, deadpan, amused voice, like a funny anime short. 'Every rep?' is doubtful, one eyebrow up. 'And face? You forgot your face reps, man.' is a teasing gotcha, slow and clear, with a short pause after 'And face?'. 'Sit. Five minutes.' is a firm coach. 'Fish Face.', 'Chin Lift.' and 'Brow Lift.' are short and clear, like a coach calling out moves. 'Don't skip face day.' is to the camera, playful and confident, like the end of an ad" }
+  },
+  "lines": [
+    { "id": "l-1", "who": "leo", "text": "Done! Every single rep!" },
+    { "id": "m-1", "who": "maya", "text": "Every rep?" },
+    { "id": "l-2", "who": "leo", "text": "Chest. Back. Legs." },
+    { "id": "m-2", "who": "maya", "text": "And face? You forgot your face reps, man." },
+    { "id": "l-3", "who": "leo", "text": "I forgot face day..." },
+    { "id": "m-3", "who": "maya", "text": "Sit. Five minutes." },
+    { "id": "m-4", "who": "maya", "text": "Fish Face." },
+    { "id": "m-5", "who": "maya", "text": "Chin Lift." },
+    { "id": "m-6", "who": "maya", "text": "Brow Lift." },
+    { "id": "l-4", "who": "leo", "text": "Now it's every rep." },
+    { "id": "m-7", "who": "maya", "text": "Don't skip face day." }
+  ]
+}

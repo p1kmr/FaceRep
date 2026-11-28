@@ -22,7 +22,7 @@ Hashtags: `#looksmaxxing #mewing #jawline #faceyoga #faceworkout`
 ## Why it is worded this way
 
 - Gen Z words: looksmaxxing (the hook), mewing (end card, from the subtitle), streak, "has a gym now".
-- The store text's rules (docs/store-listing.md): no result promised (no "sharper jawline in 7 days"), no
+- The store text's rules (FaceRep's docs/store-listing.md): no result promised (no "sharper jawline in 7 days"), no
   before/after, no price, no other app. No shot is about the face scan: in a looksmaxxing reel it would read as a
   rating of looks, and it measures movement only. Its chart shows small on the Progress screen, under its real
   labels (Movement, Balance).

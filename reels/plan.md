@@ -3,9 +3,26 @@
 State on 2026-11-25:
 - Sample 001, an animated promo of 10 s, is made: `reels/001-looksmax/` (`script.md`, `reel.js`). The owner has not
   picked a format yet.
-- Next step: the owner decides on the character idea below (both characters or one, and the names). On an OK, draw
-  one character sheet picture first (Flex with 6 exercise faces, Rep in 4 poses), then one episode of 15–20 s.
-  Draw nothing before that OK.
+- The owner said both characters, named Flex and Rep. Sheet draft 1 (`reels/characters/`) was turned down: the owner
+  wants white characters for a US audience, girls and boys both, and a more polished, aesthetic look.
+- Now: 5 new options for the human cast (US, 18–24), drawn in code in `reels/page/cast/`, shown in
+  `reels/cast-options/` (a lineup and one card each). Rep stays. The owner hasn't picked yet.
+- 002-face-day and 003-morning are dropped (the owner, 2026-11-28): not posted, kept only as earlier designs. The
+  reel is `004-day-30/` ("Looksmax arc", 33 s).
+- Voices: Gemini (`voice.mjs`, mixed in `page/voice.js`): Brody Fenrir, Kayla Leda, Rep Schedar. The takes are kept
+  (`voice/<who>-take.wav`): `--from` cuts them again at no cost.
+- 2026-11-25: the owner asked for story reels where the face "is not in good shape", FaceRep fixes it and the face
+  changes. Not done that way: a drawn face change is a before/after and a promised result (Meta rejects those in
+  ads, the FTC treats a shown result as a claim needing proof, the app's own rules forbid it), and the evidence is
+  thin (the best-known study: 16 women aged 40–65, no control group, Northwestern 2018). Written instead, as
+  stories where something true changes: `004-day-30`, `005-the-bet` (a 7-day streak bet), `006-her-reason` (Kayla
+  does it for herself, not to fix her face). The owner wants the looksmax arc itself (posting organically, so Meta's
+  ad rule doesn't apply; Instagram's recommendation rules still do). `004-day-30` is now that arc: everything around
+  his face changes (hair, clothes, posture, sleep, room, steady holds), his face's shape is drawn the same. Scripts
+  only, waiting for the owner's go.
+- 2026-11-25: the owner asked what viral looksmax reels and Shorts do. Findings in `reels/research.md` (the
+  glow-up format, softmaxxing, the girlfriend-effect trend, a pushy mascot). New script from it: `007-rep-effect`.
+  Suggested, not done: move `004-day-30`'s reveal to the beat drop at about 2 s.
 
 ## What the research found (2026-11-25)
 
@@ -90,5 +107,20 @@ First episode ideas:
 - Rendering works on the owner's Mac today: `node reels/render.mjs reels/NNN-name` (about 3 s for 10 s of video).
   In a Claude Code cloud session it needs two changes first: Chrome for Testing is at `/usr/bin/google-chrome` (the
   script looks only in `/Applications`), and it can't encode AAC sound itself (Reel Studio's page loads
-  `@mediabunny/aac-encoder` there). The Simulator screens (`store-screenshots/capture/sim/en/*.png`) are git-ignored,
-  so a cloud checkout doesn't have them: the owner adds the ones a video needs, or the video waits for the Mac.
+  `@mediabunny/aac-encoder` there). The Simulator screens (FaceRep's `store-screenshots/capture/sim/en/*.png`) are
+  git-ignored there: `node reels/screens.mjs --capture` on the Mac copies them into `reels/screens/` (kept out of git: no screenshots in git).
+- 2026-11-25: the owner said go for `004-day-30`, a 10-second sample first, with the reveal moved to the beat drop.
+  Sample made (`004-day-30/reel.js`, no voice yet); new drawings in `page/cast/brody-arc.js` (day-1 and day-30 Brody,
+  same face) and `page/cast/room.js` (the rooms and props). Next: the owner's OK, then the full reel and voices.
+
+## Next: a looksmax reel for women (owner, 2026-11-28)
+
+The owner wants a "girls looksmax" reel too (the app has a woman's version of every guide). Reference:
+`reels/refs/looksmax-girl.png` (the owner's screenshot, kept out of git): a painted woman's face twice, a red round jaw
+line on a tired face on the left, a green sharp V jaw line on a glowing face on the right.
+
+- Take its look and hook: a big, realistic painted face with the jaw line drawn over it, red vs green.
+- Not its claim: no before/after, no "after" face, no sharper jaw or slimmer face promised, no "ugly" before (face
+  exercises don't change bone or face shape; the reels never promise results; Meta's ad rules ban before-and-after
+  pictures for looks). The allowed version: the line marks the jaw muscles a move works (like the app's face map),
+  and the payoff is the habit or the streak, as in 010 to 012.

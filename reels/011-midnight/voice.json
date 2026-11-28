@@ -1,0 +1,17 @@
+{
+  "cast": {
+    "narrator": { "voice": "Charon", "style": "A deep, intense American movie-trailer narrator for an anime thriller: urgent, tense and completely serious, as if a bomb were about to go off, at a quick pace. A short dramatic pause at every '...'. In 'Hold it... three... two... one...' he slows down, low and tense, one number at a time. 'Streak saved. Thirty days.' is a proud, relieved release. The last two lines are friendly and clear, like the end of an ad" }
+  },
+  "lines": [
+    { "id": "n-1", "who": "narrator", "text": "Eleven fifty-five PM. Leo is on a twenty-nine day streak..." },
+    { "id": "n-2", "who": "narrator", "text": "And he forgot." },
+    { "id": "n-3", "who": "narrator", "text": "Five minutes. One chance." },
+    { "id": "n-4", "who": "narrator", "text": "Fish Face... eleven fifty-seven." },
+    { "id": "n-5", "who": "narrator", "text": "Chin Lift... eleven fifty-eight." },
+    { "id": "n-6", "who": "narrator", "text": "Brow Lift... eleven fifty-nine." },
+    { "id": "n-7", "who": "narrator", "text": "Hold it... three... two... one..." },
+    { "id": "n-8", "who": "narrator", "text": "Streak saved. Thirty days." },
+    { "id": "n-9", "who": "narrator", "text": "Don't break yours." },
+    { "id": "n-10", "who": "narrator", "text": "Download FaceRep. On the App Store." }
+  ]
+}

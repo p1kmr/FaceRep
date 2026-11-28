@@ -1,0 +1,15 @@
+{
+  "cast": {
+    "narrator": { "voice": "Charon", "style": "A deep, calm American movie-trailer narrator for a cozy anime film: slow, warm and completely serious, as if this were an epic story. A short dramatic pause at every '...'. The last line is friendly and clear, like the end of an ad" }
+  },
+  "lines": [
+    { "id": "n-1", "who": "narrator", "text": "Every morning, before the world wakes up..." },
+    { "id": "n-2", "who": "narrator", "text": "Leo trains in secret." },
+    { "id": "n-3", "who": "narrator", "text": "Fish Face. Five seconds." },
+    { "id": "n-4", "who": "narrator", "text": "After the gym... Chin Lift." },
+    { "id": "n-5", "who": "narrator", "text": "At sunset... Brow Lift." },
+    { "id": "n-6", "who": "narrator", "text": "The app counts every rep." },
+    { "id": "n-7", "who": "narrator", "text": "Five minutes a day. That's the whole secret." },
+    { "id": "n-8", "who": "narrator", "text": "Download FaceRep. On the App Store." }
+  ]
+}

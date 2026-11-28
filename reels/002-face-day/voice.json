@@ -1,0 +1,15 @@
+{
+  "cast": {
+    "brody": { "voice": "Fenrir", "style": "A loud, cocky American gym bro, about 20, hyped and over the top, comedic timing, like a funny short video" },
+    "kayla": { "voice": "Leda", "style": "A calm, friendly American girl, about 21, relaxed and a little amused, warm and soft" },
+    "rep": { "voice": "Schedar", "style": "Completely flat and deadpan, unimpressed, dry and slow, like a bored robot" }
+  },
+  "lines": [
+    { "id": "brody-1", "who": "brody", "text": "Face day? I'll max it." },
+    { "id": "brody-2", "who": "brody", "text": "One. More. Rep!" },
+    { "id": "brody-3", "who": "brody", "text": "Oh... that's actually chill." },
+    { "id": "kayla-1", "who": "kayla", "text": "Gentle. No strain." },
+    { "id": "kayla-2", "who": "kayla", "text": "Told ya." },
+    { "id": "rep-1", "who": "rep", "text": "It's not a deadlift." }
+  ]
+}
